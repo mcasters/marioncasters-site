@@ -19,20 +19,50 @@
  * Base styles
  * ========================================================================== */
 
+.content {
+  width: 40%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 10rem 0;
+  text-align: center;
+}
+
 html {
-  color: #222;
-  font-weight: 100;
   font-size: 1em; /* ~16px; */
   font-family: var(--font-family-base);
+  color: var(--font-color);
+  font-weight: var(--font-weight);
   line-height: 1.375; /* ~22px */
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+input,
+button,
+select,
+textarea {
+  font-family: var(--font-family-base);
+  color: var(--font-color-dark);
+  font-weight: var(--font-weight);
+}
+
 a {
-  color: #0074c2;
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.5s;
+}
+
+a:hover {
+  color: var(--link-color-hover);
+  transition: color 0.5s;
 }
 
 /*
@@ -99,6 +129,24 @@ textarea {
   resize: vertical;
 }
 
+input {
+  box-sizing: border-box;
+  width: 100%;
+  line-height: 2.3;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+
+input[type=file] {
+  padding: 0;
+}
+
+button {
+  width: 100%;
+  line-height: 2.3;
+  display: block;
+}
+
 /*
  * Browser upgrade prompt
  * ========================================================================== */
@@ -124,11 +172,6 @@ textarea {
     color: #000 !important; /* Black prints faster: http://www.sanbeiji.com/archives/953 */
     box-shadow: none !important;
     text-shadow: none !important;
-  }
-
-  a,
-  a:visited {
-    text-decoration: underline;
   }
 
   a[href]::after {

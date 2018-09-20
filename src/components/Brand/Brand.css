@@ -10,14 +10,23 @@
 @import '../variables.css';
 
 .root {
-  position: absolute;
-  z-index: 1;
+  position: fixed;
+  box-sizing: border-box;
+  padding-left: 2em;
+  width: 14%;
+  vertical-align: top;
+  z-index: 0;
 }
 
-.container h1 {
-  font-weight: lighter;
-  letter-spacing: 0.9em;
-  padding: 0 1.5em;
-  color: var(--font-color-light);
+.container {
+  background: var(--header-color);
+  color: #fff;
+  padding: 6em 0 2em;
+  width: 65px;
 }
 
+.brand {
+  padding-top: 2em;
+  display: block;
+  text-align: center;
+}

@@ -8,39 +8,19 @@
  */
 
 .root {
-  float: right;
-  margin: 6px 0 0;
+  height: 370px;
 }
 
 .link {
-  display: inline-block;
-  padding: 3px 8px;
-  text-decoration: none;
+  float: left;
+  display: block;
+  padding: 1.5em;
   font-size: 1.125em; /* ~18px */
-}
-
-.link,
-.link:active,
-.link:visited {
-  color: rgba(255, 255, 255, 0.6);
+  transition: letter-spacing 1s ease, border-left 1s ease;
 }
 
 .link:hover {
-  color: rgba(255, 255, 255, 1);
-}
-
-.highlight {
-  margin-right: 8px;
-  margin-left: 8px;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.15);
-  color: #fff;
-}
-
-.highlight:hover {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-.spacer {
-  color: rgba(255, 255, 255, 0.3);
+  border-left: 5px solid;
+  letter-spacing: 4px;
+  transition: letter-spacing 0.8s ease, border-left 1s ease;
 }
