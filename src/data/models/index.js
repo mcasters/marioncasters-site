@@ -1,9 +1,12 @@
 import sequelize from '../sequelize';
 import User from './User';
+import Painting from './Painting';
+import Sculpture from './Sculpture';
+import Drawing from './Drawing';
 
 function sync(...args) {
   return sequelize.sync(...args);
 }
 
 export default { sync };
-export { User };
+export { User, Painting, Sculpture, Drawing };
