@@ -14,6 +14,7 @@
   ],
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.51",
+    "bcrypt": "^3.0.1",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.6",
     "cookie-parser": "^1.4.3",
@@ -21,8 +22,10 @@
     "express-graphql": "^0.6.12",
     "express-jwt": "^5.3.1",
     "graphql": "^0.13.2",
+    "graphql-tools": "^4.0.0",
     "history": "^4.7.2",
     "isomorphic-style-loader": "^4.0.0",
+    "lodash": "^4.17.11",
     "mysql2": "^1.6.1",
     "node-fetch": "^2.1.2",
     "normalize.css": "^8.0.0",

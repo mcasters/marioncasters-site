@@ -9,6 +9,7 @@ const User = Model.define(
       defaultValue: DataType.UUIDV1,
       primaryKey: true,
     },
+
     username: {
       type: DataType.STRING(50),
       unique: true,
@@ -24,12 +25,8 @@ const User = Model.define(
       type: DataType.BOOLEAN,
       defaultValue: false,
     },
-    password: DataType.STRING(255),
 
-    isAdmin: {
-      type: DataType.BOOLEAN,
-      defaultValue: false,
-    },
+    password: DataType.STRING(255),
   },
   {
     indexes: [{ fields: ['username'] }],

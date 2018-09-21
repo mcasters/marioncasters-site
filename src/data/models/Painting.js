@@ -78,26 +78,12 @@ const Painting = Model.define(
         this.setDataValue('width', value);
       },
     },
-
-    imageLocation: {
-      type: DataType.STRING(255),
-      allowNull: false,
-      get() {
-        return this.getDataValue('imageLocation');
-      },
-      set(value) {
-        this.setDataValue('imageLocation', value);
-      },
-    },
-  },
-  {
-    indexes: [{ fields: ['title'] }],
   },
   {
     timestamps: true,
   },
 );
 // To force drop table if it exists
-// Painting.sync({ force: true });
+Painting.sync({ force: true });
 
 export default Painting;

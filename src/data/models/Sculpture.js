@@ -89,56 +89,12 @@ const Sculpture = Model.define(
         this.setDataValue('length', value);
       },
     },
-
-    imageLocation_1: {
-      type: DataType.STRING(255),
-      allowNull: false,
-      get() {
-        return this.getDataValue('imageLocation_1');
-      },
-      set(value) {
-        this.setDataValue('imageLocation_1', value);
-      },
-    },
-
-    imageLocation_2: {
-      type: DataType.STRING(255),
-      get() {
-        return this.getDataValue('imageLocation_2');
-      },
-      set(value) {
-        this.setDataValue('imageLocation_2', value);
-      },
-    },
-
-    imageLocation_3: {
-      type: DataType.STRING(255),
-      get() {
-        return this.getDataValue('imageLocation_3');
-      },
-      set(value) {
-        this.setDataValue('imageLocation_3', value);
-      },
-    },
-
-    imageLocation_4: {
-      type: DataType.STRING(255),
-      get() {
-        return this.getDataValue('imageLocation_4');
-      },
-      set(value) {
-        this.setDataValue('imageLocation_4', value);
-      },
-    },
-  },
-  {
-    indexes: [{ fields: ['title'] }],
   },
   {
     timestamps: true,
   },
 );
 
-// Sculpture.sync({ force: true });
+Sculpture.sync({ force: true });
 
 export default Sculpture;

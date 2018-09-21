@@ -78,20 +78,6 @@ const Drawing = Model.define(
         this.setDataValue('width', value);
       },
     },
-
-    imageLocation: {
-      type: DataType.STRING(255),
-      allowNull: false,
-      get() {
-        return this.getDataValue('imageLocation');
-      },
-      set(value) {
-        this.setDataValue('imageLocation', value);
-      },
-    },
-  },
-  {
-    indexes: [{ fields: ['title'] }],
   },
   {
     timestamps: true,
@@ -99,6 +85,6 @@ const Drawing = Model.define(
 );
 
 // To force drop table if it exists
-// Drawing.sync({ force: true });
+Drawing.sync({ force: true });
 
 export default Drawing;
