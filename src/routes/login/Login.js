@@ -1,30 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+
+import history from '../../history';
 import s from './Login.css';
+
+const query = `mutation Login($input: LoginInput!) {
+  login(input: $input)
+  }`;
 
 class Login extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
   };
 
-  state = {
-    username: '',
-    password: '',
-    email: '',
-    login: true,
+  static contextTypes = {
+    fetch: PropTypes.func.isRequired,
   };
 
-  submit = async () => {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    };
+  }
+
+  login = async e => {
+    e.preventDefault();
+    const input = this.state;
+    await this.context
+      .fetch('/graphql', {
+        method: 'POST',
+        body: JSON.stringify({
+          query,
+          variables: { input },
+        }),
+      })
+      .then(res => res.json())
+      .then(data => (data ? history.push('admin') : history.push('/')))
+      // eslint-disable-next-line no-console
+      .catch(error => console.log('ERROR', error.message));
+  };
 
   render() {
-    const { username, password, email, login } = this.state;
+    const { username, password } = this.state;
 
     return (
       <div className={s.root}>
         <div className={s.container}>
           <h1>{this.props.title}</h1>
-          <form>
+          <form onSubmit={this.login}>
             <input
               id="username"
               type="text"
@@ -41,26 +67,7 @@ class Login extends React.Component {
               placeholder="Mot de passe"
               autoComplete="current-password"
             />
-            {!this.state.login && (
-              <div>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={e => this.setState({ email: e.target.value })}
-                  placeholder="Email"
-                  autoComplete="email"
-                />
-              </div>
-            )}
-            <button onClick={this.submit()}>
-              {login ? 'Login' : 'Créer le compte'}
-            </button>
-            <button
-              className={s.link}
-              onClick={() => this.setState({ login: !login })}
-            >
-              {login ? 'Créer un compte' : 'Déjà un compte'}
-            </button>
+            <button type="submit">Login</button>
           </form>
         </div>
       </div>
