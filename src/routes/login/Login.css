@@ -12,14 +12,3 @@ button {
   margin-bottom: 20px;
 }
 
-.link {
-  color: var(--link-color);
-  transition: color 0.5s;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.link:hover {
-  color: var(--link-color-hover);
-  transition: color 0.5s;
-}

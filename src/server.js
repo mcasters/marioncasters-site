@@ -2,13 +2,14 @@ import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import expressJwt, { UnauthorizedError as Jwt401Error } from 'express-jwt';
 import { graphql } from 'graphql';
 import expressGraphQL from 'express-graphql';
 import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
+import session from 'express-session';
+
 import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
@@ -53,33 +54,36 @@ app.use(bodyParser.json());
 //
 // Authentication
 // -----------------------------------------------------------------------------
+
 app.use(
-  expressJwt({
+  session({
+    name: 'auth-token',
     secret: config.auth.jwt.secret,
-    credentialsRequired: false,
-    getToken: req => req.cookies.id_token,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+    },
   }),
 );
-// Error handler for express-jwt
-app.use((err, req, res, next) => {
-  // eslint-disable-line no-unused-vars
-  if (err instanceof Jwt401Error) {
-    console.error('[express-jwt-error]', req.cookies.id_token);
-    // `clearCookie`, otherwise user can't use web-app until cookie expires
-    res.clearCookie('id_token');
-  }
-  next(err);
-});
 
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
 app.use(
   '/graphql',
+  (req, _, next) => {
+    console.info(req.session);
+    console.info(`The app is running at: ${config.api.clientUrl}`);
+    return next();
+  },
   expressGraphQL(req => ({
     schema,
     graphiql: __DEV__,
     rootValue: { request: req },
+    context: { req },
     pretty: __DEV__,
   })),
 );
