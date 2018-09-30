@@ -1,14 +1,14 @@
 import path from 'path';
 import express from 'express';
-import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import { graphql } from 'graphql';
-import expressGraphQL from 'express-graphql';
 import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
 import session from 'express-session';
+import { getDataFromTree } from 'react-apollo';
+import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
 
 import App from './components/App';
 import Html from './components/Html';
@@ -16,6 +16,8 @@ import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
 import router from './router';
+import createApolloClient from './apollo/createApolloClient';
+import { initialState } from './apollo/state/adminState';
 import models from './data/models';
 import schema from './data/schema';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
@@ -47,7 +49,7 @@ app.set('trust proxy', config.trustProxy);
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
 app.use(express.static(path.resolve(__dirname, 'public')));
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -64,7 +66,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+      maxAge: 1000 * 60 * 60 * 24, // 1 days
     },
   }),
 );
@@ -72,7 +74,9 @@ app.use(
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
+/*
 app.use(
+ /*
   '/graphql',
   (req, _, next) => {
     console.info(req.session);
@@ -87,6 +91,18 @@ app.use(
     pretty: __DEV__,
   })),
 );
+*/
+
+const server = new ApolloServer({
+  ...schema,
+  context: ({ req }) => ({ req }),
+  uploads: false,
+  introspection: __DEV__,
+  playground: __DEV__,
+  debug: __DEV__,
+  pretty: __DEV__,
+});
+server.applyMiddleware({ app });
 
 //
 // Register server-side rendering middleware
@@ -102,6 +118,14 @@ app.get('*', async (req, res, next) => {
       styles.forEach(style => css.add(style._getCss()));
     };
 
+    const apolloClient = createApolloClient(
+      {
+        schema: makeExecutableSchema(schema),
+        rootValue: { request: req },
+      },
+      initialState,
+    );
+
     // Universal HTTP client
     const fetch = createFetch(nodeFetch, {
       baseUrl: config.api.serverUrl,
@@ -115,9 +139,9 @@ app.get('*', async (req, res, next) => {
     const context = {
       insertCss,
       fetch,
-      // The twins below are wild, be careful!
       pathname: req.path,
       query: req.query,
+      client: apolloClient,
     };
 
     const route = await router.resolve(context);
@@ -128,9 +152,9 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    data.children = ReactDOM.renderToString(
-      <App context={context}>{route.component}</App>,
-    );
+    const rootComponent = <App context={context}>{route.component}</App>;
+    await getDataFromTree(rootComponent);
+    data.children = await ReactDOM.renderToString(rootComponent);
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
 
     const scripts = new Set();
@@ -148,6 +172,8 @@ app.get('*', async (req, res, next) => {
     data.scripts = Array.from(scripts);
     data.app = {
       apiUrl: config.api.clientUrl,
+      cache: context.client.extract(),
+      initialState,
     };
 
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
