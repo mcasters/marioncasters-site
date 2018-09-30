@@ -1,0 +1,18 @@
+fetch example:
+
+login = async e => {
+    e.preventDefault();
+    const input = this.state;
+    await this.context
+      .fetch('/graphql', {
+        method: 'POST',
+        body: JSON.stringify({
+          query,
+          variables: { input },
+        }),
+      })
+      .then(res => res.json())
+      .then(data => (data ? history.push('admin') : history.push('/')))
+      // eslint-disable-next-line no-console
+      .catch(error => console.log('ERROR', error.message));
+  };

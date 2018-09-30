@@ -1,5 +1,3 @@
-import { makeExecutableSchema } from 'graphql-tools';
-
 import { types, resolvers, mutations, queries } from '../data/graphql/schema';
 
 const RootQuery = [
@@ -29,8 +27,8 @@ const SchemaDefinition = [
 
 const typeDefs = [...SchemaDefinition, ...RootQuery, ...Mutation, ...types];
 
-export default makeExecutableSchema({
+export default {
   typeDefs,
   resolvers,
   ...(__DEV__ ? { log: e => console.error(e.stack) } : {}),
-});
+};

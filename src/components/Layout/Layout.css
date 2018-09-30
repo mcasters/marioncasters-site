@@ -54,13 +54,15 @@ textarea {
   font-weight: var(--font-weight);
 }
 
-a {
+a,
+.loginLink {
   color: var(--link-color);
   text-decoration: none;
   transition: color 0.5s;
 }
 
-a:hover {
+a:hover,
+.loginLink:hover {
   color: var(--link-color-hover);
   transition: color 0.5s;
 }

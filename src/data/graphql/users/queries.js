@@ -18,6 +18,8 @@ export const queries = [
   getUser(
     username: String!
   ): DatabaseUser
+  
+  checkIsAdmin: Boolean!
 `,
 ];
 
@@ -26,10 +28,15 @@ export const resolvers = {
     async getAllUsers() {
       return User.findAll();
     },
+
     async getUser(parent, { username }) {
       return User.findOne({
         where: { username },
       });
+    },
+
+    async checkIsAdmin(_, __, { req }) {
+      return req.session.isAdmin ? req.session.isAdmin : false;
     },
   },
 };

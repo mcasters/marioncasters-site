@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import bcrypt from 'bcrypt';
 
 import { User } from '../../models/index';
@@ -32,9 +34,7 @@ export const mutations = [
     input: LoginInput!
   ): Boolean
   
-  logout(
-    username: String!
-  ): Boolean
+  logout: Boolean
 `,
 ];
 
@@ -63,26 +63,25 @@ export const resolvers = {
       return true;
     },
 
-    login: async (parent, { input }, { req }) => {
+    login: async (parent, { input }, context) => {
       const dbUser = await User.findOne({
         where: { username: input.username },
       });
       if (!dbUser) {
-        req.session.isConnected = false;
+        context.req.session.isAdmin = false;
         throw new Error('Username invalide');
       }
-      const match = bcrypt.compare(input.password, dbUser.password);
-
+      const match = await bcrypt.compare(input.password, dbUser.password);
       if (match) {
-        req.session.isConnected = true;
+        context.req.session.isAdmin = true;
         return true;
       }
-      req.session = false;
+      context.req.session.isAdmin = false;
       throw new Error('Mot de passe invalide');
     },
 
-    logout: async (parent, username, { req }) => {
-      req.session.isConnected = false;
+    logout: async (parent, __, context) => {
+      await context.req.session.destroy();
       return true;
     },
   },

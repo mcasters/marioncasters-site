@@ -1,11 +1,16 @@
 import React from 'react';
+
 import Layout from '../../components/Layout';
 import Admin from './Admin';
+import query from './adminStatusQuery.graphql';
 
 const title = 'Admin Page';
-const isAdmin = true;
 
-function action() {
+function action({ client }) {
+  const { adminStatus } = client.readQuery({
+    query,
+  });
+  const isAdmin = adminStatus.isConnected;
   if (!isAdmin) {
     return { redirect: '/login' };
   }
