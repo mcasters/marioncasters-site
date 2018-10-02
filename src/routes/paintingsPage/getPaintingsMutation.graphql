@@ -1,0 +1,11 @@
+{
+  getAllPaintings {
+    title
+    date
+    technique
+    description
+    height
+    width
+    imageLocation
+  }
+}

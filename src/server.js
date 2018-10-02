@@ -9,6 +9,7 @@ import PrettyError from 'pretty-error';
 import session from 'express-session';
 import { getDataFromTree } from 'react-apollo';
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
+import multer from 'multer';
 
 import App from './components/App';
 import Html from './components/Html';
@@ -182,6 +183,31 @@ app.get('*', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+//
+// Handling files Upload to the server
+// -----------------------------------------------------------------------------
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, `${req.body.destination}`);
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.body.fileName);
+  },
+});
+
+const upload = multer({ storage, limits: { fileSize: 370000 } });
+
+app.post('/uploadImage', upload.single('file'), (req, res) => {
+  if (!req.body.file) {
+    return res.send({
+      success: false,
+    });
+  }
+  return res.send({
+    success: true,
+  });
 });
 
 //

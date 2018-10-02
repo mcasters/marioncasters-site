@@ -1,0 +1,10 @@
+mutation AddPainting($painting: PaintingInput!) {
+  addPainting(input: $painting) {
+    title
+    date
+    technique
+    description
+    height
+    width
+  }
+}

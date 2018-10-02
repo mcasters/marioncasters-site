@@ -11,6 +11,10 @@ const routes = {
       load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {
+      path: '/peintures',
+      load: () => import(/* webpackChunkName: 'paintings' */ './paintingsPage'),
+    },
+    {
       path: '/contact',
       load: () => import(/* webpackChunkName: 'contact' */ './contact'),
     },
@@ -23,7 +27,7 @@ const routes = {
       load: () => import(/* webpackChunkName: 'register' */ './register'),
     },
     {
-      path: '/about',
+      path: '/presentation',
       load: () => import(/* webpackChunkName: 'about' */ './about'),
     },
     {
@@ -33,17 +37,6 @@ const routes = {
     {
       path: '/admin',
       load: () => import(/* webpackChunkName: 'admin' */ './admin'),
-      children: [
-        { path: '', action: () => ({ content: '<h1>Admin: Home</h1>' }) },
-        {
-          path: '/admin-peintures',
-          action: () => ({ content: '<h1>Admin: Peintures</h1>' }),
-        },
-        {
-          path: '/admin-sculptures',
-          action: () => ({ content: '<h1>Admin: Sculptures</h1>' }),
-        },
-      ],
     },
 
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
