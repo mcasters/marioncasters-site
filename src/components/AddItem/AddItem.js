@@ -101,7 +101,7 @@ class AddItem extends React.Component {
         const formData = new FormData();
 
         formData.append('fileName', fileName);
-        formData.append('destination', ITEM_CONSTANTS.IMAGE_FOLDER.SCULPTURE);
+        formData.append('type', this.props.type);
         formData.append('file', file);
         axios.post('/uploadImage', formData);
         count += 1;
@@ -113,12 +113,7 @@ class AddItem extends React.Component {
       const formData = new FormData();
 
       formData.append('fileName', fileName);
-      formData.append(
-        'destination',
-        this.props.type === ITEM_CONSTANTS.TYPE.PAINTING
-          ? ITEM_CONSTANTS.IMAGE_FOLDER.PAINTING
-          : ITEM_CONSTANTS.IMAGE_FOLDER.DRAWING,
-      );
+      formData.append('type', this.props.type);
       formData.append('file', file);
       axios.post('/uploadImage', formData);
     }
