@@ -9,7 +9,6 @@ import PrettyError from 'pretty-error';
 import session from 'express-session';
 import { getDataFromTree } from 'react-apollo';
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
-import multer from 'multer';
 
 import App from './components/App';
 import Html from './components/Html';
@@ -21,6 +20,7 @@ import createApolloClient from './apollo/createApolloClient';
 import { initialState } from './apollo/state/adminState';
 import models from './data/models';
 import schema from './data/schema';
+import upload from './imageUpload';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
 import config from './config';
@@ -188,21 +188,6 @@ app.get('*', async (req, res, next) => {
 //
 // Handling files Upload to the server
 // -----------------------------------------------------------------------------
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const destinationPath = path.resolve(
-      __dirname,
-      `../photoLibrary/${req.body.type}`,
-    );
-    cb(null, destinationPath);
-  },
-  filename: (req, file, cb) => {
-    cb(null, req.body.fileName);
-  },
-});
-
-const upload = multer({ storage, limits: { fileSize: 370000 } });
-
 app.post('/uploadImage', upload.single('file'), (req, res) => {
   if (!req.body.file) {
     return res.send({

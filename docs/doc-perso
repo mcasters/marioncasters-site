@@ -38,3 +38,9 @@ const { files = [] } = this.state.files;
 this.setState(prevState => ({
     array: [...prevState.array, newElement]
 }));
+
+
+// Photo import
+---------------------
+qualité JPEG : Moyenne
+Taille: Grande
