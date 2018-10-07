@@ -16,7 +16,7 @@ export const types = [
 
 export const mutations = [
   `
-  createDrawing (
+  addDrawing (
     input: DrawingInput!
   ): DatabaseDrawing
 `,
@@ -24,7 +24,7 @@ export const mutations = [
 
 export const resolvers = {
   Mutation: {
-    async createDrawing(parent, { input }) {
+    async addDrawing(root, { input }) {
       const lookupDrawing = await Drawing.findOne({
         where: { title: input.title },
       });
@@ -42,7 +42,6 @@ export const resolvers = {
         description: input.description,
         height: input.height,
         width: input.width,
-        imageLocation: input.imageLocation,
       });
     },
   },

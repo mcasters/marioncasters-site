@@ -8,7 +8,7 @@ import LoginControl from '../LoginControl';
 class Footer extends React.Component {
   render() {
     return (
-      <div className={s.root}>
+      <footer>
         <div className={s.container}>
           <span className={s.text}>© Marion Casters 2018</span>
           <span>·</span>
@@ -26,7 +26,7 @@ class Footer extends React.Component {
             Not Found
           </Link>
         </div>
-      </div>
+      </footer>
     );
   }
 }

@@ -1,5 +1,5 @@
-fetch example:
-
+// fetch example
+---------------------
 login = async e => {
     e.preventDefault();
     const input = this.state;
@@ -16,3 +16,25 @@ login = async e => {
       // eslint-disable-next-line no-console
       .catch(error => console.log('ERROR', error.message));
   };
+
+
+
+// styles :
+---------------------
+  <div className={s['My-style']}>
+  or
+  <div className={s.MyStyle}>
+
+
+
+// initialize with destructuring object :
+---------------------
+const { files = [] } = this.state.files;
+
+
+
+// setState for array
+---------------------
+this.setState(prevState => ({
+    array: [...prevState.array, newElement]
+}));

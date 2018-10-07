@@ -4,7 +4,7 @@ import Layout from '../../components/Layout';
 import Admin from './Admin';
 import query from './adminStatusQuery.graphql';
 
-const title = 'Admin Page';
+const title = 'Administration';
 
 function action({ client }) {
   const { adminStatus } = client.readQuery({

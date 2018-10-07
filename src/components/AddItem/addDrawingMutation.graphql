@@ -1,0 +1,10 @@
+mutation AddDrawing($item: DrawingInput!) {
+  addDrawing(input: $item) {
+    title
+    date
+    technique
+    description
+    height
+    width
+  }
+}

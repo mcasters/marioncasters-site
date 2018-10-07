@@ -52,7 +52,9 @@ const LogoutButton = () => (
         },
       });
     }}
-    onCompleted={() => history.push('/')}
+    onCompleted={data =>
+      data.logout ? history.push('/') : history.push('admin')
+    }
   >
     {logout => (
       <button

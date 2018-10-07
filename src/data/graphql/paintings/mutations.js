@@ -41,7 +41,6 @@ export const resolvers = {
         description: input.description,
         height: input.height,
         width: input.width,
-        imageLocation: input.imageLocation,
       });
     },
   },

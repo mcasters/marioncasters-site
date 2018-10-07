@@ -1,23 +1,48 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 @import '../variables.css';
 
-.root {
+.container {
+  margin: 2em;
   position: absolute;
   z-index: 1;
+  width: 100%;
+  -moz-transition: all 2s ease;
+  -webkit-transition: all 2s ease;
+  transition: all 2s ease;
 }
 
 .container h1 {
-  font-weight: lighter;
-  letter-spacing: 0.9em;
-  padding: 0 1.5em;
+  position: relative;
+  font-size: var(--font-size-site-title);
   color: var(--font-color-light);
+  letter-spacing: 1em;
+  font-weight: bold;
+  padding-left: 1.6em;
+  -moz-transition: all 2s ease;
+  -webkit-transition: all 2s ease;
+  transition: all 2s ease;
 }
 
+.sticky {
+  position: fixed;
+  width: 60%;
+  background: transparent;
+  -ms-transform-origin: left;
+  -moz-transform-origin: left;
+  -webkit-transform-origin: left;
+  transform-origin: left;
+  -ms-transform: scale(0.7, 0.7);
+  -moz-transform: scale(0.7, 0.7);
+  -webkit-transform: scale(0.7, 0.7);
+  transform: scale(0.7, 0.7);
+  -moz-transition: all 2s ease;
+  -webkit-transition: all 2s ease;
+  transition: all 2s ease;
+}
+
+.sticky h1 {
+  position: relative;
+  padding-left: 2.6em;
+  -moz-transition: all 2s ease;
+  -webkit-transition: all 2s ease;
+  transition: all 2s ease;
+}

@@ -1,0 +1,17 @@
+@import '../../components/variables.css';
+
+.container {
+  /* TODO */
+}
+
+.error {
+  /* TODO */
+}
+
+.loading {
+  /* TODO */
+}
+
+button {
+  background-color: unset;
+}

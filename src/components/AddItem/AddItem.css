@@ -1,0 +1,10 @@
+@import './../../components/variables.css';
+
+.imagePreview {
+  width: 60%;
+  margin-bottom: 1em;
+}
+
+.DayInputContainer > div {
+  width: 100%;
+}

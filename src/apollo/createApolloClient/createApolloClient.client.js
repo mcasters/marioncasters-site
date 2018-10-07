@@ -1,5 +1,4 @@
 // @flow
-
 import { ApolloClient } from 'apollo-client';
 import { from } from 'apollo-link';
 import { onError } from 'apollo-link-error';
