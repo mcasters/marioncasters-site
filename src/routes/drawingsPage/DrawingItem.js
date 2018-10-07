@@ -1,26 +1,24 @@
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Modal from 'react-modal';
 
-import s from './SculpturesItem.css';
+import s from './DrawingsItem.css';
 import { ITEM_CONSTANTS } from './../../constants';
 
 Modal.setAppElement('#app');
 
-class Item extends React.Component {
+class DrawingItem extends React.Component {
   static propTypes = {
-    item: PropTypes.shape({
+    drawing: PropTypes.shape({
       title: PropTypes.string,
       date: PropTypes.string,
       technique: PropTypes.string,
       description: PropTypes.string,
       height: PropTypes.number,
       width: PropTypes.number,
-      length: PropTypes.number,
     }).isRequired,
-    imageList: PropTypes.array.isRequired,
+    src: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -43,26 +41,26 @@ class Item extends React.Component {
   }
 
   render() {
-    const { item } = this.props;
-    const { imageList } = this.props;
+    const { drawing } = this.props;
+    const { src } = this.props;
 
     return (
-      <article className={s.item} key={item.title}>
-        <h2>{item.title}</h2>
+      <article className={s.item} key={drawing.title}>
+        <h2>{drawing.title}</h2>
         <button className={s.imageContainer} onClick={this.openModal}>
           <img
-            src={imageList[0]}
-            alt={ITEM_CONSTANTS.ALT_IMAGE_SCULPTURE}
+            src={src}
+            alt={ITEM_CONSTANTS.ALT_IMAGE_DRAWING}
             className={s.image}
           />
         </button>
         <div>
           <p>
-            {item.date}
+            {drawing.date}
             <span className={s.spacer}> | </span>
-            {item.technique}
+            {drawing.technique}
             <span className={s.spacer}> | </span>
-            {item.height} x {item.width} x {item.length} cm
+            {drawing.height} x {drawing.width} cm
           </p>
         </div>
         <Modal
@@ -84,12 +82,12 @@ class Item extends React.Component {
           }}
         >
           <div className={s.lightBoxText}>
-            Marion Casters | <span>{item.title}</span>
+            Marion Casters | <span>{drawing.title}</span>
           </div>
           <button onClick={this.closeModal}>
             <img
-              src={imageList[0]}
-              alt={ITEM_CONSTANTS.ALT_IMAGE_SCULPTURE}
+              src={src}
+              alt={ITEM_CONSTANTS.ALT_IMAGE_DRAWING}
               className={s.lightBoxImage}
             />
           </button>
@@ -99,4 +97,4 @@ class Item extends React.Component {
   }
 }
 
-export default withStyles(s)(Item);
+export default withStyles(s)(DrawingItem);

@@ -15,6 +15,15 @@ const routes = {
       load: () => import(/* webpackChunkName: 'paintings' */ './paintingsPage'),
     },
     {
+      path: '/sculptures',
+      load: () =>
+        import(/* webpackChunkName: 'sculptures' */ './sculpturesPage'),
+    },
+    {
+      path: '/dessins',
+      load: () => import(/* webpackChunkName: 'drawings' */ './drawingsPage'),
+    },
+    {
       path: '/contact',
       load: () => import(/* webpackChunkName: 'contact' */ './contact'),
     },
