@@ -190,7 +190,11 @@ app.get('*', async (req, res, next) => {
 // -----------------------------------------------------------------------------
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, `${req.body.destination}`);
+    const destinationPath = path.resolve(
+      __dirname,
+      `../photoLibrary/${req.body.type}`,
+    );
+    cb(null, destinationPath);
   },
   filename: (req, file, cb) => {
     cb(null, req.body.fileName);

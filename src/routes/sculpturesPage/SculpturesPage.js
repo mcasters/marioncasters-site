@@ -18,7 +18,7 @@ class SculpturesPage extends React.Component {
   render() {
     const allImages = this.importAllImages(
       require.context(
-        './../../../public/photoLibrary/sculpture',
+        './../../../../photoLibrary/sculpture',
         false,
         /\.jpe?g$/,
       ),
