@@ -1,13 +1,28 @@
 import React from 'react';
 import PaintingsPage from './PaintingsPage';
 import Layout from '../../components/Layout';
-// import { PATH_TO_PAINTING_IMAGES } from '../../constants';
+import { ITEM_CONSTANTS } from '../../constants';
 
 async function action() {
+  function importAllImages(r) {
+    const images = {};
+    r.keys().forEach(item => {
+      images[item.replace('./', '')] = r(item);
+    });
+    return images;
+  }
+
+  const allImages = importAllImages(
+    require.context('./../../../photoLibrary/painting', false, /\.jpe?g$/),
+  );
+
   return {
     component: (
       <Layout>
-        <PaintingsPage />
+        <PaintingsPage
+          title={ITEM_CONSTANTS.TITLE.PAINTING}
+          imagesList={allImages}
+        />
       </Layout>
     ),
   };

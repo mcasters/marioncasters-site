@@ -7,10 +7,10 @@ export const ITEM_CONSTANTS = {
     DRAWING: 'drawing',
   },
 
-  IMAGE_FOLDER: {
-    PAINTING: './public/photoLibrary/painting',
-    DRAWING: './public/photoLibrary/drawing',
-    SCULPTURE: './public/photoLibrary/sculpture',
+  TITLE: {
+    PAINTING: 'Peintures',
+    SCULPTURE: 'Sculptures',
+    DRAWING: 'Dessins',
   },
 
   ALT_IMAGE_PAINTING: 'Peinture de Marion Casters',

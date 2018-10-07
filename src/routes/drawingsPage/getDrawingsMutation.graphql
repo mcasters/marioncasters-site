@@ -1,0 +1,10 @@
+{
+  getAllDrawings {
+    title
+    date
+    technique
+    description
+    height
+    width
+  }
+}

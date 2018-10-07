@@ -42,7 +42,8 @@ class PaintingItem extends React.Component {
 
   render() {
     const { painting } = this.props;
-    const { src } = this.props;
+    // eslint-disable-next-line prefer-destructuring
+    const src = this.props.src;
 
     return (
       <article className={s.item} key={painting.title}>
