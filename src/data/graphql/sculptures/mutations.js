@@ -16,7 +16,7 @@ export const types = [
 
 export const mutations = [
   `
-  createSculpture (
+  addSculpture (
     input: SculptureInput!
   ): DatabaseSculpture
 `,
@@ -24,7 +24,7 @@ export const mutations = [
 
 export const resolvers = {
   Mutation: {
-    async createSculpture(parent, { input }) {
+    async addSculpture(root, { input }) {
       const lookupSculpture = await Sculpture.findOne({
         where: { title: input.title },
       });
@@ -43,10 +43,6 @@ export const resolvers = {
         length: input.length,
         height: input.height,
         width: input.width,
-        imageLocation_1: input.imageLocation_1,
-        imageLocation_2: input.imageLocation_2,
-        imageLocation_3: input.imageLocation_3,
-        imageLocation_4: input.imageLocation_4,
       });
     },
   },

@@ -1,28 +1,36 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+
 import s from './Header.css';
 
 class Header extends React.Component {
+  state = {
+    isSticky: false,
+  };
+
+  componentDidMount() {
+    // eslint-disable-next-line no-unused-vars
+    window.addEventListener('scroll', event => {
+      this.setState({
+        isSticky: window.pageYOffset > 0,
+      });
+    });
+  }
+
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <div>
-            <h1>Marion Casters</h1>
-          </div>
+      <header>
+        <div
+          className={
+            this.state.isSticky
+              ? `${s.container} ${s.sticky}`
+              : `${s.container}`
+          }
+        >
+          <h1>Marion Casters</h1>
         </div>
-      </div>
+      </header>
     );
   }
 }
-
 export default withStyles(s)(Header);

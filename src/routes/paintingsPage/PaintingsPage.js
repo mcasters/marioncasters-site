@@ -32,17 +32,15 @@ class PaintingsPage extends React.Component {
           const list = data.getAllPaintings;
 
           return (
-            <div className={s.root}>
-              <div className={s.container}>
-                <h1>Peintures</h1>
-                {list.map(item => (
-                  <PaintingItem
-                    key={item.title}
-                    painting={item}
-                    src={images[`${item.title}.jpg`]}
-                  />
-                ))}
-              </div>
+            <div className={s.container}>
+              <h1>Peintures</h1>
+              {list.map(item => (
+                <PaintingItem
+                  key={item.title}
+                  painting={item}
+                  src={images[`${item.title}.jpg`]}
+                />
+              ))}
             </div>
           );
         }}

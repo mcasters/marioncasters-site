@@ -1,5 +1,5 @@
-{
-  getAllPaintings {
+mutation AddPainting($item: PaintingInput!) {
+  addPainting(input: $item) {
     title
     date
     technique

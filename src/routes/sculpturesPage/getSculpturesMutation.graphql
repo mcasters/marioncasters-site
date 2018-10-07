@@ -1,10 +1,11 @@
 {
-  getAllPaintings {
+  getAllSculptures {
     title
     date
     technique
     description
     height
     width
+    length
   }
 }
