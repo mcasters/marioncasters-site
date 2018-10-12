@@ -1,21 +1,28 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+// import PropTypes from 'prop-types';
 
 import s from './Header.css';
 
 class Header extends React.Component {
-  state = {
-    isSticky: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isSticky: false,
+    };
+  }
 
   componentDidMount() {
-    // eslint-disable-next-line no-unused-vars
-    window.addEventListener('scroll', event => {
-      this.setState({
-        isSticky: window.pageYOffset > 0,
-      });
-    });
+    this.updateScrolling();
+    window.addEventListener('scroll', this.updateScrolling);
   }
+
+  updateScrolling = () => {
+    this.setState({
+      isSticky: window.pageYOffset > 0,
+    });
+  };
 
   render() {
     return (

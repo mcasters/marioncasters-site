@@ -1,0 +1,32 @@
+.item {
+  padding: 4em 0;
+}
+
+button {
+  padding: 0 10%;
+  border: none;
+}
+
+.sculptureButton {
+  padding: 10px;
+  border: none;
+  display: inline-block;
+  width: 50%;
+}
+
+.sculptureImage {
+  max-width: 100%;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 55vh;
+}
+
+.noWrap {
+  white-space: pre;
+}
+
+.spacer {
+  padding: 0 15px;
+}

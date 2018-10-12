@@ -1,6 +1,5 @@
-@import '../variables.css';
 
-nav {
+.nav {
   position: fixed;
   margin: 2em 0 0 4em;
   box-sizing: border-box;

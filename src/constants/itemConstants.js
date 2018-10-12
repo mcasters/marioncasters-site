@@ -1,6 +1,4 @@
-/* eslint-disable import/prefer-default-export */
-
-export const ITEM_CONSTANTS = {
+const ITEM_CONSTANTS = {
   TYPE: {
     PAINTING: 'painting',
     SCULPTURE: 'sculpture',
@@ -19,3 +17,5 @@ export const ITEM_CONSTANTS = {
 
   FORMAT_DATE: 'DD/MM/YYYY',
 };
+
+export default ITEM_CONSTANTS;

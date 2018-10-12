@@ -1,3 +1,3 @@
-/* eslint-disable import/prefer-default-export */
+const SET_RUNTIME_VARIABLE = 'SET_RUNTIME_VARIABLE';
 
-export const SET_RUNTIME_VARIABLE = 'SET_RUNTIME_VARIABLE';
+export default SET_RUNTIME_VARIABLE;

@@ -45,6 +45,7 @@
     "query-string": "^6.1.0",
     "react": "^16.4.1",
     "react-apollo": "^2.2.2",
+    "react-burger-menu": "^2.5.4",
     "react-day-picker": "^7.2.4",
     "react-dom": "^16.4.1",
     "react-image-lightbox": "^5.0.0",
