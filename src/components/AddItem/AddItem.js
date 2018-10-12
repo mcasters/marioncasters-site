@@ -14,7 +14,7 @@ import s from './AddItem.css';
 import PAINTING_MUTATION from './addPaintingMutation.graphql';
 import SCULPTURE_MUTATION from './addSculptureMutation.graphql';
 import DRAWING_MUTATION from './addDrawingMutation.graphql';
-import { ITEM_CONSTANTS } from './../../constants';
+import ITEM_CONSTANTS from './../../constants/itemConstants';
 
 class AddItem extends React.Component {
   static propTypes = {

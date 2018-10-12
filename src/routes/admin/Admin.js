@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 import s from './Admin.css';
 import AddItem from '../../components/AddItem';
-import { ITEM_CONSTANTS } from '../../constants';
+import ITEM_CONSTANTS from '../../constants/itemConstants';
 
 class Admin extends React.Component {
   static propTypes = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PaintingsPage from './PaintingsPage';
 import Layout from '../../components/Layout';
-import { ITEM_CONSTANTS } from '../../constants';
+import ITEM_CONSTANTS from '../../constants/itemConstants';
 
 async function action() {
   function importAllImages(r) {

@@ -4,9 +4,10 @@ import { Query } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 
-import SculptureItem from './SculptureItem';
+import Item from '../../components/Item';
+import ITEM_CONSTANTS from '../../constants/itemConstants';
 import s from './SculpturesPage.css';
-import GET_PAINTINGS from './getSculpturesMutation.graphql';
+import GET_SCULPTURES from './getSculpturesMutation.graphql';
 
 class SculpturesPage extends React.Component {
   static propTypes = {
@@ -27,7 +28,7 @@ class SculpturesPage extends React.Component {
     return (
       <Query
         onError={() => <div>Erreur de chargement</div>}
-        query={GET_PAINTINGS}
+        query={GET_SCULPTURES}
         ssr
       >
         {({ loading, data }) => {
@@ -39,10 +40,11 @@ class SculpturesPage extends React.Component {
             <div>
               <h1>{this.props.title}</h1>
               {sculptures.map(sculpture => (
-                <SculptureItem
+                <Item
                   key={sculpture.title}
-                  sculpture={sculpture}
+                  item={sculpture}
                   srcList={this.getImagesForItem(sculpture.title)}
+                  itemType={ITEM_CONSTANTS.TYPE.SCULPTURE}
                 />
               ))}
             </div>
