@@ -44,3 +44,11 @@ this.setState(prevState => ({
 ---------------------
 qualité JPEG : Moyenne
 Taille: Grande
+
+
+// Heroku
+---------------------
+heroku login
+Enter your Heroku credentials.
+Email: user@example.com
+Password:

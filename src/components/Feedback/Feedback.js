@@ -14,20 +14,20 @@ class Feedback extends React.Component {
     return (
       <aside>
         <div className={s.container}>
-          <Link to="/">
+          <Link to="https://nodejs.org">
             <img src={nodejsLogo} className={s.nodejsLogo} alt="NodeJS" />
           </Link>
-          <Link to="/">
+          <Link to="https://reactjs.org">
             <img src={reactLogo} className={s.reactLogo} alt="React" />
           </Link>
-          <Link to="/">
+          <Link to="https://graphql.org">
             <img src={graphqlLogo} className={s.graphqlLogo} alt="GraphQL" />
           </Link>
-          <Link to="/">
+          <Link to="https://github.com">
             <img src={githubLogo} className={s.githubLogo} alt="GitHub" />
           </Link>
-          <Link to="/">
-            <img src={appleLogo} className={s.appleLogo} alt="GitHub" />
+          <Link to="https://www.apple.com">
+            <img src={appleLogo} className={s.appleLogo} alt="Apple" />
           </Link>
         </div>
       </aside>

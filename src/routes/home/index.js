@@ -4,9 +4,8 @@ import Layout from '../../components/Layout';
 
 async function action() {
   return {
-    title: 'Marion Casters',
-    description:
-      "Accueil de la présentation des oeuvres l'artiste Marion Casters",
+    title: 'Bienvenu',
+    description: 'Présentation des oeuvres de Marion Casters',
     chunks: ['home'],
     component: (
       <Layout>
