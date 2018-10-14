@@ -1,7 +1,8 @@
+@import '../variables.css';
 
 footer {
-  background: #333;
-  color: var(--font-color-light);
+  background: var(--color-xxdark);
+  color: var(--color-light);
 }
 
 .container {
@@ -24,5 +25,5 @@ footer {
 }
 
 .link:hover {
-  color: var(--font-color-light);
+  color: var(--color-light);
 }
