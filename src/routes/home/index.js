@@ -4,7 +4,9 @@ import Layout from '../../components/Layout';
 
 async function action() {
   return {
-    title: 'React Starter Kit',
+    title: 'Marion Casters',
+    description:
+      "Accueil de la présentation des oeuvres l'artiste Marion Casters",
     chunks: ['home'],
     component: (
       <Layout>

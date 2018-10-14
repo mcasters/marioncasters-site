@@ -11,34 +11,48 @@
  * ========================================================================== */
 
 body {
-  background-color: #eee;
+  background-color: var(--color-xlight);
 }
 
 main {
   width: 100%;
-  box-sizing: border-box;
   margin: 0 auto;
-  padding: 8em 1em;
+  padding: 8em 2em;
+  box-sizing: border-box;
   text-align: center;
 }
 
-@media screen and (min-width: 768px) {
+@media (--sm) {
+  main {
+    width: 92%;
+    padding: 10em 0 10em 15em;
+  }
+}
+
+@media (--md) {
   main {
     width: 80%;
     padding: 10em 0 10em 15em;
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media (--lg) {
   main {
-    width: 55%;
+    width: 60%;
+    padding: 10em 0 10em 20em;
+  }
+}
+
+@media (--xlg) {
+  main {
+    width: 50%;
   }
 }
 
 html {
-  font-size: 0.8em;
+  font-size: var(--font-size-current);
   font-family: var(--font-family-base);
-  color: var(--font-color-dark);
+  color: var(--color-dark);
   font-weight: var(--font-weight);
   line-height: 1.375; /* ~22px */
   font-variant: small-caps;
@@ -56,7 +70,7 @@ button,
 select,
 textarea {
   font-family: var(--font-family-base);
-  color: var(--font-color-dark);
+  color: var(--color-dark);
   font-weight: var(--font-weight);
 }
 
@@ -65,12 +79,11 @@ a,
   color: var(--link-color);
   text-decoration: none;
   transition: color 0.5s;
-}
 
-a:hover,
-.loginLink:hover {
-  color: var(--link-color-hover);
-  transition: color 0.5s;
+  &:hover {
+    color: var(--link-color-hover);
+    transition: color 0.5s;
+  }
 }
 
 /*
@@ -80,11 +93,6 @@ a:hover,
  * These selection rule sets have to be separate.
  * Customize the background color to match your design.
  */
-
-::-moz-selection {
-  background: var(--link-color);
-  text-shadow: none;
-}
 
 ::selection {
   background: var(--link-color);

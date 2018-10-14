@@ -30,6 +30,8 @@
     "date-fns": "^1.29.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "fbjs": "^1.0.0",
+    "fdjs": "^0.1.0",
     "graphql": "^0.13.2",
     "history": "^4.7.2",
     "isomorphic-style-loader": "^4.0.0",

@@ -3,11 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Modal from 'react-modal';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
 
+import Lightbox from '../Lightbox';
 import s from './Item.css';
-import ITEM_CONSTANTS from './../../constants/itemConstants';
+import ITEM_CONSTANTS from '../../constants/itemConstants';
+import LAYOUT_CONSTANTS from '../../constants/layoutConstants';
 
 Modal.setAppElement('#app');
 
@@ -47,7 +47,7 @@ class Item extends React.Component {
 
     if (itemType === ITEM_CONSTANTS.TYPE.SCULPTURE) {
       return (
-        <article className={s.item}>
+        <article>
           <h2>{item.title}</h2>
           <div>
             {srcList.map(src => (
@@ -64,7 +64,7 @@ class Item extends React.Component {
               </button>
             ))}
           </div>
-          <div>
+          <div className={s.description}>
             <p>
               <span className={s.noWrap}>{item.date}</span>
               <span className={s.spacer}> | </span>
@@ -96,6 +96,9 @@ class Item extends React.Component {
                   })
                 }
                 imageTitle={`Marion Casters | ${item.title}`}
+                mobileSizeBreakpoint={LAYOUT_CONSTANTS.BREAKPOINT.MD}
+                imagePadding={ITEM_CONSTANTS.LIGHTBOX_PADDING}
+                imageMobilePadding={ITEM_CONSTANTS.LIGHTBOX_MOBILE_PADDING}
               />
             )}
         </article>
@@ -104,10 +107,10 @@ class Item extends React.Component {
 
     const src = srcList[0];
     return (
-      <article className={s.item}>
+      <article>
         <h2>{item.title}</h2>
         <div>
-          <button onClick={this.open}>
+          <button className={s.imageButton} onClick={this.open} key={src}>
             <img
               src={src}
               ref={this.image}
@@ -120,7 +123,7 @@ class Item extends React.Component {
             />
           </button>
         </div>
-        <div>
+        <div className={s.description}>
           <p>
             <span className={s.noWrap}>{item.date}</span>
             <span className={s.spacer}> | </span>
@@ -137,7 +140,9 @@ class Item extends React.Component {
               mainSrc={srcList[photoIndex]}
               onCloseRequest={() => this.setState({ isOpen: false })}
               imageTitle={`Marion Casters | ${item.title}`}
-              imagePadding={90}
+              mobileSizeBreakpoint={LAYOUT_CONSTANTS.BREAKPOINT.MD}
+              imagePadding={ITEM_CONSTANTS.LIGHTBOX_PADDING}
+              imageMobilePadding={ITEM_CONSTANTS.LIGHTBOX_MOBILE_PADDING}
             />
           )}
       </article>

@@ -1,4 +1,5 @@
 /* eslint-disable global-require */
+// import META_CONSTANTS from '../constants/metaHtmlConstants';
 
 // The top-level (parent) route
 const routes = {
@@ -60,8 +61,9 @@ const routes = {
     const route = await next();
 
     // Provide default values for title, description etc.
-    route.title = `${route.title || 'Untitled Page'} - www.marioncasters.fr`;
+    route.title = `${route.title || 'Untitled Page'} - Marion Casters`;
     route.description = route.description || '';
+    // route.keywords = META_CONSTANTS.KEYWORDS;
 
     return route;
   },

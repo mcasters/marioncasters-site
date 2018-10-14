@@ -1,6 +1,5 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-// import PropTypes from 'prop-types';
 
 import s from './Header.css';
 
