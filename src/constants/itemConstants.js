@@ -16,6 +16,9 @@ const ITEM_CONSTANTS = {
   ALT_IMAGE_DRAWING: 'Dessin de Marion Casters',
 
   FORMAT_DATE: 'DD/MM/YYYY',
+
+  LIGHTBOX_PADDING: 100,
+  LIGHTBOX_MOBILE_PADDING: 10,
 };
 
 export default ITEM_CONSTANTS;

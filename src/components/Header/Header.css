@@ -1,47 +1,74 @@
+@import '../variables.css';
 
 .container {
-  margin: 2em;
-  position: absolute;
+  position: fixed;
+  padding: 1em 0;
+  text-align: right;
   z-index: 1;
   width: 100%;
-  -moz-transition: all 2s ease;
-  -webkit-transition: all 2s ease;
+  background-color: rgba(0, 0, 0, 0.4);
   transition: all 2s ease;
 }
 
 .container h1 {
-  position: relative;
-  font-size: var(--font-size-site-title);
-  color: var(--font-color-light);
+  font-size: var(--font-size-header-sm-mobile);
+  color: var(--color-light);
+  padding-left: 6.5em;
   letter-spacing: 1em;
   font-weight: bold;
-  padding-left: 1.6em;
-  -moz-transition: all 2s ease;
-  -webkit-transition: all 2s ease;
   transition: all 2s ease;
 }
 
 .sticky {
-  position: fixed;
-  width: 60%;
   background: transparent;
-  -ms-transform-origin: left;
-  -moz-transform-origin: left;
-  -webkit-transform-origin: left;
-  transform-origin: left;
-  -ms-transform: scale(0.7, 0.7);
-  -moz-transform: scale(0.7, 0.7);
-  -webkit-transform: scale(0.7, 0.7);
-  transform: scale(0.7, 0.7);
-  -moz-transition: all 2s ease;
-  -webkit-transition: all 2s ease;
+  transform-origin: top;
+  transform: scale(1.2, 0.8);
   transition: all 2s ease;
 }
 
 .sticky h1 {
-  position: relative;
-  padding-left: 2.6em;
-  -moz-transition: all 2s ease;
-  -webkit-transition: all 2s ease;
-  transition: all 2s ease;
+  opacity: 0;
+}
+
+@media (--xs) {
+  .container {
+    padding: 1.2em 0;
+  }
+
+  .container h1 {
+    font-size: var(--font-size-header-md-mobile);
+  }
+}
+
+@media (--sm) {
+  .container {
+    padding: 0 6.5em;
+    text-align: left;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+    z-index: 1;
+    transition: all 2s ease;
+  }
+
+  .container h1 {
+    padding-left: unset;
+    font-size: var(--font-size-title);
+    letter-spacing: 1em;
+    font-weight: lighter;
+    transition: all 2s ease;
+    opacity: 1;
+  }
+
+  .sticky {
+    position: fixed;
+    padding: 0.5em 5.5em;
+    width: 80%;
+    background: transparent;
+    transform-origin: left;
+    transform: scale(0.7, 0.7);
+    transition: all 2s ease;
+  }
+
+  .sticky h1 {
+    transition: all 2s ease;
+  }
 }

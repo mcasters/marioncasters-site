@@ -1,9 +1,15 @@
+@custom-media --xs (width >= 480px);
+@custom-media --sm (width >= 770px); /* = min-width: 770px */
+@custom-media --md (width >= 992px);
+@custom-media --lg (width >= 1200px);
+@custom-media --xlg (width >= 1600px);
+
 :root {
   /*
    * Typography
    * ======================================================================== */
 
-  --font-family-base: 'HelveticaNeue-Light', 'Segoe UI', sans-serif;
+  --font-family-base: Montserrat, Ubuntu, sans-serif;
   --font-weight: 100;
 
   /*
@@ -17,21 +23,22 @@
    * Media queries breakpoints
    * ======================================================================== */
 
-  --screen-xs-min: 480px; /* Extra small screen / phone */
-  --screen-sm-min: 768px; /* Small screen / tablet */
-  --screen-md-min: 1024px;
+  /* --screen-xs-min: 480px; Extra small screen / phone */
 
-  /* --screen-md-min: 992px; Medium screen / desktop */
+  --screen-sm-min: 770px; /* Small screen / tablet */
+  --screen-md-min: 992px; /* Medium screen / desktop */
   --screen-lg-min: 1200px; /* Large screen / wide desktop */
 
   /*
    * Colors
    * ======================================================================== */
-  --header-color: #f7f7f7;
-  --title-color: #75867b;
-  --font-color: #aaa;
-  --font-color-light: #ccc;
-  --font-color-dark: #777;
+
+  --color-xxlight: #fff;
+  --color-xlight: #eee;
+  --color-light: #ccc;
+  --color-medium: #aaa;
+  --color-dark: #777;
+  --color-xdark: #555;
   --link-color: #ab8b8b;
   --link-color-hover: #a86363;
   --popup-background: #444;
@@ -40,6 +47,11 @@
   /*
     * Font size
     * ======================================================================== */
-  --font-size-site-title: 2.5em;
-  --font-size-nav: 1.5em;
+  --font-size-title: 2.5em;
+  --font-size-current: 0.9em;
+  --font-size-mobile: 0.8em;
+  --font-size-nav-sm: 1em;
+  --font-size-nav: 1.4em;
+  --font-size-header-sm-mobile: 1.3em;
+  --font-size-header-md-mobile: 1.8em;
 }

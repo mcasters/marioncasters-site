@@ -37,6 +37,7 @@ class Navigation extends React.Component {
       return (
         <BurgerMenu
           isOpen={this.state.isMenuOpen}
+          width={280}
           onStateChange={state => this.handleStateChange(state)}
         >
           <Link to="/presentation" onClick={this.closeMenu}>
@@ -63,6 +64,7 @@ class Navigation extends React.Component {
               alt="Signature de Marion Casters"
             />
           </Link>
+          <p className={s.title}>Marion Casters</p>
         </BurgerMenu>
       );
     }
