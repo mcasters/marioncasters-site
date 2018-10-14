@@ -1,12 +1,19 @@
+/* eslint-disable no-param-reassign */
+
 import bcrypt from 'bcrypt';
 
 import { User } from '../../models/index';
 
 export const types = [
   `
-  input UserInput {
+  input SignupInput {
     username: String!
     email: String!
+    password: String!
+  }
+  
+  input LoginInput {
+    username: String!
     password: String!
   }
   
@@ -20,36 +27,35 @@ export const types = [
 export const mutations = [
   `
   signup(
-    username: String!
-    email: String!
-    password: String!
+    input: SignupInput!
   ): Boolean
   
   login(
-    username: String!
-    password: String!
+    input: LoginInput!
   ): Boolean
+  
+  logout: Boolean
 `,
 ];
 
 export const resolvers = {
   Mutation: {
-    signup: async (parent, { username, email, password }) => {
+    signup: async (parent, { input }) => {
       const lookupUser = await User.findOne({
-        where: { username },
+        where: { username: input.username },
       });
 
       if (lookupUser) {
         throw new Error('Utilisateur déjà existant');
       }
       await bcrypt.genSalt(10, (saltErr, salt) => {
-        bcrypt.hash(password, salt, (hashErr, hashedPassword) => {
+        bcrypt.hash(input.password, salt, (hashErr, hashedPassword) => {
           if (saltErr || hashErr) {
             throw new Error('Erreur de hashing du mot de passe');
           }
           User.create({
-            username,
-            email,
+            username: input.username,
+            email: input.email,
             password: hashedPassword,
           });
         });
@@ -57,21 +63,26 @@ export const resolvers = {
       return true;
     },
 
-    login: async (parent, { username, password }, { req }) => {
+    login: async (parent, { input }, context) => {
       const dbUser = await User.findOne({
-        where: { username },
+        where: { username: input.username },
       });
       if (!dbUser) {
+        context.req.session.isAdmin = false;
         throw new Error('Username invalide');
       }
-      const match = bcrypt.compare(password, dbUser.password);
-
+      const match = await bcrypt.compare(input.password, dbUser.password);
       if (match) {
-        req.session.isAdmin = dbUser.isAdmin;
+        context.req.session.isAdmin = true;
         return true;
       }
-      req.session.isAdmin = false;
+      context.req.session.isAdmin = false;
       throw new Error('Mot de passe invalide');
+    },
+
+    logout: async (parent, __, context) => {
+      await context.req.session.destroy();
+      return true;
     },
   },
 };

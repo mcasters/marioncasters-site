@@ -1,16 +1,10 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+
 import s from './Admin.css';
+import AddItem from '../../components/AddItem';
+import ITEM_CONSTANTS from '../../constants/itemConstants';
 
 class Admin extends React.Component {
   static propTypes = {
@@ -22,7 +16,9 @@ class Admin extends React.Component {
       <div className={s.root}>
         <div className={s.container}>
           <h1>{this.props.title}</h1>
-          <p>...</p>
+          <AddItem type={ITEM_CONSTANTS.TYPE.PAINTING} />
+          <AddItem type={ITEM_CONSTANTS.TYPE.SCULPTURE} />
+          <AddItem type={ITEM_CONSTANTS.TYPE.DRAWING} />
         </div>
       </div>
     );

@@ -1,0 +1,87 @@
+@import '../variables.css';
+
+article {
+  padding: 2em 0;
+}
+
+.imageButton {
+  padding: 0 8%;
+  border: none;
+}
+
+.sculptureButton {
+  padding: 10px;
+  border: none;
+  display: inline-block;
+  width: 50%;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 39vh;
+}
+
+.sculptureImage {
+  max-width: 100%;
+}
+
+.description {
+  font-size: var(--font-size-mobile);
+}
+
+span {
+  display: block;
+}
+
+.spacer {
+  display: none;
+}
+
+.noWrap {
+  white-space: pre;
+}
+
+@media (--xs) {
+  span,
+  .spacer {
+    display: initial;
+  }
+}
+
+@media (--md) {
+  article {
+    padding: 4em 0;
+  }
+
+  button {
+    padding: 0 10%;
+  }
+
+  .image {
+    max-height: 35vh;
+  }
+
+  .description {
+    font-size: var(--font-size-current);
+  }
+
+  .spacer {
+    padding: 0 15px;
+  }
+}
+
+@media (--lg) {
+  article {
+    padding: 7em 0;
+  }
+
+  .image {
+    max-height: 60vh;
+  }
+}
+
+@media (--xlg) {
+  .image {
+    max-height: 55vh;
+  }
+}

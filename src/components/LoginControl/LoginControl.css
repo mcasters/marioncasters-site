@@ -1,0 +1,17 @@
+.loginLink {
+  padding: 2px 5px;
+  font-size: 1em;
+  color: var(--link-color);
+  display: inline-block;
+  background: none;
+  border: none;
+  width: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  transition: color 0.5s;
+
+  &:hover {
+    color: var(--font-color-light);
+    transition: color 0.5s;
+  }
+}

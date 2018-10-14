@@ -1,23 +1,74 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 @import '../variables.css';
 
-.root {
-  position: absolute;
+.container {
+  position: fixed;
+  padding: 1em 0;
+  text-align: right;
   z-index: 1;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: all 2s ease;
 }
 
 .container h1 {
-  font-weight: lighter;
-  letter-spacing: 0.9em;
-  padding: 0 1.5em;
-  color: var(--font-color-light);
+  font-size: var(--font-size-header-sm-mobile);
+  color: var(--color-light);
+  padding-left: 6.5em;
+  letter-spacing: 1em;
+  font-weight: bold;
+  transition: all 2s ease;
 }
 
+.sticky {
+  background: transparent;
+  transform-origin: top;
+  transform: scale(1.2, 0.8);
+  transition: all 2s ease;
+}
+
+.sticky h1 {
+  opacity: 0;
+}
+
+@media (--xs) {
+  .container {
+    padding: 1.2em 0;
+  }
+
+  .container h1 {
+    font-size: var(--font-size-header-md-mobile);
+  }
+}
+
+@media (--sm) {
+  .container {
+    padding: 0 6.5em;
+    text-align: left;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+    z-index: 1;
+    transition: all 2s ease;
+  }
+
+  .container h1 {
+    padding-left: unset;
+    font-size: var(--font-size-title);
+    letter-spacing: 1em;
+    font-weight: lighter;
+    transition: all 2s ease;
+    opacity: 1;
+  }
+
+  .sticky {
+    position: fixed;
+    padding: 0.5em 5.5em;
+    width: 80%;
+    background: transparent;
+    transform-origin: left;
+    transform: scale(0.7, 0.7);
+    transition: all 2s ease;
+  }
+
+  .sticky h1 {
+    transition: all 2s ease;
+  }
+}

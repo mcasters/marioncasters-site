@@ -1,26 +1,63 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
+@import '../variables.css';
 
-.root {
-  height: 370px;
+.nav {
+  position: fixed;
+  margin: 8em 0 0 4em;
+  box-sizing: border-box;
+  vertical-align: top;
+  z-index: 0;
+}
+
+.container {
+  height: 880px;
+  background-image: linear-gradient(var(--color-xxlight), var(--color-xlight));
+  color: #fff;
+  padding: 2em 0 2em;
+  width: 7px;
+  text-align: center;
 }
 
 .link {
   float: left;
-  display: block;
   padding: 1.5em;
-  font-size: 1.125em; /* ~18px */
-  transition: letter-spacing 1s ease, border-left 1s ease;
+  font-weight: 400;
+  font-size: var(--font-size-nav);
+  transition: all 1.2s ease;
 }
 
 .link:hover {
-  border-left: 5px solid;
-  letter-spacing: 4px;
-  transition: letter-spacing 0.8s ease, border-left 1s ease;
+  border-left: 1px solid;
+  letter-spacing: 0.4em;
+  transform: scale(1.2, 0.9);
+  transform-origin: left;
+  transition: all 1.2s ease;
+}
+
+.linkHome {
+  vertical-align: bottom;
+  display: inline-block;
+  padding: 4em 2em 1.5em;
+  transition: all 1.2s ease;
+}
+
+.linkHome:hover {
+  transform: scale(1.2, 1.2);
+  transition: all 1.2s ease;
+}
+
+.home {
+  vertical-align: bottom;
+}
+
+/* Mobile nav adds */
+.title {
+  position: absolute;
+  bottom: 1em;
+  left: 5.5em;
+  font-size: 0.6em;
+  letter-spacing: 0.7em;
+}
+
+a:last-of-type {
+  margin-top: 2em;
 }

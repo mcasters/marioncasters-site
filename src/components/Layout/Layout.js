@@ -1,28 +1,38 @@
+/* eslint-disable css-modules/no-unused-class */
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
+
+import styleModal from '../../../modules_modifications/style-modal.css';
+import styleBurgerMenu from '../../../modules_modifications/style-burgerMenu.css';
 import s from './Layout.css';
 import Header from '../Header';
-import Brand from '../Brand';
 import Feedback from '../Feedback';
 import Footer from '../Footer';
+import Navigation from '../Navigation';
+import LAYOUT_CONSTANTS from '../../constants/layoutConstants';
+import withViewport from '../WithViewport';
 
 class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    viewport: PropTypes.shape({
+      width: PropTypes.number.isRequired,
+      heigth: PropTypes.number.isRequired,
+    }).isRequired,
   };
+
+  getIsMobile = () =>
+    this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.SM;
 
   render() {
     return (
       <div>
         <Header />
-        <Brand />
-        <div id="admin" className={s.content}>
-          {this.props.children}
-        </div>
+        <Navigation isMobile={this.getIsMobile()} />
+        <main>{this.props.children}</main>
         <Feedback />
         <Footer />
       </div>
@@ -30,4 +40,6 @@ class Layout extends React.Component {
   }
 }
 
-export default withStyles(normalizeCss, s)(Layout);
+export default withStyles(normalizeCss, styleModal, styleBurgerMenu, s)(
+  withViewport(Layout),
+);

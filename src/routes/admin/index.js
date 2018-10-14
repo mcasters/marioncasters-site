@@ -1,20 +1,16 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
+
 import Layout from '../../components/Layout';
 import Admin from './Admin';
+import query from './adminStatusQuery.graphql';
 
-const title = 'Admin Page';
-const isAdmin = false;
+const title = 'Administration';
 
-function action() {
+function action({ client }) {
+  const { adminStatus } = client.readQuery({
+    query,
+  });
+  const isAdmin = adminStatus.isConnected;
   if (!isAdmin) {
     return { redirect: '/login' };
   }
