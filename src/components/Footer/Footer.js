@@ -4,13 +4,14 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Footer.css';
 import Link from '../Link';
 import LoginControl from '../LoginControl';
+import GLOBAL_CONSTANTS from '../../constants/globalConstants';
 
 class Footer extends React.Component {
   render() {
     return (
       <footer>
         <div className={s.container}>
-          <span className={s.text}>© Marion Casters 2018</span>
+          <span className={s.text}>{GLOBAL_CONSTANTS.COPYRIGHT}</span>
           <span>·</span>
           <Link className={s.link} to="/">
             Home
@@ -20,10 +21,6 @@ class Footer extends React.Component {
           <span>·</span>
           <Link className={s.link} to="/privacy">
             Privacy
-          </Link>
-          <span>·</span>
-          <Link className={s.link} to="/not-found">
-            Not Found
           </Link>
         </div>
       </footer>

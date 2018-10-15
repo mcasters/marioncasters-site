@@ -6,7 +6,7 @@ import about from './about.md';
 function action() {
   return {
     chunks: ['about'],
-    title: about.title,
+    title: 'Présentation',
     component: (
       <Layout>
         <Page {...about} />

@@ -1,3 +1,6 @@
+.loading {
+  height: available;
+}
 
 button {
   background-color: unset;

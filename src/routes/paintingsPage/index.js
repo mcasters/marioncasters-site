@@ -17,6 +17,10 @@ async function action() {
   );
 
   return {
+    title: 'Peintures',
+    description:
+      'Images et descriptions des peintures de femmes et de chevaux de Marion Casters',
+    chunks: ['paintings'],
     component: (
       <Layout>
         <PaintingsPage

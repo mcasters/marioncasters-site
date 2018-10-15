@@ -1,7 +1,8 @@
+@import '../variables.css';
 
 aside {
-  background: #f5f5f5;
-  color: #333;
+  z-index: 1;
+  background: var(--color-xxlight);
 }
 
 .container {
@@ -12,21 +13,19 @@ aside {
   font-size: 1.5em; /* ~24px */
 }
 
-.link,
-.link:active,
-.link:hover,
-.link:visited {
-  color: #333;
-  text-decoration: none;
-  transition: all 1.2s ease;
+.nodejsLogo,
+.reactLogo,
+.graphqlLogo,
+.appleLogo {
+  max-height: 29px;
+  padding: 0 0.6em;
 }
 
-.link:hover {
-  text-decoration: underline;
-  transition: all 1.2s ease;
+.reactLogo {
+  max-height: 20px;
 }
 
-.spacer {
-  padding-right: 15px;
-  padding-left: 15px;
+.appleLogo {
+  max-height: 25px;
 }
+

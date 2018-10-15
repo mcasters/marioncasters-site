@@ -17,6 +17,10 @@ async function action() {
   );
 
   return {
+    title: 'Sculptures',
+    description:
+      'Images et descriptions des sculptures de femmes de Marion Casters',
+    chunks: ['drawings'],
     component: (
       <Layout>
         <SculpturesPage

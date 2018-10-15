@@ -9,7 +9,7 @@
 }
 
 .container {
-  height: 880px;
+  height: 600px;
   background-image: linear-gradient(var(--color-xxlight), var(--color-xlight));
   color: #fff;
   padding: 2em 0 2em;

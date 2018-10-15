@@ -32,7 +32,7 @@ class SculpturesPage extends React.Component {
         ssr
       >
         {({ loading, data }) => {
-          if (loading) return <div>Chargement...</div>;
+          if (loading) return <div className={s.loading}>Chargement...</div>;
 
           const sculptures = data.getAllSculptures;
 
