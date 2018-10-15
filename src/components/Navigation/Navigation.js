@@ -59,8 +59,6 @@ class Navigation extends React.Component {
             <img
               src={logoUrl}
               srcSet={`${logoUrl2x} 2x`}
-              width="38"
-              height="38"
               alt="Signature de Marion Casters"
             />
           </Link>
@@ -90,8 +88,6 @@ class Navigation extends React.Component {
             <img
               src={logoUrl}
               srcSet={`${logoUrl2x} 2x`}
-              width="38"
-              height="38"
               alt="Signature de Marion Casters"
             />
           </Link>

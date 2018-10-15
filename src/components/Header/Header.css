@@ -7,7 +7,7 @@
   z-index: 1;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
-  transition: all 2s ease;
+  transition: all 3s ease;
 }
 
 .container h1 {
@@ -16,14 +16,12 @@
   padding-left: 6.5em;
   letter-spacing: 1em;
   font-weight: bold;
-  transition: all 2s ease;
 }
 
 .sticky {
   background: transparent;
   transform-origin: top;
   transform: scale(1.2, 0.8);
-  transition: all 2s ease;
 }
 
 .sticky h1 {

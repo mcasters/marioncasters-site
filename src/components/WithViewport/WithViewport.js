@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
+
 import {
   getWindowHeight,
   getWindowWidth,
@@ -8,9 +8,7 @@ import {
 function withViewport(ComposedComponent) {
   return class WithViewport extends Component {
     state = {
-      viewport: canUseDOM
-        ? { width: getWindowWidth(), height: getWindowHeight() }
-        : { width: 1366, height: 768 }, // Default size for server-side rendering
+      viewport: { width: getWindowWidth(), height: getWindowHeight() },
     };
 
     componentDidMount() {
