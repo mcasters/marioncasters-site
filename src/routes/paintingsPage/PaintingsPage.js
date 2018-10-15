@@ -29,7 +29,7 @@ class PaintingsPage extends React.Component {
         ssr
       >
         {({ loading, data }) => {
-          if (loading) return <div>Chargements...</div>;
+          if (loading) return <div className={s.loading}>Chargements...</div>;
 
           const paintings = data.getAllPaintings;
 

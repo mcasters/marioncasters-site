@@ -61,7 +61,7 @@ const routes = {
     const route = await next();
 
     // Provide default values for title, description etc.
-    route.title = `${route.title || 'Untitled Page'} - Marion Casters Artiste`;
+    route.title = `${route.title || 'Page sans titre'} - Marion Casters`;
     route.description = route.description || '';
     route.keywords = META_CONSTANTS.KEYWORDS;
 

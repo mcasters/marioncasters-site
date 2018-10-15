@@ -4,7 +4,7 @@ import Layout from '../../components/Layout';
 
 async function action() {
   return {
-    title: 'Bienvenu',
+    title: 'Bienvenue',
     description: 'Présentation des oeuvres de Marion Casters',
     chunks: ['home'],
     component: (

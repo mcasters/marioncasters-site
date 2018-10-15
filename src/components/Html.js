@@ -8,7 +8,8 @@ import config from '../config';
 class Html extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    keywords: PropTypes.string.isRequired,
     styles: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
@@ -21,12 +22,21 @@ class Html extends React.Component {
   };
 
   static defaultProps = {
+    description: '',
     styles: [],
     scripts: [],
   };
 
   render() {
-    const { title, description, styles, scripts, app, children } = this.props;
+    const {
+      title,
+      description,
+      keywords,
+      styles,
+      scripts,
+      app,
+      children,
+    } = this.props;
     return (
       <html className="no-js" lang="en">
         <head>
@@ -34,6 +44,7 @@ class Html extends React.Component {
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
           <title>{title}</title>
           <meta name="description" content={description} />
+          <meta name="keywords" content={keywords} />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           {scripts.map(script => (
             <link key={script} rel="preload" href={script} as="script" />

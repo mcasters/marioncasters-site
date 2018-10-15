@@ -3,7 +3,6 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Feedback.css';
 import Link from '../Link';
-import githubLogo from './githubTransparent.png';
 import graphqlLogo from './graphqlTransparent.png';
 import nodejsLogo from './nodeJSTransparent.png';
 import reactLogo from './reactTransparent.png';
@@ -22,9 +21,6 @@ class Feedback extends React.Component {
           </Link>
           <Link to="https://graphql.org">
             <img src={graphqlLogo} className={s.graphqlLogo} alt="GraphQL" />
-          </Link>
-          <Link to="https://github.com">
-            <img src={githubLogo} className={s.githubLogo} alt="GitHub" />
           </Link>
           <Link to="https://www.apple.com">
             <img src={appleLogo} className={s.appleLogo} alt="Apple" />

@@ -5,8 +5,9 @@ import contact from './contact.md';
 
 function action() {
   return {
+    title: 'Contactez moi',
+    description: 'Obtenir des renseignements sur les oeuvres de Marion Casters',
     chunks: ['contact'],
-    title: contact.title,
     component: (
       <Layout>
         <Page {...contact} />

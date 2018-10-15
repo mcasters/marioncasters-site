@@ -16,17 +16,16 @@ aside {
 .nodejsLogo,
 .reactLogo,
 .graphqlLogo,
-.githubLogo {
-  max-height: 30px;
-  padding: 0 1em;
+.appleLogo {
+  max-height: 29px;
+  padding: 0 0.6em;
 }
 
 .reactLogo {
-  max-height: 22px;
+  max-height: 20px;
 }
 
 .appleLogo {
-  padding: 0 1.5em;
-  max-height: 27px;
+  max-height: 25px;
 }
 
