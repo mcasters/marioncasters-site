@@ -7,6 +7,7 @@ import normalizeCss from 'normalize.css';
 
 import styleModal from '../../../modules_modifications/style-modal.css';
 import styleBurgerMenu from '../../../modules_modifications/style-burgerMenu.css';
+import styleTabs from '../../../modules_modifications/style-tabs.css';
 import s from './Layout.css';
 import Header from '../Header';
 import Feedback from '../Feedback';
@@ -20,7 +21,6 @@ class Layout extends React.Component {
     children: PropTypes.node.isRequired,
     viewport: PropTypes.shape({
       width: PropTypes.number.isRequired,
-      heigth: PropTypes.number.isRequired,
     }).isRequired,
   };
 
@@ -40,6 +40,10 @@ class Layout extends React.Component {
   }
 }
 
-export default withStyles(normalizeCss, styleModal, styleBurgerMenu, s)(
-  withViewport(Layout),
-);
+export default withStyles(
+  normalizeCss,
+  styleModal,
+  styleBurgerMenu,
+  styleTabs,
+  s,
+)(withViewport(Layout));

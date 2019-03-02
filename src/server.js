@@ -1,3 +1,4 @@
+import {} from 'dotenv/config';
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -20,7 +21,7 @@ import createApolloClient from './apollo/createApolloClient';
 import { initialState } from './apollo/state/adminState';
 import models from './data/models';
 import schema from './data/schema';
-import upload from './imageUpload';
+import { upload, getAllImages } from './imageServices';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
 import config from './config';
@@ -50,6 +51,10 @@ app.set('trust proxy', config.trustProxy);
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
 app.use(express.static(path.resolve(__dirname, 'public')));
+// app.use(
+//   '/api/images',
+//   express.static(path.resolve(__dirname, config.photosPath)),
+// );
 // app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -75,25 +80,6 @@ app.use(
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
-/*
-app.use(
- /*
-  '/graphql',
-  (req, _, next) => {
-    console.info(req.session);
-    console.info(`The app is running at: ${config.api.clientUrl}`);
-    return next();
-  },
-  expressGraphQL(req => ({
-    schema,
-    graphiql: __DEV__,
-    rootValue: { request: req },
-    context: { req },
-    pretty: __DEV__,
-  })),
-);
-*/
-
 const server = new ApolloServer({
   ...schema,
   context: ({ req }) => ({ req }),
@@ -186,7 +172,17 @@ app.get('*', async (req, res, next) => {
 });
 
 //
-// Handling files Upload to the server
+// Get images from the server
+// -----------------------------------------------------------------------------
+app.get('api/images/drawing', (req, res) => {
+  const images = getAllImages(`${config.photosPath}/drawing`);
+  res.send({
+    images,
+  });
+});
+
+//
+// Handling images upload to the server
 // -----------------------------------------------------------------------------
 app.post('/uploadImage', upload.single('file'), (req, res) => {
   if (!req.body.file) {

@@ -13,20 +13,16 @@ async function action() {
   }
 
   const allImages = importAllImages(
-    require.context('./../../../photoLibrary/sculpture', false, /\.jpe?g$/),
+    require.context('./../../../../photo-files/sculpture', false, /\.jpe?g$/),
   );
+  const title = ITEM_CONSTANTS.TITLE.SCULPTURE;
 
   return {
-    title: 'Sculptures',
-    description:
-      'Images et descriptions des sculptures de femmes de Marion Casters',
+    description: ITEM_CONSTANTS.META_DESCRIPTION.SCULPTURE,
     chunks: ['drawings'],
     component: (
       <Layout>
-        <SculpturesPage
-          title={ITEM_CONSTANTS.TITLE.SCULPTURE}
-          imagesList={allImages}
-        />
+        <SculpturesPage title={title} imagesList={allImages} />
       </Layout>
     ),
   };

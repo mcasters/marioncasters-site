@@ -1,0 +1,10 @@
+query getPaintingsByYear($year: Int!) {
+  getPaintingsByYear(year: $year) {
+    title
+    date
+    technique
+    description
+    height
+    width
+  }
+}

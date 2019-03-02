@@ -27,22 +27,23 @@ class AddItem extends React.Component {
     this.state = this.getInitialState();
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleDayChange = this.handleDayChange.bind(this);
     this.getImage = this.getImage.bind(this);
     this.saveImage = this.saveImage.bind(this);
     this.getItem = this.getItem.bind(this);
     this.resetState = this.resetState.bind(this);
 
-    if (this.props.type === 'painting') {
+    if (this.props.type === ITEM_CONSTANTS.TYPE.PAINTING) {
       this.query = PAINTING_MUTATION;
-      this.title = 'Peintures';
+      this.title = ITEM_CONSTANTS.TITLE.PAINTING;
     }
-    if (this.props.type === 'sculpture') {
+    if (this.props.type === ITEM_CONSTANTS.TYPE.SCULPTURE) {
       this.query = SCULPTURE_MUTATION;
-      this.title = 'Scultpures';
+      this.title = ITEM_CONSTANTS.TITLE.SCULPTURE;
     }
-    if (this.props.type === 'drawing') {
+    if (this.props.type === ITEM_CONSTANTS.TYPE.DRAWING) {
       this.query = DRAWING_MUTATION;
-      this.title = 'Dessins';
+      this.title = ITEM_CONSTANTS.TITLE.DRAWING;
     }
   }
 
@@ -54,7 +55,6 @@ class AddItem extends React.Component {
     length: '',
     height: '',
     width: '',
-    imagePreviewUrl: '',
     imagePreviewUrls: ['', '', '', ''],
     files: ['', '', '', ''],
   });
@@ -127,12 +127,17 @@ class AddItem extends React.Component {
     this.setState({ [name]: value });
   }
 
+  handleDayChange(selectedDay) {
+    this.setState({ date: selectedDay });
+  }
+
   resetState = () => {
     this.setState(this.getInitialState());
   };
 
   render() {
     const imagePreviewUrls = this.state.imagePreviewUrls;
+    const date = this.state.date;
 
     const haveMain =
       this.state.title &&
@@ -168,11 +173,10 @@ class AddItem extends React.Component {
               />
               <div className={s.DayInputContainer}>
                 <DayPickerInput
-                  selectedDays={this.state.date}
-                  onDayChange={e => {
-                    this.setState({
-                      date: e.toLocaleDateString(),
-                    });
+                  value={date}
+                  onDayChange={this.handleDayChange}
+                  dayPickerProps={{
+                    date,
                   }}
                   formatDate={format}
                   format={ITEM_CONSTANTS.FORMAT_DATE}
@@ -244,6 +248,7 @@ class AddItem extends React.Component {
                 imagePreviewUrl =>
                   imagePreviewUrl !== '' && (
                     <img
+                      key={imagePreviewUrl.toString()}
                       src={imagePreviewUrl}
                       alt="Sculpture de Marion Casters"
                       className={s.imagePreview}

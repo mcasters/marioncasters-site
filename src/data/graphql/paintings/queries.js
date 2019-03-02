@@ -1,3 +1,4 @@
+import { Sequelize } from 'sequelize';
 import { Painting } from '../../models/index';
 
 export const types = [
@@ -17,7 +18,11 @@ export const types = [
 export const queries = [
   `
   getAllPaintings: [DatabasePainting]
-
+  
+  getPaintingsByYear(
+    year: Int!
+  ): [DatabasePainting]
+  
   getPainting(
      title: String!
   ): DatabasePainting
@@ -32,6 +37,19 @@ export const resolvers = {
     async getPainting(parent, title) {
       return Painting.findOne({
         where: { title },
+      });
+    },
+    async getPaintingsByYear(parent, { year }) {
+      const start = new Date(year, 0, 1);
+      const end = new Date(year, 11, 31);
+      return Painting.findAll({
+        where: {
+          date: {
+            gte: start,
+            lte: end,
+          },
+        },
+        order: Sequelize.col('date'),
       });
     },
   },

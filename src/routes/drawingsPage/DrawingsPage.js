@@ -31,16 +31,16 @@ class DrawingsPage extends React.Component {
         {({ loading, data }) => {
           if (loading) return <div className={s.loading}>Chargement...</div>;
 
-          const paintings = data.getAllDrawings;
+          const drawings = data.getAllDrawings;
 
           return (
             <div>
               <h1>{this.props.title}</h1>
-              {paintings.map(painting => (
+              {drawings.map(drawing => (
                 <Item
-                  key={painting.title}
-                  item={painting}
-                  srcList={this.getImagesForItem(painting.title)}
+                  key={drawing.title}
+                  item={drawing}
+                  srcList={this.getImagesForItem(drawing.title)}
                   itemType={ITEM_CONSTANTS.TYPE.DRAWING}
                 />
               ))}

@@ -11,22 +11,17 @@ async function action() {
     });
     return images;
   }
-
   const allImages = importAllImages(
-    require.context('./../../../photoLibrary/painting', false, /\.jpe?g$/),
+    require.context('./../../../../photo-files/painting', false, /\.jpe?g$/),
   );
+  const title = ITEM_CONSTANTS.TITLE.PAINTING;
 
   return {
-    title: 'Peintures',
-    description:
-      'Images et descriptions des peintures de femmes et de chevaux de Marion Casters',
+    description: ITEM_CONSTANTS.META_DESCRIPTION.PAINTING,
     chunks: ['paintings'],
     component: (
       <Layout>
-        <PaintingsPage
-          title={ITEM_CONSTANTS.TITLE.PAINTING}
-          imagesList={allImages}
-        />
+        <PaintingsPage title={title} imagesList={allImages} />
       </Layout>
     ),
   };

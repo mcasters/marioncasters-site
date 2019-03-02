@@ -4,7 +4,9 @@ import webpack from 'webpack';
 import WebpackAssetsManifest from 'webpack-assets-manifest';
 import nodeExternals from 'webpack-node-externals';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import Dotenv from 'dotenv-webpack';
 import overrideRules from './lib/overrideRules';
+
 import pkg from '../package.json';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
@@ -111,9 +113,12 @@ const config = {
 
             // Stage 3
             '@babel/plugin-syntax-dynamic-import',
+            ['@babel/plugin-proposal-class-properties', { loose: false }],
+
+            /* '@babel/plugin-syntax-dynamic-import',
             '@babel/plugin-syntax-import-meta',
             ['@babel/plugin-proposal-class-properties', { loose: false }],
-            '@babel/plugin-proposal-json-strings',
+            '@babel/plugin-proposal-json-strings', */
             // Treat React JSX elements as value types and hoist them to the highest scope
             // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-constant-elements
             ...(isDebug ? [] : ['@babel/transform-react-constant-elements']),
@@ -331,9 +336,20 @@ const clientConfig = {
     // Define free variables
     // https://webpack.js.org/plugins/define-plugin/
     new webpack.DefinePlugin({
-      'process.env.BROWSER': true,
+      'typeof window': JSON.stringify('object'),
+      'process.env.BROWSER': JSON.stringify(true),
       __DEV__: isDebug,
     }),
+
+    new Dotenv({
+      path: './../.env',
+      // safe: true,
+    }),
+
+    new webpack.ContextReplacementPlugin(
+      /\.\/\.\.\/\.\.\/\.\.\/\.\.\/photoLibrary\/painting/,
+      /^.*\.jpe?g$/,
+    ),
 
     // Emit a file with assets paths
     // https://github.com/webdeveric/webpack-assets-manifest#options
@@ -495,7 +511,7 @@ const serverConfig = {
     // Define free variables
     // https://webpack.js.org/plugins/define-plugin/
     new webpack.DefinePlugin({
-      'process.env.BROWSER': false,
+      'process.env.BROWSER': JSON.stringify(false),
       __DEV__: isDebug,
     }),
 

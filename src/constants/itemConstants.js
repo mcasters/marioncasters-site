@@ -15,10 +15,13 @@ const ITEM_CONSTANTS = {
   ALT_IMAGE_SCULPTURE: 'Sculpture de Marion Casters',
   ALT_IMAGE_DRAWING: 'Dessin de Marion Casters',
 
-  FORMAT_DATE: 'DD/MM/YYYY',
+  META_DESCRIPTION: {
+    PAINTING: 'Images et descriptions des peintures de Marion Casters',
+    SCULPTURE: 'Images et descriptions des sculptures de Marion Casters',
+    DRAWING: 'Images et descriptions des dessins de Marion Casters',
+  },
 
-  LIGHTBOX_PADDING: 100,
-  LIGHTBOX_MOBILE_PADDING: 10,
+  FORMAT_DATE: 'DD/MM/YYYY',
 };
 
 export default ITEM_CONSTANTS;

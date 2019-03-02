@@ -37,3 +37,6 @@ export const SOURCE_POINTER = 3;
 
 // Minimal swipe distance
 export const MIN_SWIPE_DISTANCE = 200;
+
+export const LIGHTBOX_PADDING = 100;
+export const LIGHTBOX_MOBILE_PADDING = 10;
