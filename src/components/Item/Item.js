@@ -7,6 +7,10 @@ import Modal from 'react-modal';
 import Lightbox from '../Lightbox';
 import s from './Item.css';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
+import {
+  LIGHTBOX_PADDING,
+  LIGHTBOX_MOBILE_PADDING,
+} from '../../constants/lightboxConstants';
 import LAYOUT_CONSTANTS from '../../constants/layoutConstants';
 
 Modal.setAppElement('#app');
@@ -97,8 +101,8 @@ class Item extends React.Component {
                 }
                 imageTitle={`Marion Casters | ${item.title}`}
                 mobileSizeBreakpoint={LAYOUT_CONSTANTS.BREAKPOINT.MD}
-                imagePadding={ITEM_CONSTANTS.LIGHTBOX_PADDING}
-                imageMobilePadding={ITEM_CONSTANTS.LIGHTBOX_MOBILE_PADDING}
+                imagePadding={LIGHTBOX_PADDING}
+                imageMobilePadding={LIGHTBOX_MOBILE_PADDING}
               />
             )}
         </article>
@@ -141,8 +145,8 @@ class Item extends React.Component {
               onCloseRequest={() => this.setState({ isOpen: false })}
               imageTitle={`Marion Casters | ${item.title}`}
               mobileSizeBreakpoint={LAYOUT_CONSTANTS.BREAKPOINT.MD}
-              imagePadding={ITEM_CONSTANTS.LIGHTBOX_PADDING}
-              imageMobilePadding={ITEM_CONSTANTS.LIGHTBOX_MOBILE_PADDING}
+              imagePadding={LIGHTBOX_PADDING}
+              imageMobilePadding={LIGHTBOX_MOBILE_PADDING}
             />
           )}
       </article>

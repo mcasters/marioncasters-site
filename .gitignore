@@ -28,5 +28,8 @@ yarn-error.log*
 # Misc
 .DS_Store
 
+# Environment variables /conf
+.env
+
 #Library
 photoLibrary/

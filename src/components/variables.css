@@ -48,11 +48,12 @@
   /*
     * Font size
     * ======================================================================== */
-  --font-size-title: 2.5em;
+  --font-size-title: 2em;
   --font-size-current: 0.9em;
   --font-size-mobile: 0.8em;
   --font-size-nav-sm: 1em;
-  --font-size-nav: 1.4em;
+  --font-size-nav: 1.2em;
   --font-size-header-sm-mobile: 1.3em;
   --font-size-header-md-mobile: 1.8em;
+  --font-size-number: 0.7em;
 }

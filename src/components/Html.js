@@ -46,11 +46,14 @@ class Html extends React.Component {
           <meta name="description" content={description} />
           <meta name="keywords" content={keywords} />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="theme-color" content="#777777" />
           {scripts.map(script => (
             <link key={script} rel="preload" href={script} as="script" />
           ))}
           <link rel="manifest" href="/site.webmanifest" />
-          <link rel="apple-touch-icon" href="/icon.png" />
+          <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
+          <link rel="icon" sizes="192x192" href="/icon-192.png" />
+          <link rel="icon" sizes="512x512" href="/icon-512.png" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Montserrat"
@@ -68,7 +71,9 @@ class Html extends React.Component {
           <script
             dangerouslySetInnerHTML={{ __html: `window.App=${serialize(app)}` }}
           />
-          {scripts.map(script => <script key={script} src={script} />)}
+          {scripts.map(script => (
+            <script key={script} src={script} />
+          ))}
           {config.analytics.googleTrackingId && (
             <script
               dangerouslySetInnerHTML={{

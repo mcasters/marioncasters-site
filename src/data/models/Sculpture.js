@@ -25,7 +25,7 @@ const Sculpture = Model.define(
     },
 
     date: {
-      type: DataType.STRING(10),
+      type: DataType.DATEONLY(10),
       allowNull: false,
       get() {
         return this.getDataValue('date');
