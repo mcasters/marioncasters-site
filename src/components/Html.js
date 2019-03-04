@@ -46,7 +46,7 @@ class Html extends React.Component {
           <meta name="description" content={description} />
           <meta name="keywords" content={keywords} />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <meta name="theme-color" content="#777777" />
+          <meta name="theme-color" content="#555555" />
           {scripts.map(script => (
             <link key={script} rel="preload" href={script} as="script" />
           ))}

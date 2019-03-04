@@ -22,15 +22,11 @@
   padding: 1.5em;
   font-weight: 400;
   font-size: var(--font-size-nav);
-  transition: all 1.2s ease;
 }
 
 .link:hover {
   border-left: 1px solid;
   letter-spacing: 0.4em;
-  transform: scale(1.2, 0.9);
-  transform-origin: left;
-  transition: all 1.2s ease;
 }
 
 .linkHome {
@@ -53,11 +49,22 @@
 .title {
   position: absolute;
   bottom: 1em;
-  left: 5.5em;
-  font-size: 0.6em;
+  font-size: 0.7em;
   letter-spacing: 0.7em;
 }
 
 a:last-of-type {
   margin-top: 2em;
+}
+
+@media (--sm) {
+  .link {
+    transition: all 1.2s ease;
+  }
+
+  .link:hover {
+    transform: scale(1.2, 0.9);
+    transform-origin: left;
+    transition: all 1.2s ease;
+  }
 }
