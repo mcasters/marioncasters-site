@@ -21,7 +21,7 @@ import createApolloClient from './apollo/createApolloClient';
 import { initialState } from './apollo/state/adminState';
 import models from './data/models';
 import schema from './data/schema';
-import { upload, getAllImages } from './imageServices';
+import { upload } from './imageServices';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
 import config from './config';
@@ -67,12 +67,12 @@ app.use(
   session({
     name: 'auth-token',
     secret: config.auth.jwt.secret,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 1000 * 60 * 60 * 24, // 1 days
+      maxAge: 1000 * 60 * 60 * 24 * 2, // 2 days
     },
   }),
 );
@@ -169,16 +169,6 @@ app.get('*', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
-
-//
-// Get images from the server
-// -----------------------------------------------------------------------------
-app.get('api/images/drawing', (req, res) => {
-  const images = getAllImages(`${config.photosPath}/drawing`);
-  res.send({
-    images,
-  });
 });
 
 //

@@ -10,13 +10,13 @@ import format from 'date-fns/format';
 import axios from 'axios';
 import path from 'path';
 
-import s from './AddItem.css';
+import s from './ItemAdd.css';
 import PAINTING_MUTATION from './addPaintingMutation.graphql';
 import SCULPTURE_MUTATION from './addSculptureMutation.graphql';
 import DRAWING_MUTATION from './addDrawingMutation.graphql';
-import ITEM_CONSTANTS from './../../constants/itemConstants';
+import ITEM_CONSTANTS from '../../../constants/itemConstants';
 
-class AddItem extends React.Component {
+class ItemAdd extends React.Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
   };
@@ -35,15 +35,12 @@ class AddItem extends React.Component {
 
     if (this.props.type === ITEM_CONSTANTS.TYPE.PAINTING) {
       this.query = PAINTING_MUTATION;
-      this.title = ITEM_CONSTANTS.TITLE.PAINTING;
     }
     if (this.props.type === ITEM_CONSTANTS.TYPE.SCULPTURE) {
       this.query = SCULPTURE_MUTATION;
-      this.title = ITEM_CONSTANTS.TITLE.SCULPTURE;
     }
     if (this.props.type === ITEM_CONSTANTS.TYPE.DRAWING) {
       this.query = DRAWING_MUTATION;
-      this.title = ITEM_CONSTANTS.TITLE.DRAWING;
     }
   }
 
@@ -136,6 +133,7 @@ class AddItem extends React.Component {
   };
 
   render() {
+    const title = 'Ajout';
     const imagePreviewUrls = this.state.imagePreviewUrls;
     const date = this.state.date;
 
@@ -153,8 +151,8 @@ class AddItem extends React.Component {
     return (
       <Mutation mutation={this.query} onCompleted={() => this.resetState()}>
         {mutation => (
-          <div>
-            <h1>{this.title}</h1>
+          <div className={s.addContainer}>
+            <h2>{title}</h2>
             <form
               className="formGroup"
               onSubmit={e => {
@@ -264,4 +262,4 @@ class AddItem extends React.Component {
   }
 }
 
-export default withStyles(s, dayPicker)(AddItem);
+export default withStyles(s, dayPicker)(ItemAdd);

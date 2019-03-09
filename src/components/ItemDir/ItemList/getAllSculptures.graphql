@@ -1,0 +1,12 @@
+query getAllSculptures {
+  getAllSculptures {
+    id
+    title
+    date
+    technique
+    description
+    length
+    height
+    width
+  }
+}

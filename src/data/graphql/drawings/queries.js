@@ -3,7 +3,7 @@ import { Drawing } from '../../models/index';
 export const types = [
   `
   type DatabaseDrawing {
-    id: String
+    id: ID!
     title: String
     date: String
     technique: String

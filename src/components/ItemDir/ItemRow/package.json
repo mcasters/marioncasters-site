@@ -1,6 +1,6 @@
 {
-  "name": "Item",
+  "name": "ItemRow",
   "version": "1.0.0",
   "private": true,
-  "main": "./Item.js"
+  "main": "ItemRow.js"
 }

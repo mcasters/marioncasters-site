@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import { Tab, TabList, Tabs, TabPanel } from 'react-tabs';
 
 import s from './PaintingsPage.css';
-import SelectItem from '../../components/SelectItem/SelectItem';
+import ItemTab from '../../components/ItemDir/ItemTab';
 
 class PaintingsPage extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    imagesList: PropTypes.object.isRequired,
+    allImages: PropTypes.object.isRequired,
   };
 
   render() {
@@ -27,13 +27,13 @@ class PaintingsPage extends React.Component {
             <Tab>{year3}</Tab>
           </TabList>
           <TabPanel>
-            <SelectItem year={year1} imagesList={this.props.imagesList} />
+            <ItemTab year={year1} allImages={this.props.allImages} />
           </TabPanel>
           <TabPanel>
-            <SelectItem year={year2} imagesList={this.props.imagesList} />
+            <ItemTab year={year2} allImages={this.props.allImages} />
           </TabPanel>
           <TabPanel>
-            <SelectItem year={year3} imagesList={this.props.imagesList} />
+            <ItemTab year={year3} allImages={this.props.allImages} />
           </TabPanel>
         </Tabs>
       </div>

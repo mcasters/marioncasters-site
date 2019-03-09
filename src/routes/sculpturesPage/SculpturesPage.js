@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 
-import Item from '../../components/Item';
+import Item from '../../components/ItemDir/Item';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
 import s from './SculpturesPage.css';
 import GET_SCULPTURES from './getSculpturesMutation.graphql';
@@ -12,13 +12,13 @@ import GET_SCULPTURES from './getSculpturesMutation.graphql';
 class SculpturesPage extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    imagesList: PropTypes.object.isRequired,
+    allImages: PropTypes.object.isRequired,
   };
 
   getImagesForItem = sculptureName => {
-    const regExp = new RegExp(`${sculptureName}*`);
+    const regExp = new RegExp(`${sculptureName}*.jpe?g`);
     const imagesForItem = [];
-    this.props.imagesList.forEach((value, key) => {
+    this.props.allImages.forEach((value, key) => {
       if (regExp.test(key)) imagesForItem.push(value);
     });
     return imagesForItem;
@@ -31,8 +31,9 @@ class SculpturesPage extends React.Component {
         query={GET_SCULPTURES}
         ssr
       >
-        {({ loading, data }) => {
+        {({ loading, error, data }) => {
           if (loading) return <div className={s.loading}>Chargement...</div>;
+          if (error) return <p>Erreur de chargement : {error}</p>;
 
           const sculptures = data.getAllSculptures;
 

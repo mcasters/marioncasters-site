@@ -19,6 +19,10 @@ export const mutations = [
   addSculpture (
     input: SculptureInput!
   ): DatabaseSculpture
+  
+  deleteSculpture(
+     id: ID!
+  ): Boolean
 `,
 ];
 
@@ -44,6 +48,12 @@ export const resolvers = {
         height: input.height,
         width: input.width,
       });
+    },
+    async deleteSculpture(root, { id }) {
+      await Sculpture.destroy({
+        where: { id },
+      });
+      return true;
     },
   },
 };

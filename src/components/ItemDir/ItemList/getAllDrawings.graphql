@@ -1,0 +1,11 @@
+query getAllDrawings {
+  getAllDrawings {
+    id
+    title
+    date
+    technique
+    description
+    height
+    width
+  }
+}

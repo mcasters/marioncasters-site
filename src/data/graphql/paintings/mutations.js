@@ -19,6 +19,10 @@ export const mutations = [
   addPainting (
     input: PaintingInput! 
   ): DatabasePainting
+  
+  deletePainting(
+     id: ID!
+  ): Boolean
 `,
 ];
 
@@ -42,6 +46,12 @@ export const resolvers = {
         height: input.height,
         width: input.width,
       });
+    },
+    async deletePainting(root, { id }) {
+      await Painting.destroy({
+        where: { id },
+      });
+      return true;
     },
   },
 };

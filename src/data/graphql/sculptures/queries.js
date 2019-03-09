@@ -3,7 +3,7 @@ import { Sculpture } from '../../models/index';
 export const types = [
   `
   type DatabaseSculpture {
-    id: String
+    id: ID!
     title: String
     date: String
     technique: String

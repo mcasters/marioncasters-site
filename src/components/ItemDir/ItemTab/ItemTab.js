@@ -2,20 +2,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
-import ITEM_CONSTANTS from '../../constants/itemConstants';
+import ITEM_CONSTANTS from '../../../constants/itemConstants';
 import GET_PAINTINGS from './getPaintingsByYear.graphql';
-import Item from '../Item';
+import Item from '../Item/Item';
+import s from './ItemTab.css';
 
-class SelectItem extends React.Component {
+class ItemTab extends React.Component {
   static propTypes = {
     year: PropTypes.number.isRequired,
-    imagesList: PropTypes.object.isRequired,
+    allImages: PropTypes.object.isRequired,
   };
 
-  getImagesForItem = paintingName => {
+  getImagesForItem = itemName => {
+    const regExp = new RegExp(`${itemName}*.jpe?g`);
     const imagesForItem = [];
-    imagesForItem.push(this.props.imagesList[`${paintingName}.jpg`]);
+    this.props.allImages.forEach((value, key) => {
+      if (regExp.test(key)) imagesForItem.push(value);
+    });
     return imagesForItem;
   };
 
@@ -31,8 +36,8 @@ class SelectItem extends React.Component {
         ssr
       >
         {({ loading, error, data }) => {
-          if (loading) return null;
-          if (error) return `Error!: ${error}`;
+          if (loading) return <div className={s.loading}>Chargement...</div>;
+          if (error) return <p>Erreur de chargement : {error}</p>;
           const paintings = data.getPaintingsByYear;
 
           return (
@@ -60,4 +65,4 @@ class SelectItem extends React.Component {
   }
 }
 
-export default SelectItem;
+export default withStyles(s)(ItemTab);

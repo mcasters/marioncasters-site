@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 
-import Item from '../../components/Item';
+import Item from '../../components/ItemDir/Item';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
 import s from './DrawingsPage.css';
 import GET_DRAWINGS from './getDrawingsMutation.graphql';
@@ -12,24 +12,24 @@ import GET_DRAWINGS from './getDrawingsMutation.graphql';
 class DrawingsPage extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    imagesList: PropTypes.object.isRequired,
+    allImages: PropTypes.object.isRequired,
   };
 
   getImagesForItem = drawingName => {
+    const regExp = new RegExp(`${drawingName}.jpe?g`);
     const imagesForItem = [];
-    imagesForItem.push(this.props.imagesList[`${drawingName}.jpg`]);
+    this.props.allImages.forEach((value, key) => {
+      if (regExp.test(key)) imagesForItem.push(value);
+    });
     return imagesForItem;
   };
 
   render() {
     return (
-      <Query
-        onError={() => <div>Erreur de chargement</div>}
-        query={GET_DRAWINGS}
-        ssr
-      >
-        {({ loading, data }) => {
+      <Query query={GET_DRAWINGS} ssr>
+        {({ loading, error, data }) => {
           if (loading) return <div className={s.loading}>Chargement...</div>;
+          if (error) return <p>Erreur de chargement : {error}</p>;
 
           const drawings = data.getAllDrawings;
 

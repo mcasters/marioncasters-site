@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Modal from 'react-modal';
 
-import Lightbox from '../Lightbox';
+import Lightbox from '../../Lightbox/Lightbox';
 import s from './Item.css';
-import ITEM_CONSTANTS from '../../constants/itemConstants';
+import ITEM_CONSTANTS from '../../../constants/itemConstants';
 import {
   LIGHTBOX_PADDING,
   LIGHTBOX_MOBILE_PADDING,
-} from '../../constants/lightboxConstants';
-import LAYOUT_CONSTANTS from '../../constants/layoutConstants';
+} from '../../../constants/lightboxConstants';
+import LAYOUT_CONSTANTS from '../../../constants/layoutConstants';
 
 Modal.setAppElement('#app');
 

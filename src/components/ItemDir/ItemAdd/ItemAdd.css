@@ -1,4 +1,8 @@
-@import './../../components/variables.css';
+@import '../../variables.css';
+
+.addContainer {
+  padding: 15px 0;
+}
 
 .imagePreview {
   width: 60%;

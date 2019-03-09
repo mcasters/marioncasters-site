@@ -1,0 +1,11 @@
+query getAllPaintings {
+  getAllPaintings {
+    id
+    title
+    date
+    technique
+    description
+    height
+    width
+  }
+}

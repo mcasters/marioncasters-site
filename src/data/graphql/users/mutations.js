@@ -16,11 +16,6 @@ export const types = [
     username: String!
     password: String!
   }
-  
-  type AuthPayload {
-    token: String!
-    refreshToken: String!
-  }
 `,
 ];
 

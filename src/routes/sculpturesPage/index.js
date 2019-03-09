@@ -22,7 +22,7 @@ async function action() {
     chunks: ['drawings'],
     component: (
       <Layout>
-        <SculpturesPage title={title} imagesList={allImages} />
+        <SculpturesPage title={title} allImages={allImages} />
       </Layout>
     ),
   };
