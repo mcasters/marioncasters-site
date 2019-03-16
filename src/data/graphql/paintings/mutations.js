@@ -1,5 +1,7 @@
 /* eslint-disable spaced-comment */
 import { Painting } from '../../models/index';
+import { deleteImage } from '../../../imageServices';
+import ITEM_CONSTANTS from '../../../constants/itemConstants';
 
 export const types = [
   `
@@ -35,7 +37,7 @@ export const resolvers = {
 
       if (lookupPainting) {
         // eslint-disable-next-line no-throw-literal
-        throw 'Painting already exists!';
+        throw 'Peinture déjà existante';
       }
 
       return Painting.create({
@@ -47,10 +49,29 @@ export const resolvers = {
         width: input.width,
       });
     },
+
     async deletePainting(root, { id }) {
-      await Painting.destroy({
+      let paintingToDelete;
+
+      await Painting.findOne({
         where: { id },
-      });
+      }).then(
+        painting => {
+          paintingToDelete = painting;
+          Painting.destroy({
+            where: { id: painting.id },
+          });
+        },
+        error => {
+          throw new Error(`Echec lors de la suppression en BDD : ${error}`);
+        },
+      );
+
+      try {
+        deleteImage(paintingToDelete.title, ITEM_CONSTANTS.TYPE.PAINTING);
+      } catch (err) {
+        throw new Error(`Echec de la suppression du fichier image : ${err}`);
+      }
       return true;
     },
   },

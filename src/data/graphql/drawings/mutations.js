@@ -1,5 +1,7 @@
 /* eslint-disable spaced-comment */
 import { Drawing } from '../../models/index';
+import { deleteImage } from '../../../imageServices';
+import ITEM_CONSTANTS from '../../../constants/itemConstants';
 
 export const types = [
   `
@@ -48,10 +50,28 @@ export const resolvers = {
         width: input.width,
       });
     },
+
     async deleteDrawing(root, { id }) {
-      await Drawing.destroy({
+      let drawingToDelete;
+      await Drawing.findOne({
         where: { id },
-      });
+      }).then(
+        drawing => {
+          drawingToDelete = drawing;
+          Drawing.destroy({
+            where: { id: drawing.id },
+          });
+        },
+        error => {
+          throw new Error(`Echec lors de la suppression en BDD : ${error}`);
+        },
+      );
+
+      try {
+        deleteImage(drawingToDelete.title, ITEM_CONSTANTS.TYPE.DRAWING);
+      } catch (err) {
+        throw new Error(`Echec de la suppression du fichier image : ${err}`);
+      }
       return true;
     },
   },

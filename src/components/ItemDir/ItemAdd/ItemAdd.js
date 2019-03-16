@@ -88,12 +88,20 @@ class ItemAdd extends React.Component {
 
   saveImage = () => {
     const title = this.state.title;
+    const newExtension = '.jpg';
+    let extension = null;
 
     if (this.isSculpture) {
       const files = this.state.files;
+
       let count = 1;
       files.forEach(file => {
-        const fileName = `${title}_${count}${path.extname(file.name)}`;
+        extension = path.extname(file.name);
+
+        if (extension !== '.jpeg' && extension !== '.jpg')
+          throw Error('Fichiers jpg ou jpeg seulement');
+
+        const fileName = `${title}_${count}${newExtension}`;
 
         const formData = new FormData();
 
@@ -105,7 +113,12 @@ class ItemAdd extends React.Component {
       });
     } else {
       const file = this.state.files[0];
-      const fileName = title + path.extname(file.name);
+      extension = path.extname(file.name);
+
+      if (extension !== '.jpeg' && extension !== '.jpg')
+        throw Error('Fichiers jpg ou jpeg seulement');
+
+      const fileName = title + newExtension;
 
       const formData = new FormData();
 

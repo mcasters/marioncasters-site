@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -16,7 +16,7 @@ class ItemTab extends React.Component {
   };
 
   getImagesForItem = itemName => {
-    const regExp = new RegExp(`${itemName}*.jpe?g`);
+    const regExp = new RegExp(`${itemName}*.jpg`);
     const imagesForItem = [];
     this.props.allImages.forEach((value, key) => {
       if (regExp.test(key)) imagesForItem.push(value);
@@ -41,7 +41,7 @@ class ItemTab extends React.Component {
           const paintings = data.getPaintingsByYear;
 
           return (
-            <div>
+            <Fragment>
               <h2>{year}</h2>
               {paintings.map(painting => {
                 const list = this.getImagesForItem(painting.title);
@@ -57,7 +57,7 @@ class ItemTab extends React.Component {
                 }
                 return null;
               })}
-            </div>
+            </Fragment>
           );
         }}
       </Query>

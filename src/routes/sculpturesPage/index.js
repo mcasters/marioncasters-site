@@ -13,7 +13,7 @@ async function action() {
   }
 
   const allImages = importAllImages(
-    require.context('./../../../../photo-files/sculpture', false, /\.jpe?g$/),
+    require.context('./../../../../photo-files/sculpture', false, /\.jpg$/),
   );
   const title = ITEM_CONSTANTS.TITLE.SCULPTURE;
 

@@ -1,7 +1,8 @@
 /* eslint-disable react/forbid-prop-types */
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
 import { Mutation } from 'react-apollo';
+import PropTypes from 'prop-types';
+import { FaTrash } from 'react-icons/fa';
 
 import ITEM_CONSTANTS from '../../../constants/itemConstants';
 import DELETE_PAINTING from './deletePainting.graphql';
@@ -34,17 +35,19 @@ class ItemDelete extends React.Component {
     return (
       <Mutation mutation={query} key={id}>
         {(mutation, { error }) => (
-          <div>
+          <Fragment>
             <form
               onSubmit={e => {
                 e.preventDefault();
                 mutation({ variables: { id } });
               }}
             >
-              <button type="submit">Supprimer</button>
+              <button type="submit">
+                <FaTrash />
+              </button>
             </form>
-            {error && <p>Erreur :(</p>}
-          </div>
+            {error && <p>Erreur : {error}</p>}
+          </Fragment>
         )}
       </Mutation>
     );

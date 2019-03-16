@@ -37,6 +37,8 @@ module.exports = {
       },
     ],
 
+    'no-plusplus': 'off',
+
     // Prefer destructuring from arrays and objects
     // http://eslint.org/docs/rules/prefer-destructuring
     'prefer-destructuring': [

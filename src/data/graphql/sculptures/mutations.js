@@ -1,4 +1,6 @@
 import { Sculpture } from '../../models/index';
+import { deleteImage } from '../../../imageServices';
+import ITEM_CONSTANTS from '../../../constants/itemConstants';
 
 export const types = [
   `
@@ -49,10 +51,28 @@ export const resolvers = {
         width: input.width,
       });
     },
+
     async deleteSculpture(root, { id }) {
-      await Sculpture.destroy({
+      let sculptureToDelete;
+      await Sculpture.findOne({
         where: { id },
-      });
+      }).then(
+        scultpure => {
+          sculptureToDelete = scultpure;
+          Sculpture.destroy({
+            where: { id: scultpure.id },
+          });
+        },
+        error => {
+          throw new Error(`Echec lors de la suppression en BDD : ${error}`);
+        },
+      );
+
+      try {
+        deleteImage(sculptureToDelete.title, ITEM_CONSTANTS.TYPE.SCULPTURE);
+      } catch (err) {
+        throw new Error(`Echec de la suppression du fichier image : ${err}`);
+      }
       return true;
     },
   },

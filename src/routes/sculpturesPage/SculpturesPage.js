@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Query } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
@@ -16,7 +16,7 @@ class SculpturesPage extends React.Component {
   };
 
   getImagesForItem = sculptureName => {
-    const regExp = new RegExp(`${sculptureName}*.jpe?g`);
+    const regExp = new RegExp(`${sculptureName}*`);
     const imagesForItem = [];
     this.props.allImages.forEach((value, key) => {
       if (regExp.test(key)) imagesForItem.push(value);
@@ -38,7 +38,7 @@ class SculpturesPage extends React.Component {
           const sculptures = data.getAllSculptures;
 
           return (
-            <div>
+            <Fragment>
               <h1>{this.props.title}</h1>
               {sculptures.map(sculpture => (
                 <Item
@@ -48,7 +48,7 @@ class SculpturesPage extends React.Component {
                   itemType={ITEM_CONSTANTS.TYPE.SCULPTURE}
                 />
               ))}
-            </div>
+            </Fragment>
           );
         }}
       </Query>
