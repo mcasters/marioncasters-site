@@ -36,7 +36,7 @@ export const resolvers = {
     },
 
     async checkIsAdmin(_, __, { req }) {
-      return req.session.isAdmin ? req.session.isAdmin : false;
+      return req.session.isAdmin;
     },
   },
 };

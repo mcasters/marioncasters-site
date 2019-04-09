@@ -41,6 +41,9 @@ module.exports = {
 
   // Authentication
   auth: {
-    jwt: { secret: process.env.JWT_SECRET || '15htDn-7uU-620Ghhwz' },
+    jwt: {
+      name: process.env.JWT_NAME || 'auth-token',
+      secret: process.env.JWT_SECRET || '15htDn-7uU-620Ghhwz',
+    },
   },
 };

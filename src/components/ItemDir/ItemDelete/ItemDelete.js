@@ -33,7 +33,7 @@ class ItemDelete extends React.Component {
     const query = this.getQuery(type);
 
     return (
-      <Mutation mutation={query} key={id}>
+      <Mutation mutation={query} key={id} ssr>
         {(mutation, { error }) => (
           <Fragment>
             <form

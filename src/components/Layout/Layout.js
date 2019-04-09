@@ -1,5 +1,5 @@
 /* eslint-disable css-modules/no-unused-class */
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 // external-global styles must be imported in your JS.
@@ -15,6 +15,7 @@ import Footer from '../Footer';
 import Navigation from '../Navigation';
 import LAYOUT_CONSTANTS from '../../constants/layoutConstants';
 import withViewport from '../WithViewport';
+import ErrorBoundary from '../ErrorBoundary';
 
 class Layout extends React.Component {
   static propTypes = {
@@ -29,13 +30,15 @@ class Layout extends React.Component {
 
   render() {
     return (
-      <div>
+      <Fragment>
         <Header />
         <Navigation isMobile={this.getIsMobile()} />
-        <main>{this.props.children}</main>
+        <ErrorBoundary>
+          <main>{this.props.children}</main>
+        </ErrorBoundary>
         <Feedback />
         <Footer />
-      </div>
+      </Fragment>
     );
   }
 }

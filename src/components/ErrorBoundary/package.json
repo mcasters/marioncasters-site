@@ -1,0 +1,6 @@
+{
+  "name": "ErrorBoundary",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./ErrorBoundary.js"
+}

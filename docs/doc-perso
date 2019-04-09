@@ -53,3 +53,35 @@ Taille: Grande
 
 
 
+
+
+
+const LogoutButton = () => (
+  <Mutation
+    mutation={LOGOUT_MUTATION}
+    update={cache => {
+      cache.writeData({
+        data: {
+          adminStatus: {
+            __typename: 'AdminStatus',
+            isConnected: false,
+          },
+        },
+      });
+    }}
+    onCompleted={history.push('/')}
+  >
+    {({ client, logout }) => (
+      <button
+        className={s.loginLink}
+        onClick={e => {
+          e.preventDefault();
+          logout().then(() => client.resetStore());
+        }}
+      >
+        Admin Out
+      </button>
+    )}
+  </Mutation>
+);
+

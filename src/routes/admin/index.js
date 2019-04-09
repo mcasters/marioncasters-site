@@ -11,8 +11,9 @@ function action({ client }) {
     query,
   });
   const isAdmin = adminStatus.isConnected;
+
   if (!isAdmin) {
-    return { redirect: '/login' };
+    return { redirect: '/home' };
   }
 
   return {

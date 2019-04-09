@@ -1,7 +1,7 @@
 // @flow
 import { ApolloClient } from 'apollo-client';
 import { from } from 'apollo-link';
-import { onError } from 'apollo-link-error';
+import { onError as errorLink } from 'apollo-link-error';
 import { HttpLink } from 'apollo-link-http';
 import apolloLogger from 'apollo-link-logger';
 import { withClientState } from 'apollo-link-state';
@@ -20,7 +20,7 @@ export default function createApolloClient() {
 
   const link = from([
     stateLink,
-    onError(({ graphQLErrors, networkError }) => {
+    errorLink(({ graphQLErrors, networkError }) => {
       if (graphQLErrors)
         graphQLErrors.map(({ message, locations, path }) =>
           console.warn(

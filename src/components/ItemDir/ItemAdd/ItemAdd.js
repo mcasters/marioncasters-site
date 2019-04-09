@@ -1,4 +1,5 @@
 /* eslint-disable prefer-destructuring */
+/* eslint-disable no-restricted-syntax */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -15,6 +16,7 @@ import PAINTING_MUTATION from './addPaintingMutation.graphql';
 import SCULPTURE_MUTATION from './addSculptureMutation.graphql';
 import DRAWING_MUTATION from './addDrawingMutation.graphql';
 import ITEM_CONSTANTS from '../../../constants/itemConstants';
+import Alert from '../../Alert';
 
 class ItemAdd extends React.Component {
   static propTypes = {
@@ -31,7 +33,8 @@ class ItemAdd extends React.Component {
     this.getImage = this.getImage.bind(this);
     this.saveImage = this.saveImage.bind(this);
     this.getItem = this.getItem.bind(this);
-    this.resetState = this.resetState.bind(this);
+    this.complete = this.complete.bind(this);
+    this.setError = this.setError.bind(this);
 
     if (this.props.type === ITEM_CONSTANTS.TYPE.PAINTING) {
       this.query = PAINTING_MUTATION;
@@ -54,6 +57,8 @@ class ItemAdd extends React.Component {
     width: '',
     imagePreviewUrls: ['', '', '', ''],
     files: ['', '', '', ''],
+    isComplete: false,
+    error: null,
   });
 
   getImage(e, index) {
@@ -86,47 +91,68 @@ class ItemAdd extends React.Component {
     return this.isSculpture ? { ...item, length: this.state.length } : item;
   };
 
-  saveImage = () => {
+  setError = error => {
+    this.setState({ error });
+  };
+
+  saveImage = async () => {
     const title = this.state.title;
     const newExtension = '.jpg';
     let extension = null;
 
-    if (this.isSculpture) {
-      const files = this.state.files;
-
-      let count = 1;
-      files.forEach(file => {
-        extension = path.extname(file.name);
-
-        if (extension !== '.jpeg' && extension !== '.jpg')
-          throw Error('Fichiers jpg ou jpeg seulement');
-
-        const fileName = `${title}_${count}${newExtension}`;
-
-        const formData = new FormData();
-
-        formData.append('fileName', fileName);
-        formData.append('type', this.props.type);
-        formData.append('file', file);
-        axios.post('/uploadImage', formData);
-        count += 1;
-      });
-    } else {
+    if (!this.isSculpture) {
       const file = this.state.files[0];
       extension = path.extname(file.name);
 
-      if (extension !== '.jpeg' && extension !== '.jpg')
-        throw Error('Fichiers jpg ou jpeg seulement');
+      if (extension !== '.jpeg' && extension !== '.jpg') {
+        this.setState({
+          error: 'Fichiers jpg ou jpeg seulement',
+        });
+        return false;
+      }
 
       const fileName = title + newExtension;
+      const formData = new FormData();
+      formData.append('fileName', fileName);
+      formData.append('type', this.props.type);
+      formData.append('file', file);
 
+      const res = await axios.post('/uploadImage', formData);
+
+      if (res.data !== undefined && !res.data.success) {
+        this.setState({ error: "Erreur d'upload du fichier" });
+        return false;
+      }
+      return true;
+    }
+    const files = this.state.files;
+
+    let count = 1;
+    for await (const file of files) {
+      extension = path.extname(file.name);
+
+      if (extension !== '.jpeg' && extension !== '.jpg') {
+        this.setState({
+          error: 'Fichiers jpg ou jpeg seulement',
+        });
+        return false;
+      }
+      const fileName = `${title}_${count}${newExtension}`;
       const formData = new FormData();
 
       formData.append('fileName', fileName);
       formData.append('type', this.props.type);
       formData.append('file', file);
-      axios.post('/uploadImage', formData);
+
+      const res = await axios.post('/uploadImage', formData);
+
+      if (res.data !== undefined && !res.data.success) {
+        this.setState({ error: "Erreur d'upload du fichier" });
+        return false;
+      }
+      count += 1;
     }
+    return true;
   };
 
   handleInputChange(e) {
@@ -141,14 +167,13 @@ class ItemAdd extends React.Component {
     this.setState({ date: selectedDay });
   }
 
-  resetState = () => {
+  complete = () => {
     this.setState(this.getInitialState());
+    this.setState({ isComplete: true });
   };
 
   render() {
     const title = 'Ajout';
-    const imagePreviewUrls = this.state.imagePreviewUrls;
-    const date = this.state.date;
 
     const haveMain =
       this.state.title &&
@@ -162,17 +187,21 @@ class ItemAdd extends React.Component {
       (this.isSculpture && haveMain && this.state.length);
 
     return (
-      <Mutation mutation={this.query} onCompleted={() => this.resetState()}>
-        {mutation => (
+      <Mutation mutation={this.query}>
+        {(mutation, { error }) => (
           <div className={s.addContainer}>
             <h2>{title}</h2>
             <form
               className="formGroup"
               onSubmit={e => {
                 e.preventDefault();
-                this.saveImage();
-                const item = this.getItem();
-                mutation({ variables: { item } });
+                this.saveImage().then(res => {
+                  if (res) {
+                    const item = this.getItem();
+                    mutation({ variables: { item } });
+                    this.complete();
+                  }
+                });
               }}
             >
               <input
@@ -184,11 +213,9 @@ class ItemAdd extends React.Component {
               />
               <div className={s.DayInputContainer}>
                 <DayPickerInput
-                  value={date}
+                  value={this.state.date}
                   onDayChange={this.handleDayChange}
-                  dayPickerProps={{
-                    date,
-                  }}
+                  dayPickerProps={{ ...this.state.date }}
                   formatDate={format}
                   format={ITEM_CONSTANTS.FORMAT_DATE}
                   placeholder="Date"
@@ -218,7 +245,7 @@ class ItemAdd extends React.Component {
               <input
                 placeholder="Largeur (cm)"
                 name="width"
-                type="number"
+                type="text"
                 value={this.state.width}
                 onChange={this.handleInputChange}
               />
@@ -255,7 +282,7 @@ class ItemAdd extends React.Component {
                   />
                 </div>
               )}
-              {imagePreviewUrls.map(
+              {this.state.imagePreviewUrls.map(
                 imagePreviewUrl =>
                   imagePreviewUrl !== '' && (
                     <img
@@ -268,6 +295,13 @@ class ItemAdd extends React.Component {
               )}
               {canSubmit && <button type="submit">OK</button>}
             </form>
+
+            <button onClick={this.openAlert}>coucou</button>
+            {error && <Alert message={error} isError />}
+            {this.state.isComplete && (
+              <Alert message="Enregistré" isError={false} />
+            )}
+            {this.state.error && <Alert message={this.state.error} isError />}
           </div>
         )}
       </Mutation>

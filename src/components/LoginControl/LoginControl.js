@@ -1,66 +1,59 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { Mutation, Query } from 'react-apollo';
+import { Query } from 'react-apollo';
 
 import s from './LoginControl.css';
+import Link from '../Link';
+import LoginDialog from '../LoginDialog';
 import GET_ADMIN_STATUS_QUERY from './getAdminStatusQuery.graphql';
-import LOGOUT_MUTATION from './logoutMutation.graphql';
-import history from '../../history';
 
 class LoginControl extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      login: false,
+    };
+
+    this.openLogin = this.openLogin.bind(this);
+  }
+
+  componentWillUnmount = () => {
+    this.setState({ login: false });
+  };
+
+  openLogin = e => {
+    e.preventDefault();
+    this.setState({ login: true });
+  };
+
   render() {
     return (
       <Query query={GET_ADMIN_STATUS_QUERY}>
-        {({ data: { adminStatus } }) =>
-          adminStatus.isConnected ? <LogoutButton /> : <LoginButton />
-        }
+        {({ error, data: { adminStatus } }) => {
+          if (error) return `Error! ${error.message}`;
+
+          return adminStatus !== undefined && adminStatus.isConnected ? (
+            <Link className={s.link} to="/admin">
+              Admin
+            </Link>
+          ) : (
+            <Fragment>
+              <button
+                className={s.loginLink}
+                onClick={e => {
+                  this.openLogin(e);
+                }}
+              >
+                Admin in
+              </button>
+              {this.state.login && <LoginDialog />}
+            </Fragment>
+          );
+        }}
       </Query>
     );
   }
 }
-
-const LoginButton = () => (
-  <button
-    className={s.loginLink}
-    onClick={e => {
-      e.preventDefault();
-      return history.push('login');
-    }}
-  >
-    Admin In
-  </button>
-);
-
-const LogoutButton = () => (
-  <Mutation
-    mutation={LOGOUT_MUTATION}
-    update={(cache, mutationResult) => {
-      const isConnected = !mutationResult.data.logout;
-      cache.writeData({
-        data: {
-          adminStatus: {
-            __typename: 'AdminStatus',
-            isConnected,
-          },
-        },
-      });
-    }}
-    onCompleted={data =>
-      data.logout ? history.push('/') : history.push('admin')
-    }
-  >
-    {logout => (
-      <button
-        className={s.loginLink}
-        onClick={e => {
-          e.preventDefault();
-          logout();
-        }}
-      >
-        Admin Out
-      </button>
-    )}
-  </Mutation>
-);
 
 export default withStyles(s)(LoginControl);

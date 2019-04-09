@@ -7,6 +7,7 @@ import s from './Admin.css';
 import AddItem from '../../components/ItemDir/ItemAdd';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
 import ItemList from '../../components/ItemDir/ItemList';
+import Logout from '../../components/Logout';
 
 class Admin extends React.Component {
   static propTypes = {
@@ -50,6 +51,7 @@ class Admin extends React.Component {
       <div className={s.root}>
         <div className={s.container}>
           <h1>{this.props.title}</h1>
+          <Logout />
           <Tabs className={s.tabs}>
             <TabList>
               <Tab>{ITEM_CONSTANTS.TITLE.PAINTING}</Tab>

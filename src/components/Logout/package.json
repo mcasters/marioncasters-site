@@ -1,6 +1,6 @@
 {
-  "name": "Footer",
+  "name": "Logout",
   "version": "1.0.0",
   "private": true,
-  "main": "./Footer.js"
+  "main": "./Logout.js"
 }

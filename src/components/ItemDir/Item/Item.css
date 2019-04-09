@@ -5,12 +5,14 @@ article {
 }
 
 .imageButton {
+  background-color: unset;
   padding: 0 8%;
   border: none;
   cursor: pointer;
 }
 
 .sculptureButton {
+  background-color: unset;
   padding: 10px;
   border: none;
   display: inline-block;
