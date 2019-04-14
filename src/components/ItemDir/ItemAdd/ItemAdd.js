@@ -8,8 +8,6 @@ import { Mutation } from 'react-apollo';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import dayPicker from 'react-day-picker/lib/style.css';
 import format from 'date-fns/format';
-import axios from 'axios';
-import path from 'path';
 
 import s from './ItemAdd.css';
 import PAINTING_MUTATION from './addPaintingMutation.graphql';
@@ -30,11 +28,9 @@ class ItemAdd extends React.Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
-    this.getImage = this.getImage.bind(this);
-    this.saveImage = this.saveImage.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
     this.getItem = this.getItem.bind(this);
     this.complete = this.complete.bind(this);
-    this.setError = this.setError.bind(this);
 
     if (this.props.type === ITEM_CONSTANTS.TYPE.PAINTING) {
       this.query = PAINTING_MUTATION;
@@ -58,10 +54,35 @@ class ItemAdd extends React.Component {
     imagePreviewUrls: ['', '', '', ''],
     files: ['', '', '', ''],
     isComplete: false,
-    error: null,
   });
 
-  getImage(e, index) {
+  getItem = () => {
+    let item = {
+      picture: this.state.files[0],
+      title: this.state.title,
+      date: this.state.date,
+      technique: this.state.technique,
+      description: this.state.description,
+      width: this.state.width,
+      height: this.state.height,
+    };
+
+    if (this.isSculpture) {
+      item = {
+        pictures: this.state.files,
+        title: this.state.title,
+        date: this.state.date,
+        technique: this.state.technique,
+        description: this.state.description,
+        width: this.state.width,
+        height: this.state.height,
+        length: this.state.length,
+      };
+    }
+    return item;
+  };
+
+  handleImageChange(e, index) {
     e.preventDefault();
 
     const reader = new FileReader();
@@ -79,83 +100,9 @@ class ItemAdd extends React.Component {
     reader.readAsDataURL(file);
   }
 
-  getItem = () => {
-    const item = {
-      title: this.state.title,
-      date: this.state.date,
-      technique: this.state.technique,
-      description: this.state.description,
-      width: this.state.width,
-      height: this.state.height,
-    };
-    return this.isSculpture ? { ...item, length: this.state.length } : item;
-  };
-
-  setError = error => {
-    this.setState({ error });
-  };
-
-  saveImage = async () => {
-    const title = this.state.title;
-    const newExtension = '.jpg';
-    let extension = null;
-
-    if (!this.isSculpture) {
-      const file = this.state.files[0];
-      extension = path.extname(file.name);
-
-      if (extension !== '.jpeg' && extension !== '.jpg') {
-        this.setState({
-          error: 'Fichiers jpg ou jpeg seulement',
-        });
-        return false;
-      }
-
-      const fileName = title + newExtension;
-      const formData = new FormData();
-      formData.append('fileName', fileName);
-      formData.append('type', this.props.type);
-      formData.append('file', file);
-
-      const res = await axios.post('/uploadImage', formData);
-
-      if (res.data !== undefined && !res.data.success) {
-        this.setState({ error: "Erreur d'upload du fichier" });
-        return false;
-      }
-      return true;
-    }
-    const files = this.state.files;
-
-    let count = 1;
-    for await (const file of files) {
-      extension = path.extname(file.name);
-
-      if (extension !== '.jpeg' && extension !== '.jpg') {
-        this.setState({
-          error: 'Fichiers jpg ou jpeg seulement',
-        });
-        return false;
-      }
-      const fileName = `${title}_${count}${newExtension}`;
-      const formData = new FormData();
-
-      formData.append('fileName', fileName);
-      formData.append('type', this.props.type);
-      formData.append('file', file);
-
-      const res = await axios.post('/uploadImage', formData);
-
-      if (res.data !== undefined && !res.data.success) {
-        this.setState({ error: "Erreur d'upload du fichier" });
-        return false;
-      }
-      count += 1;
-    }
-    return true;
-  };
-
   handleInputChange(e) {
+    e.preventDefault();
+
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -187,7 +134,12 @@ class ItemAdd extends React.Component {
       (this.isSculpture && haveMain && this.state.length);
 
     return (
-      <Mutation mutation={this.query}>
+      <Mutation
+        mutation={this.query}
+        onCompleted={res => {
+          if (res.data) this.complete();
+        }}
+      >
         {(mutation, { error }) => (
           <div className={s.addContainer}>
             <h2>{title}</h2>
@@ -195,13 +147,8 @@ class ItemAdd extends React.Component {
               className="formGroup"
               onSubmit={e => {
                 e.preventDefault();
-                this.saveImage().then(res => {
-                  if (res) {
-                    const item = this.getItem();
-                    mutation({ variables: { item } });
-                    this.complete();
-                  }
-                });
+                const item = this.getItem();
+                mutation({ variables: { item } });
               }}
             >
               <input
@@ -259,26 +206,26 @@ class ItemAdd extends React.Component {
                 />
               )}
               <input
-                placeholder="Image"
                 type="file"
-                onChange={e => this.getImage(e, 0)}
+                accept="image/jpeg, image/jpg"
+                onChange={e => this.handleImageChange(e, 0)}
               />
               {this.isSculpture && (
                 <div>
                   <input
-                    placeholder="Image 2"
                     type="file"
-                    onChange={e => this.getImage(e, 1)}
+                    accept="image/jpeg, image/jpg"
+                    onChange={e => this.handleImageChange(e, 1)}
                   />
                   <input
-                    placeholder="Image 3"
                     type="file"
-                    onChange={e => this.getImage(e, 2)}
+                    accept="image/jpeg, image/jpg"
+                    onChange={e => this.handleImageChange(e, 2)}
                   />
                   <input
-                    placeholder="Image 4"
                     type="file"
-                    onChange={e => this.getImage(e, 3)}
+                    accept="image/jpeg, image/jpg"
+                    onChange={e => this.handleImageChange(e, 3)}
                   />
                 </div>
               )}
@@ -296,12 +243,10 @@ class ItemAdd extends React.Component {
               {canSubmit && <button type="submit">OK</button>}
             </form>
 
-            <button onClick={this.openAlert}>coucou</button>
-            {error && <Alert message={error} isError />}
+            {error && <Alert message="Erreur GraphQl" isError />}
             {this.state.isComplete && (
               <Alert message="Enregistré" isError={false} />
             )}
-            {this.state.error && <Alert message={this.state.error} isError />}
           </div>
         )}
       </Mutation>

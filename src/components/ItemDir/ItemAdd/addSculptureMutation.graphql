@@ -1,11 +1,3 @@
 mutation AddSculpture($item: SculptureInput!) {
-  addSculpture(input: $item) {
-    title
-    date
-    technique
-    description
-    length
-    height
-    width
-  }
+  addSculpture(input: $item)
 }

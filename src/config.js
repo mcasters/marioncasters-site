@@ -31,7 +31,10 @@ module.exports = {
   databaseHost: process.env.DATABASE_HOST,
 
   // Photos files
-  photosPath: process.env.PHOTOS_PATH,
+  libraryPath: `${process.env.PHOTOS_PATH}`,
+  paintingsPath: `${process.env.PHOTOS_PATH}/paintings`,
+  sculpturesPath: `${process.env.PHOTOS_PATH}/sculptures`,
+  drawingsPath: `${process.env.PHOTOS_PATH}/drawings`,
 
   // Web analytics
   analytics: {

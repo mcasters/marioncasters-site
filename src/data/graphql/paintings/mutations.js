@@ -1,4 +1,7 @@
 /* eslint-disable spaced-comment */
+import fs from 'fs';
+
+import config from '../../../config';
 import { Painting } from '../../models/index';
 import { deleteImage } from '../../../imageServices';
 import ITEM_CONSTANTS from '../../../constants/itemConstants';
@@ -6,6 +9,7 @@ import ITEM_CONSTANTS from '../../../constants/itemConstants';
 export const types = [
   `
   input PaintingInput {
+    picture: Upload!
     title: String!
     date: String!
     technique: String!
@@ -20,7 +24,7 @@ export const mutations = [
   `
   addPainting (
     input: PaintingInput! 
-  ): DatabasePainting
+  ): Boolean!
   
   deletePainting(
      id: ID!
@@ -28,26 +32,50 @@ export const mutations = [
 `,
 ];
 
+const storeUpload = async ({ stream }, title) => {
+  const path = `${config.paintingsPath}/${title}.jpg`;
+  return new Promise((resolve, reject) =>
+    stream
+      .on('error', error => {
+        if (stream.truncated) fs.unlinkSync(path);
+        reject(error);
+      })
+      .pipe(fs.createWriteStream(path))
+      .on('error', error => reject(error))
+      .on('finish', () => resolve(true)),
+  );
+};
+
+const processUpload = async (upload, title) => {
+  const { stream } = await upload;
+  return storeUpload({ stream }, title);
+};
+
 export const resolvers = {
   Mutation: {
-    async addPainting(root, { input }) {
-      const lookupPainting = await Painting.findOne({
-        where: { title: input.title },
+    async addPainting(
+      root,
+      {
+        input: { picture, ...data },
+      },
+    ) {
+      const exist = await Painting.findOne({
+        where: { title: data.title },
       });
 
-      if (lookupPainting) {
-        // eslint-disable-next-line no-throw-literal
-        throw 'Peinture déjà existante';
+      if (exist) {
+        throw new Error('Peinture déjà existante en Bdd');
       }
 
-      return Painting.create({
-        title: input.title,
-        date: input.date,
-        technique: input.technique,
-        description: input.description,
-        height: input.height,
-        width: input.width,
-      });
+      const isSaved = await processUpload(picture, data.title);
+
+      if (isSaved) {
+        await Painting.create({
+          ...data,
+        });
+        return true;
+      }
+      return false;
     },
 
     async deletePainting(root, { id }) {

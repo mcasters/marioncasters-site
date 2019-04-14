@@ -8,6 +8,7 @@ import ITEM_CONSTANTS from '../../../constants/itemConstants';
 import GET_PAINTINGS from './getPaintingsByYear.graphql';
 import Item from '../Item/Item';
 import s from './ItemTab.css';
+import Alert from '../../Alert';
 
 class ItemTab extends React.Component {
   static propTypes = {
@@ -37,7 +38,7 @@ class ItemTab extends React.Component {
       >
         {({ loading, error, data }) => {
           if (loading) return <div className={s.loading}>Chargement...</div>;
-          if (error) return <p>Erreur de chargement : {error}</p>;
+          // if (error) return <p>Erreur de chargement : {error}</p>;
           const paintings = data.getPaintingsByYear;
 
           return (
@@ -57,6 +58,7 @@ class ItemTab extends React.Component {
                 }
                 return null;
               })}
+              {error && <Alert message="Erreur GraphQl" isError />}
             </Fragment>
           );
         }}

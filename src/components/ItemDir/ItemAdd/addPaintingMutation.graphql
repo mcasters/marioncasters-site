@@ -1,10 +1,3 @@
 mutation AddPainting($item: PaintingInput!) {
-  addPainting(input: $item) {
-    title
-    date
-    technique
-    description
-    height
-    width
-  }
+  addPainting(input: $item)
 }

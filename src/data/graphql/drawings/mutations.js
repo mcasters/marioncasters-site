@@ -1,11 +1,15 @@
 /* eslint-disable spaced-comment */
+import fs from 'fs';
+
 import { Drawing } from '../../models/index';
 import { deleteImage } from '../../../imageServices';
 import ITEM_CONSTANTS from '../../../constants/itemConstants';
+import config from '../../../config';
 
 export const types = [
   `
   input DrawingInput {
+    picture: Upload!
     title: String!
     date: String!
     technique: String!
@@ -20,7 +24,7 @@ export const mutations = [
   `
   addDrawing (
     input: DrawingInput!
-  ): DatabaseDrawing
+  ): Boolean!
   
   deleteDrawing(
      id: ID!
@@ -28,27 +32,50 @@ export const mutations = [
 `,
 ];
 
+const storeUpload = async ({ stream }, title) => {
+  const path = `${config.drawingsPath}/${title}.jpg`;
+  return new Promise((resolve, reject) =>
+    stream
+      .on('error', error => {
+        if (stream.truncated) fs.unlinkSync(path);
+        reject(error);
+      })
+      .pipe(fs.createWriteStream(path))
+      .on('error', error => reject(error))
+      .on('finish', () => resolve(true)),
+  );
+};
+
+const processUpload = async (upload, title) => {
+  const { stream } = await upload;
+  return storeUpload({ stream }, title);
+};
+
 export const resolvers = {
   Mutation: {
-    async addDrawing(root, { input }) {
-      const lookupDrawing = await Drawing.findOne({
-        where: { title: input.title },
+    async addDrawing(
+      root,
+      {
+        input: { picture, ...data },
+      },
+    ) {
+      const exist = await Drawing.findOne({
+        where: { title: data.title },
       });
 
-      if (lookupDrawing) {
-        // eslint-disable-next-line no-throw-literal
-        throw 'Drawing already exists!';
+      if (exist) {
+        throw new Error('Dessin déjà existant en Bdd');
       }
 
-      // Create new user with profile in database
-      return Drawing.create({
-        title: input.title,
-        date: input.date,
-        technique: input.technique,
-        description: input.description,
-        height: input.height,
-        width: input.width,
-      });
+      const isSaved = await processUpload(picture, data.title);
+
+      if (isSaved) {
+        await Drawing.create({
+          ...data,
+        });
+        return true;
+      }
+      return false;
     },
 
     async deleteDrawing(root, { id }) {

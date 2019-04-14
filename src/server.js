@@ -23,7 +23,6 @@ import createApolloClient from './apollo/createApolloClient';
 import { initialState } from './apollo/state/adminState';
 import models from './data/models';
 import schema from './data/schema';
-import { upload } from './imageServices';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
 import config from './config';
@@ -89,7 +88,7 @@ app.use(graphqlPath, cookieParser(), (req, _, next) => {
 const server = new ApolloServer({
   ...schema,
   context: ({ req, res }) => ({ res, userId: req.userId }),
-  uploads: false,
+  uploads: true,
   introspection: __DEV__,
   playground: __DEV__,
   debug: __DEV__,
@@ -175,24 +174,6 @@ app.get('*', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
-
-//
-// Handling images upload to the server
-// -----------------------------------------------------------------------------
-const singleUpload = upload.single('file');
-app.post('/uploadImage', (req, res) => {
-  singleUpload(req, res, err => {
-    if (err) {
-      return res.send({
-        success: false,
-        error: err,
-      });
-    }
-    return res.send({
-      success: true,
-    });
-  });
 });
 
 //

@@ -1,10 +1,15 @@
+import fs from 'fs';
+import promisesAll from 'promises-all';
+
 import { Sculpture } from '../../models/index';
 import { deleteImage } from '../../../imageServices';
 import ITEM_CONSTANTS from '../../../constants/itemConstants';
+import config from '../../../config';
 
 export const types = [
   `
   input SculptureInput {
+    pictures: [Upload]!
     title: String!
     date: String!
     technique: String!
@@ -20,7 +25,7 @@ export const mutations = [
   `
   addSculpture (
     input: SculptureInput!
-  ): DatabaseSculpture
+  ): Boolean
   
   deleteSculpture(
      id: ID!
@@ -28,28 +33,58 @@ export const mutations = [
 `,
 ];
 
+const storeUpload = async ({ stream }, title, index) => {
+  const path = `${config.sculpturesPath}/${title}_${index + 1}.jpg`;
+  return new Promise((resolve, reject) =>
+    stream
+      .on('error', error => {
+        if (stream.truncated) fs.unlinkSync(path);
+        reject(error);
+      })
+      .pipe(fs.createWriteStream(path))
+      .on('error', error => reject(error))
+      .on('finish', () => resolve(true)),
+  );
+};
+
+const processUploads = async (pictures, title) => {
+  const process = async (element, index) => {
+    const { stream } = await element;
+    return storeUpload({ stream }, title, index);
+  };
+  const { resolve, reject } = await promisesAll.all(pictures.map(process));
+
+  if (reject.length) throw new Error("Problème à l'écriture du fichier");
+
+  return resolve;
+};
+
 export const resolvers = {
   Mutation: {
-    async addSculpture(root, { input }) {
-      const lookupSculpture = await Sculpture.findOne({
-        where: { title: input.title },
+    async addSculpture(
+      root,
+      {
+        input: { pictures, ...data },
+      },
+    ) {
+      const { title } = data;
+      const exist = await Sculpture.findOne({
+        where: { title },
       });
 
-      if (lookupSculpture) {
-        // eslint-disable-next-line no-throw-literal
-        throw 'Sculpture already exists!';
+      if (exist) {
+        throw new Error('Sculpture déjà existante en Bdd');
       }
 
-      // Create new user with profile in database
-      return Sculpture.create({
-        title: input.title,
-        date: input.date,
-        technique: input.technique,
-        description: input.description,
-        length: input.length,
-        height: input.height,
-        width: input.width,
-      });
+      const isUploaded = await processUploads(pictures, title);
+
+      if (isUploaded) {
+        await Sculpture.create({
+          ...data,
+        });
+        return true;
+      }
+      return false;
     },
 
     async deleteSculpture(root, { id }) {

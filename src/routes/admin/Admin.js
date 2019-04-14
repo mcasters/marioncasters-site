@@ -20,17 +20,21 @@ class Admin extends React.Component {
     this.state = {
       allPaintingImages: this.importAllImages(
         require.context(
-          './../../../../photo-files/painting',
+          './../../../../photo-files/paintings',
           false,
           /\.jpe?g$/,
         ),
       ),
       allDrawingImages: this.importAllImages(
-        require.context('./../../../../photo-files/drawing', false, /\.jpe?g$/),
+        require.context(
+          './../../../../photo-files/drawings',
+          false,
+          /\.jpe?g$/,
+        ),
       ),
       allSculptureImages: this.importAllImages(
         require.context(
-          './../../../../photo-files/sculpture',
+          './../../../../photo-files/sculptures',
           false,
           /\.jpe?g$/,
         ),
