@@ -79,32 +79,31 @@ class Item extends React.Component {
               </span>
             </p>
           </div>
-          {isOpen &&
-            typeof window !== 'undefined' && (
-              <Lightbox
-                mainSrc={srcList[photoIndex]}
-                nextSrc={srcList[(photoIndex + 1) % srcList.length]}
-                prevSrc={
-                  srcList[(photoIndex + srcList.length - 1) % srcList.length]
-                }
-                onCloseRequest={() => this.setState({ isOpen: false })}
-                onMovePrevRequest={() =>
-                  this.setState({
-                    photoIndex:
-                      (photoIndex + srcList.length - 1) % srcList.length,
-                  })
-                }
-                onMoveNextRequest={() =>
-                  this.setState({
-                    photoIndex: (photoIndex + 1) % srcList.length,
-                  })
-                }
-                imageTitle={`Marion Casters | ${item.title}`}
-                mobileSizeBreakpoint={LAYOUT_CONSTANTS.BREAKPOINT.MD}
-                imagePadding={LIGHTBOX_PADDING}
-                imageMobilePadding={LIGHTBOX_MOBILE_PADDING}
-              />
-            )}
+          {isOpen && typeof window !== 'undefined' && (
+            <Lightbox
+              mainSrc={srcList[photoIndex]}
+              nextSrc={srcList[(photoIndex + 1) % srcList.length]}
+              prevSrc={
+                srcList[(photoIndex + srcList.length - 1) % srcList.length]
+              }
+              onCloseRequest={() => this.setState({ isOpen: false })}
+              onMovePrevRequest={() =>
+                this.setState({
+                  photoIndex:
+                    (photoIndex + srcList.length - 1) % srcList.length,
+                })
+              }
+              onMoveNextRequest={() =>
+                this.setState({
+                  photoIndex: (photoIndex + 1) % srcList.length,
+                })
+              }
+              imageTitle={`Marion Casters | ${item.title}`}
+              mobileSizeBreakpoint={LAYOUT_CONSTANTS.BREAKPOINT.MD}
+              imagePadding={LIGHTBOX_PADDING}
+              imageMobilePadding={LIGHTBOX_MOBILE_PADDING}
+            />
+          )}
         </article>
       );
     }
@@ -138,17 +137,16 @@ class Item extends React.Component {
             </span>
           </p>
         </div>
-        {isOpen &&
-          typeof window !== 'undefined' && (
-            <Lightbox
-              mainSrc={srcList[photoIndex]}
-              onCloseRequest={() => this.setState({ isOpen: false })}
-              imageTitle={`Marion Casters | ${item.title}`}
-              mobileSizeBreakpoint={LAYOUT_CONSTANTS.BREAKPOINT.MD}
-              imagePadding={LIGHTBOX_PADDING}
-              imageMobilePadding={LIGHTBOX_MOBILE_PADDING}
-            />
-          )}
+        {isOpen && typeof window !== 'undefined' && (
+          <Lightbox
+            mainSrc={srcList[photoIndex]}
+            onCloseRequest={() => this.setState({ isOpen: false })}
+            imageTitle={`Marion Casters | ${item.title}`}
+            mobileSizeBreakpoint={LAYOUT_CONSTANTS.BREAKPOINT.MD}
+            imagePadding={LIGHTBOX_PADDING}
+            imageMobilePadding={LIGHTBOX_MOBILE_PADDING}
+          />
+        )}
       </article>
     );
   }

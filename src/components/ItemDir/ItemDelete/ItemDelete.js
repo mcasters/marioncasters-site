@@ -8,6 +8,7 @@ import ITEM_CONSTANTS from '../../../constants/itemConstants';
 import DELETE_PAINTING from './deletePainting.graphql';
 import DELETE_DRAWING from './deleteDrawing.graphql';
 import DELETE_SCULPTURE from './deleteSculpture.graphql';
+import Alert from '../../Alert';
 
 class ItemDelete extends React.Component {
   static propTypes = {
@@ -33,8 +34,8 @@ class ItemDelete extends React.Component {
     const query = this.getQuery(type);
 
     return (
-      <Mutation mutation={query} key={id} ssr>
-        {(mutation, { error }) => (
+      <Mutation mutation={query} ssr>
+        {(mutation, { data, error }) => (
           <Fragment>
             <form
               onSubmit={e => {
@@ -46,7 +47,8 @@ class ItemDelete extends React.Component {
                 <FaTrash />
               </button>
             </form>
-            {error && <p>Erreur : {error}</p>}
+            {error && <Alert message={error} isError />}
+            {data && <Alert message="Suppression OK" isError={false} />}
           </Fragment>
         )}
       </Mutation>

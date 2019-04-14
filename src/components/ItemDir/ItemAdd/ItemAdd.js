@@ -121,6 +121,7 @@ class ItemAdd extends React.Component {
 
   render() {
     const title = 'Ajout';
+    const isComplete = this.state.isComplete;
 
     const haveMain =
       this.state.title &&
@@ -134,12 +135,7 @@ class ItemAdd extends React.Component {
       (this.isSculpture && haveMain && this.state.length);
 
     return (
-      <Mutation
-        mutation={this.query}
-        onCompleted={res => {
-          if (res.data) this.complete();
-        }}
-      >
+      <Mutation mutation={this.query} ssr>
         {(mutation, { error }) => (
           <div className={s.addContainer}>
             <h2>{title}</h2>
@@ -148,7 +144,9 @@ class ItemAdd extends React.Component {
               onSubmit={e => {
                 e.preventDefault();
                 const item = this.getItem();
-                mutation({ variables: { item } });
+                mutation({ variables: { item } }).then(res => {
+                  if (res) this.complete();
+                });
               }}
             >
               <input
@@ -244,9 +242,7 @@ class ItemAdd extends React.Component {
             </form>
 
             {error && <Alert message="Erreur GraphQl" isError />}
-            {this.state.isComplete && (
-              <Alert message="Enregistré" isError={false} />
-            )}
+            {isComplete && <Alert message="Enregistré" isError={false} />}
           </div>
         )}
       </Mutation>

@@ -2,7 +2,7 @@ import fs from 'fs';
 import promisesAll from 'promises-all';
 
 import { Sculpture } from '../../models/index';
-import { deleteImage } from '../../../imageServices';
+import { deleteImages } from '../../../imageServices';
 import ITEM_CONSTANTS from '../../../constants/itemConstants';
 import config from '../../../config';
 
@@ -88,27 +88,28 @@ export const resolvers = {
     },
 
     async deleteSculpture(root, { id }) {
-      let sculptureToDelete;
-      await Sculpture.findOne({
+      const sculpture = await Sculpture.findOne({
         where: { id },
-      }).then(
-        scultpure => {
-          sculptureToDelete = scultpure;
-          Sculpture.destroy({
-            where: { id: scultpure.id },
-          });
-        },
-        error => {
-          throw new Error(`Echec lors de la suppression en BDD : ${error}`);
-        },
+      });
+
+      if (!sculpture) throw new Error('Sculpture introuvable en BDD');
+
+      const isDeleted = await deleteImages(
+        sculpture.title,
+        ITEM_CONSTANTS.TYPE.SCULPTURE,
       );
 
-      try {
-        deleteImage(sculptureToDelete.title, ITEM_CONSTANTS.TYPE.SCULPTURE);
-      } catch (err) {
-        throw new Error(`Echec de la suppression du fichier image : ${err}`);
+      if (!isDeleted) throw new Error(`Echec de la suppression des images`);
+      else {
+        Sculpture.destroy({
+          where: { id: sculpture.id },
+        })
+          .then(res => res)
+          .catch(() => {
+            throw new Error('Echec de la suppression en Bdd');
+          });
       }
-      return true;
+      return false;
     },
   },
 };

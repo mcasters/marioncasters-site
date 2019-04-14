@@ -1,4 +1,8 @@
 const ITEM_CONSTANTS = {
+  PAINTING_FOLDER: 'paintings',
+  SCULPTURE_FOLDER: 'sculptures',
+  DRAWING_FOLDER: 'drawings',
+
   TYPE: {
     PAINTING: 'painting',
     SCULPTURE: 'sculpture',

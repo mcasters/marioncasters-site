@@ -2,7 +2,7 @@
 import fs from 'fs';
 
 import { Drawing } from '../../models/index';
-import { deleteImage } from '../../../imageServices';
+import { deleteImages } from '../../../imageServices';
 import ITEM_CONSTANTS from '../../../constants/itemConstants';
 import config from '../../../config';
 
@@ -79,27 +79,28 @@ export const resolvers = {
     },
 
     async deleteDrawing(root, { id }) {
-      let drawingToDelete;
-      await Drawing.findOne({
+      const drawing = await Drawing.findOne({
         where: { id },
-      }).then(
-        drawing => {
-          drawingToDelete = drawing;
-          Drawing.destroy({
-            where: { id: drawing.id },
-          });
-        },
-        error => {
-          throw new Error(`Echec lors de la suppression en BDD : ${error}`);
-        },
+      });
+
+      if (!drawing) throw new Error('Dessin introuvable en BDD');
+
+      const isDeleted = await deleteImages(
+        drawing.title,
+        ITEM_CONSTANTS.TYPE.DRAWING,
       );
 
-      try {
-        deleteImage(drawingToDelete.title, ITEM_CONSTANTS.TYPE.DRAWING);
-      } catch (err) {
-        throw new Error(`Echec de la suppression du fichier image : ${err}`);
+      if (!isDeleted) throw new Error(`Echec de la suppression de l'image`);
+      else {
+        Drawing.destroy({
+          where: { id: drawing.id },
+        })
+          .then(res => res)
+          .catch(() => {
+            throw new Error('Echec de la suppression en Bdd');
+          });
       }
-      return true;
+      return false;
     },
   },
 };
