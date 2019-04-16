@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
-import { createPath } from 'history/PathUtils';
+import { createPath } from 'history';
 // import gql from 'graphql-tag';
 
 import App from './components/App';

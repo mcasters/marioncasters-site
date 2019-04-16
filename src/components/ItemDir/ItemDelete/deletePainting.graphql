@@ -1,3 +1,0 @@
-mutation deletePainting($id: ID!) {
-  deletePainting(id: $id)
-}

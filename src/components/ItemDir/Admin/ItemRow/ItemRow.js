@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
-import ITEM_CONSTANTS from '../../../constants/itemConstants';
+import ITEM_CONSTANTS from '../../../../constants/itemConstants';
 import s from './ItemRow.css';
 import ItemDelete from '../ItemDelete';
 

@@ -1,3 +1,0 @@
-mutation deleteSculpture($id: ID!) {
-  deleteSculpture(id: $id)
-}

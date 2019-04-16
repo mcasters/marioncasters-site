@@ -3,13 +3,13 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { Query } from 'react-apollo';
+import { Query } from 'react-apollo/index';
 
 import PAINTING_QUERY from './getAllPaintings.graphql';
 import SCULPTURE_QUERY from './getAllSculptures.graphql';
 import DRAWING_QUERY from './getAllDrawings.graphql';
-import ITEM_CONSTANTS from '../../../constants/itemConstants';
-import ItemRow from '../ItemRow/ItemRow';
+import ITEM_CONSTANTS from '../../../../constants/itemConstants';
+import ItemRow from '../ItemRow';
 import s from './ItemList.css';
 
 class ItemList extends React.Component {
@@ -80,14 +80,15 @@ class ItemList extends React.Component {
 
                 return (
                   <Fragment>
-                    {resultTab.map(item => (
-                      <ItemRow
-                        item={item}
-                        srcList={this.getImagesForItem(item.title)}
-                        type={type}
-                        key={item.id}
-                      />
-                    ))}
+                    {resultTab !== undefined &&
+                      resultTab.map(item => (
+                        <ItemRow
+                          item={item}
+                          srcList={this.getImagesForItem(item.title)}
+                          type={type}
+                          key={item.id}
+                        />
+                      ))}
                   </Fragment>
                 );
               }}

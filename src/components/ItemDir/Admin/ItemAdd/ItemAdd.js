@@ -4,17 +4,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { Mutation } from 'react-apollo';
+import { Mutation } from 'react-apollo/index';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import dayPicker from 'react-day-picker/lib/style.css';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 
 import s from './ItemAdd.css';
-import PAINTING_MUTATION from './addPaintingMutation.graphql';
-import SCULPTURE_MUTATION from './addSculptureMutation.graphql';
-import DRAWING_MUTATION from './addDrawingMutation.graphql';
-import ITEM_CONSTANTS from '../../../constants/itemConstants';
-import Alert from '../../Alert';
+import ADD_ITEM_MUTATION from './addItemMutation.graphql';
+import ITEM_CONSTANTS from '../../../../constants/itemConstants';
+import Alert from '../../../Alert';
+import PAINTING_QUERY from '../ItemList/getAllPaintings.graphql';
+import SCULPTURE_QUERY from '../ItemList/getAllSculptures.graphql';
+import DRAWING_QUERY from '../ItemList/getAllDrawings.graphql';
 
 class ItemAdd extends React.Component {
   static propTypes = {
@@ -29,17 +30,20 @@ class ItemAdd extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
-    this.getItem = this.getItem.bind(this);
+    this.constructItem = this.constructItem.bind(this);
     this.complete = this.complete.bind(this);
 
     if (this.props.type === ITEM_CONSTANTS.TYPE.PAINTING) {
-      this.query = PAINTING_MUTATION;
+      this.GET_ITEMS_QUERY = PAINTING_QUERY;
+      this.queryName = 'getAllPaintings';
     }
     if (this.props.type === ITEM_CONSTANTS.TYPE.SCULPTURE) {
-      this.query = SCULPTURE_MUTATION;
+      this.GET_ITEMS_QUERY = SCULPTURE_QUERY;
+      this.queryName = 'getAllSculptures';
     }
     if (this.props.type === ITEM_CONSTANTS.TYPE.DRAWING) {
-      this.query = DRAWING_MUTATION;
+      this.GET_ITEMS_QUERY = DRAWING_QUERY;
+      this.queryName = 'getAllDrawings';
     }
   }
 
@@ -56,9 +60,10 @@ class ItemAdd extends React.Component {
     isComplete: false,
   });
 
-  getItem = () => {
-    let item = {
-      picture: this.state.files[0],
+  constructItem = () => {
+    const item = {
+      pictures: this.state.files,
+      type: this.props.type,
       title: this.state.title,
       date: this.state.date,
       technique: this.state.technique,
@@ -67,19 +72,7 @@ class ItemAdd extends React.Component {
       height: this.state.height,
     };
 
-    if (this.isSculpture) {
-      item = {
-        pictures: this.state.files,
-        title: this.state.title,
-        date: this.state.date,
-        technique: this.state.technique,
-        description: this.state.description,
-        width: this.state.width,
-        height: this.state.height,
-        length: this.state.length,
-      };
-    }
-    return item;
+    return this.isSculpture ? { ...item, length: this.state.length } : item;
   };
 
   handleImageChange(e, index) {
@@ -135,7 +128,19 @@ class ItemAdd extends React.Component {
       (this.isSculpture && haveMain && this.state.length);
 
     return (
-      <Mutation mutation={this.query} ssr>
+      <Mutation
+        mutation={ADD_ITEM_MUTATION}
+        update={(cache, { data: { addItem } }) => {
+          const { getAllPaintings } = cache.readQuery({
+            query: this.GET_ITEMS_QUERY,
+          });
+          cache.writeQuery({
+            query: this.GET_ITEMS_QUERY,
+            data: { getAllPaintings: getAllPaintings.concat([addItem]) },
+          });
+        }}
+        ssr
+      >
         {(mutation, { error }) => (
           <div className={s.addContainer}>
             <h2>{title}</h2>
@@ -143,7 +148,7 @@ class ItemAdd extends React.Component {
               className="formGroup"
               onSubmit={e => {
                 e.preventDefault();
-                const item = this.getItem();
+                const item = this.constructItem();
                 mutation({ variables: { item } }).then(res => {
                   if (res) this.complete();
                 });

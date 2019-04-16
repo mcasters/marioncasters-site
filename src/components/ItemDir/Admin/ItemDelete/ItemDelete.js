@@ -1,14 +1,11 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Fragment } from 'react';
-import { Mutation } from 'react-apollo';
+import { Mutation } from 'react-apollo/index';
 import PropTypes from 'prop-types';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa/index';
 
-import ITEM_CONSTANTS from '../../../constants/itemConstants';
-import DELETE_PAINTING from './deletePainting.graphql';
-import DELETE_DRAWING from './deleteDrawing.graphql';
-import DELETE_SCULPTURE from './deleteSculpture.graphql';
-import Alert from '../../Alert';
+import DELETE_ITEM from './deleteItem.graphql';
+import Alert from '../../../Alert';
 
 class ItemDelete extends React.Component {
   static propTypes = {
@@ -16,31 +13,17 @@ class ItemDelete extends React.Component {
     type: PropTypes.string.isRequired,
   };
 
-  getQuery = type => {
-    switch (type) {
-      case ITEM_CONSTANTS.TYPE.PAINTING:
-        return DELETE_PAINTING;
-      case ITEM_CONSTANTS.TYPE.DRAWING:
-        return DELETE_DRAWING;
-      case ITEM_CONSTANTS.TYPE.SCULPTURE:
-        return DELETE_SCULPTURE;
-      default:
-        return null;
-    }
-  };
-
   render() {
     const { id, type } = this.props;
-    const query = this.getQuery(type);
 
     return (
-      <Mutation mutation={query} ssr>
+      <Mutation mutation={DELETE_ITEM} ssr>
         {(mutation, { data, error }) => (
           <Fragment>
             <form
               onSubmit={e => {
                 e.preventDefault();
-                mutation({ variables: { id } });
+                mutation({ variables: { id, type } });
               }}
             >
               <button type="submit">

@@ -1,3 +1,0 @@
-mutation AddPainting($item: PaintingInput!) {
-  addPainting(input: $item)
-}

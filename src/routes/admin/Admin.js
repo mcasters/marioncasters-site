@@ -4,9 +4,9 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Tab, TabList, Tabs, TabPanel } from 'react-tabs';
 
 import s from './Admin.css';
-import AddItem from '../../components/ItemDir/ItemAdd';
+import AddItem from '../../components/ItemDir/Admin/ItemAdd';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
-import ItemList from '../../components/ItemDir/ItemList';
+import ItemList from '../../components/ItemDir/Admin/ItemList';
 import Logout from '../../components/Logout';
 
 class Admin extends React.Component {

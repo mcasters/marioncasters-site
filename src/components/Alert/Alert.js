@@ -51,9 +51,18 @@ class Alert extends React.Component {
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
   componentDidMount() {
+    this.isMounted = true;
+
     this.handleOpenModal();
-    setInterval(() => this.handleCloseModal(), 3000);
+    setInterval(() => {
+      if (this.isMounted) this.handleCloseModal();
+    }, 3000);
   }
+
+  componentWillUnmount() {
+    this.isMounted = false;
+  }
+  isMounted = false;
 
   handleOpenModal() {
     this.setState({ showModal: true });
