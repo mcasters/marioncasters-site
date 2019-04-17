@@ -2,19 +2,18 @@ import React from 'react';
 import DrawingsPage from './DrawingsPage';
 import Layout from '../../components/Layout';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
-// import requireContext from '../../../tools/lib/requireContext';
 
 async function action() {
   function importAllImages(r) {
-    const images = {};
+    const images = new Map();
     r.keys().forEach(item => {
-      images[item.replace('./', '')] = r(item);
+      images.set(item.replace('./', ''), r(item));
     });
     return images;
   }
 
   const allImages = importAllImages(
-    require.context('./../../../../photo-files/drawing', false, /\.jpe?g$/),
+    require.context('./../../../../photo-files/drawings', false, /\.jpg$/),
   );
   const title = ITEM_CONSTANTS.TITLE.DRAWING;
 
@@ -23,7 +22,7 @@ async function action() {
     chunks: ['drawings'],
     component: (
       <Layout>
-        <DrawingsPage title={title} imagesList={allImages} />
+        <DrawingsPage title={title} allImages={allImages} />
       </Layout>
     ),
   };

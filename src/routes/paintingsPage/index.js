@@ -5,14 +5,14 @@ import ITEM_CONSTANTS from '../../constants/itemConstants';
 
 async function action() {
   function importAllImages(r) {
-    const images = {};
+    const images = new Map();
     r.keys().forEach(item => {
-      images[item.replace('./', '')] = r(item);
+      images.set(item.replace('./', ''), r(item));
     });
     return images;
   }
   const allImages = importAllImages(
-    require.context('./../../../../photo-files/painting', false, /\.jpe?g$/),
+    require.context('./../../../../photo-files/paintings', false, /\.jpg$/),
   );
   const title = ITEM_CONSTANTS.TITLE.PAINTING;
 
@@ -21,7 +21,7 @@ async function action() {
     chunks: ['paintings'],
     component: (
       <Layout>
-        <PaintingsPage title={title} imagesList={allImages} />
+        <PaintingsPage title={title} allImages={allImages} />
       </Layout>
     ),
   };

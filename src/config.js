@@ -31,7 +31,10 @@ module.exports = {
   databaseHost: process.env.DATABASE_HOST,
 
   // Photos files
-  photosPath: process.env.PHOTOS_PATH,
+  libraryPath: `${process.env.PHOTOS_PATH}`,
+  paintingsPath: `${process.env.PHOTOS_PATH}/paintings`,
+  sculpturesPath: `${process.env.PHOTOS_PATH}/sculptures`,
+  drawingsPath: `${process.env.PHOTOS_PATH}/drawings`,
 
   // Web analytics
   analytics: {
@@ -41,6 +44,9 @@ module.exports = {
 
   // Authentication
   auth: {
-    jwt: { secret: process.env.JWT_SECRET || '15htDn-7uU-620Ghhwz' },
+    jwt: {
+      name: process.env.JWT_NAME || 'auth-token',
+      secret: process.env.JWT_SECRET || '15htDn-7uU-620Ghhwz',
+    },
   },
 };

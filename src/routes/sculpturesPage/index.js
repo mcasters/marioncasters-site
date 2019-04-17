@@ -13,7 +13,7 @@ async function action() {
   }
 
   const allImages = importAllImages(
-    require.context('./../../../../photo-files/sculpture', false, /\.jpe?g$/),
+    require.context('./../../../../photo-files/sculptures', false, /\.jpg$/),
   );
   const title = ITEM_CONSTANTS.TITLE.SCULPTURE;
 
@@ -22,7 +22,7 @@ async function action() {
     chunks: ['drawings'],
     component: (
       <Layout>
-        <SculpturesPage title={title} imagesList={allImages} />
+        <SculpturesPage title={title} allImages={allImages} />
       </Layout>
     ),
   };

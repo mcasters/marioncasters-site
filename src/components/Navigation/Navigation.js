@@ -6,8 +6,8 @@ import { slide as BurgerMenu } from 'react-burger-menu';
 
 import s from './Navigation.css';
 import Link from '../Link';
-import logoUrl from './signature2Dark45.png';
-import logoUrl2x from './signature2Dark100.png';
+import logoUrl from './logo-45.png';
+import logoUrl2x from './logo-100.png';
 
 class Navigation extends React.Component {
   static propTypes = {

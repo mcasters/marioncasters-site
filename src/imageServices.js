@@ -1,20 +1,7 @@
-import multer from 'multer';
-import path from 'path';
 import fs from 'fs';
 
 import config from './config';
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const libraryPath = path.resolve(__dirname, config.photosPath);
-    cb(null, `${libraryPath}/${req.body.type}`);
-  },
-  filename: (req, file, cb) => {
-    cb(null, req.body.fileName);
-  },
-});
-
-export const upload = multer({ storage, limits: { fileSize: 200000 } });
+import ITEM_CONSTANTS from './constants/itemConstants';
 
 export const getAllImages = async dirPath => {
   const images = [];
@@ -24,4 +11,43 @@ export const getAllImages = async dirPath => {
     images.push(file);
   });
   return images;
+};
+
+const deleteImage = file => {
+  try {
+    fs.unlinkSync(`${file}`);
+  } catch (err) {
+    return false;
+  }
+  return true;
+};
+
+export const deleteImages = async (itemTitle, itemType) => {
+  const library = config.libraryPath;
+  const files = [];
+  let i;
+
+  switch (itemType) {
+    case ITEM_CONSTANTS.TYPE.SCULPTURE:
+      for (i = 1; i < 5; i++) {
+        files.push(
+          `${library}/${ITEM_CONSTANTS.SCULPTURE_FOLDER}/${itemTitle}_${i}.jpg`,
+        );
+      }
+      break;
+    case ITEM_CONSTANTS.TYPE.PAINTING:
+      files.push(
+        `${library}/${ITEM_CONSTANTS.PAINTING_FOLDER}/${itemTitle}.jpg`,
+      );
+      break;
+    case ITEM_CONSTANTS.TYPE.DRAWING:
+      files.push(
+        `${library}/${ITEM_CONSTANTS.DRAWING_FOLDER}/${itemTitle}.jpg`,
+      );
+      break;
+    default:
+      return false;
+  }
+
+  return files.every(deleteImage);
 };

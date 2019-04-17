@@ -7,9 +7,11 @@ import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
-import session from 'express-session';
 import { getDataFromTree } from 'react-apollo';
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
+import cors from 'cors';
+import * as cookieParser from 'cookie-parser';
+import * as jwt from 'jsonwebtoken';
 
 import App from './components/App';
 import Html from './components/Html';
@@ -21,7 +23,6 @@ import createApolloClient from './apollo/createApolloClient';
 import { initialState } from './apollo/state/adminState';
 import models from './data/models';
 import schema from './data/schema';
-import { upload, getAllImages } from './imageServices';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
 import chunks from './chunk-manifest.json'; // eslint-disable-line import/no-unresolved
 import config from './config';
@@ -63,33 +64,37 @@ app.use(bodyParser.json());
 // Authentication
 // -----------------------------------------------------------------------------
 
+const graphqlPath = 'graphql';
+
 app.use(
-  session({
-    name: 'auth-token',
-    secret: config.auth.jwt.secret,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 1000 * 60 * 60 * 24, // 1 days
-    },
+  cors({
+    credentials: true,
+    origin: 'http://localhost:3000',
   }),
 );
+
+app.use(graphqlPath, cookieParser(), (req, _, next) => {
+  try {
+    req.userId = jwt.verify(req.cookies.id, config.auth.jwt.secret);
+  } catch (err) {
+    throw new Error("Erreur d'authentification");
+  }
+  return next();
+});
 
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
 const server = new ApolloServer({
   ...schema,
-  context: ({ req }) => ({ req }),
-  uploads: false,
+  context: ({ req, res }) => ({ res, userId: req.userId }),
+  uploads: true,
   introspection: __DEV__,
   playground: __DEV__,
   debug: __DEV__,
   pretty: __DEV__,
 });
-server.applyMiddleware({ app });
+server.applyMiddleware({ app, graphqlPath });
 
 //
 // Register server-side rendering middleware
@@ -172,30 +177,6 @@ app.get('*', async (req, res, next) => {
 });
 
 //
-// Get images from the server
-// -----------------------------------------------------------------------------
-app.get('api/images/drawing', (req, res) => {
-  const images = getAllImages(`${config.photosPath}/drawing`);
-  res.send({
-    images,
-  });
-});
-
-//
-// Handling images upload to the server
-// -----------------------------------------------------------------------------
-app.post('/uploadImage', upload.single('file'), (req, res) => {
-  if (!req.body.file) {
-    return res.send({
-      success: false,
-    });
-  }
-  return res.send({
-    success: true,
-  });
-});
-
-//
 // Error handling
 // -----------------------------------------------------------------------------
 const pe = new PrettyError();
@@ -209,6 +190,7 @@ app.use((err, req, res, next) => {
     <Html
       title="Internal Server Error"
       description={err.message}
+      keywords="Error"
       styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
     >
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
