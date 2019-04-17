@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import HomePage from '../../components/HomePage';
-
-class Home extends React.Component {
+class About extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
   };
@@ -12,10 +10,10 @@ class Home extends React.Component {
     return (
       <div>
         <h1>{this.props.title}</h1>
-        <HomePage />
+        <p>home</p>
       </div>
     );
   }
 }
 
-export default Home;
+export default About;

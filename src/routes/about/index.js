@@ -1,15 +1,16 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Page from '../../components/Page';
-import about from './about.md';
 
 function action() {
+  const title = 'Présentation';
   return {
+    description: 'Présentation de Marion Casters',
     chunks: ['about'],
-    title: 'Présentation',
+    title,
     component: (
       <Layout>
-        <Page {...about} />
+        <Page title={title} />
       </Layout>
     ),
   };

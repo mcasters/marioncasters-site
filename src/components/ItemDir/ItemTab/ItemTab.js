@@ -31,26 +31,20 @@ class ItemTab extends React.Component {
     const type = this.props.type; // eslint-disable-line prefer-destructuring
 
     return (
-      <Query
-        onError={() => <div>Erreur de chargement</div>}
-        query={GET_ITEMS_BY_YEAR_QUERY}
-        variables={{ year, type }}
-        ssr
-      >
+      <Query query={GET_ITEMS_BY_YEAR_QUERY} variables={{ year, type }} ssr>
         {({ loading, error, data }) => {
           if (loading) return <div className={s.loading}>Chargement...</div>;
-          // if (error) return <p>Erreur de chargement : {error}</p>;
 
           return (
             <Fragment>
               <h2>{year}</h2>
-              {data.getItemsByYear.map(painting => {
-                const list = this.getImagesForItem(painting.title);
+              {data.getItemsByYear.map(item => {
+                const list = this.getImagesForItem(item.title);
                 if (list !== undefined || list.length !== 0) {
                   return (
                     <Item
-                      key={painting.id}
-                      item={painting}
+                      key={item.title}
+                      item={item}
                       srcList={list}
                       itemType={ITEM_CONSTANTS.TYPE.PAINTING}
                     />

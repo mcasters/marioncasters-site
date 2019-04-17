@@ -15,6 +15,12 @@ import {
 } from './users/schema';
 
 import {
+  mutations as ContentMutations,
+  queries as ContentQueries,
+  resolvers as ContentResolvers,
+} from './content/schema';
+
+import {
   types as NewsTypes,
   queries as NewsQueries,
   resolvers as NewsResolvers,
@@ -22,8 +28,22 @@ import {
 
 export const types = [...ItemTypes, ...UserTypes, ...NewsTypes];
 
-export const queries = [...ItemQueries, ...UserQueries, ...NewsQueries];
+export const queries = [
+  ...ItemQueries,
+  ...UserQueries,
+  ...NewsQueries,
+  ...ContentQueries,
+];
 
-export const mutations = [...ItemMutations, ...UserMutations];
+export const mutations = [
+  ...ItemMutations,
+  ...UserMutations,
+  ...ContentMutations,
+];
 
-export const resolvers = merge(ItemResolvers, UserResolvers, NewsResolvers);
+export const resolvers = merge(
+  ItemResolvers,
+  UserResolvers,
+  NewsResolvers,
+  ContentResolvers,
+);
