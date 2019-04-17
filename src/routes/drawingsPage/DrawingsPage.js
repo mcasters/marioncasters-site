@@ -7,13 +7,18 @@ import PropTypes from 'prop-types';
 import Item from '../../components/ItemDir/Item';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
 import s from './DrawingsPage.css';
-import GET_DRAWINGS from './getDrawingsMutation.graphql';
+import GET_ITEMS_QUERY from '../../data/graphql/queries/getAllItems.graphql';
 
 class DrawingsPage extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     allImages: PropTypes.object.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    this.type = ITEM_CONSTANTS.TYPE.DRAWING;
+  }
 
   getImagesForItem = drawingName => {
     const regExp = new RegExp(`${drawingName}.jpg`);
@@ -25,23 +30,22 @@ class DrawingsPage extends React.Component {
   };
 
   render() {
+    const type = this.type; // eslint-disable-line prefer-destructuring
     return (
-      <Query query={GET_DRAWINGS} ssr>
+      <Query query={GET_ITEMS_QUERY} variables={{ type }} ssr>
         {({ loading, error, data }) => {
           if (loading) return <div className={s.loading}>Chargement...</div>;
           if (error) return <p>Erreur de chargement : {error}</p>;
 
-          const drawings = data.getAllDrawings;
-
           return (
             <Fragment>
               <h1>{this.props.title}</h1>
-              {drawings.map(drawing => (
+              {data.getAllItems.map(drawing => (
                 <Item
-                  key={drawing.title}
+                  key={drawing.id}
                   item={drawing}
                   srcList={this.getImagesForItem(drawing.title)}
-                  itemType={ITEM_CONSTANTS.TYPE.DRAWING}
+                  itemType={type}
                 />
               ))}
             </Fragment>

@@ -1,5 +1,5 @@
-query getAllPaintings {
-  getAllPaintings {
+query getAllItems($type: String!) {
+  getAllItems(type: $type) {
     id
     title
     date
@@ -7,5 +7,6 @@ query getAllPaintings {
     description
     height
     width
+    length
   }
 }

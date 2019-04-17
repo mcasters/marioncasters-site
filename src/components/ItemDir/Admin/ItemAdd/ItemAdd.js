@@ -11,11 +11,9 @@ import { format } from 'date-fns';
 
 import s from './ItemAdd.css';
 import ADD_ITEM_MUTATION from './addItemMutation.graphql';
+import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
 import ITEM_CONSTANTS from '../../../../constants/itemConstants';
 import Alert from '../../../Alert';
-import PAINTING_QUERY from '../ItemList/getAllPaintings.graphql';
-import SCULPTURE_QUERY from '../ItemList/getAllSculptures.graphql';
-import DRAWING_QUERY from '../ItemList/getAllDrawings.graphql';
 
 class ItemAdd extends React.Component {
   static propTypes = {
@@ -32,19 +30,6 @@ class ItemAdd extends React.Component {
     this.handleImageChange = this.handleImageChange.bind(this);
     this.constructItem = this.constructItem.bind(this);
     this.complete = this.complete.bind(this);
-
-    if (this.props.type === ITEM_CONSTANTS.TYPE.PAINTING) {
-      this.GET_ITEMS_QUERY = PAINTING_QUERY;
-      this.queryName = 'getAllPaintings';
-    }
-    if (this.props.type === ITEM_CONSTANTS.TYPE.SCULPTURE) {
-      this.GET_ITEMS_QUERY = SCULPTURE_QUERY;
-      this.queryName = 'getAllSculptures';
-    }
-    if (this.props.type === ITEM_CONSTANTS.TYPE.DRAWING) {
-      this.GET_ITEMS_QUERY = DRAWING_QUERY;
-      this.queryName = 'getAllDrawings';
-    }
   }
 
   getInitialState = () => ({
@@ -131,12 +116,16 @@ class ItemAdd extends React.Component {
       <Mutation
         mutation={ADD_ITEM_MUTATION}
         update={(cache, { data: { addItem } }) => {
-          const { getAllPaintings } = cache.readQuery({
-            query: this.GET_ITEMS_QUERY,
+          const { getAllItems } = cache.readQuery({
+            query: GET_ITEMS_QUERY,
+            variables: {
+              type: this.props.type,
+            },
           });
           cache.writeQuery({
-            query: this.GET_ITEMS_QUERY,
-            data: { getAllPaintings: getAllPaintings.concat([addItem]) },
+            query: GET_ITEMS_QUERY,
+            variables: this.props.type,
+            data: { getAllItems: getAllItems.concat([addItem]) },
           });
         }}
         ssr

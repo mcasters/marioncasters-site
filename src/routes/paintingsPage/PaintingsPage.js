@@ -6,6 +6,7 @@ import { Tab, TabList, Tabs, TabPanel } from 'react-tabs';
 
 import s from './PaintingsPage.css';
 import ItemTab from '../../components/ItemDir/ItemTab';
+import ITEM_CONSTANTS from '../../constants/itemConstants';
 
 class PaintingsPage extends React.Component {
   static propTypes = {
@@ -28,13 +29,25 @@ class PaintingsPage extends React.Component {
               <Tab>{year3.toString()}</Tab>
             </TabList>
             <TabPanel>
-              <ItemTab year={year1} allImages={this.props.allImages} />
+              <ItemTab
+                year={year1}
+                allImages={this.props.allImages}
+                type={ITEM_CONSTANTS.TYPE.PAINTING}
+              />
             </TabPanel>
             <TabPanel>
-              <ItemTab year={year2} allImages={this.props.allImages} />
+              <ItemTab
+                year={year2}
+                allImages={this.props.allImages}
+                type={ITEM_CONSTANTS.TYPE.PAINTING}
+              />
             </TabPanel>
             <TabPanel>
-              <ItemTab year={year3} allImages={this.props.allImages} />
+              <ItemTab
+                year={year3}
+                allImages={this.props.allImages}
+                type={ITEM_CONSTANTS.TYPE.PAINTING}
+              />
             </TabPanel>
           </Tabs>
         </div>

@@ -5,7 +5,7 @@ import { Query } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 import ITEM_CONSTANTS from '../../../constants/itemConstants';
-import GET_PAINTINGS from './getPaintingsByYear.graphql';
+import GET_ITEMS_BY_YEAR_QUERY from '../../../data/graphql/queries/getItemsByYear.graphql';
 import Item from '../Item/Item';
 import s from './ItemTab.css';
 import Alert from '../../Alert';
@@ -14,6 +14,7 @@ class ItemTab extends React.Component {
   static propTypes = {
     year: PropTypes.number.isRequired,
     allImages: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
   };
 
   getImagesForItem = itemName => {
@@ -26,30 +27,29 @@ class ItemTab extends React.Component {
   };
 
   render() {
-    /* eslint-disable prefer-destructuring */
-    const year = this.props.year;
+    const year = this.props.year; // eslint-disable-line prefer-destructuring
+    const type = this.props.type; // eslint-disable-line prefer-destructuring
 
     return (
       <Query
         onError={() => <div>Erreur de chargement</div>}
-        query={GET_PAINTINGS}
-        variables={{ year }}
+        query={GET_ITEMS_BY_YEAR_QUERY}
+        variables={{ year, type }}
         ssr
       >
         {({ loading, error, data }) => {
           if (loading) return <div className={s.loading}>Chargement...</div>;
           // if (error) return <p>Erreur de chargement : {error}</p>;
-          const paintings = data.getPaintingsByYear;
 
           return (
             <Fragment>
               <h2>{year}</h2>
-              {paintings.map(painting => {
+              {data.getItemsByYear.map(painting => {
                 const list = this.getImagesForItem(painting.title);
                 if (list !== undefined || list.length !== 0) {
                   return (
                     <Item
-                      key={painting.title}
+                      key={painting.id}
                       item={painting}
                       srcList={list}
                       itemType={ITEM_CONSTANTS.TYPE.PAINTING}

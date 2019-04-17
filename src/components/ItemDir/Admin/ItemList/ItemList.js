@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { Query } from 'react-apollo/index';
 
-import PAINTING_QUERY from './getAllPaintings.graphql';
-import SCULPTURE_QUERY from './getAllSculptures.graphql';
-import DRAWING_QUERY from './getAllDrawings.graphql';
+import GET_ITEMS_QUERY from './../../../../data/graphql/queries/getAllItems.graphql';
 import ITEM_CONSTANTS from '../../../../constants/itemConstants';
 import ItemRow from '../ItemRow';
 import s from './ItemList.css';
@@ -21,18 +19,7 @@ class ItemList extends React.Component {
   constructor(props) {
     super(props);
 
-    this.isSculpture = false;
-
-    if (this.props.type === ITEM_CONSTANTS.TYPE.PAINTING) {
-      this.query = PAINTING_QUERY;
-    }
-    if (this.props.type === ITEM_CONSTANTS.TYPE.SCULPTURE) {
-      this.query = SCULPTURE_QUERY;
-      this.isSculpture = true;
-    }
-    if (this.props.type === ITEM_CONSTANTS.TYPE.DRAWING) {
-      this.query = DRAWING_QUERY;
-    }
+    this.isSculpture = this.props.type === ITEM_CONSTANTS.TYPE.SCULPTURE;
   }
 
   getImagesForItem = itemName => {
@@ -47,7 +34,7 @@ class ItemList extends React.Component {
   render() {
     const title = 'Modification - Suppression';
     const type = this.props.type;
-    const query = this.query;
+
     return (
       <div className={s.listContainer}>
         <h2>{title}</h2>
@@ -67,21 +54,13 @@ class ItemList extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <Query query={query} ssr>
-              {({ loading, error, data }) => {
-                if (loading) return null;
+            <Query query={GET_ITEMS_QUERY} variables={{ type }} ssr>
+              {({ error, data }) => {
                 if (error) return <p>ERROR</p>;
-
-                let resultTab;
-                if (query === PAINTING_QUERY) resultTab = data.getAllPaintings;
-                if (query === DRAWING_QUERY) resultTab = data.getAllDrawings;
-                if (query === SCULPTURE_QUERY)
-                  resultTab = data.getAllSculptures;
-
                 return (
                   <Fragment>
-                    {resultTab !== undefined &&
-                      resultTab.map(item => (
+                    {data.getAllItems !== undefined &&
+                      data.getAllItems.map(item => (
                         <ItemRow
                           item={item}
                           srcList={this.getImagesForItem(item.title)}
