@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Presentation from '../../components/Presentation';
+
 class About extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -10,7 +12,7 @@ class About extends React.Component {
     return (
       <div>
         <h1>{this.props.title}</h1>
-        <p>home</p>
+        <Presentation />
       </div>
     );
   }

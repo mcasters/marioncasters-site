@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../components/Layout';
-import Page from '../../components/Page';
+import About from './About';
 
 function action() {
   const title = 'Présentation';
@@ -10,7 +10,7 @@ function action() {
     title,
     component: (
       <Layout>
-        <Page title={title} />
+        <About title={title} />
       </Layout>
     ),
   };

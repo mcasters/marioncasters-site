@@ -2,6 +2,7 @@ import { merge } from 'lodash';
 
 /** * Queries ** */
 import {
+  types as queryTypes,
   queries as queryQueries,
   resolvers as queryResolvers,
 } from './queries';
@@ -11,6 +12,8 @@ import {
   mutations as mutationMutations,
   resolvers as mutationResolvers,
 } from './mutations';
+
+export const types = [...queryTypes];
 
 export const queries = [...queryQueries];
 

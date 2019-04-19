@@ -15,6 +15,7 @@ import {
 } from './users/schema';
 
 import {
+  types as ContentTypes,
   mutations as ContentMutations,
   queries as ContentQueries,
   resolvers as ContentResolvers,
@@ -26,7 +27,12 @@ import {
   resolvers as NewsResolvers,
 } from './news/schema';
 
-export const types = [...ItemTypes, ...UserTypes, ...NewsTypes];
+export const types = [
+  ...ContentTypes,
+  ...ItemTypes,
+  ...UserTypes,
+  ...NewsTypes,
+];
 
 export const queries = [
   ...ItemQueries,
