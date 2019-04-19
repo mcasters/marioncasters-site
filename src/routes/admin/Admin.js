@@ -8,6 +8,8 @@ import AddItem from '../../components/ItemDir/Admin/ItemAdd';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
 import ItemList from '../../components/ItemDir/Admin/ItemList';
 import Logout from '../../components/Logout';
+import CONTENT_CONSTANTS from '../../constants/contentConstants';
+import EditContent from '../../components/EditContent';
 
 class Admin extends React.Component {
   static propTypes = {
@@ -58,10 +60,14 @@ class Admin extends React.Component {
           <Logout />
           <Tabs className={s.tabs}>
             <TabList>
+              <Tab>{CONTENT_CONSTANTS.TITLE.PRESENTATION}</Tab>
               <Tab>{ITEM_CONSTANTS.TITLE.PAINTING}</Tab>
               <Tab>{ITEM_CONSTANTS.TITLE.SCULPTURE}</Tab>
               <Tab>{ITEM_CONSTANTS.TITLE.DRAWING}</Tab>
             </TabList>
+            <TabPanel>
+              <EditContent label={CONTENT_CONSTANTS.LABEL.PRESENTATION_PAGE} />
+            </TabPanel>
             <TabPanel>
               <AddItem type={ITEM_CONSTANTS.TYPE.PAINTING} />
               <ItemList

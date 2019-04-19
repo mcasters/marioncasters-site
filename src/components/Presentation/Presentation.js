@@ -21,7 +21,7 @@ class Presentation extends React.Component {
                 src="./portrait.jpg"
                 alt="Portrait de Marion Casters"
               />
-              <div>{data.getContent.text}</div>
+              {data.getContent && <div>{data.getContent.text}</div>}
             </article>
           );
         }}

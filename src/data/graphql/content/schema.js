@@ -9,11 +9,12 @@ import {
 
 /** * Mutations ** */
 import {
+  types as mutationTypes,
   mutations as mutationMutations,
   resolvers as mutationResolvers,
 } from './mutations';
 
-export const types = [...queryTypes];
+export const types = [...queryTypes, ...mutationTypes];
 
 export const queries = [...queryQueries];
 

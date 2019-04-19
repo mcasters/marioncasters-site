@@ -12,7 +12,7 @@ export const types = [
 
 export const queries = [
   `
-  getContent(label: String!): Content!
+  getContent(label: String!): Content
 `,
 ];
 

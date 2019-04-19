@@ -1,13 +1,14 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import About from './About';
+import CONTENT_CONSTANTS from '../../constants/contentConstants';
 
 function action() {
-  const title = 'Présentation';
+  const title = CONTENT_CONSTANTS.TITLE.PRESENTATION;
+
   return {
     description: 'Présentation de Marion Casters',
     chunks: ['about'],
-    title,
     component: (
       <Layout>
         <About title={title} />

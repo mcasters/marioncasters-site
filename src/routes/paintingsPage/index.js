@@ -3,14 +3,15 @@ import PaintingsPage from './PaintingsPage';
 import Layout from '../../components/Layout';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
 
+function importAllImages(r) {
+  const images = new Map();
+  r.keys().forEach(item => {
+    images.set(item.replace('./', ''), r(item));
+  });
+  return images;
+}
+
 async function action() {
-  function importAllImages(r) {
-    const images = new Map();
-    r.keys().forEach(item => {
-      images.set(item.replace('./', ''), r(item));
-    });
-    return images;
-  }
   const allImages = importAllImages(
     require.context('./../../../../photo-files/paintings', false, /\.jpg$/),
   );

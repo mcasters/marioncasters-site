@@ -1,0 +1,3 @@
+mutation AddContent($input: ContentInput!) {
+  addContent(input: $input)
+}
