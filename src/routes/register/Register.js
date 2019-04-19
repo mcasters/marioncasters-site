@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { Mutation } from 'react-apollo';
 
 import history from '../../history';
 import s from './Register.css';
+import SIGN_UP_MUTATION from './signupMutation.graphql';
 
-const query = `mutation Signup($input: SignupInput!) {
-  signup(input: $input)
-  }`;
-
-class Login extends React.Component {
+class Register extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
   };
@@ -27,66 +25,77 @@ class Login extends React.Component {
     };
   }
 
-  signup = async e => {
-    e.preventDefault();
-    const input = this.state;
-    await this.context
-      .fetch('/graphql', {
-        method: 'POST',
-        body: JSON.stringify({
-          query,
-          variables: { input },
-        }),
-        redirect: 'follow',
-      })
-      .then(res => res.json())
-      .then(data => (data ? history.push('admin') : history.push('/')))
-      // eslint-disable-next-line no-console
-      .catch(error => console.log('ERROR', error.message));
-  };
-
   render() {
     const { username, password, email } = this.state;
 
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <h1>{this.props.title}</h1>
-          <form>
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={e => this.setState({ username: e.target.value })}
-              placeholder="Utilisateur"
-              autoComplete="username"
-            />
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={e => this.setState({ password: e.target.value })}
-              placeholder="Mot de passe"
-              autoComplete="current-password"
-            />
-            <div>
-              <input
-                type="email"
-                value={email}
-                onChange={e => this.setState({ email: e.target.value })}
-                placeholder="Email"
-                autoComplete="email"
-              />
+      <Mutation
+        mutation={SIGN_UP_MUTATION}
+        onError={() => history.push('/')}
+        update={(cache, mutationResult) => {
+          const isConnected = mutationResult.data.signup || false;
+          cache.writeData({
+            data: {
+              adminStatus: {
+                __typename: 'AdminStatus',
+                isConnected,
+              },
+            },
+          });
+        }}
+        onCompleted={data =>
+          data.signup ? history.push('/admin') : history.push('/home')
+        }
+      >
+        {(signup, { error }) => (
+          <div className={s.root}>
+            <div className={s.container}>
+              <h1>{this.props.title}</h1>
+              <form
+                onSubmit={e => {
+                  e.preventDefault();
+                  const input = {
+                    username: this.state.username,
+                    password: this.state.password,
+                    email: this.state.email,
+                  };
+                  signup({ variables: { input } });
+                }}
+              >
+                <input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={e => this.setState({ username: e.target.value })}
+                  placeholder="Utilisateur"
+                  autoComplete="username"
+                />
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={e => this.setState({ password: e.target.value })}
+                  placeholder="Mot de passe"
+                  autoComplete="current-password"
+                />
+                <div>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={e => this.setState({ email: e.target.value })}
+                    placeholder="Email"
+                    autoComplete="email"
+                  />
+                </div>
+                <button type="submit">Créer le compte</button>
+              </form>
+              {error && <p>Error :( Please try again</p>}
             </div>
-
-            <button onClick={this.state.login ? this.login : this.signup}>
-              Créer le compte
-            </button>
-          </form>
-        </div>
-      </div>
+          </div>
+        )}
+      </Mutation>
     );
   }
 }
 
-export default withStyles(s)(Login);
+export default withStyles(s)(Register);

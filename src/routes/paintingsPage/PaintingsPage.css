@@ -1,7 +1,3 @@
-.loading {
-  height: available;
-}
-
-button {
-  background-color: unset;
+.listContainer {
+  padding-top: 30px;
 }

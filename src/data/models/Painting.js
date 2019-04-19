@@ -25,7 +25,7 @@ const Painting = Model.define(
     },
 
     date: {
-      type: DataType.STRING(10),
+      type: DataType.DATEONLY,
       allowNull: false,
       get() {
         return this.getDataValue('date');

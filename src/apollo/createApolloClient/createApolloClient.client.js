@@ -1,10 +1,10 @@
 // @flow
 import { ApolloClient } from 'apollo-client';
 import { from } from 'apollo-link';
-import { onError } from 'apollo-link-error';
-import { HttpLink } from 'apollo-link-http';
+import { onError as errorLink } from 'apollo-link-error';
 import apolloLogger from 'apollo-link-logger';
 import { withClientState } from 'apollo-link-state';
+import { createUploadLink } from 'apollo-upload-client';
 
 import createCache from './createCache';
 import { stateResolvers as clientSideResolvers } from '../state/adminState';
@@ -18,9 +18,14 @@ export default function createApolloClient() {
     defaults: window.App.initialState,
   });
 
+  const uploadLink = createUploadLink({
+    uri: '/graphql',
+    credentials: 'include',
+  });
+
   const link = from([
     stateLink,
-    onError(({ graphQLErrors, networkError }) => {
+    errorLink(({ graphQLErrors, networkError }) => {
       if (graphQLErrors)
         graphQLErrors.map(({ message, locations, path }) =>
           console.warn(
@@ -30,10 +35,7 @@ export default function createApolloClient() {
       if (networkError) console.warn(`[Network error]: ${networkError}`);
     }),
     ...(__DEV__ ? [apolloLogger] : []),
-    new HttpLink({
-      uri: '/graphql',
-      credentials: 'include',
-    }),
+    uploadLink,
   ]);
 
   return new ApolloClient({

@@ -3,30 +3,26 @@ import DrawingsPage from './DrawingsPage';
 import Layout from '../../components/Layout';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
 
-async function action() {
-  function importAllImages(r) {
-    const images = {};
-    r.keys().forEach(item => {
-      images[item.replace('./', '')] = r(item);
-    });
-    return images;
-  }
+function importAllImages(r) {
+  const images = new Map();
+  r.keys().forEach(item => {
+    images.set(item.replace('./', ''), r(item));
+  });
+  return images;
+}
 
+async function action() {
   const allImages = importAllImages(
-    require.context('./../../../photoLibrary/drawing', false, /\.jpe?g$/),
+    require.context('./../../../../photo-files/drawings', false, /\.jpg$/),
   );
+  const title = ITEM_CONSTANTS.TITLE.DRAWING;
 
   return {
-    title: 'Dessins',
-    description:
-      'Images et descriptions des dessins de femmes de Marion Casters',
+    description: ITEM_CONSTANTS.META_DESCRIPTION.DRAWING,
     chunks: ['drawings'],
     component: (
       <Layout>
-        <DrawingsPage
-          title={ITEM_CONSTANTS.TITLE.DRAWING}
-          imagesList={allImages}
-        />
+        <DrawingsPage title={title} allImages={allImages} />
       </Layout>
     ),
   };

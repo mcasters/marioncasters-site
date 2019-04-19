@@ -1,0 +1,11 @@
+query getItemsByYear($year: Int!, $type: String!) {
+  getItemsByYear(year: $year, type: $type) {
+    title
+    date
+    technique
+    description
+    height
+    width
+    length
+  }
+}

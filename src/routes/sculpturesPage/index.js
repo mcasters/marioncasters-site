@@ -3,30 +3,26 @@ import SculpturesPage from './SculpturesPage';
 import Layout from '../../components/Layout';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
 
-async function action() {
-  function importAllImages(r) {
-    const images = new Map();
-    r.keys().forEach(item => {
-      images.set(item.replace('./', ''), r(item));
-    });
-    return images;
-  }
+function importAllImages(r) {
+  const images = new Map();
+  r.keys().forEach(item => {
+    images.set(item.replace('./', ''), r(item));
+  });
+  return images;
+}
 
+async function action() {
   const allImages = importAllImages(
-    require.context('./../../../photoLibrary/sculpture', false, /\.jpe?g$/),
+    require.context('./../../../../photo-files/sculptures', false, /\.jpg$/),
   );
+  const title = ITEM_CONSTANTS.TITLE.SCULPTURE;
 
   return {
-    title: 'Sculptures',
-    description:
-      'Images et descriptions des sculptures de femmes de Marion Casters',
+    description: ITEM_CONSTANTS.META_DESCRIPTION.SCULPTURE,
     chunks: ['drawings'],
     component: (
       <Layout>
-        <SculpturesPage
-          title={ITEM_CONSTANTS.TITLE.SCULPTURE}
-          imagesList={allImages}
-        />
+        <SculpturesPage title={title} allImages={allImages} />
       </Layout>
     ),
   };

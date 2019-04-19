@@ -1,0 +1,6 @@
+{
+  "name": "AddItem",
+  "version": "1.0.0",
+  "private": true,
+  "main": "ItemAdd.js"
+}

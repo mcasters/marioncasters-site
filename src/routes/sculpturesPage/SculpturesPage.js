@@ -1,53 +1,54 @@
 /* eslint-disable react/forbid-prop-types */
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Query } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 
-import Item from '../../components/Item';
+import Item from '../../components/ItemDir/Item';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
 import s from './SculpturesPage.css';
-import GET_SCULPTURES from './getSculpturesMutation.graphql';
+import GET_ITEMS_QUERY from '../../data/graphql/queries/getAllItems.graphql';
 
 class SculpturesPage extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    imagesList: PropTypes.object.isRequired,
+    allImages: PropTypes.object.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    this.type = ITEM_CONSTANTS.TYPE.SCULPTURE;
+  }
 
   getImagesForItem = sculptureName => {
     const regExp = new RegExp(`${sculptureName}*`);
     const imagesForItem = [];
-    this.props.imagesList.forEach((value, key) => {
+    this.props.allImages.forEach((value, key) => {
       if (regExp.test(key)) imagesForItem.push(value);
     });
     return imagesForItem;
   };
 
   render() {
+    const type = this.type; // eslint-disable-line prefer-destructuring
     return (
-      <Query
-        onError={() => <div>Erreur de chargement</div>}
-        query={GET_SCULPTURES}
-        ssr
-      >
-        {({ loading, data }) => {
+      <Query query={GET_ITEMS_QUERY} variables={{ type }} ssr>
+        {({ loading, error, data }) => {
           if (loading) return <div className={s.loading}>Chargement...</div>;
-
-          const sculptures = data.getAllSculptures;
+          if (error) return <p>Erreur de chargement : {error}</p>;
 
           return (
-            <div>
+            <Fragment>
               <h1>{this.props.title}</h1>
-              {sculptures.map(sculpture => (
+              {data.getAllItems.map(sculpture => (
                 <Item
-                  key={sculpture.title}
+                  key={sculpture.id}
                   item={sculpture}
                   srcList={this.getImagesForItem(sculpture.title)}
-                  itemType={ITEM_CONSTANTS.TYPE.SCULPTURE}
+                  itemType={type}
                 />
               ))}
-            </div>
+            </Fragment>
           );
         }}
       </Query>

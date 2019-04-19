@@ -1,0 +1,5 @@
+query getContent($label: String!) {
+  getContent(label: $label) {
+    text
+  }
+}

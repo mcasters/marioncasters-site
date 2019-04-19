@@ -1,0 +1,3 @@
+mutation AddItem($item: ItemInput!) {
+  addItem(input: $item)
+}

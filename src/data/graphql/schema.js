@@ -1,25 +1,11 @@
 import { merge } from 'lodash';
 
 import {
-  types as PaintingTypes,
-  mutations as PaintingMutations,
-  queries as PaintingQueries,
-  resolvers as PaintingResolvers,
-} from './paintings/schema';
-
-import {
-  types as SculptureTypes,
-  mutations as SculptureMutations,
-  queries as SculptureQueries,
-  resolvers as SculptureResolvers,
-} from './sculptures/schema';
-
-import {
-  types as DrawingTypes,
-  mutations as DrawingMutations,
-  queries as DrawingQueries,
-  resolvers as DrawingResolvers,
-} from './drawings/schema';
+  types as ItemTypes,
+  mutations as ItemMutations,
+  queries as ItemQueries,
+  resolvers as ItemResolvers,
+} from './items/schema';
 
 import {
   types as UserTypes,
@@ -29,38 +15,41 @@ import {
 } from './users/schema';
 
 import {
+  types as ContentTypes,
+  mutations as ContentMutations,
+  queries as ContentQueries,
+  resolvers as ContentResolvers,
+} from './content/schema';
+
+import {
   types as NewsTypes,
   queries as NewsQueries,
   resolvers as NewsResolvers,
 } from './news/schema';
 
 export const types = [
-  ...PaintingTypes,
-  ...SculptureTypes,
-  ...DrawingTypes,
+  ...ContentTypes,
+  ...ItemTypes,
   ...UserTypes,
   ...NewsTypes,
 ];
 
 export const queries = [
-  ...PaintingQueries,
-  ...SculptureQueries,
-  ...DrawingQueries,
+  ...ItemQueries,
   ...UserQueries,
   ...NewsQueries,
+  ...ContentQueries,
 ];
 
 export const mutations = [
-  ...PaintingMutations,
-  ...SculptureMutations,
-  ...DrawingMutations,
+  ...ItemMutations,
   ...UserMutations,
+  ...ContentMutations,
 ];
 
 export const resolvers = merge(
-  PaintingResolvers,
-  DrawingResolvers,
-  SculptureResolvers,
+  ItemResolvers,
   UserResolvers,
   NewsResolvers,
+  ContentResolvers,
 );

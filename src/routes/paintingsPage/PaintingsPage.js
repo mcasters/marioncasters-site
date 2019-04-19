@@ -1,53 +1,57 @@
 /* eslint-disable react/forbid-prop-types */
-import React from 'react';
-import { Query } from 'react-apollo';
+import React, { Fragment } from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
+import { Tab, TabList, Tabs, TabPanel } from 'react-tabs';
 
-import Item from '../../components/Item';
-import ITEM_CONSTANTS from '../../constants/itemConstants';
 import s from './PaintingsPage.css';
-import GET_PAINTINGS from './getPaintingsMutation.graphql';
+import ItemTab from '../../components/ItemDir/ItemTab';
+import ITEM_CONSTANTS from '../../constants/itemConstants';
 
 class PaintingsPage extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    imagesList: PropTypes.object.isRequired,
-  };
-
-  getImagesForItem = paintingName => {
-    const imagesForItem = [];
-    imagesForItem.push(this.props.imagesList[`${paintingName}.jpg`]);
-    return imagesForItem;
+    allImages: PropTypes.object.isRequired,
   };
 
   render() {
+    const year1 = 2017;
+    const year2 = 2018;
+    const year3 = 2019;
     return (
-      <Query
-        onError={() => <div>Erreur de chargement</div>}
-        query={GET_PAINTINGS}
-        ssr
-      >
-        {({ loading, data }) => {
-          if (loading) return <div className={s.loading}>Chargements...</div>;
-
-          const paintings = data.getAllPaintings;
-
-          return (
-            <div>
-              <h1>{this.props.title}</h1>
-              {paintings.map(painting => (
-                <Item
-                  key={painting.title}
-                  item={painting}
-                  srcList={this.getImagesForItem(painting.title)}
-                  itemType={ITEM_CONSTANTS.TYPE.PAINTING}
-                />
-              ))}
-            </div>
-          );
-        }}
-      </Query>
+      <Fragment>
+        <h1>{this.props.title}</h1>
+        <div className={s.listContainer}>
+          <Tabs>
+            <TabList>
+              <Tab>{year1.toString()}</Tab>
+              <Tab>{year2.toString()}</Tab>
+              <Tab>{year3.toString()}</Tab>
+            </TabList>
+            <TabPanel>
+              <ItemTab
+                year={year1}
+                allImages={this.props.allImages}
+                type={ITEM_CONSTANTS.TYPE.PAINTING}
+              />
+            </TabPanel>
+            <TabPanel>
+              <ItemTab
+                year={year2}
+                allImages={this.props.allImages}
+                type={ITEM_CONSTANTS.TYPE.PAINTING}
+              />
+            </TabPanel>
+            <TabPanel>
+              <ItemTab
+                year={year3}
+                allImages={this.props.allImages}
+                type={ITEM_CONSTANTS.TYPE.PAINTING}
+              />
+            </TabPanel>
+          </Tabs>
+        </div>
+      </Fragment>
     );
   }
 }
