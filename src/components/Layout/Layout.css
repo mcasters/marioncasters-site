@@ -109,7 +109,9 @@ fieldset {
  */
 
 textarea {
+  padding: 0.5em;
   resize: vertical;
+  box-sizing: border-box;
 }
 
 input {
@@ -125,10 +127,11 @@ input[type='file'] {
 }
 
 button {
-  width: 100%;
+  width: 30%;
   line-height: 2.3;
   display: block;
   outline: none;
+  margin: 2em auto;
 }
 
 /*

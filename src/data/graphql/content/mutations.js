@@ -2,17 +2,39 @@
 
 import { Content } from '../../models';
 
+export const types = [
+  `
+  input ContentInput {
+    label: String!
+    text: String!
+  }
+  `,
+];
+
 export const mutations = [
   `
-  setPresentationText(
-    text: String!
+  addContent(input: ContentInput!
   ): Boolean
 `,
 ];
 
 export const resolvers = {
   Mutation: {
-    setPresentationText: async (parent, { text }) =>
-      Content.create({ home_text: text }),
+    addContent: async (parent, { input }) => {
+      const { label } = input;
+
+      let content = await Content.findOne({
+        where: { label },
+      });
+      if (content) {
+        content = await content.update({
+          text: input.text,
+        });
+      } else {
+        content = await Content.create(input);
+      }
+
+      return content;
+    },
   },
 };

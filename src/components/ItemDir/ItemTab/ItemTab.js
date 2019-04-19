@@ -52,7 +52,9 @@ class ItemTab extends React.Component {
                 }
                 return null;
               })}
-              {error && <Alert message="Erreur GraphQl" isError />}
+              {error && (
+                <Alert message="Erreur au charggement des items" isError />
+              )}
             </Fragment>
           );
         }}
