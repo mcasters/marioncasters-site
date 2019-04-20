@@ -1,48 +1,44 @@
 @import '../variables.css';
 
-.nav {
+aside {
   position: fixed;
-  margin: 8em 0 0 4em;
+  width: var(--aside-width);
+  height: 600px;
+  padding: 8em 0 0 4em;
   box-sizing: border-box;
   vertical-align: top;
   z-index: 0;
 }
 
-.container {
-  height: 600px;
+.bar {
+  display: inline-block;
+  width: 7px;
+  vertical-align: top;
+  height: 100%;
   background-image: linear-gradient(var(--color-xxlight), var(--color-xlight));
   color: #fff;
   padding: 2em 0 2em;
-  width: 7px;
   text-align: center;
+}
+
+nav {
+  display: inline-block;
+  vertical-align: top;
+  width: 90%;
 }
 
 .link {
   float: left;
+  width: 100%;
   padding: 1.5em;
   font-weight: 400;
   font-size: var(--font-size-nav);
 }
 
-.link:hover {
-  border-left: 1px solid;
-  letter-spacing: 0.4em;
-}
-
 .linkHome {
-  vertical-align: bottom;
-  display: inline-block;
+  float: left;
+  width: 100%;
   padding: 4em 2em 1.5em;
-  transition: all 1.2s ease;
-}
-
-.linkHome:hover {
-  transform: scale(1.2, 1.2);
-  transition: all 1.2s ease;
-}
-
-.home {
-  vertical-align: bottom;
 }
 
 /* Mobile nav adds */
@@ -53,17 +49,34 @@
   letter-spacing: 0.7em;
 }
 
-a:last-of-type {
-  margin-top: 2em;
-}
-
 @media (--sm) {
   .link {
     transition: all 1.2s ease;
   }
 
-  .link:hover {
+  .link:hover,
+  .active {
+    color: var(--link-color-xdark);
+    border-left: 1px solid;
+    letter-spacing: 0.4em;
     transform: scale(1.2, 0.9);
+    transform-origin: left;
+    transition: all 1.2s ease;
+  }
+
+  .link:active {
+    color: var(--link-color-xdark);
+    border-left: 1px solid;
+    letter-spacing: 0.4em;
+  }
+
+  .linkHome {
+    transition: all 1.2s ease;
+  }
+
+  .linkHome:hover {
+    color: var(--link-color-xdark);
+    transform: scale(1.1, 1.1);
     transform-origin: left;
     transition: all 1.2s ease;
   }

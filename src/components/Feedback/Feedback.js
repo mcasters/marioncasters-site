@@ -11,22 +11,20 @@ import appleLogo from './appleTransparent.png';
 class Feedback extends React.Component {
   render() {
     return (
-      <aside>
-        <div className={s.container}>
-          <Link to="https://nodejs.org">
-            <img src={nodejsLogo} className={s.nodejsLogo} alt="NodeJS" />
-          </Link>
-          <Link to="https://reactjs.org">
-            <img src={reactLogo} className={s.reactLogo} alt="React" />
-          </Link>
-          <Link to="https://graphql.org">
-            <img src={graphqlLogo} className={s.graphqlLogo} alt="GraphQL" />
-          </Link>
-          <Link to="https://www.apple.com">
-            <img src={appleLogo} className={s.appleLogo} alt="Apple" />
-          </Link>
-        </div>
-      </aside>
+      <div className={s.container}>
+        <Link to="https://nodejs.org">
+          <img src={nodejsLogo} className={s.nodejsLogo} alt="NodeJS" />
+        </Link>
+        <Link to="https://reactjs.org">
+          <img src={reactLogo} className={s.reactLogo} alt="React" />
+        </Link>
+        <Link to="https://graphql.org">
+          <img src={graphqlLogo} className={s.graphqlLogo} alt="GraphQL" />
+        </Link>
+        <Link to="https://www.apple.com">
+          <img src={appleLogo} className={s.appleLogo} alt="Apple" />
+        </Link>
+      </div>
     );
   }
 }

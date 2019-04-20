@@ -10,7 +10,6 @@ import styleBurgerMenu from '../../../modules_modifications/style-burgerMenu.css
 import styleTabs from '../../../modules_modifications/style-tabs.css';
 import s from './Layout.css';
 import Header from '../Header';
-import Feedback from '../Feedback';
 import Footer from '../Footer';
 import Navigation from '../Navigation';
 import LAYOUT_CONSTANTS from '../../constants/layoutConstants';
@@ -36,7 +35,6 @@ class Layout extends React.Component {
         <ErrorBoundary>
           <main>{this.props.children}</main>
         </ErrorBoundary>
-        <Feedback />
         <Footer />
       </Fragment>
     );

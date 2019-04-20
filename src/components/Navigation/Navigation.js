@@ -4,6 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 import { slide as BurgerMenu } from 'react-burger-menu';
 
+import history from '../../history';
 import s from './Navigation.css';
 import Link from '../Link';
 import logoUrl from './logo-45.png';
@@ -19,8 +20,22 @@ class Navigation extends React.Component {
 
     this.state = {
       isMenuOpen: false,
+      location: '',
     };
   }
+
+  componentDidMount() {
+    this.updateLocation();
+    history.listen(() => {
+      this.updateLocation();
+    });
+  }
+
+  updateLocation = () => {
+    this.setState({
+      location: window.location.pathname,
+    });
+  };
 
   handleStateChange(state) {
     this.setState({ isMenuOpen: state.isMenuOpen });
@@ -67,21 +82,57 @@ class Navigation extends React.Component {
       );
     }
     return (
-      <nav className={s.nav}>
-        <div className={s.container}>
-          <Link className={s.link} to="/presentation">
+      <aside>
+        <div className={s.bar} />
+        <nav>
+          <Link
+            className={
+              this.state.location === '/presentation'
+                ? `${s.link} ${s.active}`
+                : `${s.link}`
+            }
+            to="/presentation"
+          >
             Présentation
           </Link>
-          <Link className={s.link} to="/peintures">
+          <Link
+            className={
+              this.state.location === '/peintures'
+                ? `${s.link} ${s.active}`
+                : `${s.link}`
+            }
+            to="/peintures"
+          >
             Peintures
           </Link>
-          <Link className={s.link} to="/sculptures">
+          <Link
+            className={
+              this.state.location === '/sculptures'
+                ? `${s.link} ${s.active}`
+                : `${s.link}`
+            }
+            to="/sculptures"
+          >
             Sculptures
           </Link>
-          <Link className={s.link} to="/dessins">
+          <Link
+            className={
+              this.state.location === '/dessins'
+                ? `${s.link} ${s.active}`
+                : `${s.link}`
+            }
+            to="/dessins"
+          >
             Dessins
           </Link>
-          <Link className={s.link} to="/contact">
+          <Link
+            className={
+              this.state.location === '/contact'
+                ? `${s.link} ${s.active}`
+                : `${s.link}`
+            }
+            to="/contact"
+          >
             Contact
           </Link>
           <Link className={s.linkHome} to="/">
@@ -91,8 +142,8 @@ class Navigation extends React.Component {
               alt="Signature de Marion Casters"
             />
           </Link>
-        </div>
-      </nav>
+        </nav>
+      </aside>
     );
   }
 }
