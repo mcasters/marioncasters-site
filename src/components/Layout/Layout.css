@@ -47,10 +47,10 @@ textarea {
   font-weight: var(--font-weight);
 }
 
-a,
-.loginLink {
-  color: var(--link-color-hover);
+a {
+  color: var(--link-color-dark);
   text-decoration: none;
+  transition: color 0.4s;
 }
 
 /*
@@ -166,7 +166,6 @@ button {
 @media (--md) {
   main {
     width: 80%;
-    padding: 10em 0 5em 15em;
   }
 }
 

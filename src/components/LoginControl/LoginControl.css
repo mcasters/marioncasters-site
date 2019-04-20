@@ -1,33 +1,23 @@
 .link {
+  color: var(--link-color);
   padding: 2px 5px;
   font-size: 1em;
-}
-
-.link,
-.link:active,
-.link:visited {
-  text-decoration: none;
-}
-
-.link:hover {
-  color: var(--color-light);
 }
 
 .loginLink {
+  color: var(--link-color);
   padding: 2px 5px;
   font-size: 1em;
   font-weight: 100;
-  color: var(--link-color);
   display: inline-block;
   background: none;
   border: none;
   width: inherit;
   line-height: inherit;
   cursor: pointer;
-  transition: color 0.5s;
 }
 
+.link:hover,
 .loginLink:hover {
   color: var(--color-light);
-  transition: color 0.5s;
 }
