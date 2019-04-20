@@ -1,13 +1,27 @@
+@import '../variables.css';
+
 footer {
   background: var(--color-xxdark);
   color: var(--color-light);
 }
 
 .container {
-  margin: 0 auto;
-  padding: 20px 15px;
-  max-width: var(--max-content-width);
+  padding: 2em 0;
   text-align: center;
+}
+
+@media (--sm) {
+  .container {
+    margin: 0 auto;
+    padding-left: 15em;
+    max-width: var(--max-content-width);
+  }
+}
+
+@media (--lg) {
+  .container {
+    padding-left: 20em;
+  }
 }
 
 .text,
@@ -17,9 +31,8 @@ footer {
 }
 
 .link,
-.link:active,
-.link:visited {
-  text-decoration: none;
+.loginLink {
+  color: var(--link-color);
 }
 
 .link:hover {
