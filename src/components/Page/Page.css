@@ -1,3 +1,7 @@
 .pageContent img {
   max-width: 50%;
 }
+
+.title {
+  display: none;
+}

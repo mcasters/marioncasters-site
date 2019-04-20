@@ -6,14 +6,19 @@ import s from './Page.css';
 class Page extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
+    html: PropTypes.string.isRequired,
   };
 
   render() {
-    const { title } = this.props;
+    const { title, html } = this.props;
     return (
       <article>
-        <h1>{title}</h1>
-        <div className={s.pageContent} />
+        <h1 className={s.title}>{title}</h1>
+        <div
+          className={s.pageContent}
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
       </article>
     );
   }

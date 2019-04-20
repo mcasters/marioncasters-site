@@ -55,6 +55,7 @@ nav {
   }
 
   .link:hover,
+  .link:active,
   .active {
     color: var(--link-color-xdark);
     border-left: 1px solid;
@@ -64,10 +65,8 @@ nav {
     transition: all 1.2s ease;
   }
 
-  .link:active {
-    color: var(--link-color-xdark);
-    border-left: 1px solid;
-    letter-spacing: 0.4em;
+  .active:hover {
+    transform: scale(1.15);
   }
 
   .linkHome {
@@ -76,7 +75,7 @@ nav {
 
   .linkHome:hover {
     color: var(--link-color-xdark);
-    transform: scale(1.1, 1.1);
+    transform: scale(1.2, 1.1);
     transform-origin: left;
     transition: all 1.2s ease;
   }
