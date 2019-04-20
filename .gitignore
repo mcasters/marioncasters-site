@@ -3,6 +3,9 @@
 # Dependencies
 node_modules/
 
+# Doc
+docs/
+
 # Compiled output
 build
 
