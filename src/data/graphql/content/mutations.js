@@ -34,7 +34,8 @@ export const resolvers = {
         content = await Content.create(input);
       }
 
-      return content;
+      if (content) return true;
+      return false;
     },
   },
 };

@@ -1,4 +1,4 @@
-import { types, resolvers, mutations, queries } from '../data/graphql/schema';
+import { types, resolvers, mutations, queries } from './graphql/schema';
 
 const RootQuery = [
   ` 

@@ -8,6 +8,12 @@ import {
 } from './items/schema';
 
 import {
+  types as StatusTypes,
+  mutations as StatusMutations,
+  queries as StatusQueries,
+} from './onMemory/schema';
+
+import {
   types as UserTypes,
   mutations as UserMutations,
   queries as UserQueries,
@@ -32,6 +38,7 @@ export const types = [
   ...ItemTypes,
   ...UserTypes,
   ...NewsTypes,
+  ...StatusTypes,
 ];
 
 export const queries = [
@@ -39,12 +46,14 @@ export const queries = [
   ...UserQueries,
   ...NewsQueries,
   ...ContentQueries,
+  ...StatusQueries,
 ];
 
 export const mutations = [
   ...ItemMutations,
   ...UserMutations,
   ...ContentMutations,
+  ...StatusMutations,
 ];
 
 export const resolvers = merge(

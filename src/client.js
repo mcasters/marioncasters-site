@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
 import { createPath } from 'history';
-// import gql from 'graphql-tag';
+import gql from 'graphql-tag';
 
 import App from './components/App';
 import history from './history';
@@ -26,7 +26,9 @@ const insertCss = (...styles) => {
 
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
-const context = {};
+const context = {
+  client: apolloClient,
+};
 
 const container = document.getElementById('app');
 let currentLocation = history.location;
@@ -158,7 +160,6 @@ if (module.hot) {
 
 // This is a demonstration of how to mutate the client state of apollo-link-state.
 // If you don't need the networkState, please erase below lines.
-/*
 function onAdminStatusChange() {
   apolloClient.mutate({
     mutation: gql`
@@ -175,4 +176,3 @@ function onAdminStatusChange() {
 window.addEventListener('online', onAdminStatusChange);
 window.addEventListener('offline', onAdminStatusChange);
 onAdminStatusChange();
-*/

@@ -17,7 +17,6 @@ import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import router from './router';
 import createApolloClient from './apollo/createApolloClient';
-import { initialState } from './apollo/state/adminState';
 import models from './data/models';
 import schema from './data/schema';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
@@ -84,7 +83,7 @@ app.use(graphqlPath, cookieParser(), (req, _, next) => {
 // -----------------------------------------------------------------------------
 const server = new ApolloServer({
   ...schema,
-  context: ({ req, res }) => ({ res, userId: req.userId }),
+  context: ({ req, res }) => ({ req, res }),
   uploads: true,
   introspection: __DEV__,
   playground: __DEV__,
@@ -110,9 +109,12 @@ app.get('*', async (req, res, next) => {
     const apolloClient = createApolloClient(
       {
         schema: makeExecutableSchema(schema),
-        rootValue: { request: req },
+        // This is a context consumed in GraphQL Resolvers
+        context: { req },
       },
-      initialState,
+      {
+        user: req.user || null,
+      },
     );
 
     // Global (context) variables that can be easily accessed from any React component
@@ -120,6 +122,7 @@ app.get('*', async (req, res, next) => {
     const context = {
       pathname: req.path,
       query: req.query,
+      client: apolloClient,
     };
 
     const route = await router.resolve(context);
@@ -155,7 +158,6 @@ app.get('*', async (req, res, next) => {
     data.app = {
       apiUrl: config.api.clientUrl,
       cache: apolloClient.extract(),
-      initialState,
     };
 
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
