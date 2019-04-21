@@ -20,7 +20,7 @@ class PaintingsPage extends React.Component {
     const year3 = 2019;
     return (
       <Fragment>
-        <h1>{this.props.title}</h1>
+        <h1 className={s.title}>{this.props.title}</h1>
         <div className={s.listContainer}>
           <Tabs>
             <TabList>

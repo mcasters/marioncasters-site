@@ -4,7 +4,7 @@
   font-size: 1em;
 }
 
-button {
+.loginLink {
   font-family: var(--font-family-base) !important;
   color: var(--link-color);
   padding: 2px 5px;

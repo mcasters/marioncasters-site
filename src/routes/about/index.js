@@ -7,6 +7,7 @@ function action() {
   const title = CONTENT_CONSTANTS.TITLE.PRESENTATION;
 
   return {
+    title,
     description: 'Présentation de Marion Casters',
     chunks: ['about'],
     component: (

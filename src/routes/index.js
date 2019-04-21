@@ -62,7 +62,7 @@ const routes = {
 
     // Provide default values for title, description etc.
     route.title = `${route.title || 'Page sans titre'} - Marion Casters`;
-    route.description = route.description || '';
+    route.description = route.description || '-';
     route.keywords = META_CONSTANTS.KEYWORDS;
 
     return route;

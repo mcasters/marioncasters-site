@@ -39,7 +39,7 @@ class DrawingsPage extends React.Component {
 
           return (
             <Fragment>
-              <h1>{this.props.title}</h1>
+              <h1 className={s.title}>{this.props.title}</h1>
               {data.getAllItems.map(drawing => (
                 <Item
                   key={drawing.id}

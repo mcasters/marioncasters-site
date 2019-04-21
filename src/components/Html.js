@@ -8,7 +8,7 @@ import config from '../config';
 class Html extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    description: PropTypes.string,
+    description: PropTypes.string.isRequired,
     keywords: PropTypes.string.isRequired,
     styles: PropTypes.arrayOf(
       PropTypes.shape({
@@ -22,7 +22,6 @@ class Html extends React.Component {
   };
 
   static defaultProps = {
-    description: '',
     styles: [],
     scripts: [],
   };

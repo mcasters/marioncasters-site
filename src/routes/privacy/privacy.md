@@ -1,5 +1,5 @@
 ---
-title: Privacy Policy
+title: Politique de confidentialité
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat tortor

@@ -18,6 +18,7 @@ async function action() {
   const title = ITEM_CONSTANTS.TITLE.PAINTING;
 
   return {
+    title,
     description: ITEM_CONSTANTS.META_DESCRIPTION.PAINTING,
     chunks: ['paintings'],
     component: (

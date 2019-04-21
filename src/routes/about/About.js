@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
+import s from './About.css';
 import Presentation from '../../components/Presentation';
 
 class About extends React.Component {
@@ -9,13 +11,14 @@ class About extends React.Component {
   };
 
   render() {
+    const title = this.props.title; // eslint-disable-line prefer-destructuring
     return (
       <div>
-        <h1>{this.props.title}</h1>
+        <h1 className={s.title}>{title}</h1>
         <Presentation />
       </div>
     );
   }
 }
 
-export default About;
+export default withStyles(s)(About);

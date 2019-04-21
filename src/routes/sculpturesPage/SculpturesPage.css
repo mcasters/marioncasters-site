@@ -1,3 +1,7 @@
 .loading {
   height: 600px;
 }
+
+.title {
+  display: none;
+}
