@@ -1,9 +1,8 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-restricted-syntax */
-
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/withStyles';
 import { Mutation } from 'react-apollo/index';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import dayPicker from 'react-day-picker/lib/style.css';
@@ -60,6 +59,11 @@ class ItemAdd extends React.Component {
     return this.isSculpture ? { ...item, length: this.state.length } : item;
   };
 
+  complete = () => {
+    this.setState(this.getInitialState());
+    this.setState({ isComplete: true });
+  };
+
   handleImageChange(e, index) {
     e.preventDefault();
 
@@ -91,11 +95,6 @@ class ItemAdd extends React.Component {
   handleDayChange(selectedDay) {
     this.setState({ date: selectedDay });
   }
-
-  complete = () => {
-    this.setState(this.getInitialState());
-    this.setState({ isComplete: true });
-  };
 
   render() {
     const title = 'Ajout';

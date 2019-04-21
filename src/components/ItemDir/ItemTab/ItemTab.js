@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/withStyles';
 
 import ITEM_CONSTANTS from '../../../constants/itemConstants';
 import GET_ITEMS_BY_YEAR_QUERY from '../../../data/graphql/queries/getItemsByYear.graphql';

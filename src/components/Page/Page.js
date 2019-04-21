@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/withStyles';
+
 import s from './Page.css';
 
 class Page extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     html: PropTypes.string.isRequired,
+    showTitle: PropTypes.bool.isRequired,
   };
 
   render() {
-    const { title, html } = this.props;
+    const { title, html, showTitle } = this.props;
     return (
       <article>
-        <h1 className={s.title}>{title}</h1>
+        <h1 className={showTitle ? '' : s.title}>{title}</h1>
         <div
           className={s.pageContent}
           // eslint-disable-next-line react/no-danger

@@ -2,8 +2,6 @@ import {} from 'dotenv/config';
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
-import { graphql } from 'graphql';
-import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
@@ -17,7 +15,6 @@ import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
-import createFetch from './createFetch';
 import router from './router';
 import createApolloClient from './apollo/createApolloClient';
 import { initialState } from './apollo/state/adminState';
@@ -118,22 +115,11 @@ app.get('*', async (req, res, next) => {
       initialState,
     );
 
-    // Universal HTTP client
-    const fetch = createFetch(nodeFetch, {
-      baseUrl: config.api.serverUrl,
-      cookie: req.headers.cookie,
-      schema,
-      graphql,
-    });
-
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
     const context = {
-      insertCss,
-      fetch,
       pathname: req.path,
       query: req.query,
-      client: apolloClient,
     };
 
     const route = await router.resolve(context);
@@ -144,7 +130,11 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    const rootComponent = <App context={context}>{route.component}</App>;
+    const rootComponent = (
+      <App context={context} client={apolloClient} insertCss={insertCss}>
+        {route.component}
+      </App>
+    );
     await getDataFromTree(rootComponent);
     data.children = await ReactDOM.renderToString(rootComponent);
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
@@ -164,7 +154,7 @@ app.get('*', async (req, res, next) => {
     data.scripts = Array.from(scripts);
     data.app = {
       apiUrl: config.api.clientUrl,
-      cache: context.client.extract(),
+      cache: apolloClient.extract(),
       initialState,
     };
 

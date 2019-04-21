@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Fragment } from 'react';
 import { Query } from 'react-apollo';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
 
 import Item from '../../components/ItemDir/Item';

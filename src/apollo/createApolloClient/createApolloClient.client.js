@@ -1,4 +1,3 @@
-// @flow
 import { ApolloClient } from 'apollo-client';
 import { from } from 'apollo-link';
 import { onError as errorLink } from 'apollo-link-error';
@@ -10,7 +9,7 @@ import createCache from './createCache';
 import { stateResolvers as clientSideResolvers } from '../state/adminState';
 
 export default function createApolloClient() {
-  const cache = createCache();
+  const cache = createCache().restore(window.App.cache);
 
   const stateLink = withClientState({
     cache,
@@ -40,7 +39,7 @@ export default function createApolloClient() {
 
   return new ApolloClient({
     link,
-    cache: cache.restore(window.App.cache),
+    cache,
     queryDeduplication: true,
     connectToDevTools: true,
   });

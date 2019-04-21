@@ -50,6 +50,8 @@ textarea {
   font-family: var(--font-family-base);
   color: var(--color-dark);
   font-weight: var(--font-weight);
+  font-variant: small-caps;
+  letter-spacing: 3px;
 }
 
 a {

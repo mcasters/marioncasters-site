@@ -3,11 +3,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/withStyles';
 import { Mutation } from 'react-apollo/index';
 
 import ADD_CONTENT_MUTATION from './addContentMutation.graphql';
-import Alert from '../../components/Alert';
+import Alert from '../Alert';
 import s from './EditContent.css';
 
 class EditContent extends React.Component {
@@ -38,15 +38,15 @@ class EditContent extends React.Component {
     return input;
   };
 
-  handleInputChange(e) {
-    e.preventDefault();
-    this.setState({ text: e.target.value });
-  }
-
   complete = () => {
     this.setState(this.getInitialState());
     this.setState({ isComplete: true });
   };
+
+  handleInputChange(e) {
+    e.preventDefault();
+    this.setState({ text: e.target.value });
+  }
 
   render() {
     const title = this.props.label;

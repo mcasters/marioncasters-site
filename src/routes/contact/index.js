@@ -14,7 +14,7 @@ function action() {
     chunks: ['contact'],
     component: (
       <Layout>
-        <Page {...contact} />
+        <Page {...contact} showTitle={false} />
       </Layout>
     ),
   };

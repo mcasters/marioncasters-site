@@ -1,10 +1,11 @@
 import React from 'react';
+
 import Layout from '../../components/Layout';
 import About from './About';
-import CONTENT_CONSTANTS from '../../constants/contentConstants';
+import ROOT_CONSTANTS from '../../constants/rootConstants';
 
 function action() {
-  const title = CONTENT_CONSTANTS.TITLE.PRESENTATION;
+  const title = ROOT_CONSTANTS.TITLE.PRESENTATION;
 
   return {
     title,
