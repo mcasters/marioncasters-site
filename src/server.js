@@ -2,25 +2,21 @@ import {} from 'dotenv/config';
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
-import { graphql } from 'graphql';
-import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
 import { getDataFromTree } from 'react-apollo';
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
 import cors from 'cors';
-import * as cookieParser from 'cookie-parser';
-import * as jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
 import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
-import createFetch from './createFetch';
 import router from './router';
 import createApolloClient from './apollo/createApolloClient';
-import { initialState } from './apollo/state/adminState';
 import models from './data/models';
 import schema from './data/schema';
 // import assets from './asset-manifest.json'; // eslint-disable-line import/no-unresolved
@@ -52,20 +48,13 @@ app.set('trust proxy', config.trustProxy);
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
 app.use(express.static(path.resolve(__dirname, 'public')));
-// app.use(
-//   '/api/images',
-//   express.static(path.resolve(__dirname, config.photosPath)),
-// );
-// app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 //
 // Authentication
 // -----------------------------------------------------------------------------
-
-const graphqlPath = 'graphql';
-
 app.use(
   cors({
     credentials: true,
@@ -73,28 +62,32 @@ app.use(
   }),
 );
 
-app.use(graphqlPath, cookieParser(), (req, _, next) => {
-  try {
-    req.userId = jwt.verify(req.cookies.id, config.auth.jwt.secret);
-  } catch (err) {
-    throw new Error("Erreur d'authentification");
-  }
-  return next();
-});
-
+app.use(
+  session({
+    name: config.auth.jwt.name,
+    secret: config.auth.jwt.secret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 1000 * 60 * 60 * 24, // 1 days
+    },
+  }),
+);
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
 const server = new ApolloServer({
   ...schema,
-  context: ({ req, res }) => ({ res, userId: req.userId }),
+  context: ({ req }) => ({ req }),
   uploads: true,
   introspection: __DEV__,
   playground: __DEV__,
   debug: __DEV__,
   pretty: __DEV__,
 });
-server.applyMiddleware({ app, graphqlPath });
+server.applyMiddleware({ app });
 
 //
 // Register server-side rendering middleware
@@ -113,24 +106,17 @@ app.get('*', async (req, res, next) => {
     const apolloClient = createApolloClient(
       {
         schema: makeExecutableSchema(schema),
-        rootValue: { request: req },
+        // This is a context consumed in GraphQL Resolvers
+        context: { req },
       },
-      initialState,
+      {
+        user: req.user || null,
+      },
     );
-
-    // Universal HTTP client
-    const fetch = createFetch(nodeFetch, {
-      baseUrl: config.api.serverUrl,
-      cookie: req.headers.cookie,
-      schema,
-      graphql,
-    });
 
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
     const context = {
-      insertCss,
-      fetch,
       pathname: req.path,
       query: req.query,
       client: apolloClient,
@@ -144,7 +130,11 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    const rootComponent = <App context={context}>{route.component}</App>;
+    const rootComponent = (
+      <App context={context} client={apolloClient} insertCss={insertCss}>
+        {route.component}
+      </App>
+    );
     await getDataFromTree(rootComponent);
     data.children = await ReactDOM.renderToString(rootComponent);
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
@@ -164,8 +154,7 @@ app.get('*', async (req, res, next) => {
     data.scripts = Array.from(scripts);
     data.app = {
       apiUrl: config.api.clientUrl,
-      cache: context.client.extract(),
-      initialState,
+      cache: apolloClient.extract(),
     };
 
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);

@@ -1,5 +1,6 @@
 /* eslint-disable global-require */
 import META_CONSTANTS from '../constants/metaHtmlConstants';
+import ROOT_CONSTANTS from '../constants/rootConstants';
 
 // The top-level (parent) route
 const routes = {
@@ -12,40 +13,40 @@ const routes = {
       load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {
-      path: '/home',
+      path: ROOT_CONSTANTS.ROOT.HOME,
       load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {
-      path: '/peintures',
+      path: ROOT_CONSTANTS.ROOT.PEINTURES,
       load: () => import(/* webpackChunkName: 'paintings' */ './paintingsPage'),
     },
     {
-      path: '/sculptures',
+      path: ROOT_CONSTANTS.ROOT.SCULPTURES,
       load: () =>
         import(/* webpackChunkName: 'sculptures' */ './sculpturesPage'),
     },
     {
-      path: '/dessins',
+      path: ROOT_CONSTANTS.ROOT.DESSINS,
       load: () => import(/* webpackChunkName: 'drawings' */ './drawingsPage'),
     },
     {
-      path: '/contact',
-      load: () => import(/* webpackChunkName: 'contact' */ './contact'),
-    },
-    {
-      path: '/register',
-      load: () => import(/* webpackChunkName: 'register' */ './register'),
-    },
-    {
-      path: '/presentation',
+      path: ROOT_CONSTANTS.ROOT.PRESENTATION,
       load: () => import(/* webpackChunkName: 'about' */ './about'),
     },
     {
-      path: '/privacy',
+      path: ROOT_CONSTANTS.ROOT.CONTACT,
+      load: () => import(/* webpackChunkName: 'contact' */ './contact'),
+    },
+    {
+      path: ROOT_CONSTANTS.ROOT.REGISTER,
+      load: () => import(/* webpackChunkName: 'register' */ './register'),
+    },
+    {
+      path: ROOT_CONSTANTS.ROOT.CONFIDENTIALITE,
       load: () => import(/* webpackChunkName: 'privacy' */ './privacy'),
     },
     {
-      path: '/admin',
+      path: ROOT_CONSTANTS.ROOT.ADMIN,
       load: () => import(/* webpackChunkName: 'admin' */ './admin'),
     },
 
@@ -62,7 +63,7 @@ const routes = {
 
     // Provide default values for title, description etc.
     route.title = `${route.title || 'Page sans titre'} - Marion Casters`;
-    route.description = route.description || '';
+    route.description = route.description || '-';
     route.keywords = META_CONSTANTS.KEYWORDS;
 
     return route;

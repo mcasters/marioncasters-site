@@ -18,6 +18,7 @@
 
   --max-content-width: 1000px;
   --max-content-form: 25em;
+  --aside-width: 17%;
 
   /*
    * Media queries breakpoints
@@ -42,6 +43,7 @@
   --color-xxdark: #333;
   --link-color: #ab8b8b;
   --link-color-dark: #a86363;
+  --link-color-xdark: #754b49;
   --popup-background-ok: #9ed39c;
 
   /*

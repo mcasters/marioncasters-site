@@ -2,10 +2,10 @@
 /* eslint-disable prefer-destructuring */
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/withStyles';
 import { Query } from 'react-apollo/index';
 
-import GET_ITEMS_QUERY from './../../../../data/graphql/queries/getAllItems.graphql';
+import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
 import ITEM_CONSTANTS from '../../../../constants/itemConstants';
 import ItemRow from '../ItemRow';
 import s from './ItemList.css';

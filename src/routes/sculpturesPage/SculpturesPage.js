@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Fragment } from 'react';
 import { Query } from 'react-apollo';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
 
 import Item from '../../components/ItemDir/Item';
@@ -39,7 +39,7 @@ class SculpturesPage extends React.Component {
 
           return (
             <Fragment>
-              <h1>{this.props.title}</h1>
+              <h1 className={s.title}>{this.props.title}</h1>
               {data.getAllItems.map(sculpture => (
                 <Item
                   key={sculpture.id}

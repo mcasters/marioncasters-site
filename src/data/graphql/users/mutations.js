@@ -1,9 +1,6 @@
 /* eslint-disable no-param-reassign */
-
 import bcrypt from 'bcrypt';
-import * as jwt from 'jsonwebtoken';
 
-import config from '../../../config';
 import { User } from '../../models/index';
 
 export const types = [
@@ -37,7 +34,7 @@ export const mutations = [
 
 export const resolvers = {
   Mutation: {
-    signup: async (parent, { input }, { res }) => {
+    signup: async (parent, { input }, { req }) => {
       const lookupUser = await User.findOne({
         where: { username: input.username },
       });
@@ -60,27 +57,12 @@ export const resolvers = {
 
       if (!newUser) throw new Error('Erreur à la création du user en BDD');
 
-      const userId = newUser.id;
-      if (userId) {
-        const token = jwt.sign(
-          {
-            userId,
-          },
-          config.auth.jwt.secret,
-          { expiresIn: '1d' },
-        );
+      req.session.userId = newUser.id;
 
-        res.cookie(config.auth.jwt.name, token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          maxAge: 1000 * 60 * 60 * 24, // 1 days
-        });
-        return true;
-      }
-      return false;
+      return true;
     },
 
-    login: async (parent, { input }, { res }) => {
+    login: async (parent, { input }, { req }) => {
       const dbUser = await User.findOne({
         where: { username: input.username },
       });
@@ -90,24 +72,8 @@ export const resolvers = {
 
       if (!match) throw new Error('Mot de passe invalide');
 
-      const token = jwt.sign(
-        {
-          userId: dbUser.id,
-        },
-        config.auth.jwt.secret,
-        { expiresIn: '1d' },
-      );
+      req.session.userId = dbUser.id;
 
-      res.cookie(config.auth.jwt.name, token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 1000 * 60 * 60 * 24, // 1 days
-      });
-      return true;
-    },
-
-    logout: async (parent, __, { res }) => {
-      res.clearCookie(config.auth.jwt.name);
       return true;
     },
   },

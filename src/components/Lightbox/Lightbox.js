@@ -1,6 +1,6 @@
 /* eslint-disable css-modules/no-unused-class */
 import React, { Component } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import {
@@ -453,7 +453,8 @@ class Lightbox extends Component {
     // Ignore requests that don't change the zoom level
     if (nextZoomLevel === this.state.zoomLevel) {
       return;
-    } else if (nextZoomLevel === MIN_ZOOM_LEVEL) {
+    }
+    if (nextZoomLevel === MIN_ZOOM_LEVEL) {
       // Snap back to center if zoomed all the way out
       this.setState({
         zoomLevel: nextZoomLevel,
@@ -1343,7 +1344,8 @@ class Lightbox extends Component {
         );
 
         return;
-      } else if (bestImageInfo === null) {
+      }
+      if (bestImageInfo === null) {
         const loadingIcon = (
           <div
             className={`${s.ril__loadingCircle} ${

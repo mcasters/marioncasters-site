@@ -5,6 +5,7 @@ import { Sculpture, Painting, Drawing } from '../../models/index';
 import { deleteImages } from '../../../imageServices';
 import ITEM_CONSTANTS from '../../../constants/itemConstants';
 import config from '../../../config';
+import getAuthenticatedUser from '../common/checkAuth';
 
 export const types = [
   `
@@ -123,7 +124,10 @@ export const resolvers = {
       {
         input: { pictures, type, ...data },
       },
+      { req },
     ) {
+      await getAuthenticatedUser(req);
+
       const { title } = data;
 
       const item = await getItemByName(title, type);

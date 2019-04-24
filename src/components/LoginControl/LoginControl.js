@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/withStyles';
 import { Query } from 'react-apollo';
 
 import s from './LoginControl.css';
@@ -40,6 +40,7 @@ class LoginControl extends React.Component {
           ) : (
             <Fragment>
               <button
+                type="button"
                 className={s.loginLink}
                 onClick={e => {
                   this.openLogin(e);
