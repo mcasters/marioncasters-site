@@ -1,5 +1,5 @@
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/withStyles';
 import { Mutation } from 'react-apollo';
 import Modal from 'react-modal';
 
@@ -81,11 +81,10 @@ class LoginDialog extends React.Component {
                   username: this.state.username,
                   password: this.state.password,
                 };
-                login({ variables: { input } }).then(
-                  res =>
-                    res.data.login
-                      ? history.push('/admin')
-                      : history.push('/home'),
+                login({ variables: { input } }).then(res =>
+                  res.data.login
+                    ? history.push('/admin')
+                    : history.push('/home'),
                 );
               }}
             >
@@ -109,6 +108,7 @@ class LoginDialog extends React.Component {
                 Login
               </button>
               <button
+                type="button"
                 className={s.loginDialogButton}
                 onClick={e => this.handleCloseModal(e)}
               >

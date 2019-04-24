@@ -1,27 +1,16 @@
 @import '../variables.css';
 
-aside {
+.container {
   z-index: 1;
   background: var(--color-xxlight);
-}
-
-.container {
-  padding: 1em 0;
+  padding: 0.2em 0;
   text-align: center;
 }
 
 @media (--sm) {
   .container {
-    padding-left: 15em;
-    max-width: var(--max-content-width);
+    padding-left: var(--aside-width);
     font-size: 1.5em; /* ~24px */
-    margin: 0 auto;
-  }
-}
-
-@media (--lg) {
-  .container {
-    padding-left: 20em;
   }
 }
 

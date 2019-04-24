@@ -5,8 +5,9 @@ import WebpackAssetsManifest from 'webpack-assets-manifest';
 import nodeExternals from 'webpack-node-externals';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import Dotenv from 'dotenv-webpack';
-import overrideRules from './lib/overrideRules';
+import cssnano from 'cssnano';
 
+import overrideRules from './lib/overrideRules';
 import pkg from '../package.json';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
@@ -28,16 +29,10 @@ const staticAssetName = isDebug
   ? '[path][name].[ext]?[hash:8]'
   : '[hash:8].[ext]';
 
-// CSS Nano options http://cssnano.co/
-const minimizeCssOptions = {
-  discardComments: { removeAll: true },
-};
-
 //
 // Common configuration chunk to be used for both
 // client-side (client.js) and server-side (server.js) bundles
 // -----------------------------------------------------------------------------
-
 const config = {
   context: ROOT_DIR,
 
@@ -158,7 +153,23 @@ const config = {
             loader: 'css-loader',
             options: {
               sourceMap: isDebug,
-              minimize: isDebug ? false : minimizeCssOptions,
+            },
+          },
+
+          {
+            exclude: SRC_DIR,
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                // CSS Nano options http://cssnano.co/
+                cssnano(
+                  isDebug
+                    ? false
+                    : {
+                        discardComments: { removeAll: true },
+                      },
+                ),
+              ],
             },
           },
 
@@ -175,8 +186,6 @@ const config = {
               localIdentName: isDebug
                 ? '[name]-[local]-[hash:base64:5]'
                 : '[hash:base64:5]',
-              // CSS Nano http://cssnano.co/
-              minimize: isDebug ? false : minimizeCssOptions,
             },
           },
 

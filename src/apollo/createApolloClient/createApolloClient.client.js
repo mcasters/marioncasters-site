@@ -1,22 +1,18 @@
-// @flow
 import { ApolloClient } from 'apollo-client';
 import { from } from 'apollo-link';
 import { onError as errorLink } from 'apollo-link-error';
 import apolloLogger from 'apollo-link-logger';
-import { withClientState } from 'apollo-link-state';
 import { createUploadLink } from 'apollo-upload-client';
+import gql from 'graphql-tag';
 
 import createCache from './createCache';
-import { stateResolvers as clientSideResolvers } from '../state/adminState';
+import {
+  resolvers as clientResolvers,
+  types as clientTypes,
+} from '../../data/graphql/onMemory/schema';
 
 export default function createApolloClient() {
-  const cache = createCache();
-
-  const stateLink = withClientState({
-    cache,
-    resolvers: clientSideResolvers,
-    defaults: window.App.initialState,
-  });
+  const cache = createCache().restore(window.App.cache);
 
   const uploadLink = createUploadLink({
     uri: '/graphql',
@@ -24,7 +20,6 @@ export default function createApolloClient() {
   });
 
   const link = from([
-    stateLink,
     errorLink(({ graphQLErrors, networkError }) => {
       if (graphQLErrors)
         graphQLErrors.map(({ message, locations, path }) =>
@@ -40,7 +35,9 @@ export default function createApolloClient() {
 
   return new ApolloClient({
     link,
-    cache: cache.restore(window.App.cache),
+    cache,
+    typeDefs: gql(clientTypes),
+    resolvers: clientResolvers,
     queryDeduplication: true,
     connectToDevTools: true,
   });

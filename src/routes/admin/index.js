@@ -3,10 +3,11 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import Admin from './Admin';
 import query from './adminStatusQuery.graphql';
-
-const title = 'Administration';
+import ROOT_CONSTANTS from '../../constants/rootConstants';
 
 function action({ client }) {
+  const title = ROOT_CONSTANTS.TITLE.ADMINISTRATION;
+
   const { adminStatus } = client.readQuery({
     query,
   });
@@ -17,8 +18,9 @@ function action({ client }) {
   }
 
   return {
-    chunks: ['admin'],
     title,
+    description: 'Administration du site',
+    chunks: ['admin'],
     component: (
       <Layout>
         <Admin title={title} />

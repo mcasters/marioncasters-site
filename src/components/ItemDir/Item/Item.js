@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'isomorphic-style-loader/withStyles';
 import Modal from 'react-modal';
 
 import Lightbox from '../../Lightbox/Lightbox';
@@ -56,6 +56,7 @@ class Item extends React.Component {
           <div>
             {srcList.map(src => (
               <button
+                type="button"
                 className={s.sculptureButton}
                 onClick={this.open}
                 key={src}
@@ -113,7 +114,12 @@ class Item extends React.Component {
       <article>
         <h2>{item.title}</h2>
         <div>
-          <button className={s.imageButton} onClick={this.open} key={src}>
+          <button
+            type="button"
+            className={s.imageButton}
+            onClick={this.open}
+            key={src}
+          >
             <img
               src={src}
               ref={this.image}

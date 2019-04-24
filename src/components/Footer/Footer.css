@@ -1,40 +1,38 @@
 @import '../variables.css';
 
 footer {
-  background: var(--color-xxdark);
-  color: var(--color-light);
+  background: var(--color-xxlight);
 }
 
 .container {
-  padding: 2em 0;
+  background: var(--color-xxdark);
+  color: var(--color-light);
+  padding: 1.5em 0;
   text-align: center;
-}
-
-@media (--sm) {
-  .container {
-    margin: 0 auto;
-    padding-left: 15em;
-    max-width: var(--max-content-width);
-  }
-}
-
-@media (--lg) {
-  .container {
-    padding-left: 20em;
-  }
 }
 
 .text,
 .link {
-  padding: 2px 5px;
+  display: block;
   font-size: 1em;
 }
 
-.link,
-.loginLink {
+.link {
   color: var(--link-color);
 }
 
-.link:hover {
-  color: var(--color-light);
+@media (--sm) {
+  .container {
+    padding-left: var(--aside-width);
+  }
+
+  .text,
+  .link {
+    display: inline;
+    padding: 2px 5px;
+  }
+
+  .link:hover {
+    color: var(--color-light);
+  }
 }

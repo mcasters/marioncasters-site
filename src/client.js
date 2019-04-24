@@ -4,33 +4,29 @@ import ReactDOM from 'react-dom';
 import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
 import { createPath } from 'history';
-// import gql from 'graphql-tag';
+import gql from 'graphql-tag';
 
 import App from './components/App';
-import createFetch from './createFetch';
 import history from './history';
 import { updateMeta } from './DOMUtils';
 import createApolloClient from './apollo/createApolloClient';
 import router from './router';
 
-const fetch = createFetch(window.fetch, {
-  baseUrl: window.App.apiUrl,
-});
 const apolloClient = createApolloClient();
+
+// Enables critical path CSS rendering
+// https://github.com/kriasoft/isomorphic-style-loader
+const insertCss = (...styles) => {
+  // eslint-disable-next-line no-underscore-dangle
+  const removeCss = styles.map(x => x._insertCss());
+  return () => {
+    removeCss.forEach(f => f());
+  };
+};
 
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
 const context = {
-  // Enables critical path CSS rendering
-  // https://github.com/kriasoft/isomorphic-style-loader
-  insertCss: (...styles) => {
-    // eslint-disable-next-line no-underscore-dangle
-    const removeCss = styles.map(x => x._insertCss());
-    return () => {
-      removeCss.forEach(f => f());
-    };
-  },
-  fetch,
   client: apolloClient,
 };
 
@@ -75,7 +71,9 @@ async function onLocationChange(location, action) {
 
     const renderReactApp = isInitialRender ? ReactDOM.hydrate : ReactDOM.render;
     appInstance = renderReactApp(
-      <App context={context}>{route.component}</App>,
+      <App context={context} client={apolloClient} insertCss={insertCss}>
+        {route.component}
+      </App>,
       container,
       () => {
         if (isInitialRender) {
@@ -162,7 +160,6 @@ if (module.hot) {
 
 // This is a demonstration of how to mutate the client state of apollo-link-state.
 // If you don't need the networkState, please erase below lines.
-/*
 function onAdminStatusChange() {
   apolloClient.mutate({
     mutation: gql`
@@ -179,4 +176,3 @@ function onAdminStatusChange() {
 window.addEventListener('online', onAdminStatusChange);
 window.addEventListener('offline', onAdminStatusChange);
 onAdminStatusChange();
-*/
