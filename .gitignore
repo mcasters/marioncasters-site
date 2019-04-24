@@ -3,8 +3,8 @@
 # Dependencies
 node_modules/
 
-# Doc
-docs/
+# Divers
+notes
 
 # Compiled output
 build
