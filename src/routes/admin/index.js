@@ -7,6 +7,7 @@ import ROOT_CONSTANTS from '../../constants/rootConstants';
 
 function action({ client }) {
   const title = ROOT_CONSTANTS.TITLE.ADMINISTRATION;
+
   const { adminStatus } = client.readQuery({
     query,
   });

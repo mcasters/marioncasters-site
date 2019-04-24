@@ -1,5 +1,6 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-restricted-syntax */
+/* eslint-disable radix */
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
@@ -52,11 +53,13 @@ class ItemAdd extends React.Component {
       date: this.state.date,
       technique: this.state.technique,
       description: this.state.description,
-      width: this.state.width,
-      height: this.state.height,
+      width: parseInt(this.state.width),
+      height: parseInt(this.state.height),
     };
 
-    return this.isSculpture ? { ...item, length: this.state.length } : item;
+    return this.isSculpture
+      ? { ...item, length: parseInt(this.state.length) }
+      : item;
   };
 
   complete = () => {
@@ -85,9 +88,8 @@ class ItemAdd extends React.Component {
   handleInputChange(e) {
     e.preventDefault();
 
-    const target = e.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+    const value = e.target.value;
+    const name = e.target.name;
 
     this.setState({ [name]: value });
   }
@@ -183,7 +185,7 @@ class ItemAdd extends React.Component {
               <input
                 placeholder="Largeur (cm)"
                 name="width"
-                type="text"
+                type="number"
                 value={this.state.width}
                 onChange={this.handleInputChange}
               />
@@ -234,7 +236,7 @@ class ItemAdd extends React.Component {
               {canSubmit && <button type="submit">OK</button>}
             </form>
 
-            {error && <Alert message="Erreur GraphQl" isError />}
+            {error && <Alert message={error} isError />}
             {isComplete && <Alert message="Enregistré" isError={false} />}
           </div>
         )}

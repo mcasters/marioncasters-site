@@ -63,7 +63,7 @@ class EditContent extends React.Component {
                 e.preventDefault();
                 const input = this.constructContent();
                 mutation({ variables: { input } }).then(res => {
-                  if (res) this.complete();
+                  if (res.data.addContent) this.complete();
                 });
               }}
             >
@@ -77,7 +77,7 @@ class EditContent extends React.Component {
               <button type="submit">OK</button>
             </form>
 
-            {error && <Alert message="Erreur GraphQl" isError />}
+            {error && <Alert message={`${error}`} isError />}
             {isComplete && <Alert message="Enregistré" isError={false} />}
           </div>
         )}

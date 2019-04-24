@@ -8,8 +8,8 @@ import PrettyError from 'pretty-error';
 import { getDataFromTree } from 'react-apollo';
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
 import cors from 'cors';
-import * as cookieParser from 'cookie-parser';
-import * as jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
 import App from './components/App';
 import Html from './components/Html';
@@ -48,20 +48,13 @@ app.set('trust proxy', config.trustProxy);
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
 app.use(express.static(path.resolve(__dirname, 'public')));
-// app.use(
-//   '/api/images',
-//   express.static(path.resolve(__dirname, config.photosPath)),
-// );
-// app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 //
 // Authentication
 // -----------------------------------------------------------------------------
-
-const graphqlPath = 'graphql';
-
 app.use(
   cors({
     credentials: true,
@@ -69,28 +62,32 @@ app.use(
   }),
 );
 
-app.use(graphqlPath, cookieParser(), (req, _, next) => {
-  try {
-    req.userId = jwt.verify(req.cookies.id, config.auth.jwt.secret);
-  } catch (err) {
-    throw new Error("Erreur d'authentification");
-  }
-  return next();
-});
-
+app.use(
+  session({
+    name: config.auth.jwt.name,
+    secret: config.auth.jwt.secret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 1000 * 60 * 60 * 24, // 1 days
+    },
+  }),
+);
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
 const server = new ApolloServer({
   ...schema,
-  context: ({ req, res }) => ({ req, res }),
+  context: ({ req }) => ({ req }),
   uploads: true,
   introspection: __DEV__,
   playground: __DEV__,
   debug: __DEV__,
   pretty: __DEV__,
 });
-server.applyMiddleware({ app, graphqlPath });
+server.applyMiddleware({ app });
 
 //
 // Register server-side rendering middleware

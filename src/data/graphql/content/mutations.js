@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import { Content } from '../../models';
+import getAuthenticatedUser from '../common/checkAuth';
 
 export const types = [
   `
@@ -13,14 +14,14 @@ export const types = [
 
 export const mutations = [
   `
-  addContent(input: ContentInput!
-  ): Boolean
+  addContent(input: ContentInput!): Boolean
 `,
 ];
 
 export const resolvers = {
   Mutation: {
-    addContent: async (parent, { input }) => {
+    addContent: async (parent, { input }, { req }) => {
+      await getAuthenticatedUser(req);
       const { label } = input;
 
       let content = await Content.findOne({
@@ -33,9 +34,7 @@ export const resolvers = {
       } else {
         content = await Content.create(input);
       }
-
-      if (content) return true;
-      return false;
+      return content != null;
     },
   },
 };
