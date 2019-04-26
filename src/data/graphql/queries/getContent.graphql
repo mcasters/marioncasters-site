@@ -1,5 +1,5 @@
-query getContent($label: String!) {
-  getContent(label: $label) {
+query getContent($key: String!) {
+  getContent(key: $key) {
     text
   }
 }

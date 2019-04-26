@@ -8,9 +8,9 @@ import s from './Presentation.css';
 
 class Presentation extends React.Component {
   render() {
-    const label = 'presentation-content';
+    const key = 'presentation-content';
     return (
-      <Query query={GET_CONTENT} variables={{ label }} ssr>
+      <Query query={GET_CONTENT} variables={{ key }} ssr>
         {({ loading, data }) => {
           if (loading) return <div>Chargement...</div>;
 

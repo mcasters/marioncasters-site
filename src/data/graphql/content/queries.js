@@ -4,7 +4,7 @@ export const types = [
   `
   type Content {
     id: ID!
-    label: String!
+    key: String!
     text: String!
   }
 `,
@@ -12,15 +12,15 @@ export const types = [
 
 export const queries = [
   `
-  getContent(label: String!): Content
+  getContent(key: String!): Content
 `,
 ];
 
 export const resolvers = {
   RootQuery: {
-    async getContent(parent, { label }) {
+    async getContent(parent, { key }) {
       return Content.findOne({
-        where: { label },
+        where: { key },
       });
     },
   },

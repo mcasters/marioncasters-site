@@ -1,12 +1,14 @@
 const CONTENT_CONSTANTS = {
   TITLE: {
     PRESENTATION: 'Présentation',
+    CONTACT: 'Contact',
   },
 
-  LABEL: {
-    PRESENTATION_PAGE: 'presentation-content',
-    SCULPTURE: 'sculpture',
-    DRAWING: 'drawing',
+  KEY: {
+    PRESENTATION_TEXT: 'Présentation',
+    CONTACT_ADDRESS: 'Adresse',
+    CONTACT_PHONE: 'Téléphone',
+    CONTACT_EMAIL: 'Email',
   },
 };
 

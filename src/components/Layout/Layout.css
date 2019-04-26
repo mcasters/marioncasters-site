@@ -23,7 +23,6 @@ main {
 @media (--sm) {
   main {
     margin-left: var(--aside-width);
-    padding: 10em 5em;
   }
 }
 

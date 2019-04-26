@@ -1,0 +1,11 @@
+textarea {
+  width: 100%;
+  height: 200px;
+}
+
+@media (--sm) {
+  textarea {
+    width: 70%;
+    height: 300px;
+  }
+}

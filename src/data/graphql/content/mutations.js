@@ -6,7 +6,7 @@ import getAuthenticatedUser from '../common/checkAuth';
 export const types = [
   `
   input ContentInput {
-    label: String!
+    key: String!
     text: String!
   }
   `,
@@ -22,10 +22,10 @@ export const resolvers = {
   Mutation: {
     addContent: async (parent, { input }, { req }) => {
       await getAuthenticatedUser(req);
-      const { label } = input;
+      const { key } = input;
 
       let content = await Content.findOne({
-        where: { label },
+        where: { key },
       });
       if (content) {
         content = await content.update({

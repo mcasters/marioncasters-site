@@ -11,14 +11,14 @@ const Content = Model.define('Content', {
     },
   },
 
-  label: {
+  key: {
     type: DataType.STRING(50),
     allowNull: false,
     get() {
-      return this.getDataValue('label');
+      return this.getDataValue('key');
     },
     set(value) {
-      this.setDataValue('label', value);
+      this.setDataValue('key', value);
     },
   },
 
@@ -36,4 +36,4 @@ const Content = Model.define('Content', {
 
 export default Content;
 
-// Content.sync({ force: true });
+Content.sync({ force: true });
