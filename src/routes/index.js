@@ -31,11 +31,12 @@ const routes = {
     },
     {
       path: ROOT_CONSTANTS.ROOT.PRESENTATION,
-      load: () => import(/* webpackChunkName: 'about' */ './about'),
+      load: () =>
+        import(/* webpackChunkName: 'presentation' */ './presentationPage'),
     },
     {
       path: ROOT_CONSTANTS.ROOT.CONTACT,
-      load: () => import(/* webpackChunkName: 'contact' */ './contact'),
+      load: () => import(/* webpackChunkName: 'contact' */ './contactPage'),
     },
     {
       path: ROOT_CONSTANTS.ROOT.REGISTER,

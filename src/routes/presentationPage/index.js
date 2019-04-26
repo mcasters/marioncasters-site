@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Layout from '../../components/Layout';
-import About from './About';
 import ROOT_CONSTANTS from '../../constants/rootConstants';
+import PresentationPage from './PresentationPage';
 
 function action() {
   const title = ROOT_CONSTANTS.TITLE.PRESENTATION;
@@ -13,7 +13,7 @@ function action() {
     chunks: ['about'],
     component: (
       <Layout>
-        <About title={title} />
+        <PresentationPage title={title} />
       </Layout>
     ),
   };

@@ -35,5 +35,3 @@ const Content = Model.define('Content', {
 });
 
 export default Content;
-
-Content.sync({ force: true });

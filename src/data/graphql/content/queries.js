@@ -12,15 +12,15 @@ export const types = [
 
 export const queries = [
   `
-  getContent(key: String!): Content
+  getContent(keyContent: String!): Content
 `,
 ];
 
 export const resolvers = {
   RootQuery: {
-    async getContent(parent, { key }) {
+    async getContent(parent, { keyContent }) {
       return Content.findOne({
-        where: { key },
+        where: { key: keyContent },
       });
     },
   },
