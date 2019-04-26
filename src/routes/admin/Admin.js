@@ -4,12 +4,12 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import { Tab, TabList, Tabs, TabPanel } from 'react-tabs';
 
 import s from './Admin.css';
-import AddItem from '../../components/ItemDir/Admin/ItemAdd';
-import ITEM_CONSTANTS from '../../constants/itemConstants';
-import ItemList from '../../components/ItemDir/Admin/ItemList';
+import itemConstants from '../../constants/itemConstants';
+import contentConstants from '../../constants/contentConstants';
+import AddItem from '../../components/Admin/Item/ItemAdd';
+import ItemList from '../../components/Admin/Item/ItemList';
+import EditContent from '../../components/Admin/EditContent';
 import Logout from '../../components/Logout';
-import CONTENT_CONSTANTS from '../../constants/contentConstants';
-import EditContent from '../../components/EditContent';
 
 class Admin extends React.Component {
   static propTypes = {
@@ -53,44 +53,63 @@ class Admin extends React.Component {
   };
 
   render() {
+    const CONTENT_CONSTANTS = contentConstants;
+    const ITEM_CONSTANTS = itemConstants;
+    const { title } = this.props;
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <h1>{this.props.title}</h1>
-          <Logout />
-          <Tabs className={s.tabs}>
-            <TabList>
-              <Tab>{CONTENT_CONSTANTS.TITLE.PRESENTATION}</Tab>
-              <Tab>{ITEM_CONSTANTS.TITLE.PAINTING}</Tab>
-              <Tab>{ITEM_CONSTANTS.TITLE.SCULPTURE}</Tab>
-              <Tab>{ITEM_CONSTANTS.TITLE.DRAWING}</Tab>
-            </TabList>
-            <TabPanel>
-              <EditContent label={CONTENT_CONSTANTS.LABEL.PRESENTATION_PAGE} />
-            </TabPanel>
-            <TabPanel>
-              <AddItem type={ITEM_CONSTANTS.TYPE.PAINTING} />
-              <ItemList
-                type={ITEM_CONSTANTS.TYPE.PAINTING}
-                allImages={this.state.allPaintingImages}
-              />
-            </TabPanel>
-            <TabPanel>
-              <AddItem type={ITEM_CONSTANTS.TYPE.SCULPTURE} />
-              <ItemList
-                type={ITEM_CONSTANTS.TYPE.SCULPTURE}
-                allImages={this.state.allSculptureImages}
-              />
-            </TabPanel>
-            <TabPanel>
-              <AddItem type={ITEM_CONSTANTS.TYPE.DRAWING} />
-              <ItemList
-                type={ITEM_CONSTANTS.TYPE.DRAWING}
-                allImages={this.state.allDrawingImages}
-              />
-            </TabPanel>
-          </Tabs>
-        </div>
+      <div className={s.container}>
+        <h1>{title}</h1>
+        <Logout />
+        <Tabs className={s.tabs}>
+          <TabList>
+            <Tab>{CONTENT_CONSTANTS.TITLE.PRESENTATION}</Tab>
+            <Tab>{ITEM_CONSTANTS.TITLE.PAINTING}</Tab>
+            <Tab>{ITEM_CONSTANTS.TITLE.SCULPTURE}</Tab>
+            <Tab>{ITEM_CONSTANTS.TITLE.DRAWING}</Tab>
+            <Tab>{CONTENT_CONSTANTS.TITLE.CONTACT}</Tab>
+          </TabList>
+          <TabPanel>
+            <EditContent
+              keyContent={CONTENT_CONSTANTS.KEY.PRESENTATION_TEXT}
+              isTextArea
+            />
+          </TabPanel>
+          <TabPanel>
+            <AddItem type={ITEM_CONSTANTS.TYPE.PAINTING} />
+            <ItemList
+              type={ITEM_CONSTANTS.TYPE.PAINTING}
+              allImages={this.state.allPaintingImages}
+            />
+          </TabPanel>
+          <TabPanel>
+            <AddItem type={ITEM_CONSTANTS.TYPE.SCULPTURE} />
+            <ItemList
+              type={ITEM_CONSTANTS.TYPE.SCULPTURE}
+              allImages={this.state.allSculptureImages}
+            />
+          </TabPanel>
+          <TabPanel>
+            <AddItem type={ITEM_CONSTANTS.TYPE.DRAWING} />
+            <ItemList
+              type={ITEM_CONSTANTS.TYPE.DRAWING}
+              allImages={this.state.allDrawingImages}
+            />
+          </TabPanel>
+          <TabPanel>
+            <EditContent
+              keyContent={CONTENT_CONSTANTS.KEY.CONTACT_ADDRESS}
+              isTextArea
+            />
+            <EditContent
+              keyContent={CONTENT_CONSTANTS.KEY.CONTACT_PHONE}
+              isTextArea={false}
+            />
+            <EditContent
+              keyContent={CONTENT_CONSTANTS.KEY.CONTACT_EMAIL}
+              isTextArea={false}
+            />
+          </TabPanel>
+        </Tabs>
       </div>
     );
   }
