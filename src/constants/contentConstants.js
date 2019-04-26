@@ -9,6 +9,9 @@ const CONTENT_CONSTANTS = {
     CONTACT_ADDRESS: 'Adresse',
     CONTACT_PHONE: 'Téléphone',
     CONTACT_EMAIL: 'Email',
+    HOME1: 'Home 1',
+    HOME2: 'Home 2',
+    HOME3: 'Home 3',
   },
 };
 
