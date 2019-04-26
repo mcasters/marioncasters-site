@@ -1,8 +1,7 @@
 import React from 'react';
 import Layout from '../../components/Layout';
-import Page from '../../components/Page';
-import contact from './contact.md';
 import ROOT_CONSTANTS from '../../constants/rootConstants';
+import ContactPage from './ContactPage';
 
 function action() {
   const title = ROOT_CONSTANTS.TITLE.CONTACT;
@@ -14,7 +13,7 @@ function action() {
     chunks: ['contact'],
     component: (
       <Layout>
-        <Page {...contact} showTitle={false} />
+        <ContactPage title={title} />
       </Layout>
     ),
   };
