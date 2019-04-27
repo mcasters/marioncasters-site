@@ -16,7 +16,7 @@ class Content extends React.Component {
     return (
       <Query query={GET_CONTENT} variables={{ keyContent }} ssr>
         {({ loading, data }) => {
-          if (loading) return <div>Chargement...</div>;
+          if (loading) return <p>Chargement...</p>;
 
           return (
             <Fragment>

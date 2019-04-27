@@ -115,16 +115,17 @@ fieldset {
  */
 
 textarea {
+  box-sizing: border-box;
   padding: 0.5em;
   resize: vertical;
-  box-sizing: border-box;
+  line-height: 2.3;
 }
 
 input {
   box-sizing: border-box;
+  padding: 0.5em;
   width: 100%;
   line-height: 2.3;
-  padding: 0.5em;
   margin-bottom: 1em;
 }
 
