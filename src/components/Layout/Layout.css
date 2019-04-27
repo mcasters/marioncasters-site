@@ -15,7 +15,7 @@ body {
 }
 
 main {
-  padding: 8em 2em;
+  padding: 11em 2em 6em;
   box-sizing: border-box;
   text-align: center;
 }
@@ -158,7 +158,7 @@ button {
     transition: color 0.5s;
 
     &:hover {
-      color: var(--link-color-hover);
+      color: var(--link-color-xdark);
       transition: color 0.5s;
     }
   }

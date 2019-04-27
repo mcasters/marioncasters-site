@@ -62,12 +62,18 @@ class Admin extends React.Component {
         <Logout />
         <Tabs className={s.tabs}>
           <TabList>
+            <Tab>{CONTENT_CONSTANTS.TITLE.HOME}</Tab>
             <Tab>{CONTENT_CONSTANTS.TITLE.PRESENTATION}</Tab>
             <Tab>{ITEM_CONSTANTS.TITLE.PAINTING}</Tab>
             <Tab>{ITEM_CONSTANTS.TITLE.SCULPTURE}</Tab>
             <Tab>{ITEM_CONSTANTS.TITLE.DRAWING}</Tab>
             <Tab>{CONTENT_CONSTANTS.TITLE.CONTACT}</Tab>
           </TabList>
+          <TabPanel>
+            <EditContent keyContent={CONTENT_CONSTANTS.KEY.HOME1} isTextArea />
+            <EditContent keyContent={CONTENT_CONSTANTS.KEY.HOME2} isTextArea />
+            <EditContent keyContent={CONTENT_CONSTANTS.KEY.HOME3} isTextArea />
+          </TabPanel>
           <TabPanel>
             <EditContent
               keyContent={CONTENT_CONSTANTS.KEY.PRESENTATION_TEXT}

@@ -14,10 +14,9 @@ class Page extends React.Component {
   render() {
     const { title, html, showTitle } = this.props;
     return (
-      <article>
+      <article className={s.pageContent}>
         <h1 className={showTitle ? '' : s.title}>{title}</h1>
         <div
-          className={s.pageContent}
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: html }}
         />

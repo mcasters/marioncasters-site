@@ -10,7 +10,7 @@ function action() {
   return {
     title,
     description: 'Présentation de Marion Casters',
-    chunks: ['about'],
+    chunks: ['presentation'],
     component: (
       <Layout>
         <PresentationPage title={title} />

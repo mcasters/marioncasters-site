@@ -1,8 +1,15 @@
+@import '../../components/variables.css';
+
 .title {
   display: none;
 }
 
 .image {
-  max-width: 25%;
-  margin: 50px 0;
+  max-width: 50%;
+}
+
+@media (--sm) {
+  .image {
+    max-width: 20%;
+  }
 }
