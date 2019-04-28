@@ -27,8 +27,7 @@ class ItemTab extends React.Component {
   };
 
   render() {
-    const year = this.props.year; // eslint-disable-line prefer-destructuring
-    const type = this.props.type; // eslint-disable-line prefer-destructuring
+    const { year, type } = this.props;
 
     return (
       <Query query={GET_ITEMS_BY_YEAR_QUERY} variables={{ year, type }} ssr>
@@ -37,10 +36,10 @@ class ItemTab extends React.Component {
 
           return (
             <Fragment>
-              <h2>{year}</h2>
+              <h2 className={s.titleTab}>{year}</h2>
               {data.getItemsByYear.map(item => {
                 const list = this.getImagesForItem(item.title);
-                if (list !== undefined || list.length !== 0) {
+                if (list !== undefined && list.length !== 0) {
                   return (
                     <Item
                       key={item.title}

@@ -16,8 +16,11 @@ const customStyles = {
     left: '50%',
     right: 'auto',
     bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
+    marginRight: '10%',
+    marginLeft: '10%',
+    marginTop: '10%',
+    marginBottom: '10%',
+    transform: 'translate(-63%, -68%)',
   },
 };
 
@@ -73,7 +76,7 @@ class LoginDialog extends React.Component {
             onRequestClose={this.handleCloseModal}
             style={customStyles}
           >
-            <h1>Authentification</h1>
+            <h1 className={s.loginTitle}>Authentification</h1>
             <form
               onSubmit={e => {
                 this.handleCloseModal(e);

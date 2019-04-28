@@ -2,6 +2,12 @@
   display: none;
 }
 
-.content {
-  margin: 5em 0;
+.content:first-of-type {
+  margin-top: 4em;
+  margin-bottom: 6em;
+}
+
+.content:last-of-type {
+  margin-top: 6em;
+  margin-bottom: 9em;
 }

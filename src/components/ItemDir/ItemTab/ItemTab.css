@@ -1,3 +1,7 @@
 .loading {
   height: available;
 }
+
+.titleTab {
+  display: none;
+}
