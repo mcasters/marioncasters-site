@@ -7,3 +7,11 @@ title: Politique de confidentialité
 <br/>
 <br/>
 Nous nous engageons à ne collecter aucun renseignement personnel, d'aucune sorte que ce soit.
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>

@@ -1,21 +1,32 @@
 @import '../../variables.css';
 
-article {
-  padding: 2em 0;
+.itemContainer {
+  padding-bottom: 0.5em;
+}
+
+.itemTitle {
+  font-size: var(--font-size-mobile-title);
+  margin-bottom: 0.1em;
+}
+
+.imageContainer {
+  padding: 0 1.5em;
 }
 
 .imageButton {
   background-color: unset;
   border: none;
   cursor: pointer;
+  padding: 0;
+  margin: 0 auto;
 }
 
 .sculptureButton {
   background-color: unset;
-  padding: 10px;
+  padding: 0.4em;
   border: none;
   display: inline-block;
-  width: 50%;
+  margin: 0;
 }
 
 .image {
@@ -23,20 +34,8 @@ article {
   max-height: 39vh;
 }
 
-.sculptureImage {
-  max-width: 100%;
-}
-
 .description {
   font-size: var(--font-size-mobile);
-}
-
-span {
-  display: block;
-}
-
-.spacer {
-  display: none;
 }
 
 .noWrap {
@@ -51,14 +50,6 @@ span {
 }
 
 @media (--md) {
-  article {
-    padding: 4em 0;
-  }
-
-  button {
-    padding: 0 10%;
-  }
-
   .image {
     max-height: 35vh;
   }
@@ -73,17 +64,13 @@ span {
 }
 
 @media (--lg) {
-  article {
-    padding: 7em 0;
-  }
-
   .image {
-    max-height: 60vh;
+    max-height: 35vh;
   }
 }
 
 @media (--xlg) {
   .image {
-    max-height: 55vh;
+    max-height: 45vh;
   }
 }

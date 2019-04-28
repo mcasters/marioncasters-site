@@ -11,14 +11,15 @@ footer {
   text-align: center;
 }
 
-.text,
-.link {
+.text {
   display: block;
-  font-size: 1em;
+  font-size: 0.7em;
 }
 
 .link {
+  display: block;
   color: var(--link-color);
+  font-size: 1em;
 }
 
 @media (--sm) {

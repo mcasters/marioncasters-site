@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
@@ -51,9 +50,9 @@ class Item extends React.Component {
 
     if (itemType === ITEM_CONSTANTS.TYPE.SCULPTURE) {
       return (
-        <article>
-          <h2>{item.title}</h2>
-          <div>
+        <article className={s.itemContainer}>
+          <h2 className={s.itemTitle}>{item.title}</h2>
+          <div className={s.imageContainer}>
             {srcList.map(src => (
               <button
                 type="button"
@@ -64,7 +63,7 @@ class Item extends React.Component {
                 <img
                   src={src}
                   alt={ITEM_CONSTANTS.ALT_IMAGE_SCULPTURE}
-                  className={s.sculptureImage}
+                  className={s.image}
                 />
               </button>
             ))}
@@ -111,9 +110,9 @@ class Item extends React.Component {
 
     const src = srcList[0];
     return (
-      <article>
-        <h2>{item.title}</h2>
-        <div>
+      <article className={s.itemContainer}>
+        <h2 className={s.itemTitle}>{item.title}</h2>
+        <div className={s.imageContainer}>
           <button
             type="button"
             className={s.imageButton}
