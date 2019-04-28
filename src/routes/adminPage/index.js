@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Layout from '../../components/Layout';
-import Admin from './Admin';
-import query from './adminStatusQuery.graphql';
+import AdminPage from './AdminPage';
+import query from '../../data/graphql/queries/adminStatusQuery.graphql';
 import ROOT_CONSTANTS from '../../constants/rootConstants';
 
 function action({ client }) {
@@ -23,7 +23,7 @@ function action({ client }) {
     chunks: ['admin'],
     component: (
       <Layout>
-        <Admin title={title} />
+        <AdminPage title={title} />
       </Layout>
     ),
   };

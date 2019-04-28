@@ -5,10 +5,10 @@ import { Query } from 'react-apollo/index';
 
 import Alert from '../../Alert';
 import s from './EditContent.css';
-import GET_CONTENT from '../../../data/graphql/queries/getContent.graphql';
+import GET_ALL_CONTENT from '../../../data/graphql/queries/getAllContent.graphql';
 import MutateContent from './MutateContent';
 
-class Edit extends React.Component {
+class EditContent extends React.Component {
   static propTypes = {
     keyContent: PropTypes.string.isRequired,
     isTextArea: PropTypes.bool.isRequired,
@@ -19,27 +19,24 @@ class Edit extends React.Component {
 
     return (
       <Query
-        query={GET_CONTENT}
+        query={GET_ALL_CONTENT}
         variables={{ keyContent }}
         onError={e => <Alert message={e} isError />}
         ssr
       >
-        {({ loading, data }) => {
-          if (loading) return <p>Chargement...</p>;
-
-          if (data.getContent) {
-            const result = [];
-            result.push(data.getContent);
-
-            return result.map(({ id, text }) => {
-              return (
-                <MutateContent
-                  key={id}
-                  keyContent={keyContent}
-                  isTextArea={isTextArea}
-                  initialContent={text}
-                />
-              );
+        {({ data }) => {
+          if (data.getAllContent) {
+            return data.getAllContent.map(({ id, key, text }) => {
+              if (key === keyContent)
+                return (
+                  <MutateContent
+                    key={id}
+                    keyContent={keyContent}
+                    isTextArea={isTextArea}
+                    initialContent={text}
+                  />
+                );
+              return null;
             });
           }
           return null;
@@ -49,4 +46,4 @@ class Edit extends React.Component {
   }
 }
 
-export default withStyles(s)(Edit);
+export default withStyles(s)(EditContent);

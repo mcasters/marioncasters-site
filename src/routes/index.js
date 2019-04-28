@@ -48,7 +48,7 @@ const routes = {
     },
     {
       path: ROOT_CONSTANTS.ROOT.ADMIN,
-      load: () => import(/* webpackChunkName: 'admin' */ './admin'),
+      load: () => import(/* webpackChunkName: 'admin' */ './adminPage'),
     },
 
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)

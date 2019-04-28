@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import { Tab, TabList, Tabs, TabPanel } from 'react-tabs';
 
-import s from './Admin.css';
+import s from './AdminPage.css';
 import itemConstants from '../../constants/itemConstants';
 import contentConstants from '../../constants/contentConstants';
 import AddItem from '../../components/Admin/Item/ItemAdd';
@@ -11,7 +11,7 @@ import ItemList from '../../components/Admin/Item/ItemList';
 import EditContent from '../../components/Admin/EditContent';
 import Logout from '../../components/Logout';
 
-class Admin extends React.Component {
+class AdminPage extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
   };
@@ -121,4 +121,4 @@ class Admin extends React.Component {
   }
 }
 
-export default withStyles(s)(Admin);
+export default withStyles(s)(AdminPage);

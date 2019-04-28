@@ -12,16 +12,24 @@ export const types = [
 
 export const queries = [
   `
+  getAllContent: [Content]
+  
   getContent(keyContent: String!): Content
 `,
 ];
 
 export const resolvers = {
   RootQuery: {
+    async getAllContent() {
+      const contents = await Content.findAll();
+      return contents;
+    },
+
     async getContent(parent, { keyContent }) {
-      return Content.findOne({
+      const content = await Content.findOne({
         where: { key: keyContent },
       });
+      return content;
     },
   },
 };

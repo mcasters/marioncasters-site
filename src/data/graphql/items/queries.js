@@ -36,15 +36,17 @@ export const resolvers = {
     async getAllItems(parent, { type }) {
       if (type === ITEM_CONSTANTS.TYPE.SCULPTURE) return Sculpture.findAll();
       if (type === ITEM_CONSTANTS.TYPE.DRAWING) return Drawing.findAll();
-      return Painting.findAll();
+      const paintings = await Painting.findAll();
+      return paintings;
     },
 
     async getItemsByYear(parent, { type, year }) {
       const start = new Date(year, 0, 1);
       const end = new Date(year, 11, 31);
+      let items;
 
       if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
-        return Sculpture.findAll({
+        items = Sculpture.findAll({
           where: {
             date: {
               gte: start,
@@ -53,8 +55,9 @@ export const resolvers = {
           },
           order: Sequelize.col('date'),
         });
+
       if (type === ITEM_CONSTANTS.TYPE.DRAWING)
-        return Painting.findAll({
+        items = await Painting.findAll({
           where: {
             date: {
               gte: start,
@@ -63,7 +66,8 @@ export const resolvers = {
           },
           order: Sequelize.col('date'),
         });
-      return Painting.findAll({
+
+      items = await Painting.findAll({
         where: {
           date: {
             gte: start,
@@ -72,6 +76,8 @@ export const resolvers = {
         },
         order: Sequelize.col('date'),
       });
+
+      return items;
     },
   },
 };
