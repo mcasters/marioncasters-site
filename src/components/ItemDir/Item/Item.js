@@ -147,7 +147,6 @@ class Item extends React.Component {
             mainSrc={srcList[photoIndex]}
             onCloseRequest={() => this.setState({ isOpen: false })}
             imageTitle={`Marion Casters | ${item.title}`}
-            mobileSizeBreakpoint={LAYOUT_CONSTANTS.BREAKPOINT.MD}
             imagePadding={LIGHTBOX_PADDING}
             imageMobilePadding={LIGHTBOX_MOBILE_PADDING}
           />

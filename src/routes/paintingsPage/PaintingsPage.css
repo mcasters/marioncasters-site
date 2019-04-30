@@ -2,6 +2,8 @@
   display: none;
 }
 
-.listContainer {
-  padding-top: 30px;
+@media (--sm) {
+  .listContainer {
+    padding: 2.5em 25em 0;
+  }
 }

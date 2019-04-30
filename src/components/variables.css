@@ -19,6 +19,7 @@
   --max-content-width: 1000px;
   --max-content-form: 25em;
   --aside-width: 17%;
+  --aside-width-md: 25%;
 
   /*
    * Media queries breakpoints

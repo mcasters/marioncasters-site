@@ -20,7 +20,13 @@ main {
   text-align: center;
 }
 
-@media (--sm) {
+@media (--md) {
+  main {
+    margin-left: var(--aside-width-md);
+  }
+}
+
+@media (--lg) {
   main {
     margin-left: var(--aside-width);
   }

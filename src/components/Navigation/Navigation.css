@@ -1,15 +1,5 @@
 @import '../variables.css';
 
-aside {
-  position: fixed;
-  width: var(--aside-width);
-  height: 600px;
-  padding: 8em 0 0 4em;
-  box-sizing: border-box;
-  vertical-align: top;
-  z-index: 0;
-}
-
 .bar {
   display: inline-block;
   width: 7px;
@@ -49,7 +39,17 @@ nav {
   letter-spacing: 0.7em;
 }
 
-@media (--sm) {
+@media (--md) {
+  aside {
+    position: fixed;
+    width: var(--aside-width-md);
+    height: 600px;
+    padding: 8em 0 0 4em;
+    box-sizing: border-box;
+    vertical-align: top;
+    z-index: 0;
+  }
+
   .link {
     transition: all 1.2s ease;
   }
@@ -78,5 +78,11 @@ nav {
     transform: scale(1.2, 1.1);
     transform-origin: left;
     transition: all 1.2s ease;
+  }
+}
+
+@media (--lg) {
+  aside {
+    width: var(--aside-width);
   }
 }

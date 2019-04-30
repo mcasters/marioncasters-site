@@ -23,10 +23,6 @@ footer {
 }
 
 @media (--sm) {
-  .container {
-    padding-left: var(--aside-width);
-  }
-
   .text,
   .link {
     display: inline;
@@ -35,5 +31,17 @@ footer {
 
   .link:hover {
     color: var(--color-light);
+  }
+}
+
+@media (--md) {
+  .container {
+    padding-left: var(--aside-width-md);
+  }
+}
+
+@media (--lg) {
+  .container {
+    padding-left: var(--aside-width);
   }
 }
