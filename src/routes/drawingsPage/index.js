@@ -1,6 +1,6 @@
 import React from 'react';
 import DrawingsPage from './DrawingsPage';
-import Layout from '../../components/Layout';
+import Layout from '../../components/GeneralLayout/Layout';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
 
 function importAllImages(r) {

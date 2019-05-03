@@ -35,6 +35,7 @@ module.exports = {
   paintingsPath: `${process.env.PHOTOS_PATH}/paintings`,
   sculpturesPath: `${process.env.PHOTOS_PATH}/sculptures`,
   drawingsPath: `${process.env.PHOTOS_PATH}/drawings`,
+  miscellaneousPath: `${process.env.PHOTOS_PATH}/miscellaneous`,
 
   // Web analytics
   analytics: {

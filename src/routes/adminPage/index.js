@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Layout from '../../components/Layout';
+import Layout from '../../components/GeneralLayout/Layout';
 import AdminPage from './AdminPage';
 import query from '../../data/graphql/queries/adminStatusQuery.graphql';
 import ROOT_CONSTANTS from '../../constants/rootConstants';

@@ -10,7 +10,7 @@ import dayPicker from 'react-day-picker/lib/style.css';
 import { format } from 'date-fns';
 
 import s from './ItemAdd.css';
-import ADD_ITEM_MUTATION from '../../../../data/graphql/mutations/addItemMutation.graphql';
+import ADD_ITEM_MUTATION from '../../../../data/graphql/queries/addItemMutation.graphql';
 import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
 import ITEM_CONSTANTS from '../../../../constants/itemConstants';
 import Alert from '../../../Alert';

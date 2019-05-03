@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../components/Layout';
+import Layout from '../../components/GeneralLayout/Layout';
 import ROOT_CONSTANTS from '../../constants/rootConstants';
 import ContactPage from './ContactPage';
 

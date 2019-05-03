@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Layout from '../../components/Layout';
-import Page from '../../components/Page';
+import Layout from '../../components/GeneralLayout/Layout';
+import Page from '../../components/GeneralLayout/Page';
 import privacy from './privacy.md';
 
 function action() {

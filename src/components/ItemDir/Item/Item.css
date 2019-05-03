@@ -90,7 +90,11 @@
 }
 
 @media (--xlg) {
-  .image,
+  .image {
+    max-width: 30vw;
+    max-height: 47vh;
+  }
+
   .sculptureButton .image {
     max-width: 25vw;
     max-height: 45vh;

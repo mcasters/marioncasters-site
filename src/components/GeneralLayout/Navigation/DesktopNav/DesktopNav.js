@@ -1,12 +1,12 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
-import history from '../../../history';
+import history from '../../../../history';
 import s from './DesktopNav.css';
-import Link from '../../Link';
+import Link from '../../../Link';
 import logoUrl from '../logo-45.png';
 import logoUrl2x from '../logo-100.png';
-import ROOT_CONSTANTS from '../../../constants/rootConstants';
+import ROOT_CONSTANTS from '../../../../constants/rootConstants';
 
 class DesktopNav extends React.Component {
   constructor(props) {

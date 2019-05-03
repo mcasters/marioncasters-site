@@ -1,6 +1,6 @@
 {
-  "name": "Page",
+  "name": "Layout",
   "version": "0.0.0",
   "private": true,
-  "main": "./Page.js"
+  "main": "Layout.js"
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import { Mutation, Query } from 'react-apollo/index';
 
-import ADD_CONTENT_MUTATION from '../../../data/graphql/mutations/addContentMutation.graphql';
+import ADD_CONTENT_MUTATION from '../../../data/graphql/queries/addContentMutation.graphql';
 import Alert from '../../Alert';
 import s from './EditContent.css';
 import GET_CONTENT from '../../../data/graphql/queries/getContent.graphql';

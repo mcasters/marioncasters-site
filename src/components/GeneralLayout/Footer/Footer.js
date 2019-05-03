@@ -2,11 +2,11 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
 import s from './Footer.css';
-import Link from '../Link';
-import LoginControl from '../LoginControl';
-import GLOBAL_CONSTANTS from '../../constants/globalConstants';
+import Link from '../../Link';
+import LoginControl from '../../LoginControl';
+import GLOBAL_CONSTANTS from '../../../constants/globalConstants';
 import Feedback from '../Feedback';
-import ROOT_CONSTANTS from '../../constants/rootConstants';
+import ROOT_CONSTANTS from '../../../constants/rootConstants';
 
 class Footer extends React.Component {
   render() {
