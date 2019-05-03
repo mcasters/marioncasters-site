@@ -1,9 +1,5 @@
+@import '../../components/variables.css';
+
 .title {
   display: none;
-}
-
-@media (--sm) {
-  .listContainer {
-    padding: 2.5em 25em 0;
-  }
 }

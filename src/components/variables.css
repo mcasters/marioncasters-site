@@ -1,7 +1,7 @@
-@custom-media --xs (width >= 480px);
-@custom-media --sm (width >= 770px); /* = min-width: 770px */
-@custom-media --md (width >= 992px);
-@custom-media --lg (width >= 1200px);
+@custom-media --xs (width >= 480px); /* phone */
+@custom-media --sm (width >= 770px); /* ipad */
+@custom-media --md (width >= 992px); /* ipad plus */
+@custom-media --lg (width >= 1200px); /* 13' */
 @custom-media --xlg (width >= 1600px);
 
 :root {
@@ -18,8 +18,9 @@
 
   --max-content-width: 1000px;
   --max-content-form: 25em;
-  --aside-width: 17%;
-  --aside-width-md: 25%;
+  --aside-width-md: 28%;
+  --aside-width-lg: 28%;
+  --aside-width: 20%;
 
   /*
    * Media queries breakpoints
@@ -51,6 +52,7 @@
     * Font size
     * ======================================================================== */
   --font-size-title: 2em;
+  --font-size-current-sm: 0.8em;
   --font-size-current: 0.9em;
   --font-size-nav-sm: 1em;
   --font-size-nav: 1.2em;

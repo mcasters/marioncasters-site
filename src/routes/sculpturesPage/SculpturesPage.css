@@ -1,3 +1,5 @@
+@import '../../components/variables.css';
+
 .loading {
   height: 600px;
 }

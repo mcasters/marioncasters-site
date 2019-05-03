@@ -42,6 +42,12 @@ footer {
 
 @media (--lg) {
   .container {
+    padding-left: var(--aside-width-lg);
+  }
+}
+
+@media (--xlg) {
+  .container {
     padding-left: var(--aside-width);
   }
 }

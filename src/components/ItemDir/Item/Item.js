@@ -52,32 +52,28 @@ class Item extends React.Component {
       return (
         <article className={s.itemContainer}>
           <h2 className={s.itemTitle}>{item.title}</h2>
-          <div className={s.imageContainer}>
-            {srcList.map(src => (
-              <button
-                type="button"
-                className={s.sculptureButton}
-                onClick={this.open}
-                key={src}
-              >
-                <img
-                  src={src}
-                  alt={ITEM_CONSTANTS.ALT_IMAGE_SCULPTURE}
-                  className={s.image}
-                />
-              </button>
-            ))}
-          </div>
+          {srcList.map(src => (
+            <button
+              type="button"
+              className={s.sculptureButton}
+              onClick={this.open}
+              key={src}
+            >
+              <img
+                src={src}
+                alt={ITEM_CONSTANTS.ALT_IMAGE_SCULPTURE}
+                className={s.image}
+              />
+            </button>
+          ))}
           <div className={s.description}>
-            <p>
-              <span className={s.noWrap}>{item.date}</span>
-              <span className={s.spacer}> | </span>
-              <span className={s.noWrap}>{item.technique}</span>
-              <span className={s.spacer}> | </span>
-              <span className={s.noWrap}>
-                {item.height} x {item.width} x {item.length} cm
-              </span>
-            </p>
+            <span className={s.noWrap}>{item.date}</span>
+            <span className={s.spacer}> | </span>
+            <span className={s.noWrap}>{item.technique}</span>
+            <span className={s.spacer}> | </span>
+            <span className={s.noWrap}>
+              {item.height} x {item.width} x {item.length} cm
+            </span>
           </div>
           {isOpen && typeof window !== 'undefined' && (
             <Lightbox
@@ -112,35 +108,31 @@ class Item extends React.Component {
     return (
       <article className={s.itemContainer}>
         <h2 className={s.itemTitle}>{item.title}</h2>
-        <div className={s.imageContainer}>
-          <button
-            type="button"
-            className={s.imageButton}
-            onClick={this.open}
-            key={src}
-          >
-            <img
-              src={src}
-              ref={this.image}
-              alt={
-                itemType === ITEM_CONSTANTS.TYPE.PAINTING
-                  ? ITEM_CONSTANTS.ALT_IMAGE_PAINTING
-                  : ITEM_CONSTANTS.ALT_IMAGE_DRAWING
-              }
-              className={s.image}
-            />
-          </button>
-        </div>
+        <button
+          type="button"
+          className={s.imageButton}
+          onClick={this.open}
+          key={src}
+        >
+          <img
+            src={src}
+            ref={this.image}
+            alt={
+              itemType === ITEM_CONSTANTS.TYPE.PAINTING
+                ? ITEM_CONSTANTS.ALT_IMAGE_PAINTING
+                : ITEM_CONSTANTS.ALT_IMAGE_DRAWING
+            }
+            className={s.image}
+          />
+        </button>
         <div className={s.description}>
-          <p>
-            <span className={s.noWrap}>{item.date}</span>
-            <span className={s.spacer}> | </span>
-            <span className={s.noWrap}>{item.technique}</span>
-            <span className={s.spacer}> | </span>
-            <span className={s.noWrap}>
-              {item.height} x {item.width} cm
-            </span>
-          </p>
+          <span className={s.noWrap}>{item.date}</span>
+          <span className={s.spacer}> | </span>
+          <span className={s.noWrap}>{item.technique}</span>
+          <span className={s.spacer}> | </span>
+          <span className={s.noWrap}>
+            {item.height} x {item.width} cm
+          </span>
         </div>
         {isOpen && typeof window !== 'undefined' && (
           <Lightbox

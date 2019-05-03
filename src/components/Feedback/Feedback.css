@@ -7,10 +7,21 @@
   text-align: center;
 }
 
-@media (--sm) {
+@media (--md) {
+  .container {
+    padding-left: var(--aside-width-md);
+  }
+}
+
+@media (--lg) {
+  .container {
+    padding-left: var(--aside-width-lg);
+  }
+}
+
+@media (--xlg) {
   .container {
     padding-left: var(--aside-width);
-    font-size: 1.5em; /* ~24px */
   }
 }
 
