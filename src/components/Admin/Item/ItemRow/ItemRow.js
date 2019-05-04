@@ -1,6 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
 import ITEM_CONSTANTS from '../../../../constants/itemConstants';
@@ -46,7 +47,7 @@ class ItemRow extends React.Component {
     return (
       <tr>
         <th>{item.title}</th>
-        <th>{item.date}</th>
+        <th>{moment(item.date).format(ITEM_CONSTANTS.FORMAT_DATE)}</th>
         <th>{item.technique}</th>
         <th>{item.description}</th>
         <th>{item.height}</th>

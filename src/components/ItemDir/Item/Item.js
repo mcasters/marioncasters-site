@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import Modal from 'react-modal';
 
+import moment from 'moment';
 import Lightbox from '../../Lightbox/Lightbox';
 import s from './Item.css';
 import ITEM_CONSTANTS from '../../../constants/itemConstants';
@@ -67,7 +68,9 @@ class Item extends React.Component {
             </button>
           ))}
           <div className={s.description}>
-            <span className={s.noWrap}>{item.date}</span>
+            <span className={s.noWrap}>
+              {moment(item.date).format(ITEM_CONSTANTS.FORMAT_DATE)}
+            </span>
             <span className={s.spacer}> | </span>
             <span className={s.noWrap}>{item.technique}</span>
             <span className={s.spacer}> | </span>
@@ -126,7 +129,9 @@ class Item extends React.Component {
           />
         </button>
         <div className={s.description}>
-          <span className={s.noWrap}>{item.date}</span>
+          <span className={s.noWrap}>
+            {moment(item.date).format(ITEM_CONSTANTS.FORMAT_DATE)}
+          </span>
           <span className={s.spacer}> | </span>
           <span className={s.noWrap}>{item.technique}</span>
           <span className={s.spacer}> | </span>

@@ -6,7 +6,7 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import { Mutation } from 'react-apollo/index';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import dayPicker from 'react-day-picker/lib/style.css';
-import { format } from 'date-fns';
+import { formatDate, parseDate } from 'react-day-picker/moment';
 
 import s from './ItemAdd.css';
 import ADD_ITEM_MUTATION from '../../../../data/graphql/queries/addItemMutation.graphql';
@@ -156,8 +156,8 @@ class ItemAdd extends React.Component {
                 <DayPickerInput
                   value={this.state.date}
                   onDayChange={this.handleDayChange}
-                  dayPickerProps={{ ...this.state.date }}
-                  formatDate={format}
+                  formatDate={formatDate}
+                  parseDate={parseDate}
                   format={ITEM_CONSTANTS.FORMAT_DATE}
                   placeholder="Date"
                 />
