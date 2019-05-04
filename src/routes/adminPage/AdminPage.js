@@ -40,6 +40,7 @@ class AdminPage extends React.Component {
           /\.jpe?g$/,
         ),
       ),
+      tabIndex: 0,
     };
   }
 
@@ -59,7 +60,11 @@ class AdminPage extends React.Component {
       <div className={s.container}>
         <h1>{title}</h1>
         <Logout />
-        <Tabs className={s.tabs}>
+        <Tabs
+          selectedIndex={this.state.tabIndex}
+          onSelect={tabIndex => this.setState({ tabIndex })}
+          className={s.tabs}
+        >
           <TabList>
             <Tab>{CONTENT_CONSTANTS.TITLE.HOME}</Tab>
             <Tab>{CONTENT_CONSTANTS.TITLE.PRESENTATION}</Tab>

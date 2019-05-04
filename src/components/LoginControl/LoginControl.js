@@ -5,7 +5,7 @@ import { Query } from 'react-apollo';
 import s from './LoginControl.css';
 import Link from '../Link';
 import LoginDialog from '../LoginDialog';
-import GET_ADMIN_STATUS_QUERY from './getAdminStatusQuery.graphql';
+import GET_ADMIN_STATUS_QUERY from '../../data/graphql/queries/getAdminStatusQuery.graphql';
 
 class LoginControl extends React.Component {
   constructor(props) {
@@ -30,9 +30,7 @@ class LoginControl extends React.Component {
   render() {
     return (
       <Query query={GET_ADMIN_STATUS_QUERY}>
-        {({ error, data: { adminStatus } }) => {
-          if (error) return `Error! ${error.message}`;
-
+        {({ data: { adminStatus } }) => {
           return adminStatus !== undefined && adminStatus.isConnected ? (
             <Link className={s.link} to="/admin">
               Admin

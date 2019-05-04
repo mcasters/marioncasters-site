@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 
 import s from './LoginDialog.css';
 import history from '../../history';
-import LOGIN_MUTATION from './loginMutation.graphql';
+import LOGIN_MUTATION from '../../data/graphql/queries/loginMutation.graphql';
 
 const customStyles = {
   overlay: {
@@ -20,7 +20,7 @@ const customStyles = {
     marginLeft: '10%',
     marginTop: '10%',
     marginBottom: '10%',
-    transform: 'translate(-63%, -68%)',
+    transform: 'translate(-50%, -50%)',
   },
 };
 

@@ -2,18 +2,17 @@ import React from 'react';
 
 import Layout from '../../components/GeneralLayout/Layout';
 import AdminPage from './AdminPage';
-import query from '../../data/graphql/queries/adminStatusQuery.graphql';
+import GET_ADMIN_STATUS_QUERY from '../../data/graphql/queries/getAdminStatusQuery.graphql';
 import ROOT_CONSTANTS from '../../constants/rootConstants';
 
 function action({ client }) {
   const title = ROOT_CONSTANTS.TITLE.ADMINISTRATION;
 
   const { adminStatus } = client.readQuery({
-    query,
+    GET_ADMIN_STATUS_QUERY,
   });
-  const isAdmin = adminStatus.isConnected;
 
-  if (!isAdmin) {
+  if (!adminStatus.isConnected) {
     return { redirect: '/home' };
   }
 
