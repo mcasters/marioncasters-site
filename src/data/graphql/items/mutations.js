@@ -27,7 +27,7 @@ export const mutations = [
   `
   addItem (
     input: ItemInput!
-  ): Boolean
+  ): Item!
   
   deleteItem(
      id: ID!
@@ -145,7 +145,7 @@ export const resolvers = {
 
       if (!newOne)
         throw new Error("Erreur à l'enregistrement en base de donnée");
-      return true;
+      return newOne;
     },
 
     async deleteItem(root, { id, type }) {

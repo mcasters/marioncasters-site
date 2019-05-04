@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable radix */
 import React from 'react';
@@ -73,8 +72,7 @@ class ItemAdd extends React.Component {
     const reader = new FileReader();
     const file = e.target.files[0];
 
-    const imagePreviewUrls = this.state.imagePreviewUrls;
-    const files = this.state.files;
+    const { imagePreviewUrls, files } = this.state;
     reader.onload = () => {
       imagePreviewUrls.splice(index, 1, reader.result);
       files.splice(index, 1, file);
@@ -88,8 +86,8 @@ class ItemAdd extends React.Component {
   handleInputChange(e) {
     e.preventDefault();
 
-    const value = e.target.value;
-    const name = e.target.name;
+    const { value } = e.target;
+    const { name } = e.target;
 
     this.setState({ [name]: value });
   }
@@ -100,7 +98,8 @@ class ItemAdd extends React.Component {
 
   render() {
     const title = 'Ajout';
-    const isComplete = this.state.isComplete;
+    const { isComplete } = this.state;
+    const { type } = this.props;
 
     const haveMain =
       this.state.title &&
@@ -120,12 +119,14 @@ class ItemAdd extends React.Component {
           const { getAllItems } = cache.readQuery({
             query: GET_ITEMS_QUERY,
             variables: {
-              type: this.props.type,
+              type,
             },
           });
           cache.writeQuery({
             query: GET_ITEMS_QUERY,
-            variables: this.props.type,
+            variables: {
+              type,
+            },
             data: { getAllItems: getAllItems.concat([addItem]) },
           });
         }}
