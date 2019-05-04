@@ -6,10 +6,9 @@ import { Tab, TabList, Tabs, TabPanel } from 'react-tabs';
 import s from './AdminPage.css';
 import itemConstants from '../../constants/itemConstants';
 import contentConstants from '../../constants/contentConstants';
-import AddItem from '../../components/Admin/Item/ItemAdd';
-import ItemList from '../../components/Admin/Item/ItemList';
 import EditContent from '../../components/Admin/EditContent';
 import Logout from '../../components/Logout';
+import AdminItemParent from '../../components/Admin/Item/AdminItemParent';
 
 class AdminPage extends React.Component {
   static propTypes = {
@@ -81,22 +80,19 @@ class AdminPage extends React.Component {
             />
           </TabPanel>
           <TabPanel>
-            <AddItem type={ITEM_CONSTANTS.TYPE.PAINTING} />
-            <ItemList
+            <AdminItemParent
               type={ITEM_CONSTANTS.TYPE.PAINTING}
               allImages={this.state.allPaintingImages}
             />
           </TabPanel>
           <TabPanel>
-            <AddItem type={ITEM_CONSTANTS.TYPE.SCULPTURE} />
-            <ItemList
+            <AdminItemParent
               type={ITEM_CONSTANTS.TYPE.SCULPTURE}
               allImages={this.state.allSculptureImages}
             />
           </TabPanel>
           <TabPanel>
-            <AddItem type={ITEM_CONSTANTS.TYPE.DRAWING} />
-            <ItemList
+            <AdminItemParent
               type={ITEM_CONSTANTS.TYPE.DRAWING}
               allImages={this.state.allDrawingImages}
             />

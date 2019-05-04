@@ -1,4 +1,4 @@
-query getAllItems($type: String!) {
+query getAllItems($type: String!) @client {
   getAllItems(type: $type) {
     id
     title

@@ -1,17 +1,15 @@
 /* eslint-disable react/forbid-prop-types */
-/* eslint-disable prefer-destructuring */
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import { Query } from 'react-apollo/index';
 
-import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
 import ITEM_CONSTANTS from '../../../../constants/itemConstants';
 import ItemRow from '../ItemRow';
 import s from './ItemList.css';
 
 class ItemList extends React.Component {
   static propTypes = {
+    items: PropTypes.array.isRequired,
     type: PropTypes.string.isRequired,
     allImages: PropTypes.object.isRequired,
   };
@@ -33,7 +31,7 @@ class ItemList extends React.Component {
 
   render() {
     const title = 'Modification - Suppression';
-    const type = this.props.type;
+    const { items, type } = this.props;
 
     return (
       <div className={s.listContainer}>
@@ -54,24 +52,14 @@ class ItemList extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <Query query={GET_ITEMS_QUERY} variables={{ type }} ssr>
-              {({ error, data }) => {
-                if (error) return <p>ERROR</p>;
-                return (
-                  <Fragment>
-                    {data.getAllItems !== undefined &&
-                      data.getAllItems.map(item => (
-                        <ItemRow
-                          item={item}
-                          srcList={this.getImagesForItem(item.title)}
-                          type={type}
-                          key={item.id}
-                        />
-                      ))}
-                  </Fragment>
-                );
-              }}
-            </Query>
+            {items.map(item => (
+              <ItemRow
+                item={item}
+                srcList={this.getImagesForItem(item.title)}
+                type={type}
+                key={item.id}
+              />
+            ))}
           </tbody>
         </table>
       </div>
