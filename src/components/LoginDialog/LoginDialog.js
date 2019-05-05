@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import s from './LoginDialog.css';
 import history from '../../history';
 import LOGIN_MUTATION from '../../data/graphql/queries/loginMutation.graphql';
+import Alert from '../Alert';
 
 const customStyles = {
   overlay: {
@@ -118,7 +119,7 @@ class LoginDialog extends React.Component {
                 Annuler
               </button>
             </form>
-            {error && <p>Error :( Please try again</p>}
+            {error && <Alert message={error} isError />}
           </Modal>
         )}
       </Mutation>

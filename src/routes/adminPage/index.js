@@ -9,7 +9,7 @@ function action({ client }) {
   const title = ROOT_CONSTANTS.TITLE.ADMINISTRATION;
 
   const { adminStatus } = client.readQuery({
-    GET_ADMIN_STATUS_QUERY,
+    query: GET_ADMIN_STATUS_QUERY,
   });
 
   if (!adminStatus.isConnected) {

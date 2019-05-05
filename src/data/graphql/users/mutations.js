@@ -62,15 +62,15 @@ export const resolvers = {
       return true;
     },
 
-    login: async (parent, { input }, { req }) => {
+    login: async (parent, { input: { username, password } }, { req }) => {
       const dbUser = await User.findOne({
-        where: { username: input.username },
+        where: { username },
       });
-      if (!dbUser) throw new Error('Username invalide');
+      if (!dbUser) return false;
 
-      const match = await bcrypt.compare(input.password, dbUser.password);
+      const match = await bcrypt.compare(password, dbUser.password);
 
-      if (!match) throw new Error('Mot de passe invalide');
+      if (!match) return false;
 
       req.session.userId = dbUser.id;
 
