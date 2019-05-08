@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
 import { createPath } from 'history';
-import gql from 'graphql-tag';
 
 import App from './components/App';
 import history from './history';
@@ -160,19 +159,19 @@ if (module.hot) {
 
 // This is a demonstration of how to mutate the client state of apollo-link-state.
 // If you don't need the networkState, please erase below lines.
-function onAdminStatusChange() {
-  apolloClient.mutate({
-    mutation: gql`
-      mutation updateAdminStatus($isConnected: Boolean) {
-        updateAdminStatus(isConnected: $isConnected) @client
-      }
-    `,
-    variables: {
-      isConnected: navigator.onLine,
-    },
-  });
-}
-
-window.addEventListener('online', onAdminStatusChange);
-window.addEventListener('offline', onAdminStatusChange);
-onAdminStatusChange();
+// function onAdminStatusChange() {
+//   apolloClient.mutate({
+//     mutation: gql`
+//       mutation updateAdminStatus($isConnected: Boolean) {
+//         updateAdminStatus(isConnected: $isConnected) @client
+//       }
+//     `,
+//     variables: {
+//       isConnected: navigator.onLine,
+//     },
+//   });
+// }
+//
+// window.addEventListener('online', onAdminStatusChange);
+// window.addEventListener('offline', onAdminStatusChange);
+// onAdminStatusChange();

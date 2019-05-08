@@ -104,16 +104,11 @@ app.get('*', async (req, res, next) => {
       styles.forEach(style => css.add(style._getCss()));
     };
 
-    const apolloClient = createApolloClient(
-      {
-        schema: makeExecutableSchema(schema),
-        // This is a context consumed in GraphQL Resolvers
-        context: { req },
-      },
-      {
-        user: req.user || null,
-      },
-    );
+    const apolloClient = createApolloClient({
+      schema: makeExecutableSchema(schema),
+      // This is a context consumed in GraphQL Resolvers
+      context: { req },
+    });
 
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html

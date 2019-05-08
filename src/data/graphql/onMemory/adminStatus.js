@@ -12,11 +12,7 @@ export const queries = [
 `,
 ];
 
-export const mutations = [
-  `
-  updateAdminStatus(isConnected: Boolean): AdminStatus!
-`,
-];
+export const mutations = [];
 
 export const defaults = {
   adminStatus: {
@@ -25,17 +21,4 @@ export const defaults = {
   },
 };
 
-export const resolvers = {
-  Mutation: {
-    updateAdminStatus: (_, { isConnected }, { cache }) => {
-      const data = {
-        adminStatus: {
-          __typename: 'AdminStatus',
-          isConnected,
-        },
-      };
-      cache.writeData({ data });
-      return null;
-    },
-  },
-};
+export const resolvers = {};

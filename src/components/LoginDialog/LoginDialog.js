@@ -57,15 +57,16 @@ class LoginDialog extends React.Component {
           history.push('/home');
         }}
         update={(cache, mutationResult) => {
-          const isConnected = mutationResult.data.login || false;
-          cache.writeData({
-            data: {
-              adminStatus: {
-                __typename: 'AdminStatus',
-                isConnected,
-              },
+          const data = {
+            adminStatus: {
+              __typename: 'AdminStatus',
+              isConnected: mutationResult.data.login || false,
             },
-          });
+          };
+          cache.writeData({ data });
+        }}
+        onCompleted={data => {
+          return data.login ? history.push('/admin') : history.push('/home');
         }}
       >
         {(login, { error }) => (
@@ -85,11 +86,7 @@ class LoginDialog extends React.Component {
                   username: this.state.username,
                   password: this.state.password,
                 };
-                login({ variables: { input } }).then(res =>
-                  res.data.login
-                    ? history.push('/admin')
-                    : history.push('/home'),
-                );
+                login({ variables: { input } });
               }}
             >
               <input

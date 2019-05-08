@@ -62,12 +62,11 @@ export const resolvers = {
       return true;
     },
 
-    login: async (parent, { input: { username, password } }, { req }) => {
+    login: async (_, { input: { username, password } }, { req }) => {
       const dbUser = await User.findOne({
         where: { username },
       });
       if (!dbUser) return false;
-
       const match = await bcrypt.compare(password, dbUser.password);
 
       if (!match) return false;

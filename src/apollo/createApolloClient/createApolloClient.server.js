@@ -1,10 +1,7 @@
-// @flow
-
 import { ApolloClient } from 'apollo-client';
 import { from } from 'apollo-link';
 import { onError } from 'apollo-link-error';
 import { SchemaLink } from 'apollo-link-schema';
-import merge from 'lodash';
 import gql from 'graphql-tag';
 
 import createCache from './createCache';
@@ -14,11 +11,11 @@ import {
   defaults as cacheDefaults,
 } from '../../data/graphql/onMemory/schema';
 
-export default function createApolloClient(schema, partialCacheDefaults) {
+export default function createApolloClient(schema) {
   const cache = createCache();
 
   cache.writeData({
-    data: merge(cacheDefaults, partialCacheDefaults),
+    data: cacheDefaults,
   });
 
   const link = from([
