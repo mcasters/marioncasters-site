@@ -126,7 +126,9 @@ export const resolvers = {
       },
       { req },
     ) {
-      await getAuthenticatedUser(req);
+      const isAdmin = await getAuthenticatedUser(req);
+
+      if (!isAdmin) throw new Error("Erreur d'authentification");
 
       const { title } = data;
 
@@ -148,7 +150,11 @@ export const resolvers = {
       return newOne;
     },
 
-    async deleteItem(root, { id, type }) {
+    async deleteItem(root, { id, type }, { req }) {
+      const isAdmin = await getAuthenticatedUser(req);
+
+      if (!isAdmin) throw new Error("Erreur d'authentification");
+
       const item = await getItemById(id, type);
 
       if (!item) throw new Error('Item absent en BDD');

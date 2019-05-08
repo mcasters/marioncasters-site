@@ -1,13 +1,12 @@
 import { User } from '../../models';
 
 const getAuthenticatedUser = async req => {
-  if (!req.session.userId) throw new Error("Erreur d'authentification");
+  if (!req.session.userId) return false;
 
-  const dbUser = await User.findOne({
+  // eslint-disable-next-line no-return-await
+  return await User.findOne({
     where: { id: req.session.userId },
   });
-  if (!dbUser) throw new Error('Utilisateur introuvable en Bdd');
-  return dbUser;
 };
 
 export default getAuthenticatedUser;
