@@ -7,6 +7,7 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import ITEM_CONSTANTS from '../../../../constants/itemConstants';
 import s from './ItemRow.css';
 import ItemDelete from '../ItemDelete';
+import ItemUpdate from '../ItemUpdate';
 
 class ItemRow extends React.Component {
   static propTypes = {
@@ -58,6 +59,9 @@ class ItemRow extends React.Component {
         </th>
         <th>
           <ItemDelete id={item.id} type={type} />
+        </th>
+        <th>
+          <ItemUpdate item={item} type={type} />
         </th>
       </tr>
     );

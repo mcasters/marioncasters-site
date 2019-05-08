@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo/index';
 import PropTypes from 'prop-types';
 import { FaTrash } from 'react-icons/fa/index';
 
-import DELETE_ITEM from './deleteItem.graphql';
+import DELETE_ITEM from '../../../../data/graphql/queries/deleteItem.graphql';
 import Alert from '../../../Alert';
 
 class ItemDelete extends React.Component {
