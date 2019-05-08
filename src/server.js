@@ -81,7 +81,7 @@ app.use(
 // -----------------------------------------------------------------------------
 const server = new ApolloServer({
   ...schema,
-  context: ({ req }) => ({ req }),
+  context: ({ req, res }) => ({ req, res }),
   uploads: true,
   introspection: __DEV__,
   playground: __DEV__,

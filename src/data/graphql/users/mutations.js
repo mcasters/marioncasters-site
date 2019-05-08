@@ -2,6 +2,7 @@
 import bcrypt from 'bcrypt';
 
 import { User } from '../../models/index';
+import config from '../../../config';
 
 export const types = [
   `
@@ -73,6 +74,14 @@ export const resolvers = {
 
       req.session.userId = dbUser.id;
 
+      return true;
+    },
+
+    logout: async (_, __, { req, res }) => {
+      req.session.destroy(() => {
+        return false;
+      });
+      res.clearCookie(config.auth.jwt.name);
       return true;
     },
   },
