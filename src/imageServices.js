@@ -1,4 +1,5 @@
 import fs from 'fs';
+import promisesAll from 'promises-all';
 
 import config from './config';
 import ITEM_CONSTANTS from './constants/itemConstants';
@@ -11,6 +12,39 @@ export const getAllImages = async dirPath => {
     images.push(file);
   });
   return images;
+};
+
+export const storeUpload = async ({ stream }, path) =>
+  new Promise((resolve, reject) =>
+    stream
+      .on('error', error => {
+        if (stream.truncated) fs.unlinkSync(path);
+        reject(error);
+      })
+      .pipe(fs.createWriteStream(path))
+      .on('error', err => reject(err))
+      .on('finish', () => resolve(true)),
+  );
+
+export const processSculptureUploads = async (pictures, title) => {
+  const process = async (element, index) => {
+    const { stream } = await element;
+    const path = `${config.sculpturesPath}/${title}_${index + 1}.jpg`;
+    return storeUpload({ stream }, path);
+  };
+
+  return promisesAll.all(pictures.map(process));
+};
+
+export const processSingleUpload = async (picture, title, type) => {
+  const { stream } = await picture;
+  let path;
+
+  if (type === ITEM_CONSTANTS.TYPE.DRAWING) {
+    path = `${config.drawingsPath}/${title}.jpg`;
+  } else path = `${config.paintingsPath}/${title}.jpg`;
+
+  return storeUpload({ stream }, path);
 };
 
 const deleteImage = file => {

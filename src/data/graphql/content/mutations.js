@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import { Content } from '../../models';
-import getAuthenticatedUser from '../common/checkAuth';
+import getAuthenticatedUser from '../services/authentication';
 
 export const types = [
   `
