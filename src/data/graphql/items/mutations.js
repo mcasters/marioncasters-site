@@ -26,14 +26,14 @@ export const mutations = [
   ): Item!
   
   updateItem (
-    id: Int!
+    id: ID!
     input: ItemInput!
   ): Item!
   
   deleteItem(
      id: ID!
      type: String!
-  ): Boolean
+  ): ID!
 `,
 ];
 
@@ -80,19 +80,17 @@ export const resolvers = {
       { req },
     ) {
       const isAdmin = await getAuthenticatedUser(req);
-
       if (!isAdmin) throw new Error("Erreur d'authentification");
 
-      const { title } = data;
-      const itemAlreadyExist = await service.getItemByName(title, type);
-      if (itemAlreadyExist) throw new Error("Nom d'item déjà existant en Bdd");
-
       const oldItem = await service.getItemById(id, type);
-
       if (!oldItem) throw new Error('Item à modifier introuvable en BDD');
 
-      const oldTitle = oldItem.title;
+      const { title } = data;
+      const itemByName = await service.getItemByName(title, type);
+      if (itemByName && itemByName.id !== id)
+        throw new Error("Nom d'item déjà existant en Bdd");
 
+      const oldTitle = oldItem.title;
       if (pictures.length > 0) {
         const imageDeleted = await imageService.deleteImages(oldTitle, type);
 
@@ -115,8 +113,7 @@ export const resolvers = {
         if (!res) throw new Error("Erreur à l'écriture des nouveaux fichiers");
       }
 
-      const updatedItem = await service.updateItemInBdd(data, type);
-
+      const updatedItem = await service.updateItemInBdd(id, data, type);
       if (!updatedItem)
         throw new Error("Erreur à l'enregistrement en base de donnée");
       return updatedItem;
@@ -124,15 +121,12 @@ export const resolvers = {
 
     async deleteItem(root, { id, type }, { req }) {
       const isAdmin = await getAuthenticatedUser(req);
-
       if (!isAdmin) throw new Error("Erreur d'authentification");
 
       const item = await service.getItemById(id, type);
-
       if (!item) throw new Error('Item absent en BDD');
 
       const isDeleted = await imageService.deleteImages(item.title, type);
-
       if (!isDeleted) throw new Error(`Echec de la suppression des images`);
       else {
         service
@@ -142,7 +136,7 @@ export const resolvers = {
             throw new Error('Echec de la suppression en Bdd');
           });
       }
-      return false;
+      return id;
     },
   },
 };

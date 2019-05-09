@@ -48,13 +48,13 @@ class UpdateDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      date: '',
-      technique: '',
-      description: '',
-      length: '',
-      height: '',
-      width: '',
+      title: this.props.item.title,
+      date: this.props.item.date,
+      technique: this.props.item.technique,
+      description: this.props.item.description,
+      length: this.props.item.length,
+      height: this.props.item.height,
+      width: this.props.item.width,
       imagePreviewUrls: ['', '', '', ''],
       files: [],
       showModal: true,
@@ -126,14 +126,15 @@ class UpdateDialog extends React.Component {
 
   render() {
     const { type } = this.props;
+    const { id } = this.props.item;
 
     const haveMain =
       this.state.title &&
       this.state.date &&
       this.state.technique &&
       this.state.height &&
-      this.state.width &&
-      this.state.files.length > 0;
+      this.state.width;
+
     const canSubmit =
       (!this.isSculpture && haveMain) ||
       (this.isSculpture && haveMain && this.state.length);
@@ -141,19 +142,23 @@ class UpdateDialog extends React.Component {
     return (
       <Mutation
         mutation={UPDATE_MUTATION}
-        update={(cache, { data: { addItem } }) => {
+        update={(cache, { data: { updateItem } }) => {
           const { getAllItems } = cache.readQuery({
             query: GET_ITEMS_QUERY,
             variables: {
               type,
             },
           });
+          const indexToChange = getAllItems.findIndex(e => {
+            return e.id === updateItem.id;
+          });
+          getAllItems.splice(indexToChange, 1, updateItem);
           cache.writeQuery({
             query: GET_ITEMS_QUERY,
             variables: {
               type,
             },
-            data: { getAllItems: getAllItems.concat([addItem]) },
+            data: { getAllItems },
           });
         }}
         onCompleted={data => {
@@ -178,7 +183,7 @@ class UpdateDialog extends React.Component {
               onSubmit={e => {
                 this.handleCloseModal(e);
                 const item = this.constructItem();
-                mutation({ variables: { id: this.props.item.id, item } });
+                mutation({ variables: { id, item } });
               }}
             >
               <input
@@ -186,12 +191,12 @@ class UpdateDialog extends React.Component {
                 placeholder="Titre"
                 name="title"
                 type="text"
-                value={this.props.item.title}
+                value={this.state.title}
                 onChange={this.handleInputChange}
               />
               <div className={s.DayInputContainer}>
                 <DayPickerInput
-                  value={this.props.item.date}
+                  value={this.state.date}
                   onDayChange={this.handleDayChange}
                   formatDate={formatDate}
                   parseDate={parseDate}
@@ -204,7 +209,7 @@ class UpdateDialog extends React.Component {
                 placeholder="Technique"
                 name="technique"
                 type="text"
-                value={this.props.item.technique}
+                value={this.state.technique}
                 onChange={this.handleInputChange}
               />
               <input
@@ -212,7 +217,7 @@ class UpdateDialog extends React.Component {
                 placeholder="Description"
                 name="description"
                 type="text"
-                value={this.props.item.description}
+                value={this.state.description}
                 onChange={this.handleInputChange}
               />
               <input
@@ -220,7 +225,7 @@ class UpdateDialog extends React.Component {
                 placeholder="Hauteur (cm)"
                 name="height"
                 type="number"
-                value={this.props.item.height}
+                value={this.state.height}
                 onChange={this.handleInputChange}
               />
               <input
@@ -228,7 +233,7 @@ class UpdateDialog extends React.Component {
                 placeholder="Largeur (cm)"
                 name="width"
                 type="number"
-                value={this.props.item.width}
+                value={this.state.width}
                 onChange={this.handleInputChange}
               />
               {this.isSculpture && (
@@ -237,7 +242,7 @@ class UpdateDialog extends React.Component {
                   placeholder="Longueur (cm)"
                   name="length"
                   type="number"
-                  value={this.props.item.length}
+                  value={this.state.length}
                   onChange={this.handleInputChange}
                 />
               )}
@@ -292,6 +297,13 @@ class UpdateDialog extends React.Component {
                   OK
                 </button>
               )}
+              <button
+                type="button"
+                className={s.updateDialogButton}
+                onClick={e => this.handleCloseModal(e)}
+              >
+                Annuler
+              </button>
             </form>
 
             {error && <Alert message={error} isError />}

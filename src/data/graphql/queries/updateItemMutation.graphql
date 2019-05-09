@@ -1,4 +1,4 @@
-mutation UpdateItem($id: Int!, $item: ItemInput!) {
+mutation UpdateItem($id: ID!, $item: ItemInput!) {
   updateItem(id: $id, input: $item) {
     id
     title

@@ -38,8 +38,8 @@ class ItemAdd extends React.Component {
     length: '',
     height: '',
     width: '',
-    imagePreviewUrls: ['', '', '', ''],
-    files: ['', '', '', ''],
+    imagePreviewUrls: [],
+    files: [],
     isComplete: false,
   });
 
@@ -105,11 +105,13 @@ class ItemAdd extends React.Component {
       this.state.date &&
       this.state.technique &&
       this.state.height &&
-      this.state.width &&
-      this.state.files.length > 0;
+      this.state.width;
     const canSubmit =
-      (!this.isSculpture && haveMain) ||
-      (this.isSculpture && haveMain && this.state.length);
+      (!this.isSculpture && haveMain && this.state.files.length === 1) ||
+      (this.isSculpture &&
+        haveMain &&
+        this.state.length &&
+        this.state.files.length === 4);
 
     return (
       <Mutation
@@ -126,7 +128,7 @@ class ItemAdd extends React.Component {
             variables: {
               type,
             },
-            data: { getAllItems: getAllItems.concat([addItem]) },
+            data: { getAllItems: [...getAllItems, addItem] },
           });
         }}
         ssr

@@ -35,22 +35,45 @@ export const addItemInBdd = async (data, type) => {
   return Sculpture.create(data);
 };
 
-export const updateItemInBdd = async (data, type) => {
-  const { id } = data;
-  if (type === ITEM_CONSTANTS.TYPE.PAINTING)
-    return Painting.update({
-      data,
+export const updateItemInBdd = async (id, data, type) => {
+  let updatedItem;
+  if (type === ITEM_CONSTANTS.TYPE.PAINTING) {
+    Painting.update(
+      {
+        id,
+        ...data,
+      },
+      { where: { id } },
+    );
+    updatedItem = await Painting.findOne({
       where: { id },
     });
-  if (type === ITEM_CONSTANTS.TYPE.DRAWING)
-    return Drawing.update({
-      data,
+    return updatedItem;
+  }
+  if (type === ITEM_CONSTANTS.TYPE.DRAWING) {
+    Drawing.update(
+      {
+        id,
+        ...data,
+      },
+      { where: { id } },
+    );
+    updatedItem = await Drawing.findOne({
       where: { id },
     });
-  return Sculpture.update({
-    data,
+    return updatedItem;
+  }
+  Sculpture.update(
+    {
+      id,
+      ...data,
+    },
+    { where: { id } },
+  );
+  updatedItem = await Sculpture.findOne({
     where: { id },
   });
+  return updatedItem;
 };
 
 export const deleteItemInBdd = async (id, type) => {

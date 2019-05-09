@@ -47,41 +47,49 @@ export const processSingleUpload = async (picture, title, type) => {
   return storeUpload({ stream }, path);
 };
 
-async function* asyncGenerator() {
+const changeSculptureImageName = async (oldTitle, newTitle) => {
+  const path = `${config.sculpturesPath}`;
   let i = 1;
-  while (i < 5) {
-    yield i++;
-  }
-}
+  const promises = [];
+  let res = true;
 
-export const changeImageName = async (oldTitle, newTitle, type) => {
-  let oldPath;
-  let newPath;
-  if (type === ITEM_CONSTANTS.TYPE.DRAWING) {
-    oldPath = `${config.drawingsPath}/${oldTitle}.jpg`;
-    newPath = `${config.drawingsPath}/${newTitle}.jpg`;
-  } else if (type === ITEM_CONSTANTS.TYPE.PAINTING) {
-    oldPath = `${config.paintingsPath}/${oldTitle}.jpg`;
-    newPath = `${config.paintingsPath}/${newTitle}.jpg`;
-  } else {
-    let isOk = true;
-    // eslint-disable-next-line no-restricted-syntax
-    for await (const i of asyncGenerator()) {
-      oldPath = `${config.sculpturesPath}/${oldTitle}_${i}.jpg`;
-      newPath = `${config.sculpturesPath}/${newTitle}_${i}.jpg`;
-      const result = await fs.rename(oldPath, newPath);
-      if (!result) {
-        isOk = false;
-        break;
-      }
+  while (i < 5) {
+    try {
+      promises.push(
+        fs.rename(
+          `${path}/${oldTitle}_${i}.jpg`,
+          `${path}/${newTitle}_${i}.jpg`,
+        ),
+      );
+      i++;
+    } catch (e) {
+      res = false;
     }
-    return isOk;
   }
-  // eslint-disable-next-line no-return-await
-  return await fs.rename(oldPath, newPath);
+  await Promise.all(promises);
+  return res;
 };
 
-const deleteImage = file => {
+export const changeImageName = async (oldTitle, newTitle, type) => {
+  let path;
+  let res = true;
+
+  if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
+    await changeSculptureImageName(oldTitle, newTitle);
+  else if (type === ITEM_CONSTANTS.TYPE.DRAWING) {
+    path = `${config.drawingsPath}`;
+  } else if (type === ITEM_CONSTANTS.TYPE.PAINTING) {
+    path = `${config.paintingsPath}`;
+  }
+  try {
+    await fs.rename(`${path}/${oldTitle}.jpg`, `${path}/${newTitle}.jpg`);
+  } catch (e) {
+    res = false;
+  }
+  return res;
+};
+
+const deleteImage = async file => {
   fs.unlink(`${file}`, err => {
     return !err;
   });
@@ -114,5 +122,6 @@ export const deleteImages = async (itemTitle, itemType) => {
       return false;
   }
 
-  return files.every(deleteImage);
+  const isDeleted = await files.every(deleteImage);
+  return isDeleted;
 };
