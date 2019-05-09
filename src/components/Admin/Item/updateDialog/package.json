@@ -1,6 +1,6 @@
 {
-  "name": "updateDialog",
+  "name": "UpdateDialog",
   "version": "1.0.0",
   "private": true,
-  "main": "./updateDialog.js"
+  "main": "UpdateDialog.js"
 }

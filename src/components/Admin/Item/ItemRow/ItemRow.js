@@ -61,7 +61,7 @@ class ItemRow extends React.Component {
           <ItemDelete id={item.id} type={type} />
         </th>
         <th>
-          <ItemUpdate item={item} type={type} />
+          <ItemUpdate item={item} type={type} srcList={srcList} />
         </th>
       </tr>
     );

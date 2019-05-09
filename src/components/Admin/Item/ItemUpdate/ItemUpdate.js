@@ -2,22 +2,13 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { FaPen } from 'react-icons/fa';
 
-// eslint-disable-next-line import/no-unresolved
-import UpdateDialog from '../updateDialog.js';
+import UpdateDialog from '../UpdateDialog';
 
 class ItemUpdate extends React.Component {
   static propTypes = {
-    item: PropTypes.shape({
-      id: PropTypes.string,
-      title: PropTypes.string,
-      date: PropTypes.string,
-      technique: PropTypes.string,
-      description: PropTypes.string,
-      height: PropTypes.number,
-      width: PropTypes.number,
-      length: PropTypes.number,
-    }).isRequired,
+    item: PropTypes.shape().isRequired,
     type: PropTypes.string.isRequired,
+    srcList: PropTypes.array.isRequired,
   };
 
   constructor(props) {
@@ -36,7 +27,7 @@ class ItemUpdate extends React.Component {
   };
 
   render() {
-    const { item, type } = this.props;
+    const { item, type, srcList } = this.props;
     return (
       <Fragment>
         <button
@@ -47,7 +38,9 @@ class ItemUpdate extends React.Component {
         >
           <FaPen />
         </button>
-        {this.state.update && <UpdateDialog item={item} type={type} />}
+        {this.state.update && (
+          <UpdateDialog item={item} type={type} srcList={srcList} />
+        )}
       </Fragment>
     );
   }

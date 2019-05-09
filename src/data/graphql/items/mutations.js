@@ -91,18 +91,29 @@ export const resolvers = {
 
       if (!oldItem) throw new Error('Item à modifier introuvable en BDD');
 
-      const imageDeleted = await imageService.deleteImages(oldItem.title, type);
+      const oldTitle = oldItem.title;
 
-      if (!imageDeleted)
-        throw new Error(`Echec de la suppression des anciennes images`);
+      if (pictures.length > 0) {
+        const imageDeleted = await imageService.deleteImages(oldTitle, type);
 
-      let res;
-      if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
-        res = await imageService.processSculptureUploads(pictures, title);
-      else
-        res = await imageService.processSingleUpload(pictures[0], title, type);
+        if (!imageDeleted)
+          throw new Error(`Echec de la suppression des anciennes images`);
 
-      if (!res) throw new Error("Erreur à l'écriture des nouveaux fichiers");
+        let res;
+        if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
+          res = await imageService.processSculptureUploads(pictures, title);
+        else
+          res = await imageService.processSingleUpload(
+            pictures[0],
+            title,
+            type,
+          );
+
+        if (!res) throw new Error("Erreur à l'écriture des nouveaux fichiers");
+      } else if (oldTitle !== title) {
+        const res = await imageService.changeImageName(oldTitle, title, type);
+        if (!res) throw new Error("Erreur à l'écriture des nouveaux fichiers");
+      }
 
       const updatedItem = await service.updateItemInBdd(data, type);
 

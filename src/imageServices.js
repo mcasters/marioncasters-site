@@ -47,13 +47,44 @@ export const processSingleUpload = async (picture, title, type) => {
   return storeUpload({ stream }, path);
 };
 
-const deleteImage = file => {
-  try {
-    fs.unlinkSync(`${file}`);
-  } catch (err) {
-    return false;
+async function* asyncGenerator() {
+  let i = 1;
+  while (i < 5) {
+    yield i++;
   }
-  return true;
+}
+
+export const changeImageName = async (oldTitle, newTitle, type) => {
+  let oldPath;
+  let newPath;
+  if (type === ITEM_CONSTANTS.TYPE.DRAWING) {
+    oldPath = `${config.drawingsPath}/${oldTitle}.jpg`;
+    newPath = `${config.drawingsPath}/${newTitle}.jpg`;
+  } else if (type === ITEM_CONSTANTS.TYPE.PAINTING) {
+    oldPath = `${config.paintingsPath}/${oldTitle}.jpg`;
+    newPath = `${config.paintingsPath}/${newTitle}.jpg`;
+  } else {
+    let isOk = true;
+    // eslint-disable-next-line no-restricted-syntax
+    for await (const i of asyncGenerator()) {
+      oldPath = `${config.sculpturesPath}/${oldTitle}_${i}.jpg`;
+      newPath = `${config.sculpturesPath}/${newTitle}_${i}.jpg`;
+      const result = await fs.rename(oldPath, newPath);
+      if (!result) {
+        isOk = false;
+        break;
+      }
+    }
+    return isOk;
+  }
+  // eslint-disable-next-line no-return-await
+  return await fs.rename(oldPath, newPath);
+};
+
+const deleteImage = file => {
+  fs.unlink(`${file}`, err => {
+    return !err;
+  });
 };
 
 export const deleteImages = async (itemTitle, itemType) => {
