@@ -7,6 +7,7 @@ import normalizeCss from '../../../../node_modules/normalize.css/normalize.css';
 import styleModal from '../../../../modules_modifications/style-modal.css';
 import styleBurgerMenu from '../../../../modules_modifications/style-burgerMenu.css';
 import styleTabs from '../../../../modules_modifications/style-tabs.css';
+import styleDayPicker from '../../../../modules_modifications/style-dayPicker.css';
 import s from './Layout.css';
 import Header from '../Header';
 import Footer from '../Footer';
@@ -45,5 +46,6 @@ export default withStyles(
   styleModal,
   styleBurgerMenu,
   styleTabs,
+  styleDayPicker,
   s,
 )(withViewport(Layout));

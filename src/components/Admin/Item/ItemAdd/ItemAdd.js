@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import { Mutation } from 'react-apollo/index';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
-import dayPicker from 'react-day-picker/lib/style.css';
 import { formatDate, parseDate } from 'react-day-picker/moment';
 
 import s from './ItemAdd.css';
@@ -146,6 +145,7 @@ class ItemAdd extends React.Component {
               }}
             >
               <input
+                className={s.inputL}
                 placeholder="Titre"
                 name="title"
                 type="text"
@@ -163,6 +163,7 @@ class ItemAdd extends React.Component {
                 />
               </div>
               <input
+                className={s.inputL}
                 placeholder="Technique"
                 name="technique"
                 type="text"
@@ -170,6 +171,7 @@ class ItemAdd extends React.Component {
                 onChange={this.handleInputChange}
               />
               <input
+                className={s.inputR}
                 placeholder="Description"
                 name="description"
                 type="text"
@@ -177,6 +179,7 @@ class ItemAdd extends React.Component {
                 onChange={this.handleInputChange}
               />
               <input
+                className={s.inputL}
                 placeholder="Hauteur (cm)"
                 name="height"
                 type="number"
@@ -184,6 +187,7 @@ class ItemAdd extends React.Component {
                 onChange={this.handleInputChange}
               />
               <input
+                className={s.inputR}
                 placeholder="Largeur (cm)"
                 name="width"
                 type="number"
@@ -192,6 +196,7 @@ class ItemAdd extends React.Component {
               />
               {this.isSculpture && (
                 <input
+                  className={s.inputL}
                   placeholder="Longueur (cm)"
                   name="length"
                   type="number"
@@ -246,4 +251,4 @@ class ItemAdd extends React.Component {
   }
 }
 
-export default withStyles(s, dayPicker)(ItemAdd);
+export default withStyles(s)(ItemAdd);
