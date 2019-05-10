@@ -1,5 +1,6 @@
 query AdminStatus {
   adminStatus @client {
+    __typename
     isConnected
   }
 }

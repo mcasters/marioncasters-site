@@ -14,11 +14,4 @@ export const queries = [
 
 export const mutations = [];
 
-export const defaults = {
-  adminStatus: {
-    __typename: 'AdminStatus',
-    isConnected: false,
-  },
-};
-
 export const resolvers = {};

@@ -1,5 +1,0 @@
-mutation UpdateAdminStatus($isConnected: Boolean!) {
-  updateAdminStatus(isConnected: $isConnected) @client {
-    isConnected
-  }
-}

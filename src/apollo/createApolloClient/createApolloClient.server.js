@@ -8,14 +8,18 @@ import createCache from './createCache';
 import {
   resolvers as clientResolvers,
   types as clientTypes,
-  defaults as cacheDefaults,
 } from '../../data/graphql/onMemory/schema';
 
 export default function createApolloClient(schema) {
   const cache = createCache();
 
   cache.writeData({
-    data: cacheDefaults,
+    data: {
+      adminStatus: {
+        __typename: 'AdminStatus',
+        isConnected: false,
+      },
+    },
   });
 
   const link = from([
