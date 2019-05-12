@@ -41,7 +41,7 @@ class ItemDelete extends React.Component {
         }}
         ssr
       >
-        {(mutation, { data, error }) => (
+        {(mutation, { error, data }) => (
           <Fragment>
             <form
               onSubmit={e => {
@@ -53,8 +53,10 @@ class ItemDelete extends React.Component {
                 <FaTrash />
               </button>
             </form>
-            {error && <Alert message={error} isError />}
-            {data && <Alert message="Suppression OK" isError={false} />}
+            {error && <Alert message={error.message} isError />}
+            {data && data.deleteItem && (
+              <Alert message="Item supprimé" isError={false} />
+            )}
           </Fragment>
         )}
       </Mutation>

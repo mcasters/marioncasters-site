@@ -14,7 +14,7 @@ const errorCustomStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    backgroundColor: '#ffeded',
+    backgroundColor: '#d67b7b',
   },
 };
 
@@ -29,7 +29,7 @@ const validCustomStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    backgroundColor: '#eaffee',
+    backgroundColor: '#51ba7b',
   },
 };
 

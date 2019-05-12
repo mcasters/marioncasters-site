@@ -64,7 +64,7 @@ const changeSculptureImageName = async (oldTitle, newTitle) => {
 
   oldPaths.forEach((oldPath, index) => {
     try {
-      promises.push(fs.rename(oldPath, `${path}/${newTitle}_${index}.jpg`));
+      promises.push(fs.rename(oldPath, `${path}/${newTitle}_${index + 1}.jpg`));
     } catch (e) {
       res = false;
     }

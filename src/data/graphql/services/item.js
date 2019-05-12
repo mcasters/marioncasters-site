@@ -38,7 +38,7 @@ export const addItemInBdd = async (data, type) => {
 export const updateItemInBdd = async (id, data, type) => {
   let updatedItem;
   if (type === ITEM_CONSTANTS.TYPE.PAINTING) {
-    Painting.update(
+    await Painting.update(
       {
         id,
         ...data,
@@ -50,20 +50,22 @@ export const updateItemInBdd = async (id, data, type) => {
     });
     return updatedItem;
   }
+
   if (type === ITEM_CONSTANTS.TYPE.DRAWING) {
-    Drawing.update(
+    await Drawing.update(
       {
         id,
         ...data,
       },
-      { where: { id } },
+      { returning: true, where: { id } },
     );
     updatedItem = await Drawing.findOne({
       where: { id },
     });
     return updatedItem;
   }
-  Sculpture.update(
+
+  await Sculpture.update(
     {
       id,
       ...data,
@@ -73,6 +75,7 @@ export const updateItemInBdd = async (id, data, type) => {
   updatedItem = await Sculpture.findOne({
     where: { id },
   });
+
   return updatedItem;
 };
 
