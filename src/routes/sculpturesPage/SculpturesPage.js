@@ -21,7 +21,7 @@ class SculpturesPage extends React.Component {
   }
 
   getImagesForItem = sculptureName => {
-    const regExp = new RegExp(`${sculptureName}*`);
+    const regExp = new RegExp(`${sculptureName}_[1-4].jpg`);
     const imagesForItem = [];
     this.props.allImages.forEach((value, key) => {
       if (regExp.test(key)) imagesForItem.push(value);

@@ -22,7 +22,9 @@ class ItemList extends React.Component {
   }
 
   getImagesForItem = itemName => {
-    const regExp = new RegExp(`${itemName}*`);
+    const regExp = this.isSculpture
+      ? new RegExp(`${itemName}_[1-4].jpg`)
+      : new RegExp(`${itemName}.jpg`);
     const imagesForItem = [];
     this.props.allImages.forEach((value, key) => {
       if (regExp.test(key)) imagesForItem.push(value);

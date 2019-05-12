@@ -18,7 +18,10 @@ class ItemTab extends React.Component {
   };
 
   getImagesForItem = itemName => {
-    const regExp = new RegExp(`${itemName}*.jpg`);
+    const regExp =
+      this.props.type === ITEM_CONSTANTS.TYPE.SCULPTURE
+        ? new RegExp(`${itemName}_[1-4].jpg`)
+        : new RegExp(`${itemName}.jpg`);
     const imagesForItem = [];
     this.props.allImages.forEach((value, key) => {
       if (regExp.test(key)) imagesForItem.push(value);
