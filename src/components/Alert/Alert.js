@@ -41,6 +41,8 @@ class Alert extends React.Component {
     isError: PropTypes.bool.isRequired,
   };
 
+  isMounted = false;
+
   constructor() {
     super();
     this.state = {
@@ -50,19 +52,19 @@ class Alert extends React.Component {
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
+
   componentDidMount() {
     this.isMounted = true;
 
     this.handleOpenModal();
     setInterval(() => {
       if (this.isMounted) this.handleCloseModal();
-    }, 3000);
+    }, 5000);
   }
 
   componentWillUnmount() {
     this.isMounted = false;
   }
-  isMounted = false;
 
   handleOpenModal() {
     this.setState({ showModal: true });

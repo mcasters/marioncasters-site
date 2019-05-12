@@ -51,21 +51,24 @@ const changeSculptureImageName = async (oldTitle, newTitle) => {
   const path = `${config.sculpturesPath}`;
   let i = 1;
   const promises = [];
+  const oldPaths = [];
   let res = true;
 
   while (i < 5) {
+    const oldPath = `${path}/${oldTitle}_${i}.jpg`;
+    if (fs.existsSync(oldPath)) oldPaths.push(oldPath);
+    i++;
+  }
+
+  if (oldPaths.length !== 4) return false;
+
+  oldPaths.forEach((oldPath, index) => {
     try {
-      promises.push(
-        fs.rename(
-          `${path}/${oldTitle}_${i}.jpg`,
-          `${path}/${newTitle}_${i}.jpg`,
-        ),
-      );
-      i++;
+      promises.push(fs.rename(oldPath, `${path}/${newTitle}_${index}.jpg`));
     } catch (e) {
       res = false;
     }
-  }
+  });
   await Promise.all(promises);
   return res;
 };
@@ -74,18 +77,25 @@ export const changeImageName = async (oldTitle, newTitle, type) => {
   let path;
   let res = true;
 
-  if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
-    await changeSculptureImageName(oldTitle, newTitle);
-  else if (type === ITEM_CONSTANTS.TYPE.DRAWING) {
+  if (type === ITEM_CONSTANTS.TYPE.SCULPTURE) {
+    res = await changeSculptureImageName(oldTitle, newTitle);
+    return res;
+  }
+
+  if (type === ITEM_CONSTANTS.TYPE.DRAWING) {
     path = `${config.drawingsPath}`;
   } else if (type === ITEM_CONSTANTS.TYPE.PAINTING) {
     path = `${config.paintingsPath}`;
   }
-  try {
-    await fs.rename(`${path}/${oldTitle}.jpg`, `${path}/${newTitle}.jpg`);
-  } catch (e) {
-    res = false;
-  }
+  const oldPath = `${path}/${oldTitle}.jpg`;
+  if (fs.existsSync(oldPath)) {
+    try {
+      await fs.rename(oldPath, `${path}/${newTitle}.jpg`);
+    } catch (e) {
+      res = false;
+    }
+  } else res = false;
+
   return res;
 };
 
