@@ -13,9 +13,9 @@ const remote = {
   // static: true,
 
   name: 'github',
-  url: 'https://github.com/mcasters/marioncasters-site.git',
+  url: 'https://github.com/mcasters/portfolio-app.git',
   branch: 'gh-pages',
-  website: 'https://mcasters.github.io/marioncasters-site.git/',
+  website: 'https://marioncasters.fr',
   static: true,
 };
 
