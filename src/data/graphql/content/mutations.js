@@ -14,7 +14,7 @@ export const types = [
 
 export const mutations = [
   `
-  addContent(input: ContentInput!): Boolean
+  addContent(input: ContentInput!): Content!
 `,
 ];
 
@@ -28,13 +28,16 @@ export const resolvers = {
         where: { key },
       });
       if (content) {
-        content = await content.update({
+        await content.update({
           text: input.text,
+        });
+        content = await Content.findOne({
+          where: { key },
         });
       } else {
         content = await Content.create(input);
       }
-      return content != null;
+      return content;
     },
   },
 };

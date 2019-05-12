@@ -6,6 +6,7 @@ import { Mutation } from 'react-apollo/index';
 import ADD_CONTENT_MUTATION from '../../../data/graphql/queries/addContentMutation.graphql';
 import Alert from '../../Alert';
 import s from './EditContent.css';
+import GET_CONTENT_QUERY from '../../../data/graphql/queries/getContent.graphql';
 
 class MutateContent extends React.Component {
   static propTypes = {
@@ -36,10 +37,18 @@ class MutateContent extends React.Component {
     return (
       <Mutation
         mutation={ADD_CONTENT_MUTATION}
+        update={(cache, { data: { addContent } }) => {
+          cache.writeQuery({
+            query: GET_CONTENT_QUERY,
+            variables: {
+              keyContent,
+            },
+            data: { getContent: addContent },
+          });
+        }}
         ssr
-        onCompleted={() => <Alert message="Enregistré" isError={false} />}
       >
-        {mutation => {
+        {(mutation, { error, data }) => {
           return (
             <Fragment>
               <form
@@ -81,6 +90,10 @@ class MutateContent extends React.Component {
                 )}
                 <button type="submit">OK</button>
               </form>
+              {error && <Alert message={error.message} isError />}
+              {data && data.addContent && (
+                <Alert message="Enregistré" isError={false} />
+              )}
             </Fragment>
           );
         }}

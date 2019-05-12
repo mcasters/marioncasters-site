@@ -1,3 +1,7 @@
 mutation AddContent($input: ContentInput!) {
-  addContent(input: $input)
+  addContent(input: $input) {
+    id
+    key
+    text
+  }
 }
