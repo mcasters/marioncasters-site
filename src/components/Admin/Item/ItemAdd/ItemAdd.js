@@ -34,19 +34,25 @@ class ItemAdd extends React.Component {
     date: '',
     technique: '',
     description: '',
-    length: 0,
-    height: 0,
-    width: 0,
+    length: '',
+    height: '',
+    width: '',
     imagePreviewUrls: [],
     pictures: [],
   });
 
   constructItem = () => {
-    const { imagePreviewUrls, ...rest } = this.state;
-    return {
-      ...rest,
-      type: this.props.type,
-    };
+    const { imagePreviewUrls, length, ...rest } = this.state;
+    return !this.isSculpture
+      ? {
+          ...rest,
+          type: this.props.type,
+        }
+      : {
+          ...rest,
+          length: this.state.length,
+          type: this.props.type,
+        };
   };
 
   handleImageChange(e, index) {
@@ -86,13 +92,13 @@ class ItemAdd extends React.Component {
       this.state.title &&
       this.state.date &&
       this.state.technique &&
-      this.state.height > 0 &&
-      this.state.width > 0;
+      this.state.height &&
+      this.state.width;
     const canSubmit =
       (!this.isSculpture && haveMain && this.state.pictures.length === 1) ||
       (this.isSculpture &&
         haveMain &&
-        this.state.length > 0 &&
+        this.state.length &&
         this.state.pictures.length === 4);
 
     return (
