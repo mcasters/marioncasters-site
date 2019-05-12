@@ -23,6 +23,7 @@ const customStyles = {
     left: '50%',
     right: 'auto',
     bottom: 'auto',
+    maxHeight: '90%',
     transform: 'translate(-50%, -50%)',
   },
 };
@@ -47,18 +48,15 @@ class UpdateDialog extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      title: this.props.item.title,
-      date: this.props.item.date,
-      technique: this.props.item.technique,
-      description: this.props.item.description,
-      length: this.props.item.length,
-      height: this.props.item.height,
-      width: this.props.item.width,
-      imagePreviewUrls: ['', '', '', ''],
-      files: [],
+      ...this.props.item,
+      imagePreviewUrls: [],
+      pictures: [],
       showModal: true,
     };
+
+    this.isSculpture = this.props.type === ITEM_CONSTANTS.TYPE.SCULPTURE;
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -69,20 +67,11 @@ class UpdateDialog extends React.Component {
   }
 
   constructItem = () => {
-    const item = {
-      pictures: this.state.files,
+    const { imagePreviewUrls, showModal, id, __typename, ...rest } = this.state;
+    return {
+      ...rest,
       type: this.props.type,
-      title: this.state.title,
-      date: this.state.date,
-      technique: this.state.technique,
-      description: this.state.description,
-      width: parseInt(this.state.width),
-      height: parseInt(this.state.height),
     };
-
-    return this.isSculpture
-      ? { ...item, length: parseInt(this.state.length) }
-      : item;
   };
 
   handleOpenModal() {
@@ -100,13 +89,13 @@ class UpdateDialog extends React.Component {
     const reader = new FileReader();
     const file = e.target.files[0];
 
-    const { imagePreviewUrls, files } = this.state;
+    const { imagePreviewUrls, pictures } = this.state;
     reader.onload = () => {
       imagePreviewUrls.splice(index, 1, reader.result);
-      files.splice(index, 1, file);
+      pictures.splice(index, 1, file);
 
       this.setState({ imagePreviewUrls });
-      this.setState({ files });
+      this.setState({ pictures });
     };
     reader.readAsDataURL(file);
   }
@@ -114,10 +103,9 @@ class UpdateDialog extends React.Component {
   handleInputChange(e) {
     e.preventDefault();
 
-    const { value } = e.target;
-    const { name } = e.target;
+    const { value, name, type } = e.target;
 
-    this.setState({ [name]: value });
+    this.setState({ [name]: type === 'number' ? parseInt(value, 10) : value });
   }
 
   handleDayChange(selectedDay) {
@@ -125,8 +113,9 @@ class UpdateDialog extends React.Component {
   }
 
   render() {
-    const { type } = this.props;
+    const { type, srcList } = this.props;
     const { id } = this.props.item;
+    const { isSculpture } = this.isSculpture;
 
     const haveMain =
       this.state.title &&
@@ -138,6 +127,18 @@ class UpdateDialog extends React.Component {
     const canSubmit =
       (!this.isSculpture && haveMain) ||
       (this.isSculpture && haveMain && this.state.length);
+
+    const {
+      title,
+      technique,
+      imagePreviewUrls,
+      width,
+      length,
+      height,
+      showModal,
+      description,
+      date,
+    } = this.state;
 
     return (
       <Mutation
@@ -161,19 +162,14 @@ class UpdateDialog extends React.Component {
             data: { getAllItems },
           });
         }}
-        onCompleted={data => {
-          if (data.updateItem)
-            return <Alert message="Mis à jour" isError={false} />;
-          return <Alert message="Erreur" isError />;
-        }}
         ssr
       >
-        {(mutation, { error }) => (
+        {(mutation, { error, data }) => (
           <Modal
             id="updateItem"
             contentLabel="Modification"
             closeTimeoutMS={150}
-            isOpen={this.state.showModal}
+            isOpen={showModal}
             onRequestClose={this.handleCloseModal}
             style={customStyles}
           >
@@ -191,12 +187,12 @@ class UpdateDialog extends React.Component {
                 placeholder="Titre"
                 name="title"
                 type="text"
-                value={this.state.title}
+                value={title}
                 onChange={this.handleInputChange}
               />
               <div className={s.DayInputContainer}>
                 <DayPickerInput
-                  value={this.state.date}
+                  value={date}
                   onDayChange={this.handleDayChange}
                   formatDate={formatDate}
                   parseDate={parseDate}
@@ -209,7 +205,7 @@ class UpdateDialog extends React.Component {
                 placeholder="Technique"
                 name="technique"
                 type="text"
-                value={this.state.technique}
+                value={technique}
                 onChange={this.handleInputChange}
               />
               <input
@@ -217,7 +213,7 @@ class UpdateDialog extends React.Component {
                 placeholder="Description"
                 name="description"
                 type="text"
-                value={this.state.description}
+                value={description}
                 onChange={this.handleInputChange}
               />
               <input
@@ -225,7 +221,7 @@ class UpdateDialog extends React.Component {
                 placeholder="Hauteur (cm)"
                 name="height"
                 type="number"
-                value={this.state.height}
+                value={height}
                 onChange={this.handleInputChange}
               />
               <input
@@ -233,25 +229,25 @@ class UpdateDialog extends React.Component {
                 placeholder="Largeur (cm)"
                 name="width"
                 type="number"
-                value={this.state.width}
+                value={width}
                 onChange={this.handleInputChange}
               />
-              {this.isSculpture && (
+              {isSculpture && (
                 <input
                   className={s.inputL}
                   placeholder="Longueur (cm)"
                   name="length"
                   type="number"
-                  value={this.state.length}
+                  value={length}
                   onChange={this.handleInputChange}
                 />
               )}
-              {this.props.srcList.map(
-                imagePreviewUrl =>
-                  imagePreviewUrl !== '' && (
+              {srcList.map(
+                url =>
+                  url !== '' && (
                     <img
-                      key={imagePreviewUrl.toString()}
-                      src={imagePreviewUrl}
+                      key={url.toString()}
+                      src={url}
                       alt="Oeuvre de Marion Casters"
                       className={s.oldImagePreview}
                     />
@@ -262,7 +258,7 @@ class UpdateDialog extends React.Component {
                 accept="image/jpeg, image/jpg"
                 onChange={e => this.handleImageChange(e, 0)}
               />
-              {this.isSculpture && (
+              {isSculpture && (
                 <div>
                   <input
                     type="file"
@@ -281,12 +277,12 @@ class UpdateDialog extends React.Component {
                   />
                 </div>
               )}
-              {this.state.imagePreviewUrls.map(
-                imagePreviewUrl =>
-                  imagePreviewUrl !== '' && (
+              {imagePreviewUrls.map(
+                url =>
+                  url !== '' && (
                     <img
-                      key={imagePreviewUrl.toString()}
-                      src={imagePreviewUrl}
+                      key={url.toString()}
+                      src={url}
                       alt="Sculpture de Marion Casters"
                       className={s.imagePreview}
                     />
@@ -306,7 +302,10 @@ class UpdateDialog extends React.Component {
               </button>
             </form>
 
-            {error && <Alert message={error} isError />}
+            {error && <Alert message={error.message} isError />}
+            {data && data.updateItem && (
+              <Alert message="Mis à jour" isError={false} />
+            )}
           </Modal>
         )}
       </Mutation>

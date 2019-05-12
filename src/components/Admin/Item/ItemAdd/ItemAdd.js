@@ -27,7 +27,6 @@ class ItemAdd extends React.Component {
     this.handleDayChange = this.handleDayChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
     this.constructItem = this.constructItem.bind(this);
-    this.complete = this.complete.bind(this);
   }
 
   getInitialState = () => ({
@@ -35,34 +34,19 @@ class ItemAdd extends React.Component {
     date: '',
     technique: '',
     description: '',
-    length: '',
-    height: '',
-    width: '',
+    length: 0,
+    height: 0,
+    width: 0,
     imagePreviewUrls: [],
-    files: [],
-    isComplete: false,
+    pictures: [],
   });
 
   constructItem = () => {
-    const item = {
-      pictures: this.state.files,
+    const { imagePreviewUrls, ...rest } = this.state;
+    return {
+      ...rest,
       type: this.props.type,
-      title: this.state.title,
-      date: this.state.date,
-      technique: this.state.technique,
-      description: this.state.description,
-      width: parseInt(this.state.width),
-      height: parseInt(this.state.height),
     };
-
-    return this.isSculpture
-      ? { ...item, length: parseInt(this.state.length) }
-      : item;
-  };
-
-  complete = () => {
-    this.setState(this.getInitialState());
-    this.setState({ isComplete: true });
   };
 
   handleImageChange(e, index) {
@@ -71,13 +55,13 @@ class ItemAdd extends React.Component {
     const reader = new FileReader();
     const file = e.target.files[0];
 
-    const { imagePreviewUrls, files } = this.state;
+    const { imagePreviewUrls, pictures } = this.state;
     reader.onload = () => {
       imagePreviewUrls.splice(index, 1, reader.result);
-      files.splice(index, 1, file);
+      pictures.splice(index, 1, file);
 
       this.setState({ imagePreviewUrls });
-      this.setState({ files });
+      this.setState({ pictures });
     };
     reader.readAsDataURL(file);
   }
@@ -85,10 +69,9 @@ class ItemAdd extends React.Component {
   handleInputChange(e) {
     e.preventDefault();
 
-    const { value } = e.target;
-    const { name } = e.target;
+    const { value, name, type } = e.target;
 
-    this.setState({ [name]: value });
+    this.setState({ [name]: type === 'number' ? parseInt(value, 10) : value });
   }
 
   handleDayChange(selectedDay) {
@@ -97,21 +80,20 @@ class ItemAdd extends React.Component {
 
   render() {
     const title = 'Ajout';
-    const { isComplete } = this.state;
     const { type } = this.props;
 
     const haveMain =
       this.state.title &&
       this.state.date &&
       this.state.technique &&
-      this.state.height &&
-      this.state.width;
+      this.state.height > 0 &&
+      this.state.width > 0;
     const canSubmit =
-      (!this.isSculpture && haveMain && this.state.files.length === 1) ||
+      (!this.isSculpture && haveMain && this.state.pictures.length === 1) ||
       (this.isSculpture &&
         haveMain &&
-        this.state.length &&
-        this.state.files.length === 4);
+        this.state.length > 0 &&
+        this.state.pictures.length === 4);
 
     return (
       <Mutation
@@ -133,7 +115,7 @@ class ItemAdd extends React.Component {
         }}
         ssr
       >
-        {(mutation, { error }) => (
+        {(mutation, { error, data }) => (
           <div className={s.addContainer}>
             <h2>{title}</h2>
             <form
@@ -142,7 +124,7 @@ class ItemAdd extends React.Component {
                 e.preventDefault();
                 const item = this.constructItem();
                 mutation({ variables: { item } }).then(res => {
-                  if (res) this.complete();
+                  if (res) this.setState(this.getInitialState);
                 });
               }}
             >
@@ -244,8 +226,10 @@ class ItemAdd extends React.Component {
               {canSubmit && <button type="submit">OK</button>}
             </form>
 
-            {error && <Alert message={error} isError />}
-            {isComplete && <Alert message="Enregistré" isError={false} />}
+            {error && <Alert message={error.message} isError />}
+            {data && data.addItem && (
+              <Alert message="Enregistré" isError={false} />
+            )}
           </div>
         )}
       </Mutation>
