@@ -21,21 +21,21 @@ class AdminPage extends React.Component {
     this.state = {
       allPaintingImages: this.importAllImages(
         require.context(
-          './../../../../photo-files/paintings',
+          './../../../../../photo-files/paintings',
           false,
           /\.jpe?g$/,
         ),
       ),
       allDrawingImages: this.importAllImages(
         require.context(
-          './../../../../photo-files/drawings',
+          './../../../../../photo-files/drawings',
           false,
           /\.jpe?g$/,
         ),
       ),
       allSculptureImages: this.importAllImages(
         require.context(
-          './../../../../photo-files/sculptures',
+          './../../../../../photo-files/sculptures',
           false,
           /\.jpe?g$/,
         ),
