@@ -40,8 +40,10 @@ class AdminPage extends React.Component {
           /\.jpe?g$/,
         ),
       ),
-      tabIndex: 0,
+      selectedTab: 0,
     };
+
+    this.handleSelectTab = this.handleSelectTab.bind(this);
   }
 
   importAllImages = r => {
@@ -50,6 +52,10 @@ class AdminPage extends React.Component {
       images.set(item.replace('./', ''), r(item));
     });
     return images;
+  };
+
+  handleSelectTab = index => {
+    this.setState({ selectedTab: index });
   };
 
   render() {
@@ -61,9 +67,10 @@ class AdminPage extends React.Component {
         <h1>{title}</h1>
         <Logout />
         <Tabs
-          selectedIndex={this.state.tabIndex}
-          onSelect={tabIndex => this.setState({ tabIndex })}
+          selectedIndex={this.state.selectedTab}
+          onSelect={this.handleSelectTab}
           className={s.tabs}
+          forceRenderTabPanel
         >
           <TabList>
             <Tab>{CONTENT_CONSTANTS.TITLE.HOME}</Tab>
