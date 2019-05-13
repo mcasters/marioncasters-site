@@ -18,13 +18,17 @@
   margin-left: 1%;
 }
 
+.oldImageContainer {
+  padding: 2em 0;
+}
+
 .oldImagePreview {
   width: 25%;
   margin-bottom: 1em;
 }
 
 .imagePreview {
-  width: 30%;
+  width: 25%;
   margin-bottom: 1em;
 }
 

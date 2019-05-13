@@ -10,7 +10,7 @@ import { formatDate, parseDate } from 'react-day-picker/moment';
 
 import UPDATE_MUTATION from '../../../../data/graphql/queries/updateItemMutation.graphql';
 import Alert from '../../../Alert';
-import ITEM_CONSTANTS from '../../../../constants/itemConstants';
+import ITEM_CONST from '../../../../constants/itemConstants';
 import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
 import s from './UpdateDialog.css';
 
@@ -55,8 +55,6 @@ class UpdateDialog extends React.Component {
       pictures: [],
       showModal: true,
     };
-
-    this.isSculpture = this.props.type === ITEM_CONSTANTS.TYPE.SCULPTURE;
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -115,7 +113,7 @@ class UpdateDialog extends React.Component {
   render() {
     const { type, srcList } = this.props;
     const { id } = this.props.item;
-    const { isSculpture } = this.isSculpture;
+    const isSculpture = type === ITEM_CONST.TYPE.SCULPTURE;
 
     const haveMain =
       this.state.title &&
@@ -125,8 +123,8 @@ class UpdateDialog extends React.Component {
       this.state.width;
 
     const canSubmit =
-      (!this.isSculpture && haveMain) ||
-      (this.isSculpture && haveMain && this.state.length);
+      (!isSculpture && haveMain) ||
+      (isSculpture && haveMain && this.state.length);
 
     const {
       title,
@@ -196,7 +194,7 @@ class UpdateDialog extends React.Component {
                   onDayChange={this.handleDayChange}
                   formatDate={formatDate}
                   parseDate={parseDate}
-                  format={ITEM_CONSTANTS.FORMAT_DATE}
+                  format={ITEM_CONST.FORMAT_DATE}
                   placeholder="Date"
                 />
               </div>
@@ -242,17 +240,19 @@ class UpdateDialog extends React.Component {
                   onChange={this.handleInputChange}
                 />
               )}
-              {srcList.map(
-                url =>
-                  url !== '' && (
-                    <img
-                      key={url.toString()}
-                      src={url}
-                      alt="Oeuvre de Marion Casters"
-                      className={s.oldImagePreview}
-                    />
-                  ),
-              )}
+              <div className={s.oldImageContainer}>
+                {srcList.map(
+                  url =>
+                    url !== '' && (
+                      <img
+                        key={url.toString()}
+                        src={url}
+                        alt="Oeuvre de Marion Casters"
+                        className={s.oldImagePreview}
+                      />
+                    ),
+                )}
+              </div>
               <input
                 type="file"
                 accept="image/jpeg, image/jpg"
