@@ -1,36 +1,26 @@
-/* eslint-disable react/forbid-prop-types */
 import React, { Fragment } from 'react';
 import { Query } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
 
 import Item from '../../components/ItemDir/Item';
-import ITEM_CONSTANTS from '../../constants/itemConstants';
+import ITEM_CONST from '../../constants/itemConstants';
 import s from './DrawingsPage.css';
 import GET_ITEMS_QUERY from '../../data/graphql/queries/getAllItems.graphql';
 
 class DrawingsPage extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    allImages: PropTypes.object.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.type = ITEM_CONSTANTS.TYPE.DRAWING;
-  }
-
-  getImagesForItem = drawingName => {
-    const regExp = new RegExp(`${drawingName}.jpg`);
+  getUrlImages = itemTitle => {
     const imagesForItem = [];
-    this.props.allImages.forEach((value, key) => {
-      if (regExp.test(key)) imagesForItem.push(value);
-    });
+    imagesForItem.push(`${ITEM_CONST.DRAWING_PATH}/${itemTitle}.jpg`);
     return imagesForItem;
   };
 
   render() {
-    const type = this.type; // eslint-disable-line prefer-destructuring
+    const type = ITEM_CONST.TYPE.DRAWING;
     return (
       <Query query={GET_ITEMS_QUERY} variables={{ type }} ssr>
         {({ loading, error, data }) => {
@@ -44,7 +34,7 @@ class DrawingsPage extends React.Component {
                 <Item
                   key={drawing.id}
                   item={drawing}
-                  srcList={this.getImagesForItem(drawing.title)}
+                  srcList={this.getUrlImages(drawing.title)}
                   itemType={type}
                 />
               ))}

@@ -3,6 +3,10 @@ const ITEM_CONSTANTS = {
   SCULPTURE_FOLDER: 'sculptures',
   DRAWING_FOLDER: 'drawings',
 
+  PAINTING_PATH: '/images/paintings',
+  SCULPTURE_PATH: '/images/sculptures',
+  DRAWING_PATH: '/images/drawings',
+
   TYPE: {
     PAINTING: 'painting',
     SCULPTURE: 'sculpture',

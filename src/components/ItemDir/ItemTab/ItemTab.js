@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
-import ITEM_CONSTANTS from '../../../constants/itemConstants';
+import ITEM_CONST from '../../../constants/itemConstants';
 import GET_ITEMS_BY_YEAR_QUERY from '../../../data/graphql/queries/getItemsByYear.graphql';
 import Item from '../Item/Item';
 import s from './ItemTab.css';
@@ -13,19 +13,22 @@ import Alert from '../../Alert';
 class ItemTab extends React.Component {
   static propTypes = {
     year: PropTypes.number.isRequired,
-    allImages: PropTypes.object.isRequired,
     type: PropTypes.string.isRequired,
   };
 
-  getImagesForItem = itemName => {
-    const regExp =
-      this.props.type === ITEM_CONSTANTS.TYPE.SCULPTURE
-        ? new RegExp(`${itemName}_[1-4].jpg`)
-        : new RegExp(`${itemName}.jpg`);
+  getUrlImages = itemTitle => {
     const imagesForItem = [];
-    this.props.allImages.forEach((value, key) => {
-      if (regExp.test(key)) imagesForItem.push(value);
-    });
+    if (this.props.type === ITEM_CONST.TYPE.SCULPTURE) {
+      let i = 1;
+      while (i < 5) {
+        imagesForItem.push(
+          `${ITEM_CONST.SCULPTURE_PATH}/${itemTitle}_${i}.jpg`,
+        );
+        i++;
+      }
+    } else if (this.props.type === ITEM_CONST.TYPE.PAINTING) {
+      imagesForItem.push(`${ITEM_CONST.PAINTING_PATH}/${itemTitle}.jpg`);
+    } else imagesForItem.push(`${ITEM_CONST.DRAWING_PATH}/${itemTitle}.jpg`);
     return imagesForItem;
   };
 
@@ -41,14 +44,14 @@ class ItemTab extends React.Component {
             <Fragment>
               <h2 className={s.titleTab}>{year}</h2>
               {data.getItemsByYear.map(item => {
-                const list = this.getImagesForItem(item.title);
+                const list = this.getUrlImages(item.title);
                 if (list !== undefined && list.length !== 0) {
                   return (
                     <Item
                       key={item.title}
                       item={item}
                       srcList={list}
-                      itemType={ITEM_CONSTANTS.TYPE.PAINTING}
+                      itemType={ITEM_CONST.TYPE.PAINTING}
                     />
                   );
                 }

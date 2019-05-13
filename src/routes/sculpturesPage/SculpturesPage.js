@@ -1,36 +1,30 @@
-/* eslint-disable react/forbid-prop-types */
 import React, { Fragment } from 'react';
 import { Query } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
 
 import Item from '../../components/ItemDir/Item';
-import ITEM_CONSTANTS from '../../constants/itemConstants';
+import ITEM_CONST from '../../constants/itemConstants';
 import s from './SculpturesPage.css';
 import GET_ITEMS_QUERY from '../../data/graphql/queries/getAllItems.graphql';
 
 class SculpturesPage extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    allImages: PropTypes.object.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.type = ITEM_CONSTANTS.TYPE.SCULPTURE;
-  }
-
-  getImagesForItem = sculptureName => {
-    const regExp = new RegExp(`${sculptureName}_[1-4].jpg`);
+  getUrlImages = itemTitle => {
     const imagesForItem = [];
-    this.props.allImages.forEach((value, key) => {
-      if (regExp.test(key)) imagesForItem.push(value);
-    });
+    let i = 1;
+    while (i < 5) {
+      imagesForItem.push(`${ITEM_CONST.SCULPTURE_PATH}/${itemTitle}_${i}.jpg`);
+      i++;
+    }
     return imagesForItem;
   };
 
   render() {
-    const type = this.type; // eslint-disable-line prefer-destructuring
+    const type = ITEM_CONST.TYPE.SCULPTURE;
     return (
       <Query query={GET_ITEMS_QUERY} variables={{ type }} ssr>
         {({ loading, error, data }) => {
@@ -44,7 +38,7 @@ class SculpturesPage extends React.Component {
                 <Item
                   key={sculpture.id}
                   item={sculpture}
-                  srcList={this.getImagesForItem(sculpture.title)}
+                  srcList={this.getUrlImages(sculpture.title)}
                   itemType={type}
                 />
               ))}

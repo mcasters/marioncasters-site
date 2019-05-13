@@ -48,6 +48,7 @@ app.set('trust proxy', config.trustProxy);
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
 app.use(express.static(path.resolve(__dirname, 'public')));
+app.use('/images', express.static(path.resolve(config.libraryPath)));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());

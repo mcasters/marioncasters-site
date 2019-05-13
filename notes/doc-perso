@@ -85,3 +85,18 @@ const LogoutButton = () => (
   </Mutation>
 );
 
+
+// ssh connexion
+---------------------
+ssh cama7387@109.234.162.107
+cp -R repositories/portfolio-app/build/* app/marioncasters-site/
+
+
+
+function importAllImages(r) {
+  const images = new Map();
+  r.keys().forEach(item => {
+    images.set(item.replace('./', ''), r(item));
+  });
+  return images;
+}
