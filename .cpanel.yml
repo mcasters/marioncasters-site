@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/cama7387/public_html/
+    - export DEPLOYPATH=/home/cama7387/app/marioncasters-site
     - /bin/cp -R build $DEPLOYPATH
