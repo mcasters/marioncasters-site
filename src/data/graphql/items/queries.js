@@ -34,9 +34,17 @@ export const queries = [
 export const resolvers = {
   RootQuery: {
     async getAllItems(parent, { type }) {
-      if (type === ITEM_CONSTANTS.TYPE.SCULPTURE) return Sculpture.findAll();
-      if (type === ITEM_CONSTANTS.TYPE.DRAWING) return Drawing.findAll();
-      const paintings = await Painting.findAll();
+      if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
+        return Sculpture.findAll({
+          order: Sequelize.col('date'),
+        });
+      if (type === ITEM_CONSTANTS.TYPE.DRAWING)
+        return Drawing.findAll({
+          order: Sequelize.col('date'),
+        });
+      const paintings = await Painting.findAll({
+        order: Sequelize.col('date'),
+      });
       return paintings;
     },
 
