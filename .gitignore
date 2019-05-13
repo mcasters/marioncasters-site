@@ -3,9 +3,6 @@
 # Dependencies
 node_modules/
 
-# Divers
-notes/*
-
 # Compiled output
 build
 
@@ -31,6 +28,9 @@ yarn-error.log*
 # Misc
 .DS_Store
 
-# Environment variables /conf
+# Environment variables
 .env
+
+# Divers
+notes/
 
