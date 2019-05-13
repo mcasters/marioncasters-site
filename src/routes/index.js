@@ -39,10 +39,6 @@ const routes = {
       load: () => import(/* webpackChunkName: 'contact' */ './contactPage'),
     },
     {
-      path: ROOT_CONSTANTS.ROOT.REGISTER,
-      load: () => import(/* webpackChunkName: 'register' */ './register'),
-    },
-    {
       path: ROOT_CONSTANTS.ROOT.CONFIDENTIALITE,
       load: () => import(/* webpackChunkName: 'privacy' */ './privacy'),
     },
