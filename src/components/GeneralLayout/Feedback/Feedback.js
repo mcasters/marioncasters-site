@@ -11,16 +11,16 @@ class Feedback extends React.Component {
   render() {
     return (
       <div className={s.container}>
-        <Link to="https://nodejs.org">
+        <Link to="https://nodejs.org" target="_blank">
           <img src={nodejsLogo} className={s.nodejsLogo} alt="NodeJS" />
         </Link>
-        <Link to="https://reactjs.org">
+        <Link to="https://reactjs.org" target="_blank">
           <img src={reactLogo} className={s.reactLogo} alt="React" />
         </Link>
-        <Link to="https://graphql.org">
+        <Link to="https://graphql.org" target="_blank">
           <img src={graphqlLogo} className={s.graphqlLogo} alt="GraphQL" />
         </Link>
-        <Link to="https://www.apple.com">
+        <Link to="https://www.apple.com" target="_blank">
           <img src={appleLogo} className={s.appleLogo} alt="Apple" />
         </Link>
       </div>

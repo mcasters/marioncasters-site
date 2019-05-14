@@ -15,10 +15,12 @@ class Link extends React.Component {
     to: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
     onClick: PropTypes.func,
+    target: PropTypes.string,
   };
 
   static defaultProps = {
     onClick: null,
+    target: null,
   };
 
   handleClick = event => {
@@ -34,8 +36,10 @@ class Link extends React.Component {
       return;
     }
 
-    event.preventDefault();
-    history.push(this.props.to);
+    if (this.props.target !== '_blank') {
+      event.preventDefault();
+      history.push(this.props.to);
+    }
   };
 
   render() {
