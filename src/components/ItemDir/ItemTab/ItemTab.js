@@ -32,6 +32,10 @@ class ItemTab extends React.Component {
     return imagesForItem;
   };
 
+  scrollTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
+
   render() {
     const { year, type } = this.props;
 
@@ -58,8 +62,15 @@ class ItemTab extends React.Component {
                 return null;
               })}
               {error && (
-                <Alert message="Erreur au charggement des items" isError />
+                <Alert message="Erreur au chargement des items" isError />
               )}
+              <button
+                type="button"
+                className={s.buttonLink}
+                onClick={this.scrollTop}
+              >
+                Haut de page
+              </button>
             </Fragment>
           );
         }}

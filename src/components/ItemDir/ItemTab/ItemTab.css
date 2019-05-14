@@ -5,3 +5,23 @@
 .titleTab {
   display: none;
 }
+
+.buttonLink {
+  font-family: var(--font-family-base) !important;
+  color: var(--link-color);
+  padding: 2px 5px;
+  font-size: 1em;
+  display: inline;
+  margin: 0;
+  background: none;
+  border: none;
+  width: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  transition: color 0.4s;
+}
+
+.buttonLink:hover,
+.buttonLink:focus {
+  color: var(--link-color-xdark);
+}
