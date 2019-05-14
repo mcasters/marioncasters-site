@@ -8,7 +8,6 @@ import PrettyError from 'pretty-error';
 import { getDataFromTree } from 'react-apollo';
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
 import cors from 'cors';
-import cookieParser from 'cookie-parser';
 import session from 'express-session';
 
 import App from './components/App';
@@ -51,7 +50,6 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.use('/images', express.static(path.resolve(config.libraryPath)));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cookieParser());
 
 //
 // Authentication
@@ -67,8 +65,8 @@ app.use(
   session({
     name: config.auth.jwt.name,
     secret: config.auth.jwt.secret,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
