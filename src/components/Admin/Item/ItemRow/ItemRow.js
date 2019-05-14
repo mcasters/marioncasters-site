@@ -40,7 +40,7 @@ class ItemRow extends React.Component {
     const src = srcList[0];
 
     return (
-      <tr>
+      <tr className={s.row}>
         <th>{item.title}</th>
         <th>{moment(item.date).format(ITEM_CONSTANTS.FORMAT_DATE)}</th>
         <th>{item.technique}</th>
