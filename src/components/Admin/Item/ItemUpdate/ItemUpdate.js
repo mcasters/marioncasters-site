@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { FaPen } from 'react-icons/fa';
+import withStyles from 'isomorphic-style-loader/withStyles';
 
 import UpdateDialog from '../UpdateDialog';
+import s from './ItemUpdate.css';
 
 class ItemUpdate extends React.Component {
   static propTypes = {
@@ -35,6 +37,7 @@ class ItemUpdate extends React.Component {
           onClick={e => {
             this.openUpdate(e);
           }}
+          className={s.command}
         >
           <FaPen />
         </button>
@@ -46,4 +49,4 @@ class ItemUpdate extends React.Component {
   }
 }
 
-export default ItemUpdate;
+export default withStyles(s)(ItemUpdate);

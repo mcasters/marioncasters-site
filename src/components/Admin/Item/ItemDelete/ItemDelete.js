@@ -3,10 +3,12 @@ import React, { Fragment } from 'react';
 import { Mutation } from 'react-apollo/index';
 import PropTypes from 'prop-types';
 import { FaTrash } from 'react-icons/fa/index';
+import withStyles from 'isomorphic-style-loader/withStyles';
 
 import DELETE_ITEM from '../../../../data/graphql/queries/deleteItem.graphql';
 import Alert from '../../../Alert';
 import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
+import s from './ItemDelete.css';
 
 class ItemDelete extends React.Component {
   static propTypes = {
@@ -49,7 +51,7 @@ class ItemDelete extends React.Component {
                 mutation({ variables: { id, type } });
               }}
             >
-              <button type="submit">
+              <button type="submit" className={s.command}>
                 <FaTrash />
               </button>
             </form>
@@ -64,4 +66,4 @@ class ItemDelete extends React.Component {
   }
 }
 
-export default ItemDelete;
+export default withStyles(s)(ItemDelete);

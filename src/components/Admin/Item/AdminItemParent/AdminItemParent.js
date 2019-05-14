@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
@@ -8,16 +7,15 @@ import ItemAdd from '../ItemAdd';
 class AdminItemParent extends React.Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
-    allImages: PropTypes.object.isRequired,
   };
 
   render() {
-    const { type, allImages } = this.props;
+    const { type } = this.props;
 
     return (
       <Fragment>
         <ItemAdd type={type} />
-        <ItemList type={type} allImages={allImages} />
+        <ItemList type={type} />
       </Fragment>
     );
   }

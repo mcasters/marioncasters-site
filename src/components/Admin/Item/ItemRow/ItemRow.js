@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -25,17 +24,12 @@ class ItemRow extends React.Component {
     type: PropTypes.string.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.isSculpture = this.props.type === ITEM_CONSTANTS.TYPE.SCULPTURE;
-  }
-
   render() {
     const { item, srcList, type } = this.props;
+    const isSculpture = type === ITEM_CONSTANTS.TYPE.SCULPTURE;
 
     let alt;
-    if (this.isSculpture) {
+    if (isSculpture) {
       alt = ITEM_CONSTANTS.ALT_IMAGE_SCULPTURE;
     } else {
       alt =
@@ -53,7 +47,7 @@ class ItemRow extends React.Component {
         <th>{item.description}</th>
         <th>{item.height}</th>
         <th>{item.width}</th>
-        {this.isSculpture && <th>{item.length}</th>}
+        {isSculpture && <th>{item.length}</th>}
         <th>
           <img src={src} alt={alt} className={s.thumbnail} />
         </th>
