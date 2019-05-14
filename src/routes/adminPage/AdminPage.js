@@ -19,40 +19,11 @@ class AdminPage extends React.Component {
     super(props);
 
     this.state = {
-      allPaintingImages: this.importAllImages(
-        require.context(
-          './../../../../../photo-files/paintings',
-          false,
-          /\.jpe?g$/,
-        ),
-      ),
-      allDrawingImages: this.importAllImages(
-        require.context(
-          './../../../../../photo-files/drawings',
-          false,
-          /\.jpe?g$/,
-        ),
-      ),
-      allSculptureImages: this.importAllImages(
-        require.context(
-          './../../../../../photo-files/sculptures',
-          false,
-          /\.jpe?g$/,
-        ),
-      ),
       selectedTab: 0,
     };
 
     this.handleSelectTab = this.handleSelectTab.bind(this);
   }
-
-  importAllImages = r => {
-    const images = new Map();
-    r.keys().forEach(item => {
-      images.set(item.replace('./', ''), r(item));
-    });
-    return images;
-  };
 
   handleSelectTab = index => {
     this.setState({ selectedTab: index });
@@ -92,22 +63,13 @@ class AdminPage extends React.Component {
             />
           </TabPanel>
           <TabPanel>
-            <AdminItemParent
-              type={ITEM_CONSTANTS.TYPE.PAINTING}
-              allImages={this.state.allPaintingImages}
-            />
+            <AdminItemParent type={ITEM_CONSTANTS.TYPE.PAINTING} />
           </TabPanel>
           <TabPanel>
-            <AdminItemParent
-              type={ITEM_CONSTANTS.TYPE.SCULPTURE}
-              allImages={this.state.allSculptureImages}
-            />
+            <AdminItemParent type={ITEM_CONSTANTS.TYPE.SCULPTURE} />
           </TabPanel>
           <TabPanel>
-            <AdminItemParent
-              type={ITEM_CONSTANTS.TYPE.DRAWING}
-              allImages={this.state.allDrawingImages}
-            />
+            <AdminItemParent type={ITEM_CONSTANTS.TYPE.DRAWING} />
           </TabPanel>
           <TabPanel>
             <EditContent
