@@ -15,7 +15,7 @@ class PresentationPage extends React.Component {
     const CONTENT_CONSTANTS = contentConstants;
     const { title } = this.props;
     return (
-      <div>
+      <div className={s.presentationContainer}>
         <h1 className={s.title}>{title}</h1>
         <img
           className={s.image}
