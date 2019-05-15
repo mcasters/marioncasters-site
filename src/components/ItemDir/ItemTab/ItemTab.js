@@ -89,7 +89,7 @@ class ItemTab extends React.Component {
           return (
             <Fragment>
               <h2 className={s.titleTab}>{year}</h2>
-              {data.getItemsByYear.map(item => {
+              {data.getItemsByHalfYear.map(item => {
                 const list = this.getUrlImages(item.title);
                 if (list !== undefined && list.length !== 0) {
                   return (
