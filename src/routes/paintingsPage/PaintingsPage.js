@@ -22,17 +22,37 @@ class PaintingsPage extends React.Component {
         <Tabs>
           <TabList>
             <Tab>{year1.toString()}</Tab>
-            <Tab>{year2.toString()}</Tab>
+            <Tab>{year2.toString()}-a</Tab>
+            <Tab>{year2.toString()}-b</Tab>
             <Tab>{year3.toString()}</Tab>
           </TabList>
           <TabPanel>
-            <ItemTab year={year1} type={ITEM_CONSTANTS.TYPE.PAINTING} />
+            <ItemTab
+              year={year1}
+              half={0}
+              type={ITEM_CONSTANTS.TYPE.PAINTING}
+            />
           </TabPanel>
           <TabPanel>
-            <ItemTab year={year2} type={ITEM_CONSTANTS.TYPE.PAINTING} />
+            <ItemTab
+              year={year2}
+              half={1}
+              type={ITEM_CONSTANTS.TYPE.PAINTING}
+            />
           </TabPanel>
           <TabPanel>
-            <ItemTab year={year3} type={ITEM_CONSTANTS.TYPE.PAINTING} />
+            <ItemTab
+              year={year2}
+              half={2}
+              type={ITEM_CONSTANTS.TYPE.PAINTING}
+            />
+          </TabPanel>
+          <TabPanel>
+            <ItemTab
+              year={year3}
+              half={0}
+              type={ITEM_CONSTANTS.TYPE.PAINTING}
+            />
           </TabPanel>
         </Tabs>
       </Fragment>
