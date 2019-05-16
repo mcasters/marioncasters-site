@@ -2,12 +2,12 @@ import React from 'react';
 
 import Layout from '../../components/GeneralLayout/Layout';
 import Page from '../../components/GeneralLayout/Page';
-import CONTENT_CONSTANTS from '../../constants/contentConstants';
+import META_HTML_CONSTANTS from '../../constants/metaHtmlConstants';
 import privacy from './privacy.md';
 
 function action() {
   const { title } = privacy;
-  const description = CONTENT_CONSTANTS.META_DESCRIPTION.PRIVACY;
+  const description = META_HTML_CONSTANTS.META_DESCRIPTION.PRIVACY;
 
   return {
     title,

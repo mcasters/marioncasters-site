@@ -6,6 +6,7 @@ import { Mutation } from 'react-apollo/index';
 import s from './EditPicture.css';
 import ADD_PICTURE_MUTATION from '../../../data/graphql/queries/addPictureMutation.graphql';
 import Alert from '../../Alert';
+import CONTENT_CONST from '../../../constants/contentConstants';
 
 class EditPicture extends React.Component {
   static propTypes = {
@@ -47,6 +48,13 @@ class EditPicture extends React.Component {
         {(mutation, { error, data }) => (
           <div className={s.addContainer}>
             <h2>{title}</h2>
+            <img
+              className={s.image}
+              src={`${CONTENT_CONST.PRESENTATION_IMAGE_PATH}/${
+                CONTENT_CONST.PRESENTATION_IMAGE_TITLE
+              }.jpg`}
+              alt={CONTENT_CONST.PRESENTATION_IMAGE_ALT}
+            />
             <form
               className="formGroup"
               onSubmit={e => {

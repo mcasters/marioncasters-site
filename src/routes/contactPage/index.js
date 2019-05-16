@@ -1,11 +1,12 @@
 import React from 'react';
 import Layout from '../../components/GeneralLayout/Layout';
 import CONTENT_CONSTANTS from '../../constants/contentConstants';
+import META_HTML_CONSTANTS from '../../constants/metaHtmlConstants';
 import ContactPage from './ContactPage';
 
 function action() {
   const title = CONTENT_CONSTANTS.TITLE.CONTACT;
-  const description = CONTENT_CONSTANTS.META_DESCRIPTION.CONTACT;
+  const description = META_HTML_CONSTANTS.META_DESCRIPTION.CONTACT;
 
   return {
     title,

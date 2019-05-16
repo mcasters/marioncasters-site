@@ -4,6 +4,10 @@
   padding: 15px 0;
 }
 
+.image {
+  max-width: 25%;
+}
+
 .imagePreview {
   width: 30%;
   margin-bottom: 1em;

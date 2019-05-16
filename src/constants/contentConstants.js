@@ -1,5 +1,5 @@
 const CONTENT_CONSTANTS = {
-  TYPE: 'CONTENT',
+  TYPE: 'content',
 
   TITLE: {
     HOME: 'Bienvenue',
@@ -17,17 +17,9 @@ const CONTENT_CONSTANTS = {
     CONTACT_EMAIL: 'Email',
   },
 
-  PICTURE_TITLE: 'portrait',
-
-  CONTENT_IMAGE_PATH: '/images/miscellaneous',
-
-  META_DESCRIPTION: {
-    HOME: 'Bienvenu sur le site de présentation des oeuvres de Marion Casters',
-    PRESENTATION: 'Démarche artistique de Marion Casters',
-    CONTACT:
-      'Contacter Marion Casters pour obtenir des renseignements sur ses oeuvres',
-    PRIVACY: 'Détail de la politique de confidentialité du site',
-  },
+  PRESENTATION_IMAGE_PATH: '/images/miscellaneous',
+  PRESENTATION_IMAGE_TITLE: 'portrait',
+  PRESENTATION_IMAGE_ALT: 'Portrait de Marion Casters',
 };
 
 export default CONTENT_CONSTANTS;
