@@ -1,15 +1,16 @@
 import React from 'react';
 
 import Layout from '../../components/GeneralLayout/Layout';
-import ROOT_CONSTANTS from '../../constants/rootConstants';
+import CONTENT_CONSTANTS from '../../constants/contentConstants';
 import PresentationPage from './PresentationPage';
 
 function action() {
-  const title = ROOT_CONSTANTS.TITLE.PRESENTATION;
+  const title = CONTENT_CONSTANTS.TITLE.PRESENTATION;
+  const description = CONTENT_CONSTANTS.META_DESCRIPTION.PRESENTATION;
 
   return {
     title,
-    description: 'Présentation de Marion Casters',
+    description,
     chunks: ['presentation'],
     component: (
       <Layout>

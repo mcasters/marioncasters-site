@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 import META_CONSTANTS from '../constants/metaHtmlConstants';
-import ROOT_CONSTANTS from '../constants/rootConstants';
+import ROUTER_CONSTANTS from '../constants/routerConstants';
 
 // The top-level (parent) route
 const routes = {
@@ -13,37 +13,37 @@ const routes = {
       load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {
-      path: ROOT_CONSTANTS.ROOT.HOME,
+      path: ROUTER_CONSTANTS.ROUTER.HOME,
       load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {
-      path: ROOT_CONSTANTS.ROOT.PEINTURES,
+      path: ROUTER_CONSTANTS.ROUTER.PEINTURES,
       load: () => import(/* webpackChunkName: 'paintings' */ './paintingsPage'),
     },
     {
-      path: ROOT_CONSTANTS.ROOT.SCULPTURES,
+      path: ROUTER_CONSTANTS.ROUTER.SCULPTURES,
       load: () =>
         import(/* webpackChunkName: 'sculptures' */ './sculpturesPage'),
     },
     {
-      path: ROOT_CONSTANTS.ROOT.DESSINS,
+      path: ROUTER_CONSTANTS.ROUTER.DESSINS,
       load: () => import(/* webpackChunkName: 'drawings' */ './drawingsPage'),
     },
     {
-      path: ROOT_CONSTANTS.ROOT.PRESENTATION,
+      path: ROUTER_CONSTANTS.ROUTER.PRESENTATION,
       load: () =>
         import(/* webpackChunkName: 'presentation' */ './presentationPage'),
     },
     {
-      path: ROOT_CONSTANTS.ROOT.CONTACT,
+      path: ROUTER_CONSTANTS.ROUTER.CONTACT,
       load: () => import(/* webpackChunkName: 'contact' */ './contactPage'),
     },
     {
-      path: ROOT_CONSTANTS.ROOT.CONFIDENTIALITE,
+      path: ROUTER_CONSTANTS.ROUTER.CONFIDENTIALITE,
       load: () => import(/* webpackChunkName: 'privacy' */ './privacy'),
     },
     {
-      path: ROOT_CONSTANTS.ROOT.ADMIN,
+      path: ROUTER_CONSTANTS.ROUTER.ADMIN,
       load: () => import(/* webpackChunkName: 'admin' */ './adminPage'),
     },
 

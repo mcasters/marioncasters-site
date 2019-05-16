@@ -6,7 +6,7 @@ import s from './MobileNav.css';
 import Link from '../../../Link';
 import logoUrl from '../logo-45.png';
 import logoUrl2x from '../logo-100.png';
-import ROOT_CONSTANTS from '../../../../constants/rootConstants';
+import ROUTER_CONSTANTS from '../../../../constants/routerConstants';
 
 class MobileNav extends React.Component {
   constructor(props) {
@@ -32,24 +32,27 @@ class MobileNav extends React.Component {
         width={280}
         onStateChange={state => this.handleStateChange(state)}
       >
-        <Link to={ROOT_CONSTANTS.ROOT.PRESENTATION} onClick={this.closeMenu}>
+        <Link
+          to={ROUTER_CONSTANTS.ROUTER.PRESENTATION}
+          onClick={this.closeMenu}
+        >
           Présentation
         </Link>
-        <Link to={ROOT_CONSTANTS.ROOT.PEINTURES} onClick={this.closeMenu}>
+        <Link to={ROUTER_CONSTANTS.ROUTER.PEINTURES} onClick={this.closeMenu}>
           Peintures
         </Link>
-        <Link to={ROOT_CONSTANTS.ROOT.SCULPTURES} onClick={this.closeMenu}>
+        <Link to={ROUTER_CONSTANTS.ROUTER.SCULPTURES} onClick={this.closeMenu}>
           Sculptures
         </Link>
-        <Link to={ROOT_CONSTANTS.ROOT.DESSINS} onClick={this.closeMenu}>
+        <Link to={ROUTER_CONSTANTS.ROUTER.DESSINS} onClick={this.closeMenu}>
           Dessins
         </Link>
-        <Link to={ROOT_CONSTANTS.ROOT.CONTACT} onClick={this.closeMenu}>
+        <Link to={ROUTER_CONSTANTS.ROUTER.CONTACT} onClick={this.closeMenu}>
           Contact
         </Link>
         <Link
           className={s.linkHome}
-          to={ROOT_CONSTANTS.ROOT.HOME}
+          to={ROUTER_CONSTANTS.ROUTER.HOME}
           onClick={this.closeMenu}
         >
           <img

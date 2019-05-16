@@ -1,15 +1,15 @@
 import React from 'react';
 import Layout from '../../components/GeneralLayout/Layout';
-import ROOT_CONSTANTS from '../../constants/rootConstants';
+import CONTENT_CONSTANTS from '../../constants/contentConstants';
 import ContactPage from './ContactPage';
 
 function action() {
-  const title = ROOT_CONSTANTS.TITLE.CONTACT;
+  const title = CONTENT_CONSTANTS.TITLE.CONTACT;
+  const description = CONTENT_CONSTANTS.META_DESCRIPTION.CONTACT;
 
   return {
     title,
-    description:
-      'Contacter Marion Casters pour obtenir des renseignements sur ses oeuvres',
+    description,
     chunks: ['contact'],
     component: (
       <Layout>

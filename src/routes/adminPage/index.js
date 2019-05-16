@@ -3,10 +3,10 @@ import React from 'react';
 import Layout from '../../components/GeneralLayout/Layout';
 import AdminPage from './AdminPage';
 import GET_ADMIN_STATUS_QUERY from '../../data/graphql/queries/getAdminStatusQuery.graphql';
-import ROOT_CONSTANTS from '../../constants/rootConstants';
+import ROUTER_CONSTANTS from '../../constants/routerConstants';
 
 function action({ client }) {
-  const title = ROOT_CONSTANTS.TITLE.ADMINISTRATION;
+  const title = ROUTER_CONSTANTS.TITLE.ADMINISTRATION;
 
   const { adminStatus } = client.readQuery({
     query: GET_ADMIN_STATUS_QUERY,

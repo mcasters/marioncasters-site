@@ -6,7 +6,7 @@ import s from './DesktopNav.css';
 import Link from '../../../Link';
 import logoUrl from '../logo-45.png';
 import logoUrl2x from '../logo-100.png';
-import ROOT_CONSTANTS from '../../../../constants/rootConstants';
+import ROUTER_CONSTANTS from '../../../../constants/routerConstants';
 
 class DesktopNav extends React.Component {
   constructor(props) {
@@ -37,55 +37,55 @@ class DesktopNav extends React.Component {
         <nav>
           <Link
             className={
-              this.state.location === ROOT_CONSTANTS.ROOT.PRESENTATION
+              this.state.location === ROUTER_CONSTANTS.ROUTER.PRESENTATION
                 ? `${s.link} ${s.active}`
                 : `${s.link}`
             }
-            to={ROOT_CONSTANTS.ROOT.PRESENTATION}
+            to={ROUTER_CONSTANTS.ROUTER.PRESENTATION}
           >
             Présentation
           </Link>
           <Link
             className={
-              this.state.location === ROOT_CONSTANTS.ROOT.PEINTURES
+              this.state.location === ROUTER_CONSTANTS.ROUTER.PEINTURES
                 ? `${s.link} ${s.active}`
                 : `${s.link}`
             }
-            to={ROOT_CONSTANTS.ROOT.PEINTURES}
+            to={ROUTER_CONSTANTS.ROUTER.PEINTURES}
           >
             Peintures
           </Link>
           <Link
             className={
-              this.state.location === ROOT_CONSTANTS.ROOT.SCULPTURES
+              this.state.location === ROUTER_CONSTANTS.ROUTER.SCULPTURES
                 ? `${s.link} ${s.active}`
                 : `${s.link}`
             }
-            to={ROOT_CONSTANTS.ROOT.SCULPTURES}
+            to={ROUTER_CONSTANTS.ROUTER.SCULPTURES}
           >
             Sculptures
           </Link>
           <Link
             className={
-              this.state.location === ROOT_CONSTANTS.ROOT.DESSINS
+              this.state.location === ROUTER_CONSTANTS.ROUTER.DESSINS
                 ? `${s.link} ${s.active}`
                 : `${s.link}`
             }
-            to={ROOT_CONSTANTS.ROOT.DESSINS}
+            to={ROUTER_CONSTANTS.ROUTER.DESSINS}
           >
             Dessins
           </Link>
           <Link
             className={
-              this.state.location === ROOT_CONSTANTS.ROOT.CONTACT
+              this.state.location === ROUTER_CONSTANTS.ROUTER.CONTACT
                 ? `${s.link} ${s.active}`
                 : `${s.link}`
             }
-            to={ROOT_CONSTANTS.ROOT.CONTACT}
+            to={ROUTER_CONSTANTS.ROUTER.CONTACT}
           >
             Contact
           </Link>
-          <Link className={s.linkHome} to={ROOT_CONSTANTS.ROOT.HOME}>
+          <Link className={s.linkHome} to={ROUTER_CONSTANTS.ROUTER.HOME}>
             <img
               src={logoUrl}
               srcSet={`${logoUrl2x} 2x`}

@@ -1,12 +1,10 @@
-const ROOT_CONSTANTS = {
+const ROUTER_CONSTANTS = {
   TITLE: {
-    PRESENTATION: 'Présentation',
-    CONTACT: 'Contact',
     ACCUEIL: 'Accueil',
     ADMINISTRATION: 'Administration',
   },
 
-  ROOT: {
+  ROUTER: {
     HOME: '/home',
     PEINTURES: '/peintures',
     SCULPTURES: '/sculptures',
@@ -19,4 +17,4 @@ const ROOT_CONSTANTS = {
   },
 };
 
-export default ROOT_CONSTANTS;
+export default ROUTER_CONSTANTS;

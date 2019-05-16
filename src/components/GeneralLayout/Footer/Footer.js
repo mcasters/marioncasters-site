@@ -6,7 +6,7 @@ import Link from '../../Link';
 import LoginControl from '../../LoginControl';
 import GLOBAL_CONSTANTS from '../../../constants/globalConstants';
 import Feedback from '../Feedback';
-import ROOT_CONSTANTS from '../../../constants/rootConstants';
+import ROUTER_CONSTANTS from '../../../constants/routerConstants';
 
 class Footer extends React.Component {
   render() {
@@ -16,13 +16,13 @@ class Footer extends React.Component {
         <div className={s.container}>
           <span className={s.text}>{GLOBAL_CONSTANTS.COPYRIGHT}</span>
           <span>·</span>
-          <Link className={s.link} to={ROOT_CONSTANTS.ROOT.HOME}>
+          <Link className={s.link} to={ROUTER_CONSTANTS.ROUTER.HOME}>
             Home
           </Link>
           <span>·</span>
           <LoginControl />
           <span>·</span>
-          <Link className={s.link} to={ROOT_CONSTANTS.ROOT.CONFIDENTIALITE}>
+          <Link className={s.link} to={ROUTER_CONSTANTS.ROUTER.CONFIDENTIALITE}>
             Privacy
           </Link>
         </div>

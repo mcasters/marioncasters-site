@@ -5,10 +5,11 @@ import ITEM_CONSTANTS from '../../constants/itemConstants';
 
 async function action() {
   const title = ITEM_CONSTANTS.TITLE.PAINTING;
+  const description = ITEM_CONSTANTS.META_DESCRIPTION.PAINTING;
 
   return {
     title,
-    description: ITEM_CONSTANTS.META_DESCRIPTION.PAINTING,
+    description,
     chunks: ['paintings'],
     component: (
       <Layout>
