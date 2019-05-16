@@ -2,6 +2,8 @@
 
 import { Content } from '../../models';
 import getAuthenticatedUser from '../services/authentication';
+import CONTENT_CONSTANTS from '../../../constants/contentConstants';
+import * as imageService from '../../../imageServices';
 
 export const types = [
   `
@@ -15,6 +17,8 @@ export const types = [
 export const mutations = [
   `
   addContent(input: ContentInput!): Content!
+  
+  addPicture(picture: Upload!, title: String!): Boolean!
 `,
 ];
 
@@ -38,6 +42,19 @@ export const resolvers = {
         content = await Content.create(input);
       }
       return content;
+    },
+
+    async addPicture(root, { picture, title }, { req }) {
+      const isAdmin = await getAuthenticatedUser(req);
+
+      if (!isAdmin) throw new Error("Erreur d'authentification");
+
+      const type = CONTENT_CONSTANTS.TYPE;
+      const res = await imageService.processSingleUpload(picture, title, type);
+
+      if (!res) throw new Error("Erreur à l'écriture des fichiers");
+
+      return true;
     },
   },
 };

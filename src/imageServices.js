@@ -3,6 +3,7 @@ import promisesAll from 'promises-all';
 
 import config from './config';
 import ITEM_CONSTANTS from './constants/itemConstants';
+import CONTENT_CONSTANTS from './constants/contentConstants';
 
 export const getAllImages = async dirPath => {
   const images = [];
@@ -42,7 +43,11 @@ export const processSingleUpload = async (picture, title, type) => {
 
   if (type === ITEM_CONSTANTS.TYPE.DRAWING) {
     path = `${config.drawingsPath}/${title}.jpg`;
-  } else path = `${config.paintingsPath}/${title}.jpg`;
+  } else if (type === ITEM_CONSTANTS.TYPE.PAINTING) {
+    path = `${config.paintingsPath}/${title}.jpg`;
+  } else if (type === CONTENT_CONSTANTS.TYPE) {
+    path = `${config.miscellaneousPath}/${title}.jpg`;
+  }
 
   return storeUpload({ stream }, path);
 };

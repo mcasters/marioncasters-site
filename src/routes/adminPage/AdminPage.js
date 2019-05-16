@@ -58,7 +58,7 @@ class AdminPage extends React.Component {
             <EditContent keyContent={CONTENT_CONSTANTS.KEY.HOME3} isTextArea />
           </TabPanel>
           <TabPanel>
-            <EditPicture keyPicture={CONTENT_CONSTANTS.KEY.PRESENTATION} />
+            <EditPicture pictureTitle={CONTENT_CONSTANTS.PICTURE_TITLE} />
             <EditContent
               keyContent={CONTENT_CONSTANTS.KEY.PRESENTATION}
               isTextArea

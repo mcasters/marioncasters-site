@@ -4,12 +4,12 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import { Mutation } from 'react-apollo/index';
 
 import s from './EditPicture.css';
-import ADD_PICTURE_MUTATION from '../../../data/graphql/queries/addItemMutation.graphql';
+import ADD_PICTURE_MUTATION from '../../../data/graphql/queries/addPictureMutation.graphql';
 import Alert from '../../Alert';
 
 class EditPicture extends React.Component {
   static propTypes = {
-    keyPicture: PropTypes.string.isRequired,
+    pictureTitle: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -39,7 +39,7 @@ class EditPicture extends React.Component {
 
   render() {
     const title = 'Image';
-    const { keyPicture } = this.props;
+    const { pictureTitle } = this.props;
     const { imagePreviewUrl, picture } = this.state;
 
     return (
@@ -51,7 +51,7 @@ class EditPicture extends React.Component {
               className="formGroup"
               onSubmit={e => {
                 e.preventDefault();
-                mutation({ variables: { picture, keyPicture } }).then(res => {
+                mutation({ variables: { picture, pictureTitle } }).then(res => {
                   if (res) this.setState(this.getInitialState);
                 });
               }}

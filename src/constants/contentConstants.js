@@ -1,6 +1,8 @@
 const CONTENT_CONSTANTS = {
+  TYPE: 'CONTENT',
+
   TITLE: {
-    HOME: 'Bienvenu',
+    HOME: 'Bienvenue',
     PRESENTATION: 'Présentation',
     CONTACT: 'Contact',
   },
@@ -14,6 +16,8 @@ const CONTENT_CONSTANTS = {
     CONTACT_PHONE: 'Téléphone',
     CONTACT_EMAIL: 'Email',
   },
+
+  PICTURE_TITLE: 'portrait',
 
   CONTENT_IMAGE_PATH: '/images/miscellaneous',
 
