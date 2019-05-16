@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable radix */
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
@@ -10,7 +8,7 @@ import { formatDate, parseDate } from 'react-day-picker/moment';
 import s from './ItemAdd.css';
 import ADD_ITEM_MUTATION from '../../../../data/graphql/queries/addItemMutation.graphql';
 import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
-import ITEM_CONSTANTS from '../../../../constants/itemConstants';
+import ITEM_CONST from '../../../../constants/itemConstants';
 import Alert from '../../../Alert';
 
 class ItemAdd extends React.Component {
@@ -20,7 +18,7 @@ class ItemAdd extends React.Component {
 
   constructor(props) {
     super(props);
-    this.isSculpture = this.props.type === ITEM_CONSTANTS.TYPE.SCULPTURE;
+    this.isSculpture = this.props.type === ITEM_CONST.TYPE.SCULPTURE;
     this.state = this.getInitialState();
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -148,7 +146,7 @@ class ItemAdd extends React.Component {
                   onDayChange={this.handleDayChange}
                   formatDate={formatDate}
                   parseDate={parseDate}
-                  format={ITEM_CONSTANTS.FORMAT_DATE}
+                  format={ITEM_CONST.FORMAT_DATE}
                   placeholder="Date"
                 />
               </div>

@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import Modal from 'react-modal';
 
-import moment from 'moment';
 import Lightbox from '../../Lightbox/Lightbox';
 import s from './Item.css';
-import ITEM_CONSTANTS from '../../../constants/itemConstants';
+import ITEM_CONST from '../../../constants/itemConstants';
 import {
   LIGHTBOX_PADDING,
   LIGHTBOX_MOBILE_PADDING,
@@ -49,7 +48,7 @@ class Item extends React.Component {
     const { item, itemType, srcList } = this.props;
     const { photoIndex, isOpen } = this.state;
 
-    if (itemType === ITEM_CONSTANTS.TYPE.SCULPTURE) {
+    if (itemType === ITEM_CONST.TYPE.SCULPTURE) {
       return (
         <article className={s.itemContainer}>
           <h2 className={s.itemTitle}>{item.title}</h2>
@@ -62,14 +61,14 @@ class Item extends React.Component {
             >
               <img
                 src={src}
-                alt={ITEM_CONSTANTS.ALT_IMAGE_SCULPTURE}
+                alt={ITEM_CONST.ALT_IMAGE_SCULPTURE}
                 className={s.image}
               />
             </button>
           ))}
           <div className={s.description}>
             <span className={s.noWrap}>
-              {moment(item.date).format(ITEM_CONSTANTS.FORMAT_DATE)}
+              {new Date(item.date).toLocaleDateString()}
             </span>
             <span className={s.spacer}> | </span>
             <span className={s.noWrap}>{item.technique}</span>
@@ -121,16 +120,16 @@ class Item extends React.Component {
             src={src}
             ref={this.image}
             alt={
-              itemType === ITEM_CONSTANTS.TYPE.PAINTING
-                ? ITEM_CONSTANTS.ALT_IMAGE_PAINTING
-                : ITEM_CONSTANTS.ALT_IMAGE_DRAWING
+              itemType === ITEM_CONST.TYPE.PAINTING
+                ? ITEM_CONST.ALT_IMAGE_PAINTING
+                : ITEM_CONST.ALT_IMAGE_DRAWING
             }
             className={s.image}
           />
         </button>
         <div className={s.description}>
           <span className={s.noWrap}>
-            {moment(item.date).format(ITEM_CONSTANTS.FORMAT_DATE)}
+            {new Date(item.date).toLocaleDateString()}
           </span>
           <span className={s.spacer}> | </span>
           <span className={s.noWrap}>{item.technique}</span>

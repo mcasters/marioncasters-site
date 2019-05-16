@@ -1,5 +1,3 @@
-/* eslint-disable radix */
-/* eslint-disable import/no-unresolved */
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import { Mutation } from 'react-apollo';
@@ -51,6 +49,7 @@ class UpdateDialog extends React.Component {
 
     this.state = {
       ...this.props.item,
+      date: new Date(this.props.item.date).toLocaleDateString(),
       imagePreviewUrls: [],
       pictures: [],
       showModal: true,
@@ -128,14 +127,14 @@ class UpdateDialog extends React.Component {
 
     const {
       title,
+      date,
       technique,
-      imagePreviewUrls,
       width,
       length,
       height,
+      imagePreviewUrls,
       showModal,
       description,
-      date,
     } = this.state;
 
     return (
