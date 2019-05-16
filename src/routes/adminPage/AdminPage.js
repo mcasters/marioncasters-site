@@ -9,6 +9,7 @@ import contentConstants from '../../constants/contentConstants';
 import EditContent from '../../components/Admin/EditContent';
 import Logout from '../../components/Logout';
 import AdminItemParent from '../../components/Admin/Item/AdminItemParent';
+import EditPicture from '../../components/Admin/EditPicture';
 
 class AdminPage extends React.Component {
   static propTypes = {
@@ -57,8 +58,9 @@ class AdminPage extends React.Component {
             <EditContent keyContent={CONTENT_CONSTANTS.KEY.HOME3} isTextArea />
           </TabPanel>
           <TabPanel>
+            <EditPicture keyPicture={CONTENT_CONSTANTS.KEY.PRESENTATION} />
             <EditContent
-              keyContent={CONTENT_CONSTANTS.KEY.PRESENTATION_TEXT}
+              keyContent={CONTENT_CONSTANTS.KEY.PRESENTATION}
               isTextArea
             />
           </TabPanel>

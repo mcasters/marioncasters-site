@@ -22,7 +22,7 @@ class PresentationPage extends React.Component {
           src="./portrait.jpg"
           alt="Portrait de Marion Casters"
         />
-        <Content keyContent={CONTENT_CONSTANTS.KEY.PRESENTATION_TEXT} />
+        <Content keyContent={CONTENT_CONSTANTS.KEY.PRESENTATION} />
       </div>
     );
   }

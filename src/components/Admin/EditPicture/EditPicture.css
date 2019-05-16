@@ -1,0 +1,10 @@
+@import '../../variables.css';
+
+.addContainer {
+  padding: 15px 0;
+}
+
+.imagePreview {
+  width: 30%;
+  margin-bottom: 1em;
+}

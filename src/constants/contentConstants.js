@@ -9,7 +9,7 @@ const CONTENT_CONSTANTS = {
     HOME1: 'Home 1',
     HOME2: 'Home 2',
     HOME3: 'Home 3',
-    PRESENTATION_TEXT: 'Présentation',
+    PRESENTATION: 'Présentation',
     CONTACT_ADDRESS: 'Adresse',
     CONTACT_PHONE: 'Téléphone',
     CONTACT_EMAIL: 'Email',
