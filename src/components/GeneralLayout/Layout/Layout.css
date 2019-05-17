@@ -40,7 +40,7 @@ main {
 }
 
 html {
-  font-size: var(--font-size-current);
+  font-size: var(--font-size-current-sm);
   font-family: var(--font-family-base);
   color: var(--color-dark);
   font-weight: var(--font-weight);
@@ -167,6 +167,10 @@ button {
 }
 
 @media (--sm) {
+  html {
+    font-size: var(--font-size-current);
+  }
+
   a,
   .loginLink {
     color: var(--link-color);
