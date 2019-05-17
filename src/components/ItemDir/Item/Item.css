@@ -5,12 +5,8 @@
 }
 
 .itemTitle {
-  font-size: var(--font-size-mobile-title);
+  font-size: var(--font-size-current-title);
   margin: 0 0 0.1em;
-}
-
-.description {
-  font-size: var(--font-size-mobile);
 }
 
 .noWrap {
@@ -18,10 +14,6 @@
 }
 
 @media (--md) {
-  .description {
-    font-size: var(--font-size-current-sm);
-  }
-
   .spacer {
     padding: 0 15px;
   }

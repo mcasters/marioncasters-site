@@ -35,21 +35,17 @@ main {
 
 @media (--xlg) {
   main {
+    padding: 9em 6em 2em;
     margin-left: var(--aside-width);
   }
 }
 
 html {
-  font-size: var(--font-size-current-sm);
-  font-family: var(--font-family-base);
-  color: var(--color-dark);
-  font-weight: var(--font-weight);
   line-height: 1.375; /* ~22px */
-  font-variant: small-caps;
-  letter-spacing: 3px;
   box-sizing: border-box;
 }
 
+html,
 h1,
 h2,
 h3,
@@ -60,6 +56,7 @@ button,
 select,
 textarea {
   font-family: var(--font-family-base);
+  font-size: var(--font-size-current);
   color: var(--color-dark);
   font-weight: var(--font-weight);
   font-variant: small-caps;
@@ -167,23 +164,35 @@ button {
 }
 
 @media (--sm) {
-  html {
-    font-size: var(--font-size-current);
-  }
-
   a,
   .loginLink {
     color: var(--link-color);
     transition: color 0.5s;
+  }
 
-    &:hover {
-      color: var(--link-color-xdark);
-      transition: color 0.5s;
-    }
+  a:hover,
+  .loginLink:hover {
+    color: var(--link-color-xdark);
+    transition: color 0.5s;
   }
 
   .listContainer {
     padding: 2.5em 10em 0;
+  }
+}
+
+@media (--lg) {
+  html,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  input,
+  button,
+  select,
+  textarea {
+    font-size: var(--font-size-plus);
   }
 }
 

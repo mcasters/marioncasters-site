@@ -1,3 +1,5 @@
+@import '../variables.css';
+
 .link {
   color: var(--link-color);
   padding: 2px 5px;
@@ -8,7 +10,7 @@
   font-family: var(--font-family-base) !important;
   color: var(--link-color);
   padding: 2px 5px;
-  font-size: 1em;
+  font-size: var(--font-size-plus);
   display: inline;
   margin: 0;
   background: none;

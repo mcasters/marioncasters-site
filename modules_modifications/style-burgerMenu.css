@@ -5,7 +5,7 @@
   width: 36px;
   height: 30px;
   left: 36px;
-  top: 36px;
+  top: 27px;
 }
 
 /* Color/shape of burger icon bars */
@@ -28,7 +28,7 @@
 .bm-menu {
   background: #333;
   padding: 2.5em 1.5em 0;
-  font-size: 1.2em;
+  font-size: 15px;
 }
 
 /* Wrapper for item list */

@@ -1,3 +1,5 @@
+@import '../../variables.css';
+
 .loading {
   height: available;
 }
@@ -10,7 +12,6 @@
   font-family: var(--font-family-base) !important;
   color: var(--link-color);
   padding: 2px 5px;
-  font-size: 1em;
   display: inline;
   margin: 0;
   background: none;
