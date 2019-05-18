@@ -9,13 +9,13 @@ import DesktopNav from './DesktopNav';
 
 class Navigation extends React.Component {
   static propTypes = {
-    isMobile: PropTypes.bool.isRequired,
+    isLessThanMD: PropTypes.bool.isRequired,
   };
 
   render() {
-    const { isMobile } = this.props;
+    const { isLessThanMD } = this.props;
 
-    return isMobile ? <MobileNav /> : <DesktopNav />;
+    return isLessThanMD ? <MobileNav /> : <DesktopNav />;
   }
 }
 

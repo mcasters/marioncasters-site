@@ -37,7 +37,7 @@
   }
 }
 
-@media (--sm) {
+@media (--md) {
   .container {
     padding: 0 6.5em;
     text-align: left;

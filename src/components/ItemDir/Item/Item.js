@@ -11,6 +11,7 @@ import {
   LIGHTBOX_MOBILE_PADDING,
 } from '../../../constants/lightboxConstants';
 import LAYOUT_CONSTANTS from '../../../constants/layoutConstants';
+import ImageButton from '../ImageButton';
 
 Modal.setAppElement('#app');
 
@@ -52,31 +53,16 @@ class Item extends React.Component {
       return (
         <article className={s.itemContainer}>
           <h2 className={s.itemTitle}>{item.title}</h2>
-          {srcList.map(src => (
-            <button
-              type="button"
-              className={s.sculptureButton}
-              onClick={this.open}
-              key={src}
-            >
-              <img
-                src={src}
-                alt={ITEM_CONST.ALT_IMAGE_SCULPTURE}
-                className={s.image}
-              />
-            </button>
-          ))}
-          <div className={s.description}>
-            <span className={s.noWrap}>
-              {new Date(item.date).toLocaleDateString()}
-            </span>
-            <span className={s.spacer}> | </span>
-            <span className={s.noWrap}>{item.technique}</span>
-            <span className={s.spacer}> | </span>
-            <span className={s.noWrap}>
-              {item.height} x {item.width} x {item.length} cm
-            </span>
-          </div>
+          <ImageButton type={itemType} title={item.title} />
+          <span className={s.noWrap}>
+            {new Date(item.date).toLocaleDateString()}
+          </span>
+          <span className={s.spacer}> | </span>
+          <span className={s.noWrap}>{item.technique}</span>
+          <span className={s.spacer}> | </span>
+          <span className={s.noWrap}>
+            {item.height} x {item.width} x {item.length} cm
+          </span>
           {isOpen && typeof window !== 'undefined' && (
             <Lightbox
               mainSrc={srcList[photoIndex]}
@@ -106,38 +92,19 @@ class Item extends React.Component {
       );
     }
 
-    const src = srcList[0];
     return (
       <article className={s.itemContainer}>
         <h2 className={s.itemTitle}>{item.title}</h2>
-        <button
-          type="button"
-          className={s.imageButton}
-          onClick={this.open}
-          key={src}
-        >
-          <img
-            src={src}
-            ref={this.image}
-            alt={
-              itemType === ITEM_CONST.TYPE.PAINTING
-                ? ITEM_CONST.ALT_IMAGE_PAINTING
-                : ITEM_CONST.ALT_IMAGE_DRAWING
-            }
-            className={s.image}
-          />
-        </button>
-        <div className={s.description}>
-          <span className={s.noWrap}>
-            {new Date(item.date).toLocaleDateString()}
-          </span>
-          <span className={s.spacer}> | </span>
-          <span className={s.noWrap}>{item.technique}</span>
-          <span className={s.spacer}> | </span>
-          <span className={s.noWrap}>
-            {item.height} x {item.width} cm
-          </span>
-        </div>
+        <ImageButton type={itemType} title={item.title} />
+        <span className={s.noWrap}>
+          {new Date(item.date).toLocaleDateString()}
+        </span>
+        <span className={s.spacer}> | </span>
+        <span className={s.noWrap}>{item.technique}</span>
+        <span className={s.spacer}> | </span>
+        <span className={s.noWrap}>
+          {item.height} x {item.width} cm
+        </span>
         {isOpen && typeof window !== 'undefined' && (
           <Lightbox
             mainSrc={srcList[photoIndex]}
