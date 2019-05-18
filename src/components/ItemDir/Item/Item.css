@@ -10,11 +10,21 @@
 }
 
 .noWrap {
-  white-space: pre;
+  display: block;
 }
 
-@media (--md) {
+.spacer {
+  display: none;
+}
+
+@media (--sm) {
+  .noWrap {
+    display: inline;
+    white-space: pre;
+  }
+
   .spacer {
+    display: inline;
     padding: 0 15px;
   }
 }

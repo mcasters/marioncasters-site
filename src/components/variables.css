@@ -1,5 +1,5 @@
 @custom-media --xs (width >= 480px); /* phone */
-@custom-media --sm (width >= 770px); /* ipad */
+@custom-media --sm (width >= 765px); /* ipad */
 @custom-media --md (width >= 992px); /* ipad plus */
 @custom-media --lg (width >= 1200px); /* 13' */
 @custom-media --xlg (width >= 1600px);
@@ -23,16 +23,6 @@
   --aside-width: 20%;
 
   /*
-   * Media queries breakpoints
-   * ======================================================================== */
-
-  /* --screen-xs-min: 480px; Extra small screen / phone */
-
-  --screen-sm-min: 770px; /* Small screen / tablet */
-  --screen-md-min: 992px; /* Medium screen / desktop */
-  --screen-lg-min: 1200px; /* Large screen / wide desktop */
-
-  /*
    * Colors
    * ======================================================================== */
 
@@ -46,18 +36,16 @@
   --link-color: #ab8b8b;
   --link-color-dark: #a86363;
   --link-color-xdark: #754b49;
-  --popup-background-ok: #9ed39c;
 
   /*
-    * Font size
-    * ======================================================================== */
+   * Font size
+   * ======================================================================== */
   --font-size-header-sm-mobile: 1.3em;
   --font-size-header-md-mobile: 1.8em;
   --font-size-header: 2em;
-  --font-size-current-title: 14px;
-  --font-size-minus: 11px;
-  --font-size-current: 12px;
-  --font-size-plus: 13px;
   --font-size-nav: 15px;
-  --font-size-number: 0.7em;
+  --font-size-current-title: 14px;
+  --font-size-current-plus: 13px;
+  --font-size-current: 12px;
+  --font-size-minus: 11px;
 }

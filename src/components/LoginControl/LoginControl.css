@@ -10,7 +10,7 @@
   font-family: var(--font-family-base) !important;
   color: var(--link-color);
   padding: 2px 5px;
-  font-size: var(--font-size-plus);
+  font-size: var(--font-size-current-plus);
   display: inline;
   margin: 0;
   background: none;

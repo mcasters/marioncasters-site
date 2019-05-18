@@ -192,7 +192,7 @@ button {
   button,
   select,
   textarea {
-    font-size: var(--font-size-plus);
+    font-size: var(--font-size-current-plus);
   }
 }
 
