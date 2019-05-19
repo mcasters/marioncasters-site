@@ -11,6 +11,7 @@ const META_CONSTANTS = {
     CONTACT:
       'Contacter Marion Casters pour obtenir des renseignements sur ses oeuvres',
     PRIVACY: 'Détail de la politique de confidentialité du site',
+    ADMIN: 'Administration du site',
   },
 };
 

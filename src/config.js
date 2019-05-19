@@ -25,10 +25,10 @@ module.exports = {
 
   // Database
   databaseUrl: process.env.DATABASE_URL || 'mysql:database.mysql',
-  databaseName: process.env.DATABASE_NAME,
-  databaseUsername: process.env.DATABASE_USERNAME,
-  databasePassword: process.env.DATABASE_PASSWORD,
-  databaseHost: process.env.DATABASE_HOST,
+  databaseName: process.env.DATABASE_NAME || 'develop',
+  databaseUsername: process.env.DATABASE_USERNAME || 'root',
+  databasePassword: process.env.DATABASE_PASSWORD || 'root',
+  databaseHost: process.env.DATABASE_HOST || 'localhost',
 
   // Photos files
   libraryPath: `${process.env.PHOTOS_PATH}`,
