@@ -20,9 +20,13 @@ class Image extends React.Component {
   constructor(props) {
     super(props);
 
+    this.isLessThanSM =
+      this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.SM;
+
+    this.setPath();
+
     this.state = {
       isOpen: false,
-      isLessThanSM: true,
     };
 
     this.lightBoxHandler = this.lightBoxHandler.bind(this);
@@ -31,33 +35,41 @@ class Image extends React.Component {
     this.openLightBox = this.openLightBox.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({
-      isLessThanSM: this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.SM,
-    });
-  }
+  setPath = () => {
+    let path;
+    if (this.props.type === ITEM_CONST.TYPE.PAINTING) {
+      path = `${ITEM_CONST.PAINTING_PATH}`;
+    }
+    if (this.props.type === ITEM_CONST.TYPE.DRAWING) {
+      path = `${ITEM_CONST.DRAWING_PATH}`;
+    }
+    if (this.props.type === ITEM_CONST.TYPE.SCULPTURE) {
+      path = `${ITEM_CONST.SCULPTURE_PATH}`;
+    }
+    this.currentImagePath = this.isLessThanSM
+      ? `${path}/${ITEM_CONST.SM_SIZE}`
+      : `${path}/${ITEM_CONST.MD_SIZE}`;
+    this.largeImagePath = this.isLessThanSM
+      ? `${path}/${ITEM_CONST.MD_SIZE}`
+      : `${path}`;
+  };
 
   lightBoxHandler = open => {
     this.setState({ isOpen: open });
   };
 
-  getSrc = title => {
-    const path =
-      this.props.type === ITEM_CONST.TYPE.PAINTING
-        ? `${ITEM_CONST.PAINTING_PATH}`
-        : `${ITEM_CONST.DRAWING_PATH}`;
-    return this.state.isLessThanSM
-      ? `${path}/${ITEM_CONST.SM_SIZE}/${title}.jpg`
-      : `${path}/${ITEM_CONST.MD_SIZE}/${title}.jpg`;
+  getSrc = (title, isCurrent) => {
+    return isCurrent
+      ? `${this.currentImagePath}/${title}.jpg`
+      : `${this.largeImagePath}/${title}.jpg`;
   };
 
-  getSrcList = title => {
-    const path = this.state.isLessThanSM
-      ? `${ITEM_CONST.SCULPTURE_PATH}/${ITEM_CONST.SM_SIZE}`
-      : `${ITEM_CONST.SCULPTURE_PATH}/${ITEM_CONST.MD_SIZE}`;
-
+  getSrcList = (title, isCurrent) => {
     const list = [];
     let i;
+    const path = isCurrent
+      ? `${this.currentImagePath}`
+      : `${this.largeImagePath}`;
     for (i = 1; i < 5; i++) {
       list.push(`${path}/${title}_${i}.jpg`);
     }
@@ -71,13 +83,14 @@ class Image extends React.Component {
   render() {
     const { title, type } = this.props;
     const { isOpen } = this.state;
-    const srcList = this.getSrcList(title);
 
     if (type === ITEM_CONST.TYPE.SCULPTURE) {
+      const currentSrcList = this.getSrcList(title, true);
+      const largeSrcList = this.getSrcList(title, false);
       return (
         <Fragment>
           <div>
-            {srcList.map(src => (
+            {currentSrcList.map(src => (
               <button
                 type="button"
                 className={s.sculptureButton}
@@ -96,7 +109,7 @@ class Image extends React.Component {
             <LightBoxProvider
               title={title}
               type={type}
-              srcList={srcList}
+              srcList={largeSrcList}
               toggle={this.lightBoxHandler}
             />
           )}
@@ -104,17 +117,18 @@ class Image extends React.Component {
       );
     }
 
-    const src = this.getSrc(title);
+    const currentSrc = this.getSrc(title, true);
+    const largeSrc = this.getSrc(title, false);
     return (
       <Fragment>
         <button
           type="button"
           className={s.imageButton}
           onClick={this.openLightBox}
-          key={src}
+          key={this.currentImagePath}
         >
           <img
-            src={src}
+            src={currentSrc}
             alt={
               type === ITEM_CONST.TYPE.PAINTING
                 ? ITEM_CONST.ALT_IMAGE_PAINTING
@@ -127,7 +141,7 @@ class Image extends React.Component {
           <LightBoxProvider
             title={title}
             type={type}
-            src={src}
+            src={largeSrc}
             toggle={this.lightBoxHandler}
           />
         )}
