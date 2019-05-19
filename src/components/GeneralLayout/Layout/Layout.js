@@ -24,26 +24,14 @@ class Layout extends React.Component {
     }).isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isLessThanMD: true,
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      isLessThanMD: this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD,
-    });
-  }
+  getIsLessThanMD = () =>
+    this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
 
   render() {
-    const { isLessThanMD } = this.state;
     return (
       <Fragment>
         <Header />
-        <Navigation isLessThanMD={isLessThanMD} />
+        <Navigation isLessThanMD={this.getIsLessThanMD()} />
         <ErrorBoundary>
           <main>{this.props.children}</main>
         </ErrorBoundary>

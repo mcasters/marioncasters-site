@@ -7,9 +7,13 @@ import {
 
 function withViewport(ComposedComponent) {
   return class WithViewport extends Component {
-    state = {
-      viewport: { width: getWindowWidth(), height: getWindowHeight() },
-    };
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        viewport: { width: getWindowWidth(), height: getWindowHeight() },
+      };
+    }
 
     componentDidMount() {
       window.addEventListener('resize', this.handleResize);
@@ -32,9 +36,8 @@ function withViewport(ComposedComponent) {
     };
 
     render() {
-      return (
-        <ComposedComponent {...this.props} viewport={this.state.viewport} />
-      );
+      const { viewport } = this.state;
+      return <ComposedComponent {...this.props} viewport={viewport} />;
     }
   };
 }
