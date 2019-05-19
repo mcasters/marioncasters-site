@@ -13,12 +13,6 @@ class DrawingsPage extends React.Component {
     title: PropTypes.string.isRequired,
   };
 
-  getUrlImages = itemTitle => {
-    const imagesForItem = [];
-    imagesForItem.push(`${ITEM_CONST.DRAWING_PATH}/${itemTitle}.jpg`);
-    return imagesForItem;
-  };
-
   render() {
     const type = ITEM_CONST.TYPE.DRAWING;
     return (
@@ -31,12 +25,7 @@ class DrawingsPage extends React.Component {
             <Fragment>
               <h1 className={s.title}>{this.props.title}</h1>
               {data.getAllItems.map(drawing => (
-                <Item
-                  key={drawing.id}
-                  item={drawing}
-                  srcList={this.getUrlImages(drawing.title)}
-                  itemType={type}
-                />
+                <Item key={drawing.id} item={drawing} type={type} />
               ))}
             </Fragment>
           );

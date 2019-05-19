@@ -35,12 +35,7 @@ class SculpturesPage extends React.Component {
             <Fragment>
               <h1 className={s.title}>{this.props.title}</h1>
               {data.getAllItems.map(sculpture => (
-                <Item
-                  key={sculpture.id}
-                  item={sculpture}
-                  srcList={this.getUrlImages(sculpture.title)}
-                  itemType={type}
-                />
+                <Item key={sculpture.id} item={sculpture} type={type} />
               ))}
             </Fragment>
           );

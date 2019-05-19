@@ -18,22 +18,6 @@ class ItemTab extends React.Component {
     type: PropTypes.string.isRequired,
   };
 
-  getUrlImages = itemTitle => {
-    const imagesForItem = [];
-    if (this.props.type === ITEM_CONST.TYPE.SCULPTURE) {
-      let i = 1;
-      while (i < 5) {
-        imagesForItem.push(
-          `${ITEM_CONST.SCULPTURE_PATH}/${itemTitle}_${i}.jpg`,
-        );
-        i++;
-      }
-    } else if (this.props.type === ITEM_CONST.TYPE.PAINTING) {
-      imagesForItem.push(`${ITEM_CONST.PAINTING_PATH}/${itemTitle}.jpg`);
-    } else imagesForItem.push(`${ITEM_CONST.DRAWING_PATH}/${itemTitle}.jpg`);
-    return imagesForItem;
-  };
-
   scrollTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
@@ -50,18 +34,13 @@ class ItemTab extends React.Component {
             <Fragment>
               <h2 className={s.titleTab}>{year}</h2>
               {data.getItemsByYear.map(item => {
-                const list = this.getUrlImages(item.title);
-                if (list !== undefined && list.length !== 0) {
-                  return (
-                    <Item
-                      key={item.title}
-                      item={item}
-                      srcList={list}
-                      itemType={ITEM_CONST.TYPE.PAINTING}
-                    />
-                  );
-                }
-                return null;
+                return (
+                  <Item
+                    key={item.title}
+                    item={item}
+                    type={ITEM_CONST.TYPE.PAINTING}
+                  />
+                );
               })}
               {error && (
                 <Alert message="Erreur au chargement des items" isError />
@@ -90,18 +69,13 @@ class ItemTab extends React.Component {
             <Fragment>
               <h2 className={s.titleTab}>{year}</h2>
               {data.getItemsByHalfYear.map(item => {
-                const list = this.getUrlImages(item.title);
-                if (list !== undefined && list.length !== 0) {
-                  return (
-                    <Item
-                      key={item.title}
-                      item={item}
-                      srcList={list}
-                      itemType={ITEM_CONST.TYPE.PAINTING}
-                    />
-                  );
-                }
-                return null;
+                return (
+                  <Item
+                    key={item.title}
+                    item={item}
+                    type={ITEM_CONST.TYPE.PAINTING}
+                  />
+                );
               })}
               {error && (
                 <Alert message="Erreur au chargement des items" isError />

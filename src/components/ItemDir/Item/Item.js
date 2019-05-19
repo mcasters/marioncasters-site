@@ -17,17 +17,17 @@ class Item extends React.Component {
       width: PropTypes.number,
       length: PropTypes.number,
     }).isRequired,
-    itemType: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
   };
 
   render() {
-    const { item, itemType } = this.props;
+    const { item, type } = this.props;
 
-    if (itemType === ITEM_CONST.TYPE.SCULPTURE) {
+    if (type === ITEM_CONST.TYPE.SCULPTURE) {
       return (
         <article className={s.itemContainer}>
           <h2 className={s.itemTitle}>{item.title}</h2>
-          <Image type={itemType} title={item.title} />
+          <Image type={type} title={item.title} />
           <span className={s.noWrap}>
             {new Date(item.date).toLocaleDateString()}
           </span>
@@ -44,7 +44,7 @@ class Item extends React.Component {
     return (
       <article className={s.itemContainer}>
         <h2 className={s.itemTitle}>{item.title}</h2>
-        <Image type={itemType} title={item.title} />
+        <Image type={type} title={item.title} />
         <span className={s.noWrap}>
           {new Date(item.date).toLocaleDateString()}
         </span>
