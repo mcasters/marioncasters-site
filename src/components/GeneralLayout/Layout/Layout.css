@@ -57,9 +57,8 @@ select,
 textarea {
   font-family: var(--font-family-base);
   font-size: var(--font-size-current);
-  color: var(--color-dark);
+  color: var(--color-xdark);
   font-weight: var(--font-weight);
-  font-variant: small-caps;
   letter-spacing: 3px;
 }
 

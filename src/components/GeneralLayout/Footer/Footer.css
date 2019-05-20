@@ -2,6 +2,7 @@
 
 footer {
   background: var(--color-xxlight);
+  font-variant: small-caps;
 }
 
 .container {
@@ -19,7 +20,7 @@ footer {
 .link {
   display: block;
   color: var(--link-color);
-  font-size: var(--font-size-current-plus);
+  font-size: var(--font-size-current-plus-plus);
   padding: 0.4em 0;
 }
 

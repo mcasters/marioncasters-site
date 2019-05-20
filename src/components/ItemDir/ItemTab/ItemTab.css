@@ -10,6 +10,8 @@
 
 .buttonLink {
   font-family: var(--font-family-base) !important;
+  font-variant: small-caps;
+  font-size: var(--font-size-current-plus-plus);
   color: var(--link-color);
   padding: 2px 5px;
   display: inline;

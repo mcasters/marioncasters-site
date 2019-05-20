@@ -16,7 +16,6 @@ const remote = {
   url: 'https://github.com/mcasters/portfolio-app.git',
   branch: 'gh-pages',
   website: 'https://marioncasters.fr',
-  static: true,
 };
 
 // Heroku

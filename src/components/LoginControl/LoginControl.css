@@ -8,9 +8,10 @@
 
 .loginLink {
   font-family: var(--font-family-base) !important;
+  font-variant: small-caps;
   color: var(--link-color);
   padding: 2px 5px;
-  font-size: var(--font-size-current-plus);
+  font-size: var(--font-size-current-plus-plus);
   display: inline;
   margin: 0;
   background: none;
