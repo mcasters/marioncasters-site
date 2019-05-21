@@ -18,7 +18,7 @@ class PresentationPage extends React.Component {
         <h1 className={s.title}>{title}</h1>
         <img
           className={s.image}
-          src={`${CONTENT_CONST.PRESENTATION_IMAGE_PATH}/${
+          src={`${CONTENT_CONST.CONTENT_IMAGE_PATH}/${
             CONTENT_CONST.PRESENTATION_IMAGE_TITLE
           }.jpg`}
           alt={CONTENT_CONST.PRESENTATION_IMAGE_ALT}

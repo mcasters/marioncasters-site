@@ -31,8 +31,8 @@ class AdminPage extends React.Component {
   };
 
   render() {
-    const CONTENT_CONSTANTS = contentConstants;
-    const ITEM_CONSTANTS = itemConstants;
+    const CONT_CONST = contentConstants;
+    const ITEM_CONST = itemConstants;
     const { title } = this.props;
     return (
       <div className={s.container}>
@@ -45,47 +45,45 @@ class AdminPage extends React.Component {
           forceRenderTabPanel
         >
           <TabList>
-            <Tab>{CONTENT_CONSTANTS.TITLE.HOME}</Tab>
-            <Tab>{CONTENT_CONSTANTS.TITLE.PRESENTATION}</Tab>
-            <Tab>{ITEM_CONSTANTS.TITLE.PAINTING}</Tab>
-            <Tab>{ITEM_CONSTANTS.TITLE.SCULPTURE}</Tab>
-            <Tab>{ITEM_CONSTANTS.TITLE.DRAWING}</Tab>
-            <Tab>{CONTENT_CONSTANTS.TITLE.CONTACT}</Tab>
+            <Tab>{CONT_CONST.TITLE.HOME}</Tab>
+            <Tab>{CONT_CONST.TITLE.PRESENTATION}</Tab>
+            <Tab>{ITEM_CONST.TITLE.PAINTING}</Tab>
+            <Tab>{ITEM_CONST.TITLE.SCULPTURE}</Tab>
+            <Tab>{ITEM_CONST.TITLE.DRAWING}</Tab>
+            <Tab>{CONT_CONST.TITLE.CONTACT}</Tab>
           </TabList>
           <TabPanel>
-            <EditContent keyContent={CONTENT_CONSTANTS.KEY.HOME1} isTextArea />
-            <EditContent keyContent={CONTENT_CONSTANTS.KEY.HOME2} isTextArea />
-            <EditContent keyContent={CONTENT_CONSTANTS.KEY.HOME3} isTextArea />
+            <EditPicture pictureTitle={CONT_CONST.HOME_IMAGE_TITLE_1} />
+            <EditPicture pictureTitle={CONT_CONST.HOME_IMAGE_TITLE_2} />
+            <EditPicture pictureTitle={CONT_CONST.HOME_IMAGE_TITLE_3} />
+            <EditContent keyContent={CONT_CONST.KEY.HOME1} isTextArea />
+            <EditContent keyContent={CONT_CONST.KEY.HOME2} isTextArea />
+            <EditContent keyContent={CONT_CONST.KEY.HOME3} isTextArea />
           </TabPanel>
           <TabPanel>
-            <EditPicture
-              pictureTitle={CONTENT_CONSTANTS.PRESENTATION_IMAGE_TITLE}
-            />
+            <EditPicture pictureTitle={CONT_CONST.PRESENTATION_IMAGE_TITLE} />
+            <EditContent keyContent={CONT_CONST.KEY.PRESENTATION} isTextArea />
+          </TabPanel>
+          <TabPanel>
+            <AdminItemParent type={ITEM_CONST.TYPE.PAINTING} />
+          </TabPanel>
+          <TabPanel>
+            <AdminItemParent type={ITEM_CONST.TYPE.SCULPTURE} />
+          </TabPanel>
+          <TabPanel>
+            <AdminItemParent type={ITEM_CONST.TYPE.DRAWING} />
+          </TabPanel>
+          <TabPanel>
             <EditContent
-              keyContent={CONTENT_CONSTANTS.KEY.PRESENTATION}
+              keyContent={CONT_CONST.KEY.CONTACT_ADDRESS}
               isTextArea
             />
-          </TabPanel>
-          <TabPanel>
-            <AdminItemParent type={ITEM_CONSTANTS.TYPE.PAINTING} />
-          </TabPanel>
-          <TabPanel>
-            <AdminItemParent type={ITEM_CONSTANTS.TYPE.SCULPTURE} />
-          </TabPanel>
-          <TabPanel>
-            <AdminItemParent type={ITEM_CONSTANTS.TYPE.DRAWING} />
-          </TabPanel>
-          <TabPanel>
             <EditContent
-              keyContent={CONTENT_CONSTANTS.KEY.CONTACT_ADDRESS}
-              isTextArea
-            />
-            <EditContent
-              keyContent={CONTENT_CONSTANTS.KEY.CONTACT_PHONE}
+              keyContent={CONT_CONST.KEY.CONTACT_PHONE}
               isTextArea={false}
             />
             <EditContent
-              keyContent={CONTENT_CONSTANTS.KEY.CONTACT_EMAIL}
+              keyContent={CONT_CONST.KEY.CONTACT_EMAIL}
               isTextArea={false}
             />
           </TabPanel>

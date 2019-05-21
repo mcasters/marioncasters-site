@@ -1,11 +1,32 @@
 @import '../../variables.css';
 
 .addContainer {
-  padding: 15px 0;
+  display: inline-block;
+  width: available;
+  padding: 1.5em;
+  text-align: center;
 }
 
 .image {
-  max-width: 25%;
+  max-width: 15vw;
+}
+
+.fileLabel {
+  display: block;
+  margin-top: 20px;
+  color: var(--link-color);
+  font-size: var(--font-size-current-plus-plus);
+  background: none;
+  cursor: pointer;
+  transition: color 0.4s;
+}
+
+.fileLabel:hover {
+  color: var(--link-color-xdark);
+}
+
+.fileButton {
+  display: none;
 }
 
 .imagePreview {

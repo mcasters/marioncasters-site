@@ -50,10 +50,12 @@ class EditPicture extends React.Component {
             <h2>{title}</h2>
             <img
               className={s.image}
-              src={`${CONTENT_CONST.PRESENTATION_IMAGE_PATH}/${
-                CONTENT_CONST.PRESENTATION_IMAGE_TITLE
-              }.jpg`}
-              alt={CONTENT_CONST.PRESENTATION_IMAGE_ALT}
+              src={`${CONTENT_CONST.CONTENT_IMAGE_PATH}/${pictureTitle}.jpg`}
+              alt={
+                pictureTitle === CONTENT_CONST.PRESENTATION_IMAGE_TITLE
+                  ? CONTENT_CONST.PRESENTATION_IMAGE_ALT
+                  : CONTENT_CONST.HOME_IMAGE_ALT
+              }
             />
             <form
               className="formGroup"
@@ -64,11 +66,16 @@ class EditPicture extends React.Component {
                 });
               }}
             >
-              <input
-                type="file"
-                accept="image/jpeg, image/jpg"
-                onChange={e => this.handleImageChange(e)}
-              />
+              <label htmlFor="add-file" className={s.fileLabel}>
+                Choisir un fichier
+                <input
+                  name="add-file"
+                  className={s.fileButton}
+                  type="file"
+                  accept="image/jpeg, image/jpg"
+                  onChange={e => this.handleImageChange(e)}
+                />
+              </label>
               {imagePreviewUrl !== '' && (
                 <img
                   key={imagePreviewUrl.toString()}
