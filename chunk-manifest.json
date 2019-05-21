@@ -1,7 +1,7 @@
 {
   "client": [
     "/assets/vendors.adefa89f.chunk.js",
-    "/assets/client.09e5fac1.js"
+    "/assets/client.b72dc0b6.js"
   ],
   "home": [
     "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.f01ef08e.chunk.js",
@@ -30,7 +30,7 @@
   "presentation": [
     "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.f01ef08e.chunk.js",
     "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c0ea5e0a.chunk.js",
-    "/assets/presentation.ae83b7e5.chunk.js"
+    "/assets/presentation.0c347283.chunk.js"
   ],
   "contact": [
     "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.f01ef08e.chunk.js",
