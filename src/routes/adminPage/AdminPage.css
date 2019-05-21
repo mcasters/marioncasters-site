@@ -5,6 +5,10 @@
   max-width: var(--max-content-width);
 }
 
+.title {
+  font-size: var(--font-size-current-title);
+}
+
 .tabs {
   padding-top: 1em;
 }

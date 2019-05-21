@@ -59,6 +59,7 @@ textarea {
   font-size: var(--font-size-current);
   color: var(--color-xdark);
   font-weight: var(--font-weight);
+  font-variant: small-caps;
   letter-spacing: 3px;
 }
 

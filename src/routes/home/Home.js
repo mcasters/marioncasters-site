@@ -16,7 +16,7 @@ class Home extends React.Component {
     const { title } = this.props;
     return (
       <div>
-        <h1>{title}</h1>
+        <h1 className={s.title}>{title}</h1>
         <div className={s.content}>
           <Content keyContent={CONTENT_CONSTANTS.KEY.HOME1} />
         </div>

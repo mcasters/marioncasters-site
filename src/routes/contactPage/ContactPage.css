@@ -2,12 +2,16 @@
   display: none;
 }
 
-.content:first-of-type {
+.contactContent {
+  font-size: var(--font-size-current-plus-plus);
+}
+
+.contactContent:first-of-type {
   margin-top: 4em;
   margin-bottom: 6em;
 }
 
-.content:last-of-type {
+.contactContent:last-of-type {
   margin-top: 6em;
   margin-bottom: 9em;
 }

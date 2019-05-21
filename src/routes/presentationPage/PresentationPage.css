@@ -2,6 +2,7 @@
 
 .presentationContainer {
   padding: 1em 0 5em;
+  font-variant: none;
   letter-spacing: 0.12em;
 }
 

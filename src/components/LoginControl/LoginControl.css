@@ -3,12 +3,10 @@
 .link {
   color: var(--link-color);
   padding: 2px 5px;
-  font-size: 1em;
 }
 
 .loginLink {
   font-family: var(--font-family-base) !important;
-  font-variant: small-caps;
   color: var(--link-color);
   padding: 2px 5px;
   font-size: var(--font-size-current-plus-plus);

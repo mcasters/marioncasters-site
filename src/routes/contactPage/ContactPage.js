@@ -18,16 +18,13 @@ class ContactPage extends React.Component {
     return (
       <article>
         <h1 className={s.title}>{title}</h1>
-        <div className={s.content}>
-          <Content
-            className={s.content}
-            keyContent={CONTENT_CONSTANTS.KEY.CONTACT_ADDRESS}
-          />
+        <div className={s.contactContent}>
+          <Content keyContent={CONTENT_CONSTANTS.KEY.CONTACT_ADDRESS} />
         </div>
-        <div className={s.content}>
+        <div className={s.contactContent}>
           <Content keyContent={CONTENT_CONSTANTS.KEY.CONTACT_PHONE} />
         </div>
-        <div className={s.content}>
+        <div className={s.contactContent}>
           <Content keyContent={CONTENT_CONSTANTS.KEY.CONTACT_EMAIL} />
         </div>
       </article>

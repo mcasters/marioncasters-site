@@ -36,7 +36,7 @@ class AdminPage extends React.Component {
     const { title } = this.props;
     return (
       <div className={s.container}>
-        <h1>{title}</h1>
+        <h1 className={s.title}>{title}</h1>
         <Logout />
         <Tabs
           selectedIndex={this.state.selectedTab}

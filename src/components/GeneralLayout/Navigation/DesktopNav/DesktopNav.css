@@ -2,7 +2,6 @@
 
 aside {
   position: fixed;
-  font-variant: small-caps;
   width: var(--aside-width-md);
   height: 600px;
   padding: 8em 0 0 4em;
