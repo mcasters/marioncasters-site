@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
@@ -66,13 +68,13 @@ class EditPicture extends React.Component {
                 });
               }}
             >
-              <label htmlFor="add-file" className={s.fileLabel}>
+              <label className={s.fileLabel}>
                 Choisir un fichier
                 <input
                   name="add-file"
                   className={s.fileButton}
                   type="file"
-                  accept="image/jpeg, image/jpg"
+                  accept="image/jpeg, image/jpg, image/png"
                   onChange={e => this.handleImageChange(e)}
                 />
               </label>

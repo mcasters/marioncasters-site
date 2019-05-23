@@ -18,12 +18,11 @@ export const getAllImages = async dirPath => {
 export const storeUpload = async ({ stream }, path) =>
   new Promise((resolve, reject) =>
     stream
+      .pipe(fs.createWriteStream(path))
       .on('error', error => {
         if (stream.truncated) fs.unlinkSync(path);
         reject(error);
       })
-      .pipe(fs.createWriteStream(path))
-      .on('error', err => reject(err))
       .on('finish', () => resolve(true)),
   );
 
@@ -38,7 +37,7 @@ export const processSculptureUploads = async (pictures, title) => {
 };
 
 export const processSingleUpload = async (picture, title, type) => {
-  const { stream } = await picture;
+  const { stream, mimetype } = await picture;
   let path;
 
   if (type === ITEM_CONSTANTS.TYPE.DRAWING) {
@@ -46,7 +45,10 @@ export const processSingleUpload = async (picture, title, type) => {
   } else if (type === ITEM_CONSTANTS.TYPE.PAINTING) {
     path = `${config.paintingsPath}/${title}.jpg`;
   } else if (type === CONTENT_CONSTANTS.TYPE) {
-    path = `${config.miscellaneousPath}/${title}.jpg`;
+    if (mimetype === 'image/png')
+      path = `${config.miscellaneousPath}/${title}.png`;
+    if (mimetype === 'image/jpeg')
+      path = `${config.miscellaneousPath}/${title}.jpg`;
   }
 
   return storeUpload({ stream }, path);
