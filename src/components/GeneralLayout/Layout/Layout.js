@@ -15,25 +15,36 @@ import Navigation from '../Navigation';
 import LAYOUT_CONSTANTS from '../../../constants/layoutConstants';
 import withViewport from '../../WithViewport';
 import ErrorBoundary from '../../ErrorBoundary';
+import AppContext from '../../../context';
 
 class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     viewport: PropTypes.shape({
       width: PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired,
     }).isRequired,
   };
+
+  static contextType = AppContext;
 
   getIsLessThanMD = () =>
     this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
 
+  getHeightForHome = () => {};
+
   render() {
+    const isLessThanMD = this.getIsLessThanMD();
+    const isHome =
+      this.context.pathname === '/' || this.context.pathname === '/home';
     return (
       <Fragment>
         <Header />
-        <Navigation isLessThanMD={this.getIsLessThanMD()} />
+        <Navigation isLessThanMD={isLessThanMD} />
         <ErrorBoundary>
-          <main>{this.props.children}</main>
+          <main className={isHome ? s.mainHome : s.main}>
+            {this.props.children}
+          </main>
         </ErrorBoundary>
         <Footer />
       </Fragment>

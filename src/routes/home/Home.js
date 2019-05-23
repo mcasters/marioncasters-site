@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
 import s from './Home.css';
 import Content from '../../components/Content';
-import contentConstnats from '../../constants/contentConstants';
+import CONTENT_CONST from '../../constants/contentConstants';
 
 class Home extends React.Component {
   static propTypes = {
@@ -12,21 +12,20 @@ class Home extends React.Component {
   };
 
   render() {
-    const CONTENT_CONSTANTS = contentConstnats;
     const { title } = this.props;
     return (
-      <div>
+      <Fragment>
         <h1 className={s.title}>{title}</h1>
         <div className={s.content}>
-          <Content keyContent={CONTENT_CONSTANTS.KEY.HOME1} />
+          <Content keyContent={CONTENT_CONST.KEY.HOME1} />
         </div>
         <div className={s.content}>
-          <Content keyContent={CONTENT_CONSTANTS.KEY.HOME2} />
+          <Content keyContent={CONTENT_CONST.KEY.HOME2} />
         </div>
         <div className={s.content}>
-          <Content keyContent={CONTENT_CONSTANTS.KEY.HOME3} />
+          <Content keyContent={CONTENT_CONST.KEY.HOME3} />
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
