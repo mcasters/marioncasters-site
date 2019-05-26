@@ -1,0 +1,46 @@
+@import '../../variables.css';
+
+.mainHome {
+  padding-top: 5.6em;
+  text-align: center;
+  background-image: url('/images/miscellaneous/home1.png');
+  background-position: center 6em;
+  background-size: auto 100%;
+}
+
+.main {
+  padding: 8em 1em 2em;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+@media (--md) {
+  .mainHome {
+    background-position: center 5em;
+  }
+
+  .main {
+    margin-left: var(--aside-width-md);
+  }
+}
+
+@media (--lg) {
+  .mainHome {
+    padding-top: 0;
+    background-image: url('/images/miscellaneous/home2.png');
+    background-position: top;
+    background-size: 100% auto;
+  }
+
+  .main {
+    padding: 9em 5em 2em;
+    margin-left: var(--aside-width-lg);
+  }
+}
+
+@media (--xlg) {
+  .main {
+    padding: 9em 6em 2em;
+    margin-left: var(--aside-width);
+  }
+}
