@@ -1,7 +1,6 @@
 @import '../../variables.css';
 
 .container {
-  position: fixed;
   padding: 1em 0;
   text-align: right;
   z-index: 1;
@@ -39,7 +38,7 @@
 
 @media (--md) {
   .container {
-    padding: 0 6.5em;
+    padding: 1em 6.5em;
     text-align: left;
     background-color: rgba(0, 0, 0, 0.4);
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));

@@ -15,7 +15,7 @@ import Navigation from '../Navigation';
 import LAYOUT_CONSTANTS from '../../../constants/layoutConstants';
 import withViewport from '../../WithViewport';
 import ErrorBoundary from '../../ErrorBoundary';
-import AppContext from '../../../context';
+import Main from '../Main';
 
 class Layout extends React.Component {
   static propTypes = {
@@ -26,27 +26,57 @@ class Layout extends React.Component {
     }).isRequired,
   };
 
-  static contextType = AppContext;
+  state = {
+    headerHeight: null,
+    footerHeight: null,
+    mainHeight: null,
+  };
 
   getIsLessThanMD = () =>
     this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
 
   getHeightForHome = () => {};
 
+  componentDidMount = () => {
+    this.setState(
+      {
+        headerHeight: this.header.offsetHeight,
+        footerHeight: this.footer.offsetHeight,
+      },
+      function() {
+        this.setMainHeight();
+      },
+    );
+  };
+
+  setMainHeight = () => {
+    const { headerHeight, footerHeight } = this.state;
+    const mainHeight = this.props.viewport.height - headerHeight - footerHeight;
+    this.setState({ mainHeight });
+  };
+
   render() {
     const isLessThanMD = this.getIsLessThanMD();
-    const isHome =
-      this.context.pathname === '/' || this.context.pathname === '/home';
+    const { mainHeight } = this.state;
+
     return (
       <Fragment>
-        <Header />
+        <Header
+          ref={el => {
+            this.header = el;
+          }}
+        />
         <Navigation isLessThanMD={isLessThanMD} />
         <ErrorBoundary>
-          <main className={isHome ? s.mainHome : s.main}>
-            {this.props.children}
-          </main>
+          {mainHeight !== undefined && mainHeight !== null && (
+            <Main height={mainHeight}>{this.props.children}</Main>
+          )}
         </ErrorBoundary>
-        <Footer />
+        <Footer
+          ref={el => {
+            this.footer = el;
+          }}
+        />
       </Fragment>
     );
   }

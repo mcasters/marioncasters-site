@@ -20,3 +20,15 @@
     max-width: 50vw;
   }
 }
+
+@media (--lg) {
+  .presentationContainer {
+    padding: 0 5em;
+  }
+}
+
+@media (--xlg) {
+  .presentationContainer {
+    padding: 0 15em;
+  }
+}

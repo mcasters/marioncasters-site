@@ -1,9 +1,48 @@
-.title {
+@import '../../components/variables.css';
+
+.homeContainer {
+  padding-top: 4em;
+}
+
+.homeContent {
+  padding: 35vh 0 0.6em;
   font-variant: none;
 }
 
-.content {
-  margin: 3em 0;
-  height: 180px;
-  font-variant: none;
+@media (--sm) {
+  .homeContent {
+    padding: 65vh 0 0.6em;
+  }
+}
+
+@media (--md) {
+  .homeContainer {
+    margin-left: var(--aside-width-md);
+  }
+
+  .homeContent {
+    padding: 75vh 0 0.6em;
+  }
+}
+
+@media (--lg) {
+  .homeContainer {
+    padding: 7em 0 2em;
+    margin-left: var(--aside-width-lg);
+  }
+
+  .homeContent {
+    padding: 55vh 0 0.6em;
+  }
+}
+
+@media (--xlg) {
+  .homeContainer {
+    padding: 9em 0 2em;
+    margin-left: var(--aside-width);
+  }
+
+  .homeContent {
+    padding: 60vh 0 0.6em;
+  }
 }

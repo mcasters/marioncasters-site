@@ -4,15 +4,3 @@
   white-space: pre-line;
   line-height: 1.8;
 }
-
-@media (--lg) {
-  .content {
-    padding: 0 5em;
-  }
-}
-
-@media (--xlg) {
-  .content {
-    padding: 0 15em;
-  }
-}

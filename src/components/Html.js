@@ -30,7 +30,7 @@ const Html = ({
   app,
   children,
 }: PropTypes) => (
-  <html className="no-js" lang="en">
+  <html className="no-js" lang="fr">
     <head>
       <meta charSet="utf-8" />
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />

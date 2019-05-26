@@ -55,7 +55,6 @@ class AdminPage extends React.Component {
           <TabPanel>
             <EditPicture pictureTitle={CONT_CONST.HOME_IMAGE_TITLE_1} />
             <EditPicture pictureTitle={CONT_CONST.HOME_IMAGE_TITLE_2} />
-            <EditPicture pictureTitle={CONT_CONST.HOME_IMAGE_TITLE_3} />
             <EditContent keyContent={CONT_CONST.KEY.HOME1} isTextArea />
             <EditContent keyContent={CONT_CONST.KEY.HOME2} isTextArea />
             <EditContent keyContent={CONT_CONST.KEY.HOME3} isTextArea />

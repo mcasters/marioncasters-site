@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
@@ -14,18 +14,12 @@ class Home extends React.Component {
   render() {
     const { title } = this.props;
     return (
-      <Fragment>
-        <h1 className={s.title}>{title}</h1>
-        <div className={s.content}>
-          <Content keyContent={CONTENT_CONST.KEY.HOME1} />
-        </div>
-        <div className={s.content}>
-          <Content keyContent={CONTENT_CONST.KEY.HOME2} />
-        </div>
-        <div className={s.content}>
+      <div className={s.homeContainer}>
+        <h1>{title}</h1>
+        <div className={s.homeContent}>
           <Content keyContent={CONTENT_CONST.KEY.HOME3} />
         </div>
-      </Fragment>
+      </div>
     );
   }
 }
