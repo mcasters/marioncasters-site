@@ -4,10 +4,11 @@
   box-sizing: border-box;
   padding-top: var(--home-top-padding);
   text-align: center;
-  background-image: url('/images/miscellaneous/home1.png');
+  background-image: url('/images/miscellaneous/home-portrait.png');
   background-position: top;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
+  overflow: hidden;
 }
 
 .main {
@@ -24,7 +25,7 @@
 
 @media (--lg) {
   .mainHome {
-    background-image: url('/images/miscellaneous/home2.png');
+    background-image: url('/images/miscellaneous/home-landscape.png');
   }
 
   .main {

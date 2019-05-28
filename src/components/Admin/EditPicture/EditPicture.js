@@ -27,6 +27,28 @@ class EditPicture extends React.Component {
     picture: '',
   });
 
+  setProps = pictureTitle => {
+    let adminTitle;
+    let filename;
+    switch (pictureTitle) {
+      case CONTENT_CONST.HOME_IMAGE_PORTRAIT:
+        adminTitle = 'Format portrait';
+        filename = 'home-portrait.png';
+        break;
+      case CONTENT_CONST.HOME_IMAGE_LANDSCAPE:
+        adminTitle = 'Format paysage';
+        filename = 'home-landscape.png';
+        break;
+      default:
+        adminTitle = '';
+        filename = 'portrait.jpg';
+    }
+    return {
+      adminTitle,
+      filename,
+    };
+  };
+
   handleImageChange(e) {
     e.preventDefault();
 
@@ -41,18 +63,18 @@ class EditPicture extends React.Component {
   }
 
   render() {
-    const title = 'Image';
     const { pictureTitle } = this.props;
+    const { adminTitle, filename } = this.setProps(pictureTitle);
     const { imagePreviewUrl, picture } = this.state;
 
     return (
       <Mutation mutation={ADD_PICTURE_MUTATION} ssr>
         {(mutation, { error, data }) => (
           <div className={s.addContainer}>
-            <h2>{title}</h2>
+            <h2>{adminTitle}</h2>
             <img
               className={s.image}
-              src={`${CONTENT_CONST.CONTENT_IMAGE_PATH}/${pictureTitle}.jpg`}
+              src={`${CONTENT_CONST.CONTENT_IMAGE_PATH}/${filename}`}
               alt={
                 pictureTitle === CONTENT_CONST.PRESENTATION_IMAGE_TITLE
                   ? CONTENT_CONST.PRESENTATION_IMAGE_ALT
@@ -82,7 +104,7 @@ class EditPicture extends React.Component {
                 <img
                   key={imagePreviewUrl.toString()}
                   src={imagePreviewUrl}
-                  alt="Sculpture de Marion Casters"
+                  alt="Oeuvre de Marion Casters"
                   className={s.imagePreview}
                 />
               )}

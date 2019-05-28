@@ -22,8 +22,8 @@ const CONTENT_CONSTANTS = {
   PRESENTATION_IMAGE_TITLE: 'portrait',
   PRESENTATION_IMAGE_ALT: 'Portrait de Marion Casters',
 
-  HOME_IMAGE_TITLE_1: 'home1',
-  HOME_IMAGE_TITLE_2: 'home2',
+  HOME_IMAGE_PORTRAIT: 'home-portrait',
+  HOME_IMAGE_LANDSCAPE: 'home-landscape',
   HOME_IMAGE_ALT: 'Oeuvre de Marion Casters',
 };
 

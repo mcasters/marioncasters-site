@@ -53,15 +53,22 @@ class AdminPage extends React.Component {
             <Tab>{CONT_CONST.TITLE.CONTACT}</Tab>
           </TabList>
           <TabPanel>
-            <EditPicture pictureTitle={CONT_CONST.HOME_IMAGE_TITLE_1} />
-            <EditPicture pictureTitle={CONT_CONST.HOME_IMAGE_TITLE_2} />
-            <EditContent keyContent={CONT_CONST.KEY.HOME1} isTextArea />
-            <EditContent keyContent={CONT_CONST.KEY.HOME2} isTextArea />
-            <EditContent keyContent={CONT_CONST.KEY.HOME3} isTextArea />
+            <div className={s.tabContainer}>
+              <EditPicture pictureTitle={CONT_CONST.HOME_IMAGE_PORTRAIT} />
+              <EditPicture pictureTitle={CONT_CONST.HOME_IMAGE_LANDSCAPE} />
+              <EditContent keyContent={CONT_CONST.KEY.HOME1} isTextArea />
+              <EditContent keyContent={CONT_CONST.KEY.HOME2} isTextArea />
+              <EditContent keyContent={CONT_CONST.KEY.HOME3} isTextArea />
+            </div>
           </TabPanel>
           <TabPanel>
-            <EditPicture pictureTitle={CONT_CONST.PRESENTATION_IMAGE_TITLE} />
-            <EditContent keyContent={CONT_CONST.KEY.PRESENTATION} isTextArea />
+            <div className={s.tabContainer}>
+              <EditPicture pictureTitle={CONT_CONST.PRESENTATION_IMAGE_TITLE} />
+              <EditContent
+                keyContent={CONT_CONST.KEY.PRESENTATION}
+                isTextArea
+              />
+            </div>
           </TabPanel>
           <TabPanel>
             <AdminItemParent type={ITEM_CONST.TYPE.PAINTING} />
@@ -73,18 +80,20 @@ class AdminPage extends React.Component {
             <AdminItemParent type={ITEM_CONST.TYPE.DRAWING} />
           </TabPanel>
           <TabPanel>
-            <EditContent
-              keyContent={CONT_CONST.KEY.CONTACT_ADDRESS}
-              isTextArea
-            />
-            <EditContent
-              keyContent={CONT_CONST.KEY.CONTACT_PHONE}
-              isTextArea={false}
-            />
-            <EditContent
-              keyContent={CONT_CONST.KEY.CONTACT_EMAIL}
-              isTextArea={false}
-            />
+            <div className={s.tabContainer}>
+              <EditContent
+                keyContent={CONT_CONST.KEY.CONTACT_ADDRESS}
+                isTextArea
+              />
+              <EditContent
+                keyContent={CONT_CONST.KEY.CONTACT_PHONE}
+                isTextArea={false}
+              />
+              <EditContent
+                keyContent={CONT_CONST.KEY.CONTACT_EMAIL}
+                isTextArea={false}
+              />
+            </div>
           </TabPanel>
         </Tabs>
       </div>

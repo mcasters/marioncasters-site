@@ -2,13 +2,12 @@
 
 .addContainer {
   display: inline-block;
-  width: available;
-  padding: 1.5em;
+  width: 100%;
   text-align: center;
 }
 
 .image {
-  max-width: 15vw;
+  width: 100%;
 }
 
 .fileLabel {
@@ -30,6 +29,14 @@
 }
 
 .imagePreview {
-  width: 30%;
+  width: 100%;
   margin-bottom: 1em;
+}
+
+@media (--lg) {
+  .addContainer {
+    box-sizing: border-box;
+    width: 50%;
+    padding: 0 2em;
+  }
 }
