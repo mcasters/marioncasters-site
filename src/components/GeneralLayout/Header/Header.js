@@ -1,21 +1,28 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
+import PropTypes from 'prop-types';
 
 import s from './Header.css';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    getHeight: PropTypes.func.isRequired,
+  };
 
-    this.state = {
-      isSticky: false,
-    };
-  }
+  state = {
+    isSticky: false,
+  };
 
   componentDidMount() {
     this.updateScrolling();
     window.addEventListener('scroll', this.updateScrolling);
   }
+
+  refCallback = element => {
+    if (element) {
+      this.props.getHeight(element.getBoundingClientRect().height);
+    }
+  };
 
   updateScrolling = () => {
     this.setState({
@@ -27,6 +34,7 @@ class Header extends React.Component {
     return (
       <header>
         <div
+          ref={this.refCallback}
           className={
             this.state.isSticky
               ? `${s.container} ${s.sticky}`

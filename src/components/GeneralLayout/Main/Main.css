@@ -1,11 +1,13 @@
 @import '../../variables.css';
 
 .mainHome {
-  padding-top: 5.6em;
+  box-sizing: border-box;
+  padding-top: var(--home-top-padding);
   text-align: center;
   background-image: url('/images/miscellaneous/home1.png');
-  background-position: center 6em;
-  background-size: auto 100%;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 .main {
@@ -15,10 +17,6 @@
 }
 
 @media (--md) {
-  .mainHome {
-    background-position: center 5em;
-  }
-
   .main {
     margin-left: var(--aside-width-md);
   }
@@ -26,10 +24,7 @@
 
 @media (--lg) {
   .mainHome {
-    padding-top: 0;
     background-image: url('/images/miscellaneous/home2.png');
-    background-position: top;
-    background-size: 100% auto;
   }
 
   .main {

@@ -16,6 +16,7 @@ import LAYOUT_CONSTANTS from '../../../constants/layoutConstants';
 import withViewport from '../../WithViewport';
 import ErrorBoundary from '../../ErrorBoundary';
 import Main from '../Main';
+import AppContext from '../../../context';
 
 class Layout extends React.Component {
   static propTypes = {
@@ -26,55 +27,68 @@ class Layout extends React.Component {
     }).isRequired,
   };
 
+  static contextType = AppContext;
+
   state = {
     headerHeight: null,
     footerHeight: null,
-    mainHeight: null,
+  };
+
+  getMainHeight = () => {
+    return (
+      this.props.viewport.height -
+      this.state.headerHeight -
+      this.state.footerHeight
+    );
   };
 
   getIsLessThanMD = () =>
     this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
 
-  getHeightForHome = () => {};
-
-  componentDidMount = () => {
-    this.setState(
-      {
-        headerHeight: this.header.offsetHeight,
-        footerHeight: this.footer.offsetHeight,
-      },
-      function() {
-        this.setMainHeight();
-      },
-    );
-  };
-
-  setMainHeight = () => {
-    const { headerHeight, footerHeight } = this.state;
-    const mainHeight = this.props.viewport.height - headerHeight - footerHeight;
-    this.setState({ mainHeight });
-  };
-
   render() {
+    const isHome =
+      this.context.pathname === '/' || this.context.pathname === '/home';
     const isLessThanMD = this.getIsLessThanMD();
-    const { mainHeight } = this.state;
 
+    if (isHome) {
+      const mainHeight = this.getMainHeight();
+      return (
+        <Fragment>
+          <Header
+            getHeight={headerHeight => {
+              this.setState({ headerHeight });
+            }}
+          />
+          <Navigation isLessThanMD={isLessThanMD} />
+          <ErrorBoundary>
+            {mainHeight !== undefined && mainHeight !== null && (
+              <Main isHomePage={isHome} height={mainHeight}>
+                {this.props.children}
+              </Main>
+            )}
+          </ErrorBoundary>
+          <Footer
+            getHeight={footerHeight => {
+              this.setState({ footerHeight });
+            }}
+          />
+        </Fragment>
+      );
+    }
     return (
       <Fragment>
         <Header
-          ref={el => {
-            this.header = el;
+          getHeight={headerHeight => {
+            this.setState({ headerHeight });
           }}
         />
         <Navigation isLessThanMD={isLessThanMD} />
         <ErrorBoundary>
-          {mainHeight !== undefined && mainHeight !== null && (
-            <Main height={mainHeight}>{this.props.children}</Main>
-          )}
+          <Main isHomePage={isHome}>{this.props.children}</Main>
         </ErrorBoundary>
         <Footer
-          ref={el => {
-            this.footer = el;
+          getHeight={footerHeight => {
+            this.setState({ footerHeight });
           }}
         />
       </Fragment>

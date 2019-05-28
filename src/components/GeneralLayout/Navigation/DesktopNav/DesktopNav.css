@@ -3,8 +3,8 @@
 aside {
   position: fixed;
   width: var(--aside-width-md);
-  height: 600px;
-  padding: 8em 0 0 4em;
+  height: 510px;
+  padding: 5em 0 0 4em;
   box-sizing: border-box;
   vertical-align: top;
   z-index: 0;
@@ -24,7 +24,7 @@ aside {
 
 .bar {
   display: inline-block;
-  width: 7px;
+  width: 6px;
   vertical-align: top;
   height: 100%;
   background-image: linear-gradient(var(--color-xxlight), var(--color-xlight));

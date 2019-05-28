@@ -24,7 +24,6 @@ const CONTENT_CONSTANTS = {
 
   HOME_IMAGE_TITLE_1: 'home1',
   HOME_IMAGE_TITLE_2: 'home2',
-  HOME_IMAGE_TITLE_3: 'home3',
   HOME_IMAGE_ALT: 'Oeuvre de Marion Casters',
 };
 

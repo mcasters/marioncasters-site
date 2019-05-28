@@ -1,5 +1,6 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
+
 import s from './Feedback.css';
 import Link from '../../Link';
 import graphqlLogo from './graphqlTransparent.png';
