@@ -1,23 +1,36 @@
 @import '../../variables.css';
 
+.main,
 .mainHome {
+  padding: var(--top-padding-mobile) 1em 2em;
   box-sizing: border-box;
-  padding-top: var(--home-top-padding);
   text-align: center;
-  background-image: url('/images/miscellaneous/home-portrait.png');
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow: hidden;
 }
 
-.main {
-  padding: 8em 1em 2em;
-  box-sizing: border-box;
-  text-align: center;
+.mainHome {
+  background-image: url('/images/miscellaneous/home-portrait.png');
+  background-position: center var(--header-height-mobile);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (--sm) {
+  .main,
+  .mainHome {
+    padding: var(--top-padding-mobile) 5em 2em;
+  }
 }
 
 @media (--md) {
+  .mainHome,
+  .main {
+    padding: var(--top-padding) 5em 2em;
+  }
+
+  .mainHome {
+    background-position: center top;
+  }
+
   .main {
     margin-left: var(--aside-width-md);
   }
@@ -29,14 +42,17 @@
   }
 
   .main {
-    padding: 9em 5em 2em;
     margin-left: var(--aside-width-lg);
   }
 }
 
 @media (--xlg) {
+  .mainHome,
   .main {
-    padding: 9em 6em 2em;
+    padding: var(--top-padding) 6em 2em;
+  }
+
+  .main {
     margin-left: var(--aside-width);
   }
 }

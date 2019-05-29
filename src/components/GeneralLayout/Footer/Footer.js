@@ -26,13 +26,13 @@ class Footer extends React.Component {
         <Feedback />
         <div className={s.container}>
           <span className={s.text}>{GLOBAL_CONSTANTS.COPYRIGHT}</span>
-          <span>·</span>
-          <Link className={s.link} to={ROUTER_CONSTANTS.ROUTER.HOME}>
+          <span className={s.dot}>·</span>
+          <Link className={s.homeLink} to={ROUTER_CONSTANTS.ROUTER.HOME}>
             Home
           </Link>
-          <span>·</span>
+          <span className={s.dot}>·</span>
           <LoginControl />
-          <span>·</span>
+          <span className={s.dot}>·</span>
           <Link className={s.link} to={ROUTER_CONSTANTS.ROUTER.CONFIDENTIALITE}>
             Privacy
           </Link>

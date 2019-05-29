@@ -7,15 +7,17 @@ footer {
 .container {
   background: var(--color-xxdark);
   color: var(--color-light);
-  padding: 1.5em 0;
+  padding: 1em 0 0.4em;
   text-align: center;
 }
 
 .text {
   display: block;
+  padding-bottom: 1em;
   font-size: var(--font-size-minus);
 }
 
+.homeLink,
 .link {
   display: block;
   color: var(--link-color);
@@ -23,14 +25,30 @@ footer {
   padding: 0.4em 0;
 }
 
+.homeLink,
+.dot {
+  display: none;
+}
+
 @media (--sm) {
+  .container {
+    padding: 1.5em 0;
+  }
+
   .text,
+  .homeLink,
   .link {
     display: inline;
     padding: 2px 5px;
   }
 
-  .link:hover {
+  .homeLink,
+  .dot {
+    display: initial;
+  }
+
+  .link:hover,
+  .homeLink:hover {
     color: var(--color-light);
   }
 }

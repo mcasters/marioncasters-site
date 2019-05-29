@@ -1,10 +1,13 @@
 @import '../../variables.css';
 
 .container {
+  position: fixed;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--header-height-mobile);
   padding: 1em 0;
   text-align: right;
   z-index: 1;
-  width: 100%;
   background-color: var(--color-xdark);
 }
 
@@ -12,6 +15,7 @@
   font-size: var(--font-size-header-sm-mobile);
   color: var(--color-light);
   padding-left: 6.5em;
+  margin: 0;
   letter-spacing: 1em;
   font-weight: bold;
 }
@@ -38,6 +42,8 @@
 
 @media (--md) {
   .container {
+    position: initial;
+    height: unset;
     padding: 1em 6.5em;
     text-align: left;
     background-color: rgba(0, 0, 0, 0.4);
@@ -47,6 +53,7 @@
   }
 
   .container h1 {
+    margin: 0.67em 0;
     padding-left: unset;
     font-size: var(--font-size-header);
     letter-spacing: 1em;

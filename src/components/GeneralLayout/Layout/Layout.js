@@ -34,6 +34,10 @@ class Layout extends React.Component {
     footerHeight: null,
   };
 
+  getMainMobileHeight = () => {
+    return this.props.viewport.height - this.state.footerHeight;
+  };
+
   getMainHeight = () => {
     return (
       this.props.viewport.height -
@@ -51,7 +55,10 @@ class Layout extends React.Component {
     const isLessThanMD = this.getIsLessThanMD();
 
     if (isHome) {
-      const mainHeight = this.getMainHeight();
+      const mainHeight = isLessThanMD
+        ? this.getMainMobileHeight()
+        : this.getMainHeight();
+
       return (
         <Fragment>
           <Header

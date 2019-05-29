@@ -12,7 +12,7 @@ class Main extends React.Component {
   };
 
   static defaultProps = {
-    height: '',
+    height: 0,
   };
 
   render() {
