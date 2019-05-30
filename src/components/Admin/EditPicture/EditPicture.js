@@ -33,11 +33,11 @@ class EditPicture extends React.Component {
     switch (pictureTitle) {
       case CONTENT_CONST.HOME_IMAGE_PORTRAIT:
         adminTitle = 'Format portrait';
-        filename = 'home-portrait.png';
+        filename = 'home-portrait.jpg';
         break;
       case CONTENT_CONST.HOME_IMAGE_LANDSCAPE:
         adminTitle = 'Format paysage';
-        filename = 'home-landscape.png';
+        filename = 'home-landscape.jpg';
         break;
       default:
         adminTitle = '';

@@ -8,7 +8,7 @@
 }
 
 .mainHome {
-  background-image: url('/images/miscellaneous/home-portrait.png');
+  background-image: url('/images/miscellaneous/home-portrait.jpg');
   background-position: center var(--header-height-mobile);
   background-repeat: no-repeat;
   background-size: cover;
@@ -38,7 +38,7 @@
 
 @media (--lg) {
   .mainHome {
-    background-image: url('/images/miscellaneous/home-landscape.png');
+    background-image: url('/images/miscellaneous/home-landscape.jpg');
   }
 
   .main {
