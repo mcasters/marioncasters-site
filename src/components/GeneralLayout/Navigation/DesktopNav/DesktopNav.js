@@ -1,21 +1,21 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
+import PropTypes from 'prop-types';
 
 import history from '../../../../history';
 import s from './DesktopNav.css';
 import Link from '../../../Link';
-import logoUrl from '../logo-45.png';
 import logoUrl2x from '../logo-100.png';
 import ROUTER_CONSTANTS from '../../../../constants/routerConstants';
 
 class DesktopNav extends React.Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    isHome: PropTypes.bool.isRequired,
+  };
 
-    this.state = {
-      location: '',
-    };
-  }
+  state = {
+    location: '',
+  };
 
   componentDidMount() {
     this.updateLocation();
@@ -31,9 +31,11 @@ class DesktopNav extends React.Component {
   };
 
   render() {
+    const { isHome } = this.props;
+
     return (
       <aside>
-        <div className={s.bar} />
+        <div className={isHome ? [s.bar, s.homeBar].join(' ') : s.bar} />
         <nav>
           <Link
             className={
@@ -86,11 +88,7 @@ class DesktopNav extends React.Component {
             Contact
           </Link>
           <Link className={s.linkHome} to={ROUTER_CONSTANTS.ROUTER.HOME}>
-            <img
-              src={logoUrl}
-              srcSet={`${logoUrl2x} 2x`}
-              alt="Signature de Marion Casters"
-            />
+            <img src={logoUrl2x} alt="Signature de Marion Casters" />
           </Link>
         </nav>
       </aside>

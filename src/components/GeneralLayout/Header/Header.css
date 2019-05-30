@@ -30,9 +30,9 @@
   opacity: 0;
 }
 
-@media (--xs) {
+@media (--sm) {
   .container {
-    padding: 1.2em 0;
+    padding: 1.6em 0;
   }
 
   .container h1 {

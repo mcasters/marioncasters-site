@@ -2,12 +2,13 @@
 
 .title {
   margin: 0;
+  color: var(--color-medium);
 }
 
 .homeContent {
+  padding-top: 3em;
   font-variant: none;
-  display: inline-block;
-  vertical-align: bottom;
+  color: var(--color-medium);
 }
 
 @media (--md) {

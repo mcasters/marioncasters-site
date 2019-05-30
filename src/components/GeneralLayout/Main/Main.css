@@ -22,17 +22,14 @@
 }
 
 @media (--md) {
-  .mainHome,
   .main {
+    margin-left: var(--aside-width-md);
     padding: var(--top-padding) 5em 2em;
   }
 
   .mainHome {
     background-position: center top;
-  }
-
-  .main {
-    margin-left: var(--aside-width-md);
+    padding: var(--top-padding) 3em 2em;
   }
 }
 

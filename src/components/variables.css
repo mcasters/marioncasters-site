@@ -1,4 +1,4 @@
-@custom-media --xs (width >= 480px); /* phone */
+/* @custom-media --xs (width >= 480px);  phone */
 @custom-media --sm (width >= 765px); /* ipad */
 @custom-media --md (width >= 992px); /* ipad plus */
 @custom-media --lg (width >= 1200px); /* 13' */

@@ -24,13 +24,18 @@ aside {
 
 .bar {
   display: inline-block;
-  width: 6px;
+  width: 5px;
   vertical-align: top;
   height: 100%;
   background-image: linear-gradient(var(--color-xxlight), var(--color-xlight));
   color: #fff;
   padding: 2em 0 2em;
   text-align: center;
+}
+
+.homeBar {
+  width: 2px;
+  background-image: linear-gradient(var(--color-xlight), var(--color-medium));
 }
 
 nav {
@@ -51,8 +56,24 @@ nav {
 .linkHome {
   float: left;
   width: 100%;
-  padding: 4em 2em 1.5em;
+  padding: 3em 2em 1.5em;
   transition: all 1.2s ease;
+}
+
+.linkHome img {
+  width: 50px;
+}
+
+@media (--lg) {
+  .linkHome img {
+    width: 55px;
+  }
+}
+
+@media (--xlg) {
+  .linkHome img {
+    width: 60px;
+  }
 }
 
 .link:hover,

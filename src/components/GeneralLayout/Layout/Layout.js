@@ -53,34 +53,12 @@ class Layout extends React.Component {
     const isHome =
       this.context.pathname === '/' || this.context.pathname === '/home';
     const isLessThanMD = this.getIsLessThanMD();
+    let mainHeight;
 
     if (isHome) {
-      const mainHeight = isLessThanMD
+      mainHeight = isLessThanMD
         ? this.getMainMobileHeight()
         : this.getMainHeight();
-
-      return (
-        <Fragment>
-          <Header
-            getHeight={headerHeight => {
-              this.setState({ headerHeight });
-            }}
-          />
-          <Navigation isLessThanMD={isLessThanMD} />
-          <ErrorBoundary>
-            {mainHeight !== undefined && mainHeight !== null && (
-              <Main isHomePage={isHome} height={mainHeight}>
-                {this.props.children}
-              </Main>
-            )}
-          </ErrorBoundary>
-          <Footer
-            getHeight={footerHeight => {
-              this.setState({ footerHeight });
-            }}
-          />
-        </Fragment>
-      );
     }
     return (
       <Fragment>
@@ -89,9 +67,14 @@ class Layout extends React.Component {
             this.setState({ headerHeight });
           }}
         />
-        <Navigation isLessThanMD={isLessThanMD} />
+        <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
         <ErrorBoundary>
-          <Main isHomePage={isHome}>{this.props.children}</Main>
+          {mainHeight !== undefined && mainHeight !== null && (
+            <Main isHomePage={isHome} height={mainHeight}>
+              {this.props.children}
+            </Main>
+          )}
+          {!isHome && <Main isHomePage={isHome}>{this.props.children}</Main>}
         </ErrorBoundary>
         <Footer
           getHeight={footerHeight => {

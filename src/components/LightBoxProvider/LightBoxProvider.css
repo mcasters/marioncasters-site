@@ -14,7 +14,7 @@
   max-height: 45vh;
 }
 
-@media (--xs) {
+@media (--sm) {
   .image {
     max-width: 70%;
     max-height: 60vh;
