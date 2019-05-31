@@ -1,17 +1,15 @@
 @import '../../variables.css';
 
-.container {
-  position: fixed;
-  box-sizing: border-box;
-  width: 100%;
-  height: var(--header-height-mobile);
+.container,
+.homeContainer {
   padding: 1em 0;
   text-align: right;
   z-index: 1;
   background-color: var(--color-xdark);
 }
 
-.container h1 {
+.container h1,
+.homeContainer h1 {
   font-size: var(--font-size-header-sm-mobile);
   color: var(--color-light);
   padding-left: 6.5em;
@@ -20,36 +18,47 @@
   font-weight: bold;
 }
 
-.sticky {
-  background: transparent;
-  transform-origin: top;
-  transform: scale(1.2, 0.8);
-}
-
-.sticky h1 {
-  opacity: 0;
-}
-
 @media (--sm) {
-  .container {
+  .container,
+  .homeContainer {
     padding: 1.6em 0;
   }
 
-  .container h1 {
+  .container h1,
+  .homeContainer h1 {
     font-size: var(--font-size-header-md-mobile);
   }
 }
 
 @media (--md) {
+  .homeContainer {
+    position: fixed;
+    padding-left: var(--side-padding);
+    box-sizing: border-box;
+    background: none;
+    width: 100%;
+    text-align: left;
+    z-index: 1;
+  }
+
   .container {
-    position: initial;
-    height: unset;
+    position: fixed;
+    box-sizing: border-box;
+    width: 100%;
     padding: 1em 6.5em;
     text-align: left;
     background-color: rgba(0, 0, 0, 0.4);
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
     z-index: 1;
     transition: all 2s ease;
+  }
+
+  .homeContainer h1 {
+    padding-left: unset;
+    color: var(--color-dark);
+    margin: 1.2em 0;
+    letter-spacing: 1em;
+    font-weight: lighter;
   }
 
   .container h1 {
@@ -63,16 +72,10 @@
   }
 
   .sticky {
-    position: fixed;
-    padding: 0.5em 5.5em;
-    width: 80%;
+    padding-left: 5.5em;
     background: transparent;
     transform-origin: left;
     transform: scale(0.7, 0.7);
-    transition: all 2s ease;
-  }
-
-  .sticky h1 {
     transition: all 2s ease;
   }
 }

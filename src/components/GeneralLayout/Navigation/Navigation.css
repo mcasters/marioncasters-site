@@ -1,44 +1,5 @@
 @import '../../variables.css';
 
-.bar {
-  display: inline-block;
-  width: 7px;
-  vertical-align: top;
-  height: 100%;
-  background-image: linear-gradient(var(--color-xxlight), var(--color-xlight));
-  color: #fff;
-  padding: 2em 0 2em;
-  text-align: center;
-}
-
-nav {
-  display: inline-block;
-  vertical-align: top;
-  width: 90%;
-}
-
-.link {
-  float: left;
-  width: 100%;
-  padding: 1.5em;
-  font-weight: 400;
-  font-size: var(--font-size-nav);
-}
-
-.linkHome {
-  float: left;
-  width: 100%;
-  padding: 4em 2em 1.5em;
-}
-
-/* Mobile nav adds */
-.title {
-  position: absolute;
-  bottom: 1em;
-  font-size: 0.7em;
-  letter-spacing: 0.7em;
-}
-
 @media (--md) {
   .link {
     transition: all 1.2s ease;

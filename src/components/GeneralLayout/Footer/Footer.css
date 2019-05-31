@@ -25,7 +25,6 @@ footer {
   padding: 0.4em 0;
 }
 
-.homeLink,
 .dot {
   display: none;
 }
@@ -56,12 +55,6 @@ footer {
 @media (--md) {
   .container {
     padding-left: var(--aside-width-md);
-  }
-}
-
-@media (--lg) {
-  .container {
-    padding-left: var(--aside-width-lg);
   }
 }
 

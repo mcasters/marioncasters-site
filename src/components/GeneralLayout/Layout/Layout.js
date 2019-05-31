@@ -31,19 +31,12 @@ class Layout extends React.Component {
 
   state = {
     headerHeight: null,
-    footerHeight: null,
   };
 
-  getMainMobileHeight = () => {
-    return this.props.viewport.height - this.state.footerHeight;
-  };
-
-  getMainHeight = () => {
-    return (
-      this.props.viewport.height -
-      this.state.headerHeight -
-      this.state.footerHeight
-    );
+  getHeight = isLessThanMD => {
+    return isLessThanMD
+      ? this.props.viewport.height - this.state.headerHeight
+      : this.props.viewport.height;
   };
 
   getIsLessThanMD = () =>
@@ -53,34 +46,31 @@ class Layout extends React.Component {
     const isHome =
       this.context.pathname === '/' || this.context.pathname === '/home';
     const isLessThanMD = this.getIsLessThanMD();
-    let mainHeight;
+    let height;
 
-    if (isHome) {
-      mainHeight = isLessThanMD
-        ? this.getMainMobileHeight()
-        : this.getMainHeight();
-    }
+    if (isHome) height = this.getHeight(isLessThanMD);
+
     return (
       <Fragment>
+        {isLessThanMD && (
+          <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
+        )}
         <Header
+          isHome={isHome}
           getHeight={headerHeight => {
             this.setState({ headerHeight });
           }}
         />
-        <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
+        {!isLessThanMD && (
+          <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
+        )}
         <ErrorBoundary>
-          {mainHeight !== undefined && mainHeight !== null && (
-            <Main isHomePage={isHome} height={mainHeight}>
-              {this.props.children}
-            </Main>
+          {height !== undefined && height !== null && (
+            <Main height={height}>{this.props.children}</Main>
           )}
-          {!isHome && <Main isHomePage={isHome}>{this.props.children}</Main>}
+          {!isHome && <Main>{this.props.children}</Main>}
         </ErrorBoundary>
-        <Footer
-          getHeight={footerHeight => {
-            this.setState({ footerHeight });
-          }}
-        />
+        <Footer />
       </Fragment>
     );
   }

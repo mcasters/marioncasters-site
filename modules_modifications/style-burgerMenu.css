@@ -33,6 +33,7 @@
 
 /* Wrapper for item list */
 .bm-item-list {
+  box-sizing: border-box;
   padding: 0.8em;
 }
 

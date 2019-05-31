@@ -19,16 +19,15 @@
   --max-content-width: 1000px;
   --max-content-form: 25em;
   --aside-width-md: 28%;
-  --aside-width-lg: 28%;
   --aside-width: 20%;
-  --header-height-mobile: 70px;
 
   /*
    * Padding
    * ======================================================================== */
 
-  --top-padding-mobile: 9em;
-  --top-padding: 5em;
+  --top-padding-mobile: 3em;
+  --top-padding: 12em;
+  --side-padding: 4em;
 
   /*
    * Colors
@@ -44,6 +43,9 @@
   --link-color: #ab8b8b;
   --link-color-dark: #a86363;
   --link-color-xdark: #754b49;
+  --color-light-brown: #7b6a58;
+  --color-dark-brown: #574530;
+  --color-xdark-brown: #453322;
 
   /*
    * Font size

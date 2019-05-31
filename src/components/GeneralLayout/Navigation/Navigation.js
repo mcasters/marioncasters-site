@@ -7,7 +7,11 @@ import DesktopNav from './DesktopNav';
 class Navigation extends React.Component {
   static propTypes = {
     isLessThanMD: PropTypes.bool.isRequired,
-    isHome: PropTypes.bool.isRequired,
+    isHome: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    isHome: false,
   };
 
   render() {

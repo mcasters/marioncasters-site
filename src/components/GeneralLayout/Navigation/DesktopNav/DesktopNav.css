@@ -3,17 +3,11 @@
 aside {
   position: fixed;
   width: var(--aside-width-md);
-  height: 510px;
-  padding: var(--top-padding) 0 0 4em;
+  height: 650px;
+  padding: var(--top-padding) 0 0 var(--side-padding);
   box-sizing: border-box;
   vertical-align: top;
   z-index: 0;
-}
-
-@media (--lg) {
-  aside {
-    width: var(--aside-width-lg);
-  }
 }
 
 @media (--xlg) {
@@ -28,14 +22,11 @@ aside {
   vertical-align: top;
   height: 100%;
   background-image: linear-gradient(var(--color-xxlight), var(--color-xlight));
-  color: #fff;
-  padding: 2em 0 2em;
-  text-align: center;
 }
 
 .homeBar {
   width: 2px;
-  background-image: linear-gradient(var(--color-xlight), var(--color-medium));
+  background-image: linear-gradient(var(--color-light-brown), var(--link-color-dark));
 }
 
 nav {

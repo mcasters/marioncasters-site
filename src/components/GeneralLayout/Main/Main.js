@@ -6,7 +6,6 @@ import s from './Main.css';
 
 class Main extends React.Component {
   static propTypes = {
-    isHomePage: PropTypes.bool.isRequired,
     children: PropTypes.node.isRequired,
     height: PropTypes.number,
   };
@@ -16,9 +15,9 @@ class Main extends React.Component {
   };
 
   render() {
-    const { isHomePage, height } = this.props;
+    const { height } = this.props;
 
-    return isHomePage ? (
+    return height > 0 ? (
       <main className={s.mainHome} style={{ height }}>
         {this.props.children}
       </main>

@@ -9,7 +9,7 @@
 
 .mainHome {
   background-image: url('/images/miscellaneous/home-portrait.jpg');
-  background-position: center var(--header-height-mobile);
+  background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -28,7 +28,6 @@
   }
 
   .mainHome {
-    background-position: center top;
     padding: var(--top-padding) 3em 2em;
   }
 }
@@ -36,10 +35,6 @@
 @media (--lg) {
   .mainHome {
     background-image: url('/images/miscellaneous/home-landscape.jpg');
-  }
-
-  .main {
-    margin-left: var(--aside-width-lg);
   }
 }
 

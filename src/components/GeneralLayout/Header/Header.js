@@ -7,6 +7,7 @@ import s from './Header.css';
 class Header extends React.Component {
   static propTypes = {
     getHeight: PropTypes.func.isRequired,
+    isHome: PropTypes.bool.isRequired,
   };
 
   state = {
@@ -31,7 +32,14 @@ class Header extends React.Component {
   };
 
   render() {
-    return (
+    const { isHome } = this.props;
+    return isHome ? (
+      <header>
+        <div ref={this.refCallback} className={s.homeContainer}>
+          <h1>Marion Casters</h1>
+        </div>
+      </header>
+    ) : (
       <header>
         <div
           ref={this.refCallback}

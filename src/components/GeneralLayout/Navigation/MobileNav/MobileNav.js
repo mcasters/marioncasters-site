@@ -29,7 +29,7 @@ class MobileNav extends React.Component {
     return (
       <BurgerMenu
         isOpen={this.state.isMenuOpen}
-        width={280}
+        width={250}
         onStateChange={state => this.handleStateChange(state)}
       >
         <Link
@@ -51,7 +51,7 @@ class MobileNav extends React.Component {
           Contact
         </Link>
         <Link
-          className={s.linkHome}
+          className={s.navHomeLink}
           to={ROUTER_CONSTANTS.ROUTER.HOME}
           onClick={this.closeMenu}
         >
