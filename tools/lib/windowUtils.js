@@ -1,4 +1,4 @@
-import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
+import { canUseDOM } from 'exenv';
 
 export function translate(str, replaceStrings = null) {
   if (!str) {
@@ -16,18 +16,18 @@ export function translate(str, replaceStrings = null) {
 }
 
 export function getWindowWidth() {
-  return canUseDOM ? global.window.innerWidth : 1366; // Default size for server-side rendering
+  return canUseDOM ? window.innerWidth : 1366; // Default size for server-side rendering
 }
 
 export function getWindowHeight() {
-  return canUseDOM ? global.window.innerHeight : 768; // Default size for server-side rendering
+  return canUseDOM ? window.innerHeight : 768; // Default size for server-side rendering
 }
 
 // Get the highest window context that isn't cross-origin
 // (When in an iframe)
-export function getHighestSafeWindowContext(self = global.window.self) {
+export function getHighestSafeWindowContext(self = window.self) {
   // If we reached the top level, return self
-  if (self === global.window.top) {
+  if (self === window.top) {
     return self;
   }
 

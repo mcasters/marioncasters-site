@@ -3,11 +3,16 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
 
 import s from './Header.css';
+import GLOB_CONST from '../../../constants/globalConstants';
 
 class Header extends React.Component {
   static propTypes = {
-    getHeight: PropTypes.func.isRequired,
     isHome: PropTypes.bool.isRequired,
+    getHeight: PropTypes.func,
+  };
+
+  static defaultProps = {
+    getHeight: null,
   };
 
   state = {
@@ -32,24 +37,27 @@ class Header extends React.Component {
   };
 
   render() {
-    const { isHome } = this.props;
+    const title = GLOB_CONST.SITE_TITLE;
+    const { isHome, getHeight } = this.props;
     return isHome ? (
       <header>
-        <div ref={this.refCallback} className={s.homeContainer}>
-          <h1>Marion Casters</h1>
+        <div
+          ref={getHeight !== null && this.refCallback}
+          className={s.homeContainer}
+        >
+          <h1>{title}</h1>
         </div>
       </header>
     ) : (
       <header>
         <div
-          ref={this.refCallback}
           className={
             this.state.isSticky
               ? `${s.container} ${s.sticky}`
               : `${s.container}`
           }
         >
-          <h1>Marion Casters</h1>
+          <h1>{title}</h1>
         </div>
       </header>
     );

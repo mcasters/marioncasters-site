@@ -50,24 +50,27 @@ class Layout extends React.Component {
 
     if (isHome) height = this.getHeight(isLessThanMD);
 
-    return (
+    return isLessThanMD ? (
       <Fragment>
-        {isLessThanMD && (
-          <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
-        )}
+        <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
         <Header
           isHome={isHome}
           getHeight={headerHeight => {
             this.setState({ headerHeight });
           }}
         />
-        {!isLessThanMD && (
-          <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
-        )}
         <ErrorBoundary>
-          {height !== undefined && height !== null && (
-            <Main height={height}>{this.props.children}</Main>
-          )}
+          {isHome && <Main height={height}>{this.props.children}</Main>}
+          {!isHome && <Main>{this.props.children}</Main>}
+        </ErrorBoundary>
+        <Footer />
+      </Fragment>
+    ) : (
+      <Fragment>
+        <Header isHome={isHome} />
+        <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
+        <ErrorBoundary>
+          {isHome && <Main height={height}>{this.props.children}</Main>}
           {!isHome && <Main>{this.props.children}</Main>}
         </ErrorBoundary>
         <Footer />

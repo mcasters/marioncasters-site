@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import {
-  getWindowHeight,
   getWindowWidth,
+  getWindowHeight,
 } from '../../../tools/lib/windowUtils';
 
 function withViewport(ComposedComponent) {
@@ -22,7 +22,7 @@ function withViewport(ComposedComponent) {
     }
 
     handleResize = () => {
-      const viewport = { width: getWindowWidth(), height: getWindowHeight() };
+      const viewport = { width: window.innerWidth, height: window.innerHeight };
       if (
         this.state.viewport.width !== viewport.width ||
         this.state.viewport.height !== viewport.height
@@ -32,8 +32,9 @@ function withViewport(ComposedComponent) {
     };
 
     render() {
-      const { viewport } = this.state;
-      return <ComposedComponent {...this.props} viewport={viewport} />;
+      return (
+        <ComposedComponent {...this.props} viewport={this.state.viewport} />
+      );
     }
   };
 }
