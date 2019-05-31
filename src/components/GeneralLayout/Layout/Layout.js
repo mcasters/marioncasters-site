@@ -33,12 +33,6 @@ class Layout extends React.Component {
     headerHeight: null,
   };
 
-  getHeight = isLessThanMD => {
-    return isLessThanMD
-      ? this.props.viewport.height - this.state.headerHeight
-      : this.props.viewport.height;
-  };
-
   getIsLessThanMD = () =>
     this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
 
@@ -46,9 +40,8 @@ class Layout extends React.Component {
     const isHome =
       this.context.pathname === '/' || this.context.pathname === '/home';
     const isLessThanMD = this.getIsLessThanMD();
-    let height;
-
-    if (isHome) height = this.getHeight(isLessThanMD);
+    const { height } = this.props.viewport;
+    const mobileHeight = this.props.viewport.height - this.state.headerHeight;
 
     return isLessThanMD ? (
       <Fragment>
@@ -60,7 +53,7 @@ class Layout extends React.Component {
           }}
         />
         <ErrorBoundary>
-          {isHome && <Main height={height}>{this.props.children}</Main>}
+          {isHome && <Main height={mobileHeight}>{this.props.children}</Main>}
           {!isHome && <Main>{this.props.children}</Main>}
         </ErrorBoundary>
         <Footer />

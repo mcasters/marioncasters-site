@@ -2,6 +2,8 @@
 
 .container,
 .homeContainer {
+  box-sizing: border-box;
+  min-height: 65px;
   padding: 1em 0;
   text-align: right;
   z-index: 1;
