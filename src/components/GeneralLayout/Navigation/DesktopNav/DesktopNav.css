@@ -4,7 +4,7 @@ aside {
   position: fixed;
   width: var(--aside-width-md);
   height: 650px;
-  padding: var(--top-padding) 0 0 var(--side-padding);
+  padding: var(--main-top-padding) 0 0 var(--side-padding);
   box-sizing: border-box;
   vertical-align: top;
   z-index: 0;

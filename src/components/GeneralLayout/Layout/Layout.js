@@ -31,16 +31,18 @@ class Layout extends React.Component {
 
   state = {
     headerHeight: null,
+    screenHeight: this.props.viewport.height,
   };
 
-  getIsLessThanMD = () =>
-    this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
+  componentDidMount = () => {
+    this.setState({ screenHeight: this.props.viewport.height });
+  };
 
   render() {
     const isHome =
       this.context.pathname === '/' || this.context.pathname === '/home';
-    const isLessThanMD = this.getIsLessThanMD();
-    const { height } = this.props.viewport;
+    const isLessThanMD =
+      this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
     const mobileHeight = this.props.viewport.height - this.state.headerHeight;
 
     return isLessThanMD ? (
@@ -63,7 +65,9 @@ class Layout extends React.Component {
         <Header isHome={isHome} />
         <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
         <ErrorBoundary>
-          {isHome && <Main height={height}>{this.props.children}</Main>}
+          {isHome && (
+            <Main height={this.state.screenHeight}>{this.props.children}</Main>
+          )}
           {!isHome && <Main>{this.props.children}</Main>}
         </ErrorBoundary>
         <Footer />

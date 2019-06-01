@@ -25,9 +25,15 @@
    * Padding
    * ======================================================================== */
 
-  --top-padding-mobile: 3em;
-  --top-padding: 12em;
   --side-padding: 4em;
+  --main-top-padding-mobile: 3em;
+  --main-top-padding: 12em;
+  --main-bottom-padding: 6em;
+  --main-side-padding-mobile: 1em;
+  --main-side-padding: 5em;
+  --main-side-padding-large: 6em;
+  --mainHome-side-padding: 3em;
+  --mainHome-bottom-padding: 2em;
 
   /*
    * Colors

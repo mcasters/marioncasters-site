@@ -2,7 +2,7 @@
 
 .main,
 .mainHome {
-  padding: var(--top-padding-mobile) 1em 2em;
+  padding: var(--main-top-padding-mobile) var(--main-side-padding-mobile) var(--mainHome-bottom-padding);
   box-sizing: border-box;
   text-align: center;
 }
@@ -15,20 +15,23 @@
 }
 
 @media (--sm) {
-  .main,
+  .main {
+    padding: var(--main-top-padding-mobile) var(--main-side-padding) var(--main-bottom-padding);
+  }
+
   .mainHome {
-    padding: var(--top-padding-mobile) 5em 2em;
+    padding: var(--main-top-padding-mobile) var(--mainHome-side-padding) var(--mainHome-bottom-padding);
   }
 }
 
 @media (--md) {
   .main {
     margin-left: var(--aside-width-md);
-    padding: var(--top-padding) 5em 2em;
+    padding-top: var(--main-top-padding);
   }
 
   .mainHome {
-    padding: var(--top-padding) 3em 2em;
+    padding: var(--main-top-padding) var(--mainHome-side-padding) var(--mainHome-bottom-padding);
   }
 }
 
@@ -39,12 +42,12 @@
 }
 
 @media (--xlg) {
-  .mainHome,
-  .main {
-    padding: var(--top-padding) 6em 2em;
+  .mainHome {
+    padding: var(--main-top-padding) var(--main-side-padding-large) var(--mainHome-bottom-padding);
   }
 
   .main {
+    padding: var(--main-top-padding) var(--main-side-padding-large) var(--main-bottom-padding);
     margin-left: var(--aside-width);
   }
 }
