@@ -15,8 +15,8 @@ import Navigation from '../Navigation';
 import LAYOUT_CONSTANTS from '../../../constants/layoutConstants';
 import withViewport from '../../WithViewport';
 import ErrorBoundary from '../../ErrorBoundary';
-import Main from '../Main';
 import AppContext from '../../../context';
+import Main from '../Main';
 
 class Layout extends React.Component {
   static propTypes = {
@@ -31,11 +31,6 @@ class Layout extends React.Component {
 
   state = {
     headerHeight: null,
-    screenHeight: this.props.viewport.height,
-  };
-
-  componentDidMount = () => {
-    this.setState({ screenHeight: this.props.viewport.height });
   };
 
   render() {
@@ -43,7 +38,7 @@ class Layout extends React.Component {
       this.context.pathname === '/' || this.context.pathname === '/home';
     const isLessThanMD =
       this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
-    const mobileHeight = this.props.viewport.height - this.state.headerHeight;
+    const { height } = this.props.viewport;
 
     return isLessThanMD ? (
       <Fragment>
@@ -55,8 +50,14 @@ class Layout extends React.Component {
           }}
         />
         <ErrorBoundary>
-          {isHome && <Main height={mobileHeight}>{this.props.children}</Main>}
-          {!isHome && <Main>{this.props.children}</Main>}
+          <Main
+            isHome={isHome}
+            isLessThanMD={isLessThanMD}
+            height={height}
+            headerHeight={this.state.headerHeight}
+          >
+            {this.props.children}
+          </Main>
         </ErrorBoundary>
         <Footer />
       </Fragment>
@@ -65,10 +66,9 @@ class Layout extends React.Component {
         <Header isHome={isHome} />
         <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
         <ErrorBoundary>
-          {isHome && (
-            <Main height={this.state.screenHeight}>{this.props.children}</Main>
-          )}
-          {!isHome && <Main>{this.props.children}</Main>}
+          <Main isHome={isHome} isLessThanMD={isLessThanMD} height={height}>
+            {this.props.children}
+          </Main>
         </ErrorBoundary>
         <Footer />
       </Fragment>
