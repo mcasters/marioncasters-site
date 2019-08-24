@@ -75,6 +75,8 @@
 
   .sticky {
     padding-left: 5.5em;
+    padding-right: 0;
+    width: 50%;
     background: transparent;
     transform-origin: left;
     transform: scale(0.7, 0.7);

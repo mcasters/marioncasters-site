@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 
 import s from './Header.css';
 import GLOB_CONST from '../../../constants/globalConstants';
+import WithScrolling from '../../WithScrolling';
 
 class Header extends React.Component {
   static propTypes = {
     isHome: PropTypes.bool.isRequired,
+    scroll: PropTypes.number.isRequired,
     getHeight: PropTypes.func,
   };
 
@@ -15,30 +17,16 @@ class Header extends React.Component {
     getHeight: null,
   };
 
-  state = {
-    isSticky: false,
-  };
-
-  componentDidMount() {
-    this.updateScrolling();
-    window.addEventListener('scroll', this.updateScrolling);
-  }
-
   refCallback = element => {
     if (element) {
       this.props.getHeight(element.getBoundingClientRect().height);
     }
   };
 
-  updateScrolling = () => {
-    this.setState({
-      isSticky: window.pageYOffset > 0,
-    });
-  };
-
   render() {
     const title = GLOB_CONST.SITE_TITLE;
     const { isHome, getHeight } = this.props;
+    const isScrolling = this.props.scroll > 0;
     return isHome ? (
       <header>
         <div
@@ -52,9 +40,7 @@ class Header extends React.Component {
       <header>
         <div
           className={
-            this.state.isSticky
-              ? `${s.container} ${s.sticky}`
-              : `${s.container}`
+            isScrolling ? `${s.container} ${s.sticky}` : `${s.container}`
           }
         >
           <h1>{title}</h1>
@@ -63,4 +49,4 @@ class Header extends React.Component {
     );
   }
 }
-export default withStyles(s)(Header);
+export default withStyles(s)(WithScrolling(Header));

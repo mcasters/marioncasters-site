@@ -1,0 +1,6 @@
+{
+  "name": "WithScrolling",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./WithScrolling.js"
+}
