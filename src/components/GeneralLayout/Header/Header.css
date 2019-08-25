@@ -4,7 +4,7 @@
 .homeContainer {
   box-sizing: border-box;
   min-height: 65px;
-  padding: 1em 0;
+  padding: 1em 1em;
   text-align: right;
   z-index: 1;
   background-color: var(--color-xdark);

@@ -3,9 +3,13 @@
 }
 
 .react-tabs__tab-list {
+  background-color: #eee;
   border-bottom: 1px solid #aaa;
   margin: 0 0 30px;
   padding: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
 .react-tabs__tab {
