@@ -6,6 +6,7 @@ import { Tab, TabList, Tabs, TabPanel } from 'react-tabs';
 import s from './PaintingsPage.css';
 import ItemTab from '../../components/ItemDir/ItemTab';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
+import WithScrolling from '../../components/WithScrolling';
 
 class PaintingsPage extends React.Component {
   static propTypes = {
@@ -16,11 +17,12 @@ class PaintingsPage extends React.Component {
     const year1 = 2017;
     const year2 = 2018;
     const year3 = 2019;
+
     return (
       <Fragment>
         <h1 className={s.title}>{this.props.title}</h1>
         <Tabs>
-          <TabList className="react-tabs__tab-list">
+          <TabList>
             <Tab>{year1.toString()}</Tab>
             <Tab>{year2.toString()} (a)</Tab>
             <Tab>{year2.toString()} (b)</Tab>
@@ -54,16 +56,10 @@ class PaintingsPage extends React.Component {
               type={ITEM_CONSTANTS.TYPE.PAINTING}
             />
           </TabPanel>
-          <TabList>
-            <Tab>{year1.toString()}</Tab>
-            <Tab>{year2.toString()} (a)</Tab>
-            <Tab>{year2.toString()} (b)</Tab>
-            <Tab>{year3.toString()}</Tab>
-          </TabList>
         </Tabs>
       </Fragment>
     );
   }
 }
 
-export default withStyles(s)(PaintingsPage);
+export default withStyles(s)(WithScrolling(PaintingsPage));

@@ -24,7 +24,15 @@ export function getWindowHeight() {
 }
 
 export function getScroll() {
-  return canUseDOM ? window.pageYOffset : 0; // Default size for server-side rendering
+  return canUseDOM ? window.pageYOffset : 0;
+}
+
+export function getElementYPosition(elementClassName) {
+  if (canUseDOM) {
+    const element = document.getElementsByClassName(elementClassName)[0];
+    return element.getBoundingClientRect().top;
+  }
+  return 100;
 }
 
 // Get the highest window context that isn't cross-origin

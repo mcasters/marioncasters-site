@@ -30,7 +30,7 @@ class Layout extends React.Component {
   static contextType = AppContext;
 
   state = {
-    headerHeight: null,
+    headerHeight: 0,
   };
 
   render() {
@@ -40,37 +40,47 @@ class Layout extends React.Component {
       this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
     const { height } = this.props.viewport;
 
+    const navigation = (
+      <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
+    );
+
+    const header = (
+      <Header
+        isHome={isHome}
+        getHeight={headerHeight => {
+          this.setState({ headerHeight });
+        }}
+      />
+    );
+
+    const main = (
+      <ErrorBoundary>
+        <Main
+          isHome={isHome}
+          isLessThanMD={isLessThanMD}
+          height={height}
+          headerHeight={this.state.headerHeight}
+        >
+          {this.props.children}
+        </Main>
+      </ErrorBoundary>
+    );
+
+    const footer = <Footer />;
+
     return isLessThanMD ? (
       <Fragment>
-        <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
-        <Header
-          isHome={isHome}
-          getHeight={headerHeight => {
-            this.setState({ headerHeight });
-          }}
-        />
-        <ErrorBoundary>
-          <Main
-            isHome={isHome}
-            isLessThanMD={isLessThanMD}
-            height={height}
-            headerHeight={this.state.headerHeight}
-          >
-            {this.props.children}
-          </Main>
-        </ErrorBoundary>
-        <Footer />
+        {navigation}
+        {header}
+        {main}
+        {footer}
       </Fragment>
     ) : (
       <Fragment>
-        <Header isHome={isHome} />
-        <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
-        <ErrorBoundary>
-          <Main isHome={isHome} isLessThanMD={isLessThanMD} height={height}>
-            {this.props.children}
-          </Main>
-        </ErrorBoundary>
-        <Footer />
+        {header}
+        {navigation}
+        {main}
+        {footer}
       </Fragment>
     );
   }

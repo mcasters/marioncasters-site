@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { getScroll } from '../../../tools/lib/windowUtils';
 
 function withScrolling(ComposedComponent) {
-  return class WithScrolling extends Component {
+  return class extends Component {
     state = {
       scroll: getScroll(),
     };

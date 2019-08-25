@@ -5,11 +5,17 @@ import {
   getWindowHeight,
 } from '../../../tools/lib/windowUtils';
 
-function withViewport(ComposedComponent) {
-  return class WithViewport extends Component {
-    state = {
-      viewport: { width: getWindowWidth(), height: getWindowHeight() },
-    };
+function withViewport(WrappedComponent) {
+  return class extends Component {
+    constructor(props) {
+      super(props);
+
+      this.handleResize = this.handleResize.bind(this);
+
+      this.state = {
+        viewport: { width: getWindowWidth(), height: getWindowHeight() },
+      };
+    }
 
     componentDidMount() {
       window.addEventListener('resize', this.handleResize);
@@ -22,7 +28,7 @@ function withViewport(ComposedComponent) {
     }
 
     handleResize = () => {
-      const viewport = { width: window.innerWidth, height: window.innerHeight };
+      const viewport = { width: getWindowWidth(), height: getWindowHeight() };
       if (
         this.state.viewport.width !== viewport.width ||
         this.state.viewport.height !== viewport.height
@@ -32,9 +38,8 @@ function withViewport(ComposedComponent) {
     };
 
     render() {
-      return (
-        <ComposedComponent {...this.props} viewport={this.state.viewport} />
-      );
+      const { viewport } = this.state;
+      return <WrappedComponent {...this.props} viewport={viewport} />;
     }
   };
 }

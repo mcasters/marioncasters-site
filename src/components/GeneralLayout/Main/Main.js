@@ -1,3 +1,4 @@
+import Radium from 'radium';
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
@@ -9,30 +10,19 @@ class Main extends React.Component {
     isHome: PropTypes.bool.isRequired,
     isLessThanMD: PropTypes.bool.isRequired,
     height: PropTypes.number.isRequired,
-    headerHeight: PropTypes.number,
+    headerHeight: PropTypes.number.isRequired,
     children: PropTypes.node.isRequired,
-  };
-
-  static defaultProps = {
-    headerHeight: 0,
-  };
-
-  state = { height: 0 };
-
-  componentDidMount = () => {
-    const { height } = this.props;
-    if (this.state !== height) this.setState({ height });
   };
 
   render() {
     const { isHome, isLessThanMD, height, headerHeight, children } = this.props;
-    if (this.state.height !== height) this.setState({ height });
     const adaptedHeight = isLessThanMD
       ? height - headerHeight
-      : this.state.height;
+      : height + 0.001 * headerHeight;
+    const styleHeight = { height: adaptedHeight };
 
     return isHome ? (
-      <main className={s.mainHome} style={{ height: adaptedHeight }}>
+      <main className={s.mainHome} style={styleHeight}>
         {children}
       </main>
     ) : (
@@ -40,4 +30,5 @@ class Main extends React.Component {
     );
   }
 }
-export default withStyles(s)(Main);
+
+export default withStyles(s)(Radium(Main));

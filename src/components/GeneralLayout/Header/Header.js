@@ -10,16 +10,13 @@ class Header extends React.Component {
   static propTypes = {
     isHome: PropTypes.bool.isRequired,
     scroll: PropTypes.number.isRequired,
-    getHeight: PropTypes.func,
-  };
-
-  static defaultProps = {
-    getHeight: null,
+    getHeight: PropTypes.func.isRequired,
   };
 
   refCallback = element => {
     if (element) {
-      this.props.getHeight(element.getBoundingClientRect().height);
+      const { height } = element.getBoundingClientRect();
+      this.props.getHeight(height);
     }
   };
 
