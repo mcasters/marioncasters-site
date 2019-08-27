@@ -1,7 +1,7 @@
 @import '../../variables.css';
 
 .loading {
-  height: available;
+  height: 800px;
 }
 
 .titleTab {
