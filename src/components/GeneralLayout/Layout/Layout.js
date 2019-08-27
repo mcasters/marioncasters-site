@@ -5,7 +5,6 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import normalizeCss from '../../../../node_modules/normalize.css/normalize.css';
 
 import styleModal from '../../../../modules_modifications/style-modal.css';
-import styleBurgerMenu from '../../../../modules_modifications/style-burgerMenu.css';
 import styleTabs from '../../../../modules_modifications/style-tabs.css';
 import styleDayPicker from '../../../../modules_modifications/style-dayPicker.css';
 import s from './Layout.css';
@@ -89,7 +88,6 @@ class Layout extends React.Component {
 export default withStyles(
   normalizeCss,
   styleModal,
-  styleBurgerMenu,
   styleTabs,
   styleDayPicker,
   s,

@@ -50,15 +50,11 @@ app.use('/images', express.static(path.resolve(config.libraryPath)));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(cors());
+
 //
 // Authentication
 // -----------------------------------------------------------------------------
-app.use(
-  cors({
-    credentials: true,
-    origin: 'http://localhost:3000',
-  }),
-);
 
 app.use(
   session({
@@ -78,6 +74,7 @@ app.use(
 // Register API middleware
 // -----------------------------------------------------------------------------
 const server = new ApolloServer({
+  cors: true,
   ...schema,
   context: ({ req, res }) => ({ req, res }),
   uploads: true,

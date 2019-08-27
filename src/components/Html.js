@@ -47,8 +47,8 @@ const Html = ({
       <link rel="icon" sizes="192x192" href="/icon-192.png" />
       <link rel="icon" sizes="512x512" href="/icon-512.png" />
       <link
+        href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Montserrat"
       />
       {styles.map(style => (
         <style

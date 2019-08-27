@@ -8,6 +8,42 @@ import logoUrl from '../logo-45.png';
 import logoUrl2x from '../logo-100.png';
 import ROUTER_CONSTANTS from '../../../../constants/routerConstants';
 
+const styles = {
+  bmBurgerButton: {
+    position: 'fixed',
+    width: '36px',
+    height: '20px',
+    left: '-10px',
+    top: '22px',
+  },
+  bmBurgerBars: {
+    height: '10%',
+    background: '#a86363',
+  },
+  bmCrossButton: {
+    height: '24px',
+    width: '24px',
+  },
+  bmCross: {
+    background: '#ab8b8b',
+  },
+  bmMenu: {
+    background: '#333333',
+    padding: '2.5em 1.5em 0',
+    fontSize: '15px',
+  },
+  bmItemList: {
+    boxSizing: 'border-box',
+    padding: '0.8em',
+  },
+  bmItem: {
+    padding: '1em 0',
+  },
+  bmOverlay: {
+    background: 'rgba(0, 0, 0, 0.3)',
+  },
+};
+
 class MobileNav extends React.Component {
   constructor(props) {
     super(props);
@@ -31,6 +67,7 @@ class MobileNav extends React.Component {
         isOpen={this.state.isMenuOpen}
         width={250}
         onStateChange={state => this.handleStateChange(state)}
+        styles={styles}
       >
         <Link
           to={ROUTER_CONSTANTS.ROUTER.PRESENTATION}
