@@ -24,8 +24,8 @@ class PaintingsPage extends React.Component {
         <Tabs>
           <TabList>
             <Tab>{year1.toString()}</Tab>
-            <Tab>{year2.toString()} (a)</Tab>
-            <Tab>{year2.toString()} (b)</Tab>
+            <Tab>{year2.toString()} a</Tab>
+            <Tab>{year2.toString()} b</Tab>
             <Tab>{year3.toString()}</Tab>
           </TabList>
           <TabPanel>

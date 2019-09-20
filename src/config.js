@@ -33,8 +33,14 @@ module.exports = {
   // Photos files
   libraryPath: `${process.env.PHOTOS_PATH}`,
   paintingsPath: `${process.env.PHOTOS_PATH}/paintings`,
+  paintingsMDPath: `${process.env.PHOTOS_PATH}/paintings/md`,
+  paintingsSMPath: `${process.env.PHOTOS_PATH}/paintings/sm`,
   sculpturesPath: `${process.env.PHOTOS_PATH}/sculptures`,
+  sculpturesMDPath: `${process.env.PHOTOS_PATH}/sculptures/md`,
+  sculpturesSMPath: `${process.env.PHOTOS_PATH}/sculptures/sm`,
   drawingsPath: `${process.env.PHOTOS_PATH}/drawings`,
+  drawingsMDPath: `${process.env.PHOTOS_PATH}/drawings/md`,
+  drawingsSMPath: `${process.env.PHOTOS_PATH}/drawings/sm`,
   miscellaneousPath: `${process.env.PHOTOS_PATH}/miscellaneous`,
 
   // Web analytics
