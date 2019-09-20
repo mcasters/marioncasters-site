@@ -5,6 +5,7 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 
 import UpdateDialog from '../UpdateDialog';
 import s from './ItemUpdate.css';
+import Alert from '../../../Alert';
 
 class ItemUpdate extends React.Component {
   static propTypes = {
@@ -16,17 +17,23 @@ class ItemUpdate extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      update: false,
-    };
-
     this.openUpdate = this.openUpdate.bind(this);
   }
+
+  state = {
+    update: false,
+    message: '',
+    isError: false,
+  };
 
   openUpdate = e => {
     e.preventDefault();
     this.setState({ update: true });
   };
+
+  handleResult(message, isError) {
+    this.setState({ message, isError });
+  }
 
   render() {
     const { item, type, srcList } = this.props;
@@ -42,7 +49,15 @@ class ItemUpdate extends React.Component {
           <FaPen />
         </button>
         {this.state.update && (
-          <UpdateDialog item={item} type={type} srcList={srcList} />
+          <UpdateDialog
+            item={item}
+            type={type}
+            srcList={srcList}
+            getResult={this.handleResult}
+          />
+        )}
+        {this.state.message !== '' && (
+          <Alert message={this.state.message} isError={this.state.isError} />
         )}
       </Fragment>
     );

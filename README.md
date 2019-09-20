@@ -13,4 +13,5 @@ development built on top of [Node.js](https://nodejs.org/),
 - App and Website view listing of items
 - Several kinds of items
 - Content page managing
+- Image resizing managing
 - MySQL Database

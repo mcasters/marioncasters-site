@@ -7,7 +7,6 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { formatDate, parseDate } from 'react-day-picker/moment';
 
 import UPDATE_MUTATION from '../../../../data/graphql/queries/updateItemMutation.graphql';
-import Alert from '../../../Alert';
 import ITEM_CONST from '../../../../constants/itemConstants';
 import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
 import s from './UpdateDialog.css';
@@ -42,6 +41,7 @@ class UpdateDialog extends React.Component {
     }).isRequired,
     type: PropTypes.string.isRequired,
     srcList: PropTypes.array.isRequired,
+    getResult: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -75,8 +75,11 @@ class UpdateDialog extends React.Component {
     this.setState({ showModal: true });
   }
 
-  handleCloseModal(e) {
+  handleCloseModal(e, result) {
     e.preventDefault();
+    const message = result.message || 'Item mis à jour';
+    const isError = !!result.message;
+    this.props.getResult(message, isError);
     this.setState({ showModal: false });
   }
 
@@ -161,22 +164,23 @@ class UpdateDialog extends React.Component {
         }}
         ssr
       >
-        {(mutation, { error, data }) => (
+        {mutation => (
           <Modal
             id="updateItem"
             contentLabel="Modification"
             closeTimeoutMS={150}
             isOpen={showModal}
-            onRequestClose={this.handleCloseModal}
+            // onRequestClose={this.handleCloseModal}
             style={customStyles}
           >
             <h1 className={s.updateTitle}>Modification</h1>
             <form
               className="formGroup"
               onSubmit={e => {
-                this.handleCloseModal(e);
                 const item = this.constructItem();
-                mutation({ variables: { id, item } });
+                mutation({ variables: { id, item } }).then(result => {
+                  this.handleCloseModal(e, result);
+                });
               }}
             >
               <input
@@ -300,11 +304,6 @@ class UpdateDialog extends React.Component {
                 Annuler
               </button>
             </form>
-
-            {error && <Alert message={error.message} isError />}
-            {data && data.updateItem && (
-              <Alert message="Mis à jour" isError={false} />
-            )}
           </Modal>
         )}
       </Mutation>
