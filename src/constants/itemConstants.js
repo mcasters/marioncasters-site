@@ -9,6 +9,8 @@ const ITEM_CONSTANTS = {
 
   SM_SIZE: 'sm',
   MD_SIZE: 'md',
+  SM_PX: 384,
+  MD_PX: 640,
 
   TYPE: {
     PAINTING: 'painting',

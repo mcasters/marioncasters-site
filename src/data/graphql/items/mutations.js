@@ -58,9 +58,9 @@ export const resolvers = {
 
       let res;
       if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
-        res = await imageService.processSculptureUploads(pictures, title);
+        res = await imageService.processSculptureImagesUpload(pictures, title);
       else
-        res = await imageService.processSingleUpload(pictures[0], title, type);
+        res = await imageService.processImageUpload(pictures[0], title, type);
 
       if (!res) throw new Error("Erreur à l'écriture des fichiers");
 
@@ -99,13 +99,12 @@ export const resolvers = {
 
         let res;
         if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
-          res = await imageService.processSculptureUploads(pictures, title);
-        else
-          res = await imageService.processSingleUpload(
-            pictures[0],
+          res = await imageService.processSculptureImagesUpload(
+            pictures,
             title,
-            type,
           );
+        else
+          res = await imageService.processImageUpload(pictures[0], title, type);
         if (!res) throw new Error("Erreur à l'écriture des nouveaux fichiers");
       } else if (oldTitle !== title) {
         const res = await imageService.changeImageName(oldTitle, title, type);

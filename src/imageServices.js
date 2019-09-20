@@ -1,9 +1,9 @@
 import fs from 'fs';
 import promisesAll from 'promises-all';
+import sharp from 'sharp';
 
 import config from './config';
 import ITEM_CONSTANTS from './constants/itemConstants';
-import CONTENT_CONSTANTS from './constants/contentConstants';
 
 export const getAllImages = async dirPath => {
   const images = [];
@@ -15,7 +15,7 @@ export const getAllImages = async dirPath => {
   return images;
 };
 
-export const storeUpload = async ({ stream }, path) =>
+export const storeImage = async ({ stream }, path) =>
   new Promise((resolve, reject) =>
     stream
       .pipe(fs.createWriteStream(path))
@@ -26,32 +26,76 @@ export const storeUpload = async ({ stream }, path) =>
       .on('finish', () => resolve(true)),
   );
 
-export const processSculptureUploads = async (pictures, title) => {
+export const storeWithResizeImage = async (
+  { stream },
+  basePath,
+  title,
+  size,
+) => {
+  let px;
+  if (size === ITEM_CONSTANTS.MD_SIZE) px = ITEM_CONSTANTS.MD_PX;
+  if (size === ITEM_CONSTANTS.SM_SIZE) px = ITEM_CONSTANTS.SM_PX;
+
+  if (px === undefined) return new Promise(reject => reject('Taille invalide'));
+
+  const path = `${basePath}/${size}/${title}.jpg`;
+  const outStream = fs.createWriteStream(path);
+  const transformer = sharp().resize({
+    width: px,
+    height: px,
+    fit: 'inside',
+  });
+
+  return new Promise((resolve, reject) =>
+    stream
+      .pipe(transformer)
+      .pipe(outStream)
+      .on('error', error => {
+        if (stream.truncated) fs.unlinkSync(path);
+        reject(error);
+      })
+      .on('finish', () => resolve(true)),
+  );
+};
+
+export const storeItemImage = async ({ stream }, basePath, title) => {
+  const path = `${basePath}/${title}.jpg`;
+  return Promise.all([
+    storeImage({ stream }, path),
+    storeWithResizeImage({ stream }, basePath, title, ITEM_CONSTANTS.MD_SIZE),
+    storeWithResizeImage({ stream }, basePath, title, ITEM_CONSTANTS.SM_SIZE),
+  ]);
+};
+
+export const processSculptureImagesUpload = async (pictures, title) => {
   const process = async (element, index) => {
     const { stream } = await element;
     const path = `${config.sculpturesPath}/${title}_${index + 1}.jpg`;
-    return storeUpload({ stream }, path);
+    return storeImage({ stream }, path);
   };
 
   return promisesAll.all(pictures.map(process));
 };
 
-export const processSingleUpload = async (picture, title, type) => {
+export const processImageUpload = async (picture, title, type) => {
   const { stream, mimetype } = await picture;
-  let path;
 
   if (type === ITEM_CONSTANTS.TYPE.DRAWING) {
-    path = `${config.drawingsPath}/${title}.jpg`;
-  } else if (type === ITEM_CONSTANTS.TYPE.PAINTING) {
-    path = `${config.paintingsPath}/${title}.jpg`;
-  } else if (type === CONTENT_CONSTANTS.TYPE) {
-    if (mimetype === 'image/png')
-      path = `${config.miscellaneousPath}/${title}.png`;
-    if (mimetype === 'image/jpeg')
-      path = `${config.miscellaneousPath}/${title}.jpg`;
+    const basePath = `${config.drawingsPath}`;
+    return storeItemImage({ stream }, basePath, title);
   }
 
-  return storeUpload({ stream }, path);
+  if (type === ITEM_CONSTANTS.TYPE.PAINTING) {
+    const basePath = `${config.paintingsPath}`;
+    return storeItemImage({ stream }, basePath, title);
+  }
+
+  let path;
+  if (mimetype === 'image/png')
+    path = `${config.miscellaneousPath}/${title}.png`;
+  if (mimetype === 'image/jpeg')
+    path = `${config.miscellaneousPath}/${title}.jpg`;
+  return storeImage({ stream }, path);
 };
 
 const changeSculptureImageName = async (oldTitle, newTitle) => {
