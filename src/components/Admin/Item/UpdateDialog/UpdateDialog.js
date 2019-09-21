@@ -41,7 +41,7 @@ class UpdateDialog extends React.Component {
     }).isRequired,
     type: PropTypes.string.isRequired,
     srcList: PropTypes.array.isRequired,
-    getResult: PropTypes.func.isRequired,
+    onResult: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -57,6 +57,7 @@ class UpdateDialog extends React.Component {
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleResult = this.handleResult.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
@@ -75,11 +76,15 @@ class UpdateDialog extends React.Component {
     this.setState({ showModal: true });
   }
 
-  handleCloseModal(e, result) {
-    e.preventDefault();
+  handleCloseModal() {
+    this.props.onResult(null, false);
+    this.setState({ showModal: false });
+  }
+
+  handleResult(result) {
     const message = result.message || 'Item mis à jour';
     const isError = !!result.message;
-    this.props.getResult(message, isError);
+    this.props.onResult(message, isError);
     this.setState({ showModal: false });
   }
 
@@ -102,9 +107,7 @@ class UpdateDialog extends React.Component {
 
   handleInputChange(e) {
     e.preventDefault();
-
     const { value, name, type } = e.target;
-
     this.setState({ [name]: type === 'number' ? parseInt(value, 10) : value });
   }
 
@@ -162,6 +165,8 @@ class UpdateDialog extends React.Component {
             data: { getAllItems },
           });
         }}
+        onCompleted={data => this.handleResult(data)}
+        onError={error => this.handleResult(error)}
         ssr
       >
         {mutation => (
@@ -170,17 +175,15 @@ class UpdateDialog extends React.Component {
             contentLabel="Modification"
             closeTimeoutMS={150}
             isOpen={showModal}
-            // onRequestClose={this.handleCloseModal}
             style={customStyles}
           >
             <h1 className={s.updateTitle}>Modification</h1>
             <form
               className="formGroup"
               onSubmit={e => {
+                e.preventDefault();
                 const item = this.constructItem();
-                mutation({ variables: { id, item } }).then(result => {
-                  this.handleCloseModal(e, result);
-                });
+                mutation({ variables: { id, item } });
               }}
             >
               <input
@@ -299,7 +302,7 @@ class UpdateDialog extends React.Component {
               <button
                 type="button"
                 className={s.updateDialogButton}
-                onClick={e => this.handleCloseModal(e)}
+                onClick={this.handleCloseModal}
               >
                 Annuler
               </button>

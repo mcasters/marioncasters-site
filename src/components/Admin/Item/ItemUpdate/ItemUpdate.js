@@ -17,43 +17,38 @@ class ItemUpdate extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      openUpdate: false,
+      message: '',
+      isError: false,
+    };
+
     this.openUpdate = this.openUpdate.bind(this);
   }
 
-  state = {
-    update: false,
-    message: '',
-    isError: false,
+  getResult = (message, isError) => {
+    return message === null
+      ? this.setState({ openUpdate: false })
+      : this.setState({ message, isError, openUpdate: false });
   };
 
-  openUpdate = e => {
-    e.preventDefault();
-    this.setState({ update: true });
+  openUpdate = () => {
+    this.setState({ openUpdate: true });
   };
-
-  handleResult(message, isError) {
-    this.setState({ message, isError });
-  }
 
   render() {
     const { item, type, srcList } = this.props;
     return (
       <Fragment>
-        <button
-          type="button"
-          onClick={e => {
-            this.openUpdate(e);
-          }}
-          className={s.command}
-        >
+        <button type="button" onClick={this.openUpdate} className={s.command}>
           <FaPen />
         </button>
-        {this.state.update && (
+        {this.state.openUpdate && (
           <UpdateDialog
             item={item}
             type={type}
             srcList={srcList}
-            getResult={this.handleResult}
+            onResult={this.getResult}
           />
         )}
         {this.state.message !== '' && (
