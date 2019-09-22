@@ -27,6 +27,10 @@ class LoginControl extends React.Component {
     this.setState({ login: true });
   };
 
+  closeLogin = () => {
+    this.setState({ login: false });
+  };
+
   render() {
     return (
       <Query query={GET_ADMIN_STATUS_QUERY}>
@@ -46,7 +50,7 @@ class LoginControl extends React.Component {
               >
                 Admin in
               </button>
-              {this.state.login && <LoginDialog />}
+              {this.state.login && <LoginDialog onClose={this.closeLogin} />}
             </Fragment>
           );
         }}

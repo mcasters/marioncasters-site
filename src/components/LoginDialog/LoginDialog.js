@@ -3,6 +3,7 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import { Mutation } from 'react-apollo';
 import Modal from 'react-modal';
 
+import PropTypes from 'prop-types';
 import s from './LoginDialog.css';
 import history from '../../history';
 import LOGIN_MUTATION from '../../data/graphql/queries/loginMutation.graphql';
@@ -24,6 +25,10 @@ const customStyles = {
 Modal.setAppElement('#app');
 
 class LoginDialog extends React.Component {
+  static propTypes = {
+    onClose: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -43,6 +48,7 @@ class LoginDialog extends React.Component {
   handleCloseModal(e) {
     e.preventDefault();
     this.setState({ showModal: false });
+    this.props.onClose();
   }
 
   render() {
@@ -77,12 +83,12 @@ class LoginDialog extends React.Component {
             <h1 className={s.loginTitle}>Authentification</h1>
             <form
               onSubmit={e => {
-                this.handleCloseModal(e);
                 const input = {
                   username: this.state.username,
                   password: this.state.password,
                 };
                 login({ variables: { input } });
+                this.handleCloseModal(e);
               }}
             >
               <input
