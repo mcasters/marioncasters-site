@@ -77,8 +77,8 @@ class UpdateDialog extends React.Component {
   }
 
   handleCloseModal() {
-    this.props.onResult(null, false);
     this.setState({ showModal: false });
+    this.props.onResult('', false);
   }
 
   handleResult(result) {

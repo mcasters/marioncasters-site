@@ -4,15 +4,17 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import { Mutation, Query } from 'react-apollo/index';
 
 import ADD_CONTENT_MUTATION from '../../../data/graphql/queries/addContentMutation.graphql';
-import Alert from '../../Alert';
 import s from './EditContent.css';
 import GET_CONTENT from '../../../data/graphql/queries/getContent.graphql';
+import AlertContext from '../../AlertContext';
 
 class Edit extends React.Component {
   static propTypes = {
     keyContent: PropTypes.string.isRequired,
     isTextArea: PropTypes.bool.isRequired,
   };
+
+  static contextType = AlertContext;
 
   render() {
     const { keyContent, isTextArea } = this.props;
@@ -34,10 +36,11 @@ class Edit extends React.Component {
                 <Mutation
                   mutation={ADD_CONTENT_MUTATION}
                   key={id}
+                  onError={err => this.context.triggerAlert(err.message, true)}
+                  onCompleted={() =>
+                    this.context.triggerAlert('Enregistré', false)
+                  }
                   ssr
-                  onCompleted={() => (
-                    <Alert message="Enregistré" isError={false} />
-                  )}
                 >
                   {mutation => {
                     return (

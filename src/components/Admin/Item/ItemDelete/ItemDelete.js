@@ -6,15 +6,17 @@ import { FaTrash } from 'react-icons/fa/index';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
 import DELETE_ITEM from '../../../../data/graphql/queries/deleteItem.graphql';
-import Alert from '../../../Alert';
 import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
 import s from './ItemDelete.css';
+import AlertContext from '../../../AlertContext/AlertContext';
 
 class ItemDelete extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   };
+
+  static contextType = AlertContext;
 
   render() {
     const { id, type } = this.props;
@@ -42,8 +44,10 @@ class ItemDelete extends React.Component {
           });
         }}
         ssr
+        onError={error => this.context.triggerAlert(error.message, true)}
+        onCompleted={() => this.context.triggerAlert('Item supprimé', false)}
       >
-        {(mutation, { error, data }) => (
+        {mutation => (
           <Fragment>
             <form
               onSubmit={e => {
@@ -55,10 +59,6 @@ class ItemDelete extends React.Component {
                 <FaTrash />
               </button>
             </form>
-            {error && <Alert message={error.message} isError />}
-            {data && data.deleteItem && (
-              <Alert message="Item supprimé" isError={false} />
-            )}
           </Fragment>
         )}
       </Mutation>

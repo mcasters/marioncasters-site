@@ -4,9 +4,9 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import { Mutation } from 'react-apollo/index';
 
 import ADD_CONTENT_MUTATION from '../../../data/graphql/queries/addContentMutation.graphql';
-import Alert from '../../Alert';
 import s from './EditContent.css';
 import GET_CONTENT_QUERY from '../../../data/graphql/queries/getContent.graphql';
+import AlertContext from '../../AlertContext';
 
 class MutateContent extends React.Component {
   static propTypes = {
@@ -14,6 +14,8 @@ class MutateContent extends React.Component {
     isTextArea: PropTypes.bool.isRequired,
     initialContent: PropTypes.string.isRequired,
   };
+
+  static contextType = AlertContext;
 
   constructor(props) {
     super(props);
@@ -46,9 +48,11 @@ class MutateContent extends React.Component {
             data: { getContent: addContent },
           });
         }}
+        onError={err => this.context.triggerAlert(err.message, true)}
+        onCompleted={() => this.context.triggerAlert('Enregistré', false)}
         ssr
       >
-        {(mutation, { error, data }) => {
+        {mutation => {
           return (
             <Fragment>
               <form
@@ -90,10 +94,6 @@ class MutateContent extends React.Component {
                 )}
                 <button type="submit">OK</button>
               </form>
-              {error && <Alert message={error.message} isError />}
-              {data && data.addContent && (
-                <Alert message="Enregistré" isError={false} />
-              )}
             </Fragment>
           );
         }}

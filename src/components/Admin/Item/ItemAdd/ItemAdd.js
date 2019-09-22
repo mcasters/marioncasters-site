@@ -9,12 +9,14 @@ import s from './ItemAdd.css';
 import ADD_ITEM_MUTATION from '../../../../data/graphql/queries/addItemMutation.graphql';
 import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
 import ITEM_CONST from '../../../../constants/itemConstants';
-import Alert from '../../../Alert';
+import AlertContext from '../../../AlertContext/AlertContext';
 
 class ItemAdd extends React.Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
   };
+
+  static contextType = AlertContext;
 
   constructor(props) {
     super(props);
@@ -117,9 +119,11 @@ class ItemAdd extends React.Component {
             data: { getAllItems: [...getAllItems, addItem] },
           });
         }}
+        onError={error => this.context.triggerAlert(error.message, true)}
+        onCompleted={() => this.context.triggerAlert('Item ajouté', false)}
         ssr
       >
-        {(mutation, { error, data }) => (
+        {mutation => (
           <div className={s.addContainer}>
             <h2>{title}</h2>
             <form
@@ -229,11 +233,6 @@ class ItemAdd extends React.Component {
               )}
               {canSubmit && <button type="submit">OK</button>}
             </form>
-
-            {error && <Alert message={error.message} isError />}
-            {data && data.addItem && (
-              <Alert message="Enregistré" isError={false} />
-            )}
           </div>
         )}
       </Mutation>

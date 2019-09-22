@@ -38,6 +38,7 @@ class Alert extends React.Component {
   static propTypes = {
     message: PropTypes.string.isRequired,
     isError: PropTypes.bool.isRequired,
+    clearAlert: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -54,12 +55,16 @@ class Alert extends React.Component {
     this.isMounted = true;
 
     this.handleOpenModal();
-    setInterval(() => {
-      if (this.isMounted) this.handleCloseModal();
+    this.timeout = setTimeout(() => {
+      if (this.isMounted) {
+        this.handleCloseModal();
+        this.props.clearAlert();
+      }
     }, 4000);
   }
 
   componentWillUnmount() {
+    clearTimeout(this.timeout);
     this.isMounted = false;
   }
 

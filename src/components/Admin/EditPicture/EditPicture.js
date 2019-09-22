@@ -7,13 +7,15 @@ import { Mutation } from 'react-apollo/index';
 
 import s from './EditPicture.css';
 import ADD_PICTURE_MUTATION from '../../../data/graphql/queries/addPictureMutation.graphql';
-import Alert from '../../Alert';
 import CONTENT_CONST from '../../../constants/contentConstants';
+import AlertContext from '../../AlertContext';
 
 class EditPicture extends React.Component {
   static propTypes = {
     pictureTitle: PropTypes.string.isRequired,
   };
+
+  static contextType = AlertContext;
 
   constructor(props) {
     super(props);
@@ -68,8 +70,13 @@ class EditPicture extends React.Component {
     const { imagePreviewUrl, picture } = this.state;
 
     return (
-      <Mutation mutation={ADD_PICTURE_MUTATION} ssr>
-        {(mutation, { error, data }) => (
+      <Mutation
+        mutation={ADD_PICTURE_MUTATION}
+        onError={error => this.context.triggerAlert(error.message, true)}
+        onCompleted={() => this.context.triggerAlert('Enregistré', false)}
+        ssr
+      >
+        {mutation => (
           <div className={s.addContainer}>
             <h2>{adminTitle}</h2>
             <img
@@ -110,11 +117,6 @@ class EditPicture extends React.Component {
               )}
               <button type="submit">OK</button>
             </form>
-
-            {error && <Alert message={error.message} isError />}
-            {data && data.addPicture && (
-              <Alert message="Enregistré" isError={false} />
-            )}
           </div>
         )}
       </Mutation>

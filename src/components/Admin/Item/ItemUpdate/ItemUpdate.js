@@ -5,7 +5,7 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 
 import UpdateDialog from '../UpdateDialog';
 import s from './ItemUpdate.css';
-import Alert from '../../../Alert';
+import AlertContext from '../../../AlertContext/AlertContext';
 
 class ItemUpdate extends React.Component {
   static propTypes = {
@@ -14,22 +14,21 @@ class ItemUpdate extends React.Component {
     srcList: PropTypes.array.isRequired,
   };
 
+  static contextType = AlertContext;
+
   constructor(props) {
     super(props);
 
     this.state = {
       openUpdate: false,
-      message: '',
-      isError: false,
     };
 
     this.openUpdate = this.openUpdate.bind(this);
   }
 
   getResult = (message, isError) => {
-    return message === null
-      ? this.setState({ openUpdate: false })
-      : this.setState({ message, isError, openUpdate: false });
+    if (message !== '') this.context.triggerAlert(message, isError);
+    this.setState({ openUpdate: false });
   };
 
   openUpdate = () => {
@@ -50,9 +49,6 @@ class ItemUpdate extends React.Component {
             srcList={srcList}
             onResult={this.getResult}
           />
-        )}
-        {this.state.message !== '' && (
-          <Alert message={this.state.message} isError={this.state.isError} />
         )}
       </Fragment>
     );

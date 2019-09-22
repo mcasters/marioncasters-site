@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Alert from '../../Alert';
-import AlertContext from '../../AlertContext/Alert';
+import AlertContext from '../../AlertContext/AlertContext';
 import Layout from '../Layout';
 
 class Root extends React.Component {
@@ -13,29 +13,44 @@ class Root extends React.Component {
   constructor(props) {
     super(props);
 
-    this.triggerAlert = (message, isError) => {
-      this.setState({
-        message,
-        isError,
-      });
-    };
+    this.state = this.getInitialState();
 
-    this.state = {
+    this.triggerAlert = this.triggerAlert.bind(this);
+    this.clearAlert = this.clearAlert.bind(this);
+  }
+
+  getInitialState = () => ({
+    alert: {
       message: '',
       isError: false,
-      // eslint-disable-next-line react/no-unused-state
       triggerAlert: this.triggerAlert,
-    };
-  }
+    },
+  });
+
+  triggerAlert = (message, isError) => {
+    this.setState({
+      alert: { message, isError },
+    });
+  };
+
+  clearAlert = () => {
+    this.setState(this.getInitialState);
+  };
 
   render() {
     const { children } = this.props;
-    const { message, isError } = this.state;
+    const alert = this.state.alert.message !== '' ? this.state.alert : null;
 
     return (
-      <AlertContext.Provider value={this.state}>
+      <AlertContext.Provider value={this.state.alert}>
         <Layout>{children}</Layout>
-        {message !== '' && <Alert message={message} isError={isError} />}
+        {alert !== null && (
+          <Alert
+            message={alert.message}
+            isError={alert.isError}
+            clearAlert={this.clearAlert}
+          />
+        )}
       </AlertContext.Provider>
     );
   }
