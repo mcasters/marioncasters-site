@@ -1,8 +1,8 @@
 import React from 'react';
-import Layout from '../../components/GeneralLayout/Layout';
 import CONTENT_CONSTANTS from '../../constants/contentConstants';
 import META_HTML_CONSTANTS from '../../constants/metaHtmlConstants';
 import ContactPage from './ContactPage';
+import Root from '../../components/GeneralLayout/Root';
 
 function action() {
   const title = CONTENT_CONSTANTS.TITLE.CONTACT;
@@ -13,9 +13,9 @@ function action() {
     description,
     chunks: ['contact'],
     component: (
-      <Layout>
+      <Root>
         <ContactPage title={title} />
-      </Layout>
+      </Root>
     ),
   };
 }

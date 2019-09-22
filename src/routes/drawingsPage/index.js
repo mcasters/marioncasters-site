@@ -1,8 +1,8 @@
 import React from 'react';
 import DrawingsPage from './DrawingsPage';
-import Layout from '../../components/GeneralLayout/Layout';
 import ITEM_CONSTANTS from '../../constants/itemConstants';
 import META_HTML_CONSTANTS from '../../constants/metaHtmlConstants';
+import Root from '../../components/GeneralLayout/Root';
 
 async function action() {
   const title = ITEM_CONSTANTS.TITLE.DRAWING;
@@ -13,9 +13,9 @@ async function action() {
     description,
     chunks: ['drawings'],
     component: (
-      <Layout>
+      <Root>
         <DrawingsPage title={title} />
-      </Layout>
+      </Root>
     ),
   };
 }

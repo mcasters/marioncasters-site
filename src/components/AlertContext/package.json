@@ -1,0 +1,6 @@
+{
+  "name": "AlertContext",
+  "version": "1.0.0",
+  "private": true,
+  "main": "AlertContext.js"
+}

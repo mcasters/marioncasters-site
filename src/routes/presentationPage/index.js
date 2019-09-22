@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Layout from '../../components/GeneralLayout/Layout';
 import CONTENT_CONSTANTS from '../../constants/contentConstants';
 import META_HTML_CONSTANTS from '../../constants/metaHtmlConstants';
 import PresentationPage from './PresentationPage';
+import Root from '../../components/GeneralLayout/Root';
 
 function action() {
   const title = CONTENT_CONSTANTS.TITLE.PRESENTATION;
@@ -14,9 +14,9 @@ function action() {
     description,
     chunks: ['presentation'],
     component: (
-      <Layout>
+      <Root>
         <PresentationPage title={title} />
-      </Layout>
+      </Root>
     ),
   };
 }

@@ -1,7 +1,6 @@
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 
 const errorCustomStyles = {
   overlay: {
@@ -9,12 +8,11 @@ const errorCustomStyles = {
   },
   content: {
     top: '85%',
-    left: '15%',
+    left: '10%',
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    backgroundColor: '#d67b7b',
+    backgroundColor: '#ffa5ac',
   },
 };
 
@@ -24,27 +22,26 @@ const validCustomStyles = {
   },
   content: {
     top: '85%',
-    left: '15%',
+    left: '10%',
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    backgroundColor: '#51ba7b',
+    backgroundColor: '#92ff8e',
   },
 };
 
 Modal.setAppElement('#app');
 
 class Alert extends React.Component {
+  isMounted = false;
+
   static propTypes = {
     message: PropTypes.string.isRequired,
     isError: PropTypes.bool.isRequired,
   };
 
-  isMounted = false;
-
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showModal: false,
     };
@@ -59,7 +56,7 @@ class Alert extends React.Component {
     this.handleOpenModal();
     setInterval(() => {
       if (this.isMounted) this.handleCloseModal();
-    }, 5000);
+    }, 4000);
   }
 
   componentWillUnmount() {
@@ -75,8 +72,7 @@ class Alert extends React.Component {
   }
 
   render() {
-    const style = this.props.isError ? errorCustomStyles : validCustomStyles;
-
+    const { message, isError } = this.props;
     return (
       <Modal
         id="alert"
@@ -84,9 +80,9 @@ class Alert extends React.Component {
         closeTimeoutMS={150}
         isOpen={this.state.showModal}
         onRequestClose={this.handleCloseModal}
-        style={style}
+        style={isError ? errorCustomStyles : validCustomStyles}
       >
-        <div>{this.props.message}</div>
+        <div>{message}</div>
       </Modal>
     );
   }

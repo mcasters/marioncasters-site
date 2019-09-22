@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Layout from '../../components/GeneralLayout/Layout';
+import Root from '../../components/GeneralLayout/Root';
 import AdminPage from './AdminPage';
 import GET_ADMIN_STATUS_QUERY from '../../data/graphql/queries/getAdminStatusQuery.graphql';
 import ROUTER_CONSTANTS from '../../constants/routerConstants';
@@ -23,9 +23,9 @@ function action({ client }) {
     description,
     chunks: ['admin'],
     component: (
-      <Layout>
+      <Root>
         <AdminPage title={title} />
-      </Layout>
+      </Root>
     ),
   };
 }

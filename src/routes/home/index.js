@@ -1,8 +1,8 @@
 import React from 'react';
 import Home from './Home';
-import Layout from '../../components/GeneralLayout/Layout';
 import CONTENT_CONSTANTS from '../../constants/contentConstants';
 import META_HTML_CONSTANTS from '../../constants/metaHtmlConstants';
+import Root from '../../components/GeneralLayout/Root';
 
 async function action() {
   const title = CONTENT_CONSTANTS.TITLE.HOME;
@@ -13,9 +13,9 @@ async function action() {
     description,
     chunks: ['home'],
     component: (
-      <Layout>
+      <Root>
         <Home title={title} />
-      </Layout>
+      </Root>
     ),
   };
 }

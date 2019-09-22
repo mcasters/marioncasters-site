@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Layout from '../../components/GeneralLayout/Layout';
 import Page from '../../components/GeneralLayout/Page';
 import META_HTML_CONSTANTS from '../../constants/metaHtmlConstants';
 import privacy from './privacy.md';
+import Root from '../../components/GeneralLayout/Root';
 
 function action() {
   const { title } = privacy;
@@ -14,9 +14,9 @@ function action() {
     description,
     chunks: ['privacy'],
     component: (
-      <Layout>
+      <Root>
         <Page {...privacy} showTitle />
-      </Layout>
+      </Root>
     ),
   };
 }
