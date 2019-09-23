@@ -97,10 +97,9 @@ export const resolvers = {
           title,
           type,
         );
-
         if (!res) throw new Error("Erreur à l'écriture des nouveaux fichiers");
       } else if (oldTitle !== title) {
-        const res = await imageService.changeImageName(oldTitle, title, type);
+        const res = await imageService.renameItemImages(oldTitle, title, type);
         if (!res) throw new Error('Erreur au renommage des fichiers');
       }
 
