@@ -7,8 +7,9 @@ const ITEM_CONSTANTS = {
   SCULPTURE_PATH: '/images/sculptures',
   DRAWING_PATH: '/images/drawings',
 
-  SM_SIZE: 'sm',
+  LG_SIZE: 'lg',
   MD_SIZE: 'md',
+  SM_SIZE: 'sm',
   SM_PX: 384,
   MD_PX: 640,
 

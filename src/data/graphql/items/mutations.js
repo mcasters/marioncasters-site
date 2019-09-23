@@ -1,5 +1,4 @@
 import * as imageService from '../../../imageServices';
-import ITEM_CONSTANTS from '../../../constants/itemConstants';
 import getAuthenticatedUser from '../services/authentication';
 import * as service from '../services/item';
 
@@ -56,11 +55,7 @@ export const resolvers = {
 
       if (item) throw new Error("Nom de l'item déjà existant en Bdd");
 
-      let res;
-      if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
-        res = await imageService.processSculptureImagesUpload(pictures, title);
-      else
-        res = await imageService.processImageUpload(pictures[0], title, type);
+      const res = await imageService.processImageUpload(pictures, title, type);
 
       if (!res) throw new Error("Erreur à l'écriture des fichiers");
 
@@ -97,14 +92,12 @@ export const resolvers = {
         if (!imageDeleted)
           throw new Error(`Echec de la suppression des anciennes images`);
 
-        let res;
-        if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
-          res = await imageService.processSculptureImagesUpload(
-            pictures,
-            title,
-          );
-        else
-          res = await imageService.processImageUpload(pictures[0], title, type);
+        const res = await imageService.processImageUpload(
+          pictures,
+          title,
+          type,
+        );
+
         if (!res) throw new Error("Erreur à l'écriture des nouveaux fichiers");
       } else if (oldTitle !== title) {
         const res = await imageService.changeImageName(oldTitle, title, type);

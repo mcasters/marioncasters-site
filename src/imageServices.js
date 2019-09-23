@@ -4,6 +4,7 @@ import sharp from 'sharp';
 
 import config from './config';
 import ITEM_CONSTANTS from './constants/itemConstants';
+import CONTENT_CONSTANTS from './constants/contentConstants';
 
 export const getAllImages = async dirPath => {
   const images = [];
@@ -13,6 +14,54 @@ export const getAllImages = async dirPath => {
     images.push(file);
   });
   return images;
+};
+
+const getItemDirs = type => {
+  if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
+    return [
+      `${config.sculpturesPath}`,
+      `${config.sculpturesMDPath}`,
+      `${config.sculpturesSMPath}`,
+    ];
+
+  if (type === ITEM_CONSTANTS.TYPE.DRAWING)
+    return [
+      `${config.drawingsPath}`,
+      `${config.drawingsMDPath}`,
+      `${config.drawingsSMPath}`,
+    ];
+
+  if (type === ITEM_CONSTANTS.TYPE.PAINTING)
+    return [
+      `${config.paintingsPath}`,
+      `${config.paintingsMDPath}`,
+      `${config.paintingsSMPath}`,
+    ];
+  return null;
+};
+
+const getItemPaths = (title, type) => {
+  if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
+    return [
+      `${config.sculpturesPath}/${title}.jpg`,
+      `${config.sculpturesMDPath}/${title}.jpg`,
+      `${config.sculpturesSMPath}/${title}.jpg`,
+    ];
+
+  if (type === ITEM_CONSTANTS.TYPE.DRAWING)
+    return [
+      `${config.drawingsPath}/${title}.jpg`,
+      `${config.drawingsMDPath}/${title}.jpg`,
+      `${config.drawingsSMPath}/${title}.jpg`,
+    ];
+
+  if (type === ITEM_CONSTANTS.TYPE.PAINTING)
+    return [
+      `${config.paintingsPath}/${title}.jpg`,
+      `${config.paintingsMDPath}/${title}.jpg`,
+      `${config.paintingsSMPath}/${title}.jpg`,
+    ];
+  return null;
 };
 
 export const storeImage = async ({ stream }, path) =>
@@ -26,19 +75,7 @@ export const storeImage = async ({ stream }, path) =>
       .on('finish', () => resolve(true)),
   );
 
-export const storeWithResizeImage = async (
-  { stream },
-  basePath,
-  title,
-  size,
-) => {
-  let px;
-  if (size === ITEM_CONSTANTS.MD_SIZE) px = ITEM_CONSTANTS.MD_PX;
-  if (size === ITEM_CONSTANTS.SM_SIZE) px = ITEM_CONSTANTS.SM_PX;
-
-  if (px === undefined) return new Promise(reject => reject('Taille invalide'));
-
-  const path = `${basePath}/${size}/${title}.jpg`;
+export const storeWithResizeImage = async ({ stream }, path, px) => {
   const outStream = fs.createWriteStream(path);
   const transformer = sharp().resize({
     width: px,
@@ -58,44 +95,41 @@ export const storeWithResizeImage = async (
   );
 };
 
-export const storeItemImage = async ({ stream }, basePath, title) => {
-  const path = `${basePath}/${title}.jpg`;
+export const storeItemImage = async ({ stream }, type, title) => {
+  const paths = getItemPaths(title, type);
   return Promise.all([
-    storeImage({ stream }, path),
-    storeWithResizeImage({ stream }, basePath, title, ITEM_CONSTANTS.MD_SIZE),
-    storeWithResizeImage({ stream }, basePath, title, ITEM_CONSTANTS.SM_SIZE),
+    storeImage({ stream }, paths[0]),
+    storeWithResizeImage({ stream }, paths[1], ITEM_CONSTANTS.MD_PX),
+    storeWithResizeImage({ stream }, paths[2], ITEM_CONSTANTS.SM_PX),
   ]);
 };
 
-export const processSculptureImagesUpload = async (pictures, title) => {
+const processSculptureImagesUpload = async (pictures, title) => {
   const process = async (element, index) => {
     const { stream } = await element;
-    const path = `${config.sculpturesPath}/${title}_${index + 1}.jpg`;
-    return storeImage({ stream }, path);
+    const fileName = `${title}_${index + 1}`;
+    return storeItemImage({ stream }, ITEM_CONSTANTS.TYPE.SCULPTURE, fileName);
   };
 
   return promisesAll.all(pictures.map(process));
 };
 
-export const processImageUpload = async (picture, title, type) => {
-  const { stream, mimetype } = await picture;
-
-  if (type === ITEM_CONSTANTS.TYPE.DRAWING) {
-    const basePath = `${config.drawingsPath}`;
-    return storeItemImage({ stream }, basePath, title);
+export const processImageUpload = async (pictures, title, type) => {
+  if (type === ITEM_CONSTANTS.TYPE.SCULPTURE) {
+    return processSculptureImagesUpload(pictures, title);
   }
 
-  if (type === ITEM_CONSTANTS.TYPE.PAINTING) {
-    const basePath = `${config.paintingsPath}`;
-    return storeItemImage({ stream }, basePath, title);
-  }
+  const { stream, mimetype } = await pictures[0];
 
-  let path;
-  if (mimetype === 'image/png')
-    path = `${config.miscellaneousPath}/${title}.png`;
-  if (mimetype === 'image/jpeg')
-    path = `${config.miscellaneousPath}/${title}.jpg`;
-  return storeImage({ stream }, path);
+  if (type === CONTENT_CONSTANTS.TYPE) {
+    let path;
+    if (mimetype === 'image/png')
+      path = `${config.miscellaneousPath}/${title}.png`;
+    if (mimetype === 'image/jpeg')
+      path = `${config.miscellaneousPath}/${title}.jpg`;
+    return storeImage({ stream }, path);
+  }
+  return storeItemImage({ stream }, type, title);
 };
 
 const changeSculptureImageName = async (oldTitle, newTitle) => {
@@ -151,6 +185,38 @@ export const changeImageName = async (oldTitle, newTitle, type) => {
   }
 
   return res;
+};
+
+const renameItemImage = async (oldTitle, newTitle, type) => {
+  const paths = getItemDirs(type);
+
+  return Promise.all(
+    paths.map(path => {
+      const oldPath = `${path}/${oldTitle}.jpg`;
+      if (fs.existsSync(oldPath)) {
+        fs.rename(oldPath, `${path}/${newTitle}.jpg`, err => {
+          return !err;
+        });
+      }
+      return false;
+    }),
+  );
+};
+
+export const renameItemImages = async (oldTitle, newTitle, type) => {
+  if (type === ITEM_CONSTANTS.TYPE.SCULPTURE) {
+    let i = 1;
+    const promises = [];
+
+    while (i < 5) {
+      const oldFileName = `${oldTitle}_${i}`;
+      const newFileName = `${newTitle}_${i}`;
+      promises.push(renameItemImage(oldFileName, newFileName, type));
+      i++;
+    }
+    return Promise.all(promises);
+  }
+  return renameItemImage(oldTitle, newTitle, type);
 };
 
 const deleteImage = async file => {
