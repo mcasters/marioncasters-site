@@ -146,33 +146,19 @@ const deleteImage = async file => {
   });
 };
 
-export const deleteImages = async (itemTitle, itemType) => {
-  const library = config.libraryPath;
-  const files = [];
-  let i;
+export const deleteItemImages = async (title, type) => {
+  let paths;
 
-  switch (itemType) {
-    case ITEM_CONSTANTS.TYPE.SCULPTURE:
-      for (i = 1; i < 5; i++) {
-        files.push(
-          `${library}/${ITEM_CONSTANTS.SCULPTURE_FOLDER}/${itemTitle}_${i}.jpg`,
-        );
-      }
-      break;
-    case ITEM_CONSTANTS.TYPE.PAINTING:
-      files.push(
-        `${library}/${ITEM_CONSTANTS.PAINTING_FOLDER}/${itemTitle}.jpg`,
-      );
-      break;
-    case ITEM_CONSTANTS.TYPE.DRAWING:
-      files.push(
-        `${library}/${ITEM_CONSTANTS.DRAWING_FOLDER}/${itemTitle}.jpg`,
-      );
-      break;
-    default:
-      return false;
+  if (type === ITEM_CONSTANTS.TYPE.SCULPTURE) {
+    let i;
+    paths = [];
+    for (i = 1; i < 5; i++) {
+      Array.prototype.push.apply(paths, getItemPaths(`${title}_${i}`, type));
+    }
+  } else {
+    paths = getItemPaths(title, type);
   }
 
-  const isDeleted = await files.every(deleteImage);
+  const isDeleted = await paths.every(deleteImage);
   return isDeleted;
 };

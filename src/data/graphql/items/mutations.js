@@ -87,7 +87,10 @@ export const resolvers = {
 
       const oldTitle = oldItem.title;
       if (pictures.length > 0) {
-        const imageDeleted = await imageService.deleteImages(oldTitle, type);
+        const imageDeleted = await imageService.deleteItemImages(
+          oldTitle,
+          type,
+        );
 
         if (!imageDeleted)
           throw new Error(`Echec de la suppression des anciennes images`);
@@ -116,7 +119,7 @@ export const resolvers = {
       const item = await service.getItemById(id, type);
       if (!item) throw new Error('Item absent en BDD');
 
-      const isDeleted = await imageService.deleteImages(item.title, type);
+      const isDeleted = await imageService.deleteItemImages(item.title, type);
       if (!isDeleted) throw new Error(`Echec de la suppression des images`);
       else {
         service

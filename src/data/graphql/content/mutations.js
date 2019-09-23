@@ -49,8 +49,12 @@ export const resolvers = {
 
       if (!isAdmin) throw new Error("Erreur d'authentification");
 
-      const type = CONTENT_CONSTANTS.TYPE;
-      const res = await imageService.processImageUpload(picture, title, type);
+      const pictures = [picture];
+      const res = await imageService.processImageUpload(
+        pictures,
+        title,
+        CONTENT_CONSTANTS.TYPE,
+      );
 
       if (!res) throw new Error("Erreur à l'écriture des fichiers");
 
