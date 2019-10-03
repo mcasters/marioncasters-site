@@ -1,6 +1,6 @@
 import * as imageService from '../../../imageServices';
-import getAuthenticatedUser from '../services/authentication';
-import * as service from '../services/item';
+import getAuthenticatedUser from '../services/authService';
+import ItemService from '../services/ItemService';
 
 export const types = [
   `
@@ -46,23 +46,23 @@ export const resolvers = {
       { req },
     ) {
       const isAdmin = await getAuthenticatedUser(req);
-
       if (!isAdmin) throw new Error("Erreur d'authentification");
 
       const { title } = data;
+      const itemService = new ItemService(type);
 
-      const item = await service.getItemByName(title, type);
-
+      const item = await itemService.getByName(title);
       if (item) throw new Error("Nom de l'item déjà existant en Bdd");
 
       const res = await imageService.processImageUpload(pictures, title, type);
-
       if (!res) throw new Error("Erreur à l'écriture des fichiers");
 
-      const newItem = await service.addItemInBdd(data, type);
+      const newItem = await itemService.add(data, type);
 
-      if (!newItem)
+      if (!newItem) {
+        imageService.deleteItemImages(title, type);
         throw new Error("Erreur à l'enregistrement en base de donnée");
+      }
       return newItem;
     },
 
@@ -77,11 +77,13 @@ export const resolvers = {
       const isAdmin = await getAuthenticatedUser(req);
       if (!isAdmin) throw new Error("Erreur d'authentification");
 
-      const oldItem = await service.getItemById(id, type);
+      const itemService = new ItemService(type);
+
+      const oldItem = await itemService.getById(id);
       if (!oldItem) throw new Error('Item à modifier introuvable en BDD');
 
       const { title } = data;
-      const itemByName = await service.getItemByName(title, type);
+      const itemByName = await itemService.getByName(title, type);
       if (itemByName && itemByName.id !== id)
         throw new Error("Nom d'item déjà existant en Bdd");
 
@@ -106,9 +108,11 @@ export const resolvers = {
         if (!res) throw new Error('Erreur au renommage des fichiers');
       }
 
-      const updatedItem = await service.updateItemInBdd(id, data, type);
+      const updatedItem = await itemService.update(id, data);
+
       if (!updatedItem)
         throw new Error("Erreur à l'enregistrement en base de donnée");
+
       return updatedItem;
     },
 
@@ -116,14 +120,15 @@ export const resolvers = {
       const isAdmin = await getAuthenticatedUser(req);
       if (!isAdmin) throw new Error("Erreur d'authentification");
 
-      const item = await service.getItemById(id, type);
+      const itemService = new ItemService(type);
+      const item = await itemService.getById(id);
       if (!item) throw new Error('Item absent en BDD');
 
       const isDeleted = await imageService.deleteItemImages(item.title, type);
       if (!isDeleted) throw new Error(`Echec de la suppression des images`);
       else {
-        service
-          .deleteItemInBdd(id, type)
+        itemService
+          .delete(id)
           .then(res => res)
           .catch(() => {
             throw new Error('Echec de la suppression en Bdd');

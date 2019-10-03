@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import { Content } from '../../models';
-import getAuthenticatedUser from '../services/authentication';
+import getAuthenticatedUser from '../services/authService';
 import CONTENT_CONSTANTS from '../../../constants/contentConstants';
 import * as imageService from '../../../imageServices';
 

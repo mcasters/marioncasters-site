@@ -17,25 +17,26 @@ export const getAllImages = async dirPath => {
 };
 
 const getItemPaths = (title, type) => {
+  const file = `${title}.jpg`;
   if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
     return [
-      `${config.sculpturesPath}/${title}.jpg`,
-      `${config.sculpturesMDPath}/${title}.jpg`,
-      `${config.sculpturesSMPath}/${title}.jpg`,
+      `${config.sculpturesPath}/${file}`,
+      `${config.sculpturesMDPath}/${file}`,
+      `${config.sculpturesSMPath}/${file}`,
     ];
 
   if (type === ITEM_CONSTANTS.TYPE.DRAWING)
     return [
-      `${config.drawingsPath}/${title}.jpg`,
-      `${config.drawingsMDPath}/${title}.jpg`,
-      `${config.drawingsSMPath}/${title}.jpg`,
+      `${config.drawingsPath}/${file}`,
+      `${config.drawingsMDPath}/${file}`,
+      `${config.drawingsSMPath}/${file}`,
     ];
 
   if (type === ITEM_CONSTANTS.TYPE.PAINTING)
     return [
-      `${config.paintingsPath}/${title}.jpg`,
-      `${config.paintingsMDPath}/${title}.jpg`,
-      `${config.paintingsSMPath}/${title}.jpg`,
+      `${config.paintingsPath}/${file}`,
+      `${config.paintingsMDPath}/${file}`,
+      `${config.paintingsSMPath}/${file}`,
     ];
   return null;
 };
@@ -98,11 +99,8 @@ export const processImageUpload = async (pictures, title, type) => {
   const { stream, mimetype } = await pictures[0];
 
   if (type === CONTENT_CONSTANTS.TYPE) {
-    let path;
-    if (mimetype === 'image/png')
-      path = `${config.miscellaneousPath}/${title}.png`;
-    if (mimetype === 'image/jpeg')
-      path = `${config.miscellaneousPath}/${title}.jpg`;
+    const extension = mimetype.split('/')[1];
+    const path = `${config.miscellaneousPath}/${title}.${extension}`;
     return storeImage({ stream }, path);
   }
   return storeItemImage({ stream }, type, title);
