@@ -5,12 +5,6 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import s from './Page.css';
 
 class Page extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    html: PropTypes.string.isRequired,
-    showTitle: PropTypes.bool.isRequired,
-  };
-
   render() {
     const { title, html, showTitle } = this.props;
     return (
@@ -24,5 +18,11 @@ class Page extends React.Component {
     );
   }
 }
+
+Page.propTypes = {
+  title: PropTypes.string.isRequired,
+  html: PropTypes.string.isRequired,
+  showTitle: PropTypes.bool.isRequired,
+};
 
 export default withStyles(s)(Page);

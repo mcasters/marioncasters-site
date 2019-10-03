@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
-import React, { Fragment } from 'react';
-import { Mutation } from 'react-apollo/index';
+import React from 'react';
+import { Mutation } from 'react-apollo';
 import PropTypes from 'prop-types';
 import { FaTrash } from 'react-icons/fa/index';
 import withStyles from 'isomorphic-style-loader/withStyles';
@@ -11,20 +11,13 @@ import s from './ItemDelete.css';
 import AlertContext from '../../../AlertContext/AlertContext';
 
 class ItemDelete extends React.Component {
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-  };
-
-  static contextType = AlertContext;
-
   render() {
     const { id, type } = this.props;
 
     return (
       <Mutation
         mutation={DELETE_ITEM}
-        update={(cache, { data: { deleteItem } }) => {
+        update={(cache, { data: deleteItem }) => {
           const { getAllItems } = cache.readQuery({
             query: GET_ITEMS_QUERY,
             variables: {
@@ -48,7 +41,7 @@ class ItemDelete extends React.Component {
         onCompleted={() => this.context.triggerAlert('Item supprimé', false)}
       >
         {mutation => (
-          <Fragment>
+          <>
             <form
               onSubmit={e => {
                 e.preventDefault();
@@ -59,11 +52,18 @@ class ItemDelete extends React.Component {
                 <FaTrash />
               </button>
             </form>
-          </Fragment>
+          </>
         )}
       </Mutation>
     );
   }
 }
+
+ItemDelete.propTypes = {
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+};
+
+ItemDelete.contextType = AlertContext;
 
 export default withStyles(s)(ItemDelete);

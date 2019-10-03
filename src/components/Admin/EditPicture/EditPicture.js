@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import { Mutation } from 'react-apollo/index';
+import { Mutation } from 'react-apollo';
 
 import s from './EditPicture.css';
 import ADD_PICTURE_MUTATION from '../../../data/graphql/queries/addPictureMutation.graphql';
@@ -11,12 +11,6 @@ import CONTENT_CONST from '../../../constants/contentConstants';
 import AlertContext from '../../AlertContext';
 
 class EditPicture extends React.Component {
-  static propTypes = {
-    pictureTitle: PropTypes.string.isRequired,
-  };
-
-  static contextType = AlertContext;
-
   constructor(props) {
     super(props);
     this.state = this.getInitialState();
@@ -123,5 +117,11 @@ class EditPicture extends React.Component {
     );
   }
 }
+
+EditPicture.propTypes = {
+  pictureTitle: PropTypes.string.isRequired,
+};
+
+EditPicture.contextType = AlertContext;
 
 export default withStyles(s)(EditPicture);

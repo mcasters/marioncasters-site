@@ -4,9 +4,13 @@ import { getScroll } from '../../../tools/lib/windowUtils';
 
 function withScrolling(ComposedComponent) {
   return class extends Component {
-    state = {
-      scroll: getScroll(),
-    };
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        scroll: getScroll(),
+      };
+    }
 
     componentDidMount() {
       window.addEventListener('scroll', this.updateScrolling);
@@ -24,6 +28,7 @@ function withScrolling(ComposedComponent) {
     };
 
     render() {
+      // eslint-disable-next-line react/jsx-props-no-spreading
       return <ComposedComponent {...this.props} scroll={this.state.scroll} />;
     }
   };

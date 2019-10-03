@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import { Mutation } from 'react-apollo/index';
+import { Mutation } from 'react-apollo';
 
 import ADD_CONTENT_MUTATION from '../../../data/graphql/queries/addContentMutation.graphql';
 import s from './EditContent.css';
@@ -9,14 +9,6 @@ import GET_CONTENT_QUERY from '../../../data/graphql/queries/getContent.graphql'
 import AlertContext from '../../AlertContext';
 
 class MutateContent extends React.Component {
-  static propTypes = {
-    keyContent: PropTypes.string.isRequired,
-    isTextArea: PropTypes.bool.isRequired,
-    initialContent: PropTypes.string.isRequired,
-  };
-
-  static contextType = AlertContext;
-
   constructor(props) {
     super(props);
 
@@ -39,7 +31,7 @@ class MutateContent extends React.Component {
     return (
       <Mutation
         mutation={ADD_CONTENT_MUTATION}
-        update={(cache, { data: { addContent } }) => {
+        update={(cache, { data: addContent }) => {
           cache.writeQuery({
             query: GET_CONTENT_QUERY,
             variables: {
@@ -54,7 +46,7 @@ class MutateContent extends React.Component {
       >
         {mutation => {
           return (
-            <Fragment>
+            <>
               <form
                 className="formGroup"
                 onSubmit={e => {
@@ -94,12 +86,20 @@ class MutateContent extends React.Component {
                 )}
                 <button type="submit">OK</button>
               </form>
-            </Fragment>
+            </>
           );
         }}
       </Mutation>
     );
   }
 }
+
+MutateContent.propTypes = {
+  keyContent: PropTypes.string.isRequired,
+  isTextArea: PropTypes.bool.isRequired,
+  initialContent: PropTypes.string.isRequired,
+};
+
+MutateContent.contextType = AlertContext;
 
 export default withStyles(s)(MutateContent);

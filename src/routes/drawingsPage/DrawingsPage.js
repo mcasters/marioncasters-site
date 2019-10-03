@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Query } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
@@ -9,10 +9,6 @@ import s from './DrawingsPage.css';
 import GET_ITEMS_QUERY from '../../data/graphql/queries/getAllItems.graphql';
 
 class DrawingsPage extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-  };
-
   render() {
     const type = ITEM_CONST.TYPE.DRAWING;
     return (
@@ -22,17 +18,21 @@ class DrawingsPage extends React.Component {
           if (error) return <p>Erreur de chargement : {error}</p>;
 
           return (
-            <Fragment>
+            <>
               <h1 className={s.title}>{this.props.title}</h1>
               {data.getAllItems.map(drawing => (
                 <Item key={drawing.id} item={drawing} type={type} />
               ))}
-            </Fragment>
+            </>
           );
         }}
       </Query>
     );
   }
 }
+
+DrawingsPage.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default withStyles(s)(DrawingsPage);

@@ -1,5 +1,5 @@
 /* eslint-disable css-modules/no-unused-class */
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import normalizeCss from '../../../../node_modules/normalize.css/normalize.css';
@@ -18,19 +18,12 @@ import AppContext from '../../../context';
 import Main from '../Main';
 
 class Layout extends React.Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    viewport: PropTypes.shape({
-      width: PropTypes.number.isRequired,
-      height: PropTypes.number.isRequired,
-    }).isRequired,
-  };
-
-  static contextType = AppContext;
-
-  state = {
-    headerHeight: 0,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      headerHeight: 0,
+    };
+  }
 
   render() {
     const isHome =
@@ -68,22 +61,32 @@ class Layout extends React.Component {
     const footer = <Footer />;
 
     return isLessThanMD ? (
-      <Fragment>
+      <>
         {navigation}
         {header}
         {main}
         {footer}
-      </Fragment>
+      </>
     ) : (
-      <Fragment>
+      <>
         {header}
         {navigation}
         {main}
         {footer}
-      </Fragment>
+      </>
     );
   }
 }
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+  viewport: PropTypes.shape({
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+Layout.contextType = AppContext;
 
 export default withStyles(
   normalizeCss,

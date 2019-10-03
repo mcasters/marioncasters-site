@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
@@ -13,19 +13,6 @@ import LAYOUT_CONSTANTS from '../../constants/layoutConstants';
 Modal.setAppElement('#app');
 
 class LightBoxProvider extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    srcList: PropTypes.array,
-    src: PropTypes.string,
-    toggle: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    srcList: [],
-    src: '',
-  };
-
   constructor(props) {
     super(props);
 
@@ -44,7 +31,7 @@ class LightBoxProvider extends React.Component {
 
     if (type === ITEM_CONST.TYPE.SCULPTURE) {
       return (
-        <Fragment>
+        <>
           <Lightbox
             mainSrc={srcList[photoIndex]}
             nextSrc={srcList[(photoIndex + 1) % srcList.length]}
@@ -67,12 +54,12 @@ class LightBoxProvider extends React.Component {
             imagePadding={LIGHTBOX_PADDING}
             imageMobilePadding={LIGHTBOX_MOBILE_PADDING}
           />
-        </Fragment>
+        </>
       );
     }
 
     return (
-      <Fragment>
+      <>
         <Lightbox
           mainSrc={src}
           onCloseRequest={() => this.close()}
@@ -80,9 +67,22 @@ class LightBoxProvider extends React.Component {
           imagePadding={LIGHTBOX_PADDING}
           imageMobilePadding={LIGHTBOX_MOBILE_PADDING}
         />
-      </Fragment>
+      </>
     );
   }
 }
+
+LightBoxProvider.propTypes = {
+  title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  srcList: PropTypes.array,
+  src: PropTypes.string,
+  toggle: PropTypes.func.isRequired,
+};
+
+LightBoxProvider.defaultProps = {
+  srcList: [],
+  src: '',
+};
 
 export default LightBoxProvider;

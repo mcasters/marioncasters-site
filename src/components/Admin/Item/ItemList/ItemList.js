@@ -9,10 +9,6 @@ import s from './ItemList.css';
 import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
 
 class ItemList extends React.Component {
-  static propTypes = {
-    type: PropTypes.string.isRequired,
-  };
-
   getUrlImages = itemTitle => {
     const imagesForItem = [];
     if (this.props.type === ITEM_CONST.TYPE.SCULPTURE) {
@@ -52,12 +48,13 @@ class ItemList extends React.Component {
                     <th>Largeur</th>
                     {isSculpture && <th>Longueur</th>}
                     <th>Image</th>
-                    <th />
-                    <th />
+                    <th> </th>
+                    <th> </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {data.getAllItems !== undefined &&
+                  {data &&
+                    data.getAllItems !== undefined &&
                     data.getAllItems.map(item => (
                       <ItemRow
                         key={item.id}
@@ -75,5 +72,9 @@ class ItemList extends React.Component {
     );
   }
 }
+
+ItemList.propTypes = {
+  type: PropTypes.string.isRequired,
+};
 
 export default withStyles(s)(ItemList);

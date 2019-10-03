@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import { Mutation, Query } from 'react-apollo/index';
+import { Mutation, Query } from 'react-apollo';
 
 import ADD_CONTENT_MUTATION from '../../../data/graphql/queries/addContentMutation.graphql';
 import s from './EditContent.css';
@@ -9,18 +9,11 @@ import GET_CONTENT from '../../../data/graphql/queries/getContent.graphql';
 import AlertContext from '../../AlertContext';
 
 class Edit extends React.Component {
-  static propTypes = {
-    keyContent: PropTypes.string.isRequired,
-    isTextArea: PropTypes.bool.isRequired,
-  };
-
-  static contextType = AlertContext;
-
   render() {
     const { keyContent, isTextArea } = this.props;
 
     return (
-      <Query query={GET_CONTENT} variables={{ keyContent }} ssr>
+      <Query query={GET_CONTENT} variables={keyContent} ssr>
         {({ loading, error, data }) => {
           if (loading) return <p>Chargement...</p>;
           if (error) return <p>Error :(</p>;
@@ -44,7 +37,7 @@ class Edit extends React.Component {
                 >
                   {mutation => {
                     return (
-                      <Fragment>
+                      <>
                         <form
                           className="formGroup"
                           onSubmit={e => {
@@ -83,7 +76,7 @@ class Edit extends React.Component {
                           )}
                           <button type="submit">OK</button>
                         </form>
-                      </Fragment>
+                      </>
                     );
                   }}
                 </Mutation>
@@ -96,5 +89,12 @@ class Edit extends React.Component {
     );
   }
 }
+
+Edit.propTypes = {
+  keyContent: PropTypes.string.isRequired,
+  isTextArea: PropTypes.bool.isRequired,
+};
+
+Edit.contextType = AlertContext;
 
 export default withStyles(s)(Edit);

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import { Query } from 'react-apollo';
 
@@ -10,7 +10,6 @@ import GET_ADMIN_STATUS_QUERY from '../../data/graphql/queries/getAdminStatusQue
 class LoginControl extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       login: false,
     };
@@ -34,13 +33,15 @@ class LoginControl extends React.Component {
   render() {
     return (
       <Query query={GET_ADMIN_STATUS_QUERY}>
-        {({ data: { adminStatus } }) => {
-          return adminStatus !== undefined && adminStatus.isConnected ? (
+        {({ data: adminStatus }) => {
+          return adminStatus !== null &&
+            adminStatus !== undefined &&
+            adminStatus.isConnected ? (
             <Link className={s.link} to="/admin">
               Admin
             </Link>
           ) : (
-            <Fragment>
+            <>
               <button
                 type="button"
                 className={s.loginLink}
@@ -51,7 +52,7 @@ class LoginControl extends React.Component {
                 Admin in
               </button>
               {this.state.login && <LoginDialog onClose={this.closeLogin} />}
-            </Fragment>
+            </>
           );
         }}
       </Query>

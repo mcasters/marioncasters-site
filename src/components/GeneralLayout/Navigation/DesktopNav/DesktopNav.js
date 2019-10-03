@@ -9,13 +9,13 @@ import logoUrl2x from '../logo-100.png';
 import ROUTER_CONSTANTS from '../../../../constants/routerConstants';
 
 class DesktopNav extends React.Component {
-  static propTypes = {
-    isHome: PropTypes.bool.isRequired,
-  };
+  constructor(props) {
+    super(props);
 
-  state = {
-    location: '',
-  };
+    this.state = {
+      location: '',
+    };
+  }
 
   componentDidMount() {
     this.updateLocation();
@@ -95,5 +95,9 @@ class DesktopNav extends React.Component {
     );
   }
 }
+
+DesktopNav.propTypes = {
+  isHome: PropTypes.bool.isRequired,
+};
 
 export default withStyles(s)(DesktopNav);

@@ -28,22 +28,6 @@ const customStyles = {
 Modal.setAppElement('#app');
 
 class UpdateDialog extends React.Component {
-  static propTypes = {
-    item: PropTypes.shape({
-      id: PropTypes.string,
-      title: PropTypes.string,
-      date: PropTypes.string,
-      technique: PropTypes.string,
-      description: PropTypes.string,
-      height: PropTypes.number,
-      width: PropTypes.number,
-      length: PropTypes.number,
-    }).isRequired,
-    type: PropTypes.string.isRequired,
-    srcList: PropTypes.array.isRequired,
-    onResult: PropTypes.func.isRequired,
-  };
-
   constructor(props) {
     super(props);
 
@@ -146,7 +130,7 @@ class UpdateDialog extends React.Component {
     return (
       <Mutation
         mutation={UPDATE_MUTATION}
-        update={(cache, { data: { updateItem } }) => {
+        update={(cache, { data: updateItem }) => {
           const { getAllItems } = cache.readQuery({
             query: GET_ITEMS_QUERY,
             variables: {
@@ -313,5 +297,21 @@ class UpdateDialog extends React.Component {
     );
   }
 }
+
+UpdateDialog.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    date: PropTypes.string,
+    technique: PropTypes.string,
+    description: PropTypes.string,
+    height: PropTypes.number,
+    width: PropTypes.number,
+    length: PropTypes.number,
+  }).isRequired,
+  type: PropTypes.string.isRequired,
+  srcList: PropTypes.array.isRequired,
+  onResult: PropTypes.func.isRequired,
+};
 
 export default withStyles(s)(UpdateDialog);

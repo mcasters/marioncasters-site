@@ -11,18 +11,6 @@ function isModifiedEvent(event) {
 }
 
 class Link extends React.Component {
-  static propTypes = {
-    to: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
-    onClick: PropTypes.func,
-    target: PropTypes.string,
-  };
-
-  static defaultProps = {
-    onClick: null,
-    target: null,
-  };
-
   handleClick = event => {
     if (this.props.onClick) {
       this.props.onClick(event);
@@ -51,5 +39,17 @@ class Link extends React.Component {
     );
   }
 }
+
+Link.propTypes = {
+  to: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
+  target: PropTypes.string,
+};
+
+Link.defaultProps = {
+  onClick: null,
+  target: null,
+};
 
 export default Link;

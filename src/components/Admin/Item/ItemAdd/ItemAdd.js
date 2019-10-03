@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import { Mutation } from 'react-apollo/index';
+import { Mutation } from 'react-apollo';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { formatDate, parseDate } from 'react-day-picker/moment';
 
@@ -12,12 +12,6 @@ import ITEM_CONST from '../../../../constants/itemConstants';
 import AlertContext from '../../../AlertContext/AlertContext';
 
 class ItemAdd extends React.Component {
-  static propTypes = {
-    type: PropTypes.string.isRequired,
-  };
-
-  static contextType = AlertContext;
-
   constructor(props) {
     super(props);
     this.isSculpture = this.props.type === ITEM_CONST.TYPE.SCULPTURE;
@@ -104,7 +98,7 @@ class ItemAdd extends React.Component {
     return (
       <Mutation
         mutation={ADD_ITEM_MUTATION}
-        update={(cache, { data: { addItem } }) => {
+        update={(cache, { data: addItem }) => {
           const { getAllItems } = cache.readQuery({
             query: GET_ITEMS_QUERY,
             variables: {
@@ -239,5 +233,11 @@ class ItemAdd extends React.Component {
     );
   }
 }
+
+ItemAdd.propTypes = {
+  type: PropTypes.string.isRequired,
+};
+
+ItemAdd.contextType = AlertContext;
 
 export default withStyles(s)(ItemAdd);

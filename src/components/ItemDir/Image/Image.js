@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
@@ -9,14 +9,6 @@ import withViewport from '../../WithViewport';
 import LightBoxProvider from '../../LightBoxProvider';
 
 class Image extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    viewport: PropTypes.shape({
-      width: PropTypes.number.isRequired,
-    }).isRequired,
-  };
-
   constructor(props) {
     super(props);
 
@@ -88,7 +80,7 @@ class Image extends React.Component {
       const currentSrcList = this.getSrcList(title, true);
       const largeSrcList = this.getSrcList(title, false);
       return (
-        <Fragment>
+        <>
           <div>
             {currentSrcList.map(src => (
               <button
@@ -113,14 +105,14 @@ class Image extends React.Component {
               toggle={this.lightBoxHandler}
             />
           )}
-        </Fragment>
+        </>
       );
     }
 
     const currentSrc = this.getSrc(title, true);
     const largeSrc = this.getSrc(title, false);
     return (
-      <Fragment>
+      <>
         <button
           type="button"
           className={s.imageButton}
@@ -145,9 +137,17 @@ class Image extends React.Component {
             toggle={this.lightBoxHandler}
           />
         )}
-      </Fragment>
+      </>
     );
   }
 }
+
+Image.propTypes = {
+  title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  viewport: PropTypes.shape({
+    width: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default withStyles(s)(withViewport(Image));

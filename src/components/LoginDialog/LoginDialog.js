@@ -25,10 +25,6 @@ const customStyles = {
 Modal.setAppElement('#app');
 
 class LoginDialog extends React.Component {
-  static propTypes = {
-    onClose: PropTypes.func.isRequired,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -125,5 +121,9 @@ class LoginDialog extends React.Component {
     );
   }
 }
+
+LoginDialog.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
 
 export default withStyles(s)(LoginDialog);

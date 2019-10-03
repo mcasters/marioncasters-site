@@ -7,10 +7,6 @@ import Content from '../../components/Content';
 import CONTENT_CONST from '../../constants/contentConstants';
 
 class Home extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-  };
-
   render() {
     const { title } = this.props;
     return (
@@ -23,5 +19,9 @@ class Home extends React.Component {
     );
   }
 }
+
+Home.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default withStyles(s)(Home);

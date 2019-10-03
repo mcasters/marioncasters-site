@@ -8,14 +8,6 @@ import s from './ItemUpdate.css';
 import AlertContext from '../../../AlertContext/AlertContext';
 
 class ItemUpdate extends React.Component {
-  static propTypes = {
-    item: PropTypes.shape().isRequired,
-    type: PropTypes.string.isRequired,
-    srcList: PropTypes.array.isRequired,
-  };
-
-  static contextType = AlertContext;
-
   constructor(props) {
     super(props);
 
@@ -54,5 +46,13 @@ class ItemUpdate extends React.Component {
     );
   }
 }
+
+ItemUpdate.propTypes = {
+  item: PropTypes.shape().isRequired,
+  type: PropTypes.string.isRequired,
+  srcList: PropTypes.array.isRequired,
+};
+
+ItemUpdate.contextType = AlertContext;
 
 export default withStyles(s)(ItemUpdate);

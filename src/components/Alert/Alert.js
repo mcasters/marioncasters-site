@@ -35,12 +35,6 @@ Modal.setAppElement('#app');
 class Alert extends React.Component {
   isMounted = false;
 
-  static propTypes = {
-    message: PropTypes.string.isRequired,
-    isError: PropTypes.bool.isRequired,
-    clearAlert: PropTypes.func.isRequired,
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -92,5 +86,11 @@ class Alert extends React.Component {
     );
   }
 }
+
+Alert.propTypes = {
+  message: PropTypes.string.isRequired,
+  isError: PropTypes.bool.isRequired,
+  clearAlert: PropTypes.func.isRequired,
+};
 
 export default Alert;

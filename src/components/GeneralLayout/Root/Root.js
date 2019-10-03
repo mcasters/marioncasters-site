@@ -6,10 +6,6 @@ import AlertContext from '../../AlertContext/AlertContext';
 import Layout from '../Layout';
 
 class Root extends React.Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-  };
-
   constructor(props) {
     super(props);
 
@@ -55,5 +51,9 @@ class Root extends React.Component {
     );
   }
 }
+
+Root.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Root;

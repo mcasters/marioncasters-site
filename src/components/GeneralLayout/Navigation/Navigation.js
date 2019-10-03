@@ -5,20 +5,20 @@ import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
 
 class Navigation extends React.Component {
-  static propTypes = {
-    isLessThanMD: PropTypes.bool.isRequired,
-    isHome: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    isHome: false,
-  };
-
   render() {
     const { isLessThanMD, isHome } = this.props;
 
     return isLessThanMD ? <MobileNav /> : <DesktopNav isHome={isHome} />;
   }
 }
+
+Navigation.propTypes = {
+  isLessThanMD: PropTypes.bool.isRequired,
+  isHome: PropTypes.bool,
+};
+
+Navigation.defaultProps = {
+  isHome: false,
+};
 
 export default Navigation;

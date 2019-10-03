@@ -7,19 +7,6 @@ import ITEM_CONST from '../../../constants/itemConstants';
 import Image from '../Image';
 
 class Item extends React.Component {
-  static propTypes = {
-    item: PropTypes.shape({
-      title: PropTypes.string,
-      date: PropTypes.string,
-      technique: PropTypes.string,
-      description: PropTypes.string,
-      height: PropTypes.number,
-      width: PropTypes.number,
-      length: PropTypes.number,
-    }).isRequired,
-    type: PropTypes.string.isRequired,
-  };
-
   render() {
     const { item, type } = this.props;
 
@@ -47,5 +34,18 @@ class Item extends React.Component {
     );
   }
 }
+
+Item.propTypes = {
+  item: PropTypes.shape({
+    title: PropTypes.string,
+    date: PropTypes.string,
+    technique: PropTypes.string,
+    description: PropTypes.string,
+    height: PropTypes.number,
+    width: PropTypes.number,
+    length: PropTypes.number,
+  }).isRequired,
+  type: PropTypes.string.isRequired,
+};
 
 export default withStyles(s)(Item);

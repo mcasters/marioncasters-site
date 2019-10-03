@@ -6,14 +6,6 @@ import PropTypes from 'prop-types';
 import s from './Main.css';
 
 class Main extends React.Component {
-  static propTypes = {
-    isHome: PropTypes.bool.isRequired,
-    isLessThanMD: PropTypes.bool.isRequired,
-    height: PropTypes.number.isRequired,
-    headerHeight: PropTypes.number.isRequired,
-    children: PropTypes.node.isRequired,
-  };
-
   render() {
     const { isHome, isLessThanMD, height, headerHeight, children } = this.props;
     const adaptedHeight = isLessThanMD
@@ -30,5 +22,13 @@ class Main extends React.Component {
     );
   }
 }
+
+Main.propTypes = {
+  isHome: PropTypes.bool.isRequired,
+  isLessThanMD: PropTypes.bool.isRequired,
+  height: PropTypes.number.isRequired,
+  headerHeight: PropTypes.number.isRequired,
+  children: PropTypes.node.isRequired,
+};
 
 export default withStyles(s)(Radium(Main));

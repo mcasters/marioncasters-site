@@ -7,12 +7,6 @@ import GLOB_CONST from '../../../constants/globalConstants';
 import WithScrolling from '../../WithScrolling';
 
 class Header extends React.Component {
-  static propTypes = {
-    isHome: PropTypes.bool.isRequired,
-    scroll: PropTypes.number.isRequired,
-    getHeight: PropTypes.func.isRequired,
-  };
-
   refCallback = element => {
     if (element) {
       const { height } = element.getBoundingClientRect();
@@ -46,4 +40,10 @@ class Header extends React.Component {
     );
   }
 }
+
+Header.propTypes = {
+  isHome: PropTypes.bool.isRequired,
+  scroll: PropTypes.number.isRequired,
+  getHeight: PropTypes.func.isRequired,
+};
 export default withStyles(s)(WithScrolling(Header));

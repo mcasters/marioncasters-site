@@ -9,21 +9,6 @@ import ItemDelete from '../ItemDelete';
 import ItemUpdate from '../ItemUpdate';
 
 class ItemRow extends React.Component {
-  static propTypes = {
-    item: PropTypes.shape({
-      id: PropTypes.string,
-      title: PropTypes.string,
-      date: PropTypes.string,
-      technique: PropTypes.string,
-      description: PropTypes.string,
-      height: PropTypes.number,
-      width: PropTypes.number,
-      length: PropTypes.number,
-    }).isRequired,
-    srcList: PropTypes.array.isRequired,
-    type: PropTypes.string.isRequired,
-  };
-
   render() {
     const { item, srcList, type } = this.props;
     const isSculpture = type === ITEM_CONSTANTS.TYPE.SCULPTURE;
@@ -61,5 +46,20 @@ class ItemRow extends React.Component {
     );
   }
 }
+
+ItemRow.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    date: PropTypes.string,
+    technique: PropTypes.string,
+    description: PropTypes.string,
+    height: PropTypes.number,
+    width: PropTypes.number,
+    length: PropTypes.number,
+  }).isRequired,
+  srcList: PropTypes.array.isRequired,
+  type: PropTypes.string.isRequired,
+};
 
 export default withStyles(s)(ItemRow);
