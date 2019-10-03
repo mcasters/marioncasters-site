@@ -24,12 +24,7 @@ export const queries = [
      type: String!
   ): [Item]
   
-  getItemsByYear(
-    year: Int!
-    type: String!
-  ): [Item]
-  
-  getItemsByHalfYear(
+  getItemsByPart(
     year: Int!
     type: String!
     half: Int!
@@ -54,50 +49,17 @@ export const resolvers = {
       return paintings;
     },
 
-    async getItemsByYear(parent, { type, year }) {
-      const start = new Date(year, 0, 1);
-      const end = new Date(year, 11, 31);
-      let items;
-
-      if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
-        items = Sculpture.findAll({
-          where: {
-            date: {
-              gte: start,
-              lte: end,
-            },
-          },
-          order: Sequelize.col('date'),
-        });
-
-      if (type === ITEM_CONSTANTS.TYPE.DRAWING)
-        items = await Painting.findAll({
-          where: {
-            date: {
-              gte: start,
-              lte: end,
-            },
-          },
-          order: Sequelize.col('date'),
-        });
-
-      items = await Painting.findAll({
-        where: {
-          date: {
-            gte: start,
-            lte: end,
-          },
-        },
-        order: Sequelize.col('date'),
-      });
-
-      return items;
-    },
-
-    async getItemsByHalfYear(parent, { type, year, half }) {
+    // O = one year
+    // 1 = first semester
+    // 2 = second semester
+    async getItemsByPart(parent, { type, year, half }) {
       let start;
       let end;
-      if (half === 1) {
+
+      if (half === 0) {
+        start = new Date(year, 0, 1);
+        end = new Date(year, 11, 31);
+      } else if (half === 1) {
         start = new Date(year, 0, 1);
         end = new Date(year, 5, 31);
       } else {

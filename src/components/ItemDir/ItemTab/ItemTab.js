@@ -1,92 +1,36 @@
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Query } from 'react-apollo';
+import { useQuery } from 'react-apollo';
 import withStyles from 'isomorphic-style-loader/withStyles';
-
-import ITEM_CONST from '../../../constants/itemConstants';
-import GET_ITEMS_BY_YEAR_QUERY from '../../../data/graphql/queries/getItemsByYear.graphql';
-import GET_ITEMS_BY_HALF_YEAR_QUERY from '../../../data/graphql/queries/getItemsByHalfYear.graphql';
+import GET_ITEMS_BY_PART_QUERY from '../../../data/graphql/queries/getItemsByPart.graphql';
 import Item from '../Item/Item';
 import s from './ItemTab.css';
 import Alert from '../../Alert';
 
-class ItemTab extends React.Component {
-  scrollTop = () => {
+function ItemTab(props) {
+  const scrollTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
 
-  render() {
-    const { year, half, type } = this.props;
+  const { data, loading, error } = useQuery(GET_ITEMS_BY_PART_QUERY, {
+    variables: { year: props.year, type: props.type, half: props.half },
+  });
 
-    return half === 0 ? (
-      <Query query={GET_ITEMS_BY_YEAR_QUERY} variables={{ year, type }} ssr>
-        {({ loading, error, data }) => {
-          if (loading) return <div className={s.loading}>Chargement...</div>;
+  if (loading) return <div className={s.loading}>Chargement...</div>;
+  if (error) return <Alert message="Erreur au chargement des items" isError />;
 
-          return (
-            <>
-              <h2 className={s.titleTab}>{year}</h2>
-              {data.getItemsByYear.map(item => {
-                return (
-                  <Item
-                    key={item.title}
-                    item={item}
-                    type={ITEM_CONST.TYPE.PAINTING}
-                  />
-                );
-              })}
-              {error && (
-                <Alert message="Erreur au chargement des items" isError />
-              )}
-              <button
-                type="button"
-                className={s.buttonLink}
-                onClick={this.scrollTop}
-              >
-                Haut de page
-              </button>
-            </>
-          );
-        }}
-      </Query>
-    ) : (
-      <Query
-        query={GET_ITEMS_BY_HALF_YEAR_QUERY}
-        variables={{ year, type, half }}
-        ssr
-      >
-        {({ loading, error, data }) => {
-          if (loading) return <div className={s.loading}>Chargement...</div>;
-
-          return (
-            <>
-              <h2 className={s.titleTab}>{year}</h2>
-              {data.getItemsByHalfYear.map(item => {
-                return (
-                  <Item
-                    key={item.title}
-                    item={item}
-                    type={ITEM_CONST.TYPE.PAINTING}
-                  />
-                );
-              })}
-              {error && (
-                <Alert message="Erreur au chargement des items" isError />
-              )}
-              <button
-                type="button"
-                className={s.buttonLink}
-                onClick={this.scrollTop}
-              >
-                Haut de page
-              </button>
-            </>
-          );
-        }}
-      </Query>
-    );
-  }
+  return (
+    <>
+      <h2 className={s.titleTab}>{props.year}</h2>
+      {data &&
+        data.getItemsByPart.map(item => {
+          return <Item key={item.title} item={item} type={props.type} />;
+        })}
+      <button type="button" className={s.buttonLink} onClick={scrollTop}>
+        Haut de page
+      </button>
+    </>
+  );
 }
 
 ItemTab.propTypes = {
