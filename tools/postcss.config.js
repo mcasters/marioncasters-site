@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 
 const isDebug = !process.argv.includes('--release');
-const pkg = require('../package.json');
 
 module.exports = () => ({
   // The list of plugins for PostCSS
@@ -52,7 +51,6 @@ module.exports = () => ({
     // Add vendor prefixes to CSS rules using values from caniuse.com
     // https://github.com/postcss/autoprefixer
     require('autoprefixer')({
-      browsers: pkg.browserslist,
       flexbox: 'no-2009',
     }),
     // CSS Nano options http://cssnano.co/
