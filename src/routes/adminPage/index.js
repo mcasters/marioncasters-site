@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Root from '../../components/GeneralLayout/Root';
+import Root from '../../components/LayoutRep/Root';
 import AdminPage from './AdminPage';
 import GET_ADMIN_STATUS_QUERY from '../../data/graphql/queries/getAdminStatusQuery.graphql';
 import ROUTER_CONSTANTS from '../../constants/routerConstants';

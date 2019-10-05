@@ -1,6 +1,6 @@
 import React from 'react';
 import Register from './Register';
-import Root from '../../components/GeneralLayout/Root';
+import Root from '../../components/LayoutRep/Root';
 
 const title = 'New User Registration';
 

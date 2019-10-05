@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Page from '../../components/GeneralLayout/Page';
+import Page from '../../components/LayoutRep/Page';
 import META_HTML_CONSTANTS from '../../constants/metaHtmlConstants';
 import privacy from './privacy.md';
-import Root from '../../components/GeneralLayout/Root';
+import Root from '../../components/LayoutRep/Root';
 
 function action() {
   const { title } = privacy;
@@ -15,6 +15,7 @@ function action() {
     chunks: ['privacy'],
     component: (
       <Root>
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <Page {...privacy} showTitle />
       </Root>
     ),
