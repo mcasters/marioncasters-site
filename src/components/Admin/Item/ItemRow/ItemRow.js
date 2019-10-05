@@ -8,43 +8,40 @@ import s from './ItemRow.css';
 import ItemDelete from '../ItemDelete';
 import ItemUpdate from '../ItemUpdate';
 
-class ItemRow extends React.Component {
-  render() {
-    const { item, srcList, type } = this.props;
-    const isSculpture = type === ITEM_CONSTANTS.TYPE.SCULPTURE;
+function ItemRow({ item, srcList, type }) {
+  const isSculpture = type === ITEM_CONSTANTS.TYPE.SCULPTURE;
 
-    let alt;
-    if (isSculpture) {
-      alt = ITEM_CONSTANTS.ALT_IMAGE_SCULPTURE;
-    } else {
-      alt =
-        type === ITEM_CONSTANTS.TYPE.PAINTING
-          ? ITEM_CONSTANTS.ALT_IMAGE_PAINTING
-          : ITEM_CONSTANTS.ALT_IMAGE_DRAWING;
-    }
-    const src = srcList[0];
-
-    return (
-      <tr className={s.row}>
-        <th>{item.title}</th>
-        <th>{moment(item.date).format(ITEM_CONSTANTS.FORMAT_DATE)}</th>
-        <th>{item.technique}</th>
-        <th>{item.description}</th>
-        <th>{item.height}</th>
-        <th>{item.width}</th>
-        {isSculpture && <th>{item.length}</th>}
-        <th>
-          <img src={src} alt={alt} className={s.thumbnail} />
-        </th>
-        <th>
-          <ItemDelete id={item.id} type={type} />
-        </th>
-        <th>
-          <ItemUpdate item={item} type={type} srcList={srcList} />
-        </th>
-      </tr>
-    );
+  let alt;
+  if (isSculpture) {
+    alt = ITEM_CONSTANTS.ALT_IMAGE_SCULPTURE;
+  } else {
+    alt =
+      type === ITEM_CONSTANTS.TYPE.PAINTING
+        ? ITEM_CONSTANTS.ALT_IMAGE_PAINTING
+        : ITEM_CONSTANTS.ALT_IMAGE_DRAWING;
   }
+  const src = srcList[0];
+
+  return (
+    <tr className={s.row}>
+      <th>{item.title}</th>
+      <th>{moment(item.date).format(ITEM_CONSTANTS.FORMAT_DATE)}</th>
+      <th>{item.technique}</th>
+      <th>{item.description}</th>
+      <th>{item.height}</th>
+      <th>{item.width}</th>
+      {isSculpture && <th>{item.length}</th>}
+      <th>
+        <img src={src} alt={alt} className={s.thumbnail} />
+      </th>
+      <th>
+        <ItemDelete id={item.id} type={type} />
+      </th>
+      <th>
+        <ItemUpdate item={item} type={type} srcList={srcList} />
+      </th>
+    </tr>
+  );
 }
 
 ItemRow.propTypes = {
