@@ -9,6 +9,7 @@ import s from './Content.css';
 function Content({ keyContent }) {
   const { data, loading } = useQuery(GET_CONTENT, {
     variables: { keyContent },
+    ssr: true,
   });
   if (loading) return <p>Chargement...</p>;
 

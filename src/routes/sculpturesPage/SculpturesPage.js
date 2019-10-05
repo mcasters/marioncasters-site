@@ -13,6 +13,7 @@ function SculpturesPage({ title }) {
   const type = ITEM_CONST.TYPE.SCULPTURE;
   const { data, loading, error } = useQuery(GET_ITEMS_QUERY, {
     variables: { type },
+    ssr: true,
   });
   if (loading) return <div className={s.loading}>Chargement...</div>;
   if (error) return <Alert message="Erreur au chargement des items" isError />;

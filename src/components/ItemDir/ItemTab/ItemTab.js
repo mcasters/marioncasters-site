@@ -14,6 +14,7 @@ function ItemTab(props) {
 
   const { data, loading, error } = useQuery(GET_ITEMS_BY_PART_QUERY, {
     variables: { year: props.year, type: props.type, half: props.half },
+    ssr: true,
   });
 
   if (loading) return <div className={s.loading}>Chargement...</div>;
