@@ -1,6 +1,6 @@
 {
-  "name": "EditPicture",
+  "name": "EditPictureForm",
   "version": "1.0.0",
   "private": true,
-  "main": "EditPicture.js"
+  "main": "EditPictureForm.js"
 }

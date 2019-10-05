@@ -52,7 +52,7 @@ export const storeImage = async ({ stream }, path) =>
       .on('finish', () => resolve(true)),
   );
 
-const storeWithResizeImage = async ({ stream }, path, px) => {
+const storeImageWithResize = async ({ stream }, path, px) => {
   const outStream = fs.createWriteStream(path);
   const transformer = sharp().resize({
     width: px,
@@ -76,8 +76,8 @@ const storeItemImage = async ({ stream }, type, title) => {
   const paths = getItemPaths(title, type);
   return Promise.all([
     storeImage({ stream }, paths[0]),
-    storeWithResizeImage({ stream }, paths[1], ITEM_CONSTANTS.MD_PX),
-    storeWithResizeImage({ stream }, paths[2], ITEM_CONSTANTS.SM_PX),
+    storeImageWithResize({ stream }, paths[1], ITEM_CONSTANTS.MD_PX),
+    storeImageWithResize({ stream }, paths[2], ITEM_CONSTANTS.SM_PX),
   ]);
 };
 
@@ -96,11 +96,12 @@ export const processImageUpload = async (pictures, title, type) => {
     return processSculptureImagesUpload(pictures, title);
   }
 
+  // eslint-disable-next-line no-unused-vars
   const { stream, mimetype } = await pictures[0];
 
   if (type === CONTENT_CONSTANTS.TYPE) {
-    const extension = mimetype.split('/')[1];
-    const path = `${config.miscellaneousPath}/${title}.${extension}`;
+    // const extension = mimetype.split('/')[1];
+    const path = `${config.miscellaneousPath}/${title}.jpg`;
     return storeImage({ stream }, path);
   }
   return storeItemImage({ stream }, type, title);

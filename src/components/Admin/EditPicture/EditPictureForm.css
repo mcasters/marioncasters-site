@@ -12,7 +12,7 @@
 
 .fileLabel {
   display: block;
-  margin-top: 20px;
+  margin: 20px 0;
   color: var(--link-color);
   font-size: var(--font-size-current-plus-plus);
   background: none;

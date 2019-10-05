@@ -9,13 +9,9 @@ import contentConstants from '../../constants/contentConstants';
 import EditContent from '../../components/Admin/EditContent';
 import Logout from '../../components/Logout';
 import AdminItemParent from '../../components/Admin/Item/AdminItemParent';
-import EditPicture from '../../components/Admin/EditPicture';
+import EditPicture from '../../components/Admin/EditPicture/EditPictureForm';
 
 class AdminPage extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-  };
-
   constructor(props) {
     super(props);
 
@@ -100,5 +96,9 @@ class AdminPage extends React.Component {
     );
   }
 }
+
+AdminPage.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default withStyles(s)(AdminPage);

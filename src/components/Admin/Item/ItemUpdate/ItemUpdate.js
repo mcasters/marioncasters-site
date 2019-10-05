@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FaPen } from 'react-icons/fa';
 import withStyles from 'isomorphic-style-loader/withStyles';
@@ -30,7 +30,7 @@ class ItemUpdate extends React.Component {
   render() {
     const { item, type, srcList } = this.props;
     return (
-      <Fragment>
+      <>
         <button type="button" onClick={this.openUpdate} className={s.command}>
           <FaPen />
         </button>
@@ -42,7 +42,7 @@ class ItemUpdate extends React.Component {
             onResult={this.getResult}
           />
         )}
-      </Fragment>
+      </>
     );
   }
 }
