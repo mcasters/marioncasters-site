@@ -8,10 +8,9 @@ import CONTENT_CONST from '../../constants/contentConstants';
 
 class Home extends React.Component {
   render() {
-    const { title } = this.props;
     return (
       <div className={s.homeContainer}>
-        <h1 className={s.title}>{title}</h1>
+        <h1 className={s.title}>{this.props.title}</h1>
         <div className={s.homeContent}>
           <Content keyContent={CONTENT_CONST.KEY.HOME3} />
         </div>

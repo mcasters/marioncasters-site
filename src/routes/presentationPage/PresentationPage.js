@@ -7,10 +7,6 @@ import Content from '../../components/Content';
 import CONTENT_CONST from '../../constants/contentConstants';
 
 class PresentationPage extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-  };
-
   render() {
     const { title } = this.props;
     return (
@@ -18,9 +14,7 @@ class PresentationPage extends React.Component {
         <h1 className={s.title}>{title}</h1>
         <img
           className={s.image}
-          src={`${CONTENT_CONST.CONTENT_IMAGE_PATH}/${
-            CONTENT_CONST.PRESENTATION_IMAGE_TITLE
-          }.jpg`}
+          src={`${CONTENT_CONST.CONTENT_IMAGE_PATH}/${CONTENT_CONST.PRESENTATION_IMAGE_TITLE}.jpg`}
           alt={CONTENT_CONST.PRESENTATION_IMAGE_ALT}
         />
         <Content keyContent={CONTENT_CONST.KEY.PRESENTATION} />
@@ -28,5 +22,9 @@ class PresentationPage extends React.Component {
     );
   }
 }
+
+PresentationPage.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default withStyles(s)(PresentationPage);

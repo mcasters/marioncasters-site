@@ -6,9 +6,9 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import GET_CONTENT from '../../data/graphql/queries/getContent.graphql';
 import s from './Content.css';
 
-function Content({ keyContent }) {
+function Content(props) {
   const { data, loading } = useQuery(GET_CONTENT, {
-    variables: { keyContent },
+    variables: { key: props.keyContent },
     ssr: true,
   });
   if (loading) return <p>Chargement...</p>;

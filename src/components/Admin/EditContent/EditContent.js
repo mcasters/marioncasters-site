@@ -1,44 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import { Query } from 'react-apollo';
+import { useQuery } from 'react-apollo';
 
 import Alert from '../../Alert';
-import s from './EditContent.css';
-import GET_ALL_CONTENT from '../../../data/graphql/queries/getAllContent.graphql';
-import MutateContent from './MutateContent';
+import s from './ContentForm.css';
+import GET_CONTENT from '../../../data/graphql/queries/getContent.graphql';
+import ContentForm from './ContentForm';
 
-class EditContent extends React.Component {
-  render() {
-    const { keyContent, isTextArea } = this.props;
+function EditContent(props) {
+  const { error, data } = useQuery(GET_CONTENT, {
+    variables: { key: props.keyContent },
+    ssr: true,
+  });
 
-    return (
-      <Query
-        query={GET_ALL_CONTENT}
-        variables={{ keyContent }}
-        onError={e => <Alert message={e} isError />}
-        ssr
-      >
-        {({ data }) => {
-          if (data && data.getAllContent) {
-            return data.getAllContent.map(({ id, key, text }) => {
-              if (key === keyContent)
-                return (
-                  <MutateContent
-                    key={id}
-                    keyContent={keyContent}
-                    isTextArea={isTextArea}
-                    initialContent={text}
-                  />
-                );
-              return null;
-            });
-          }
-          return null;
-        }}
-      </Query>
-    );
-  }
+  if (error) return <Alert message="Erreur au chargement du contenu" isError />;
+
+  return (
+    <>
+      {data && data.getContent && (
+        <ContentForm
+          keyContent={props.keyContent}
+          isTextArea={props.isTextArea}
+          initialContent={data.getContent.text}
+        />
+      )}
+    </>
+  );
 }
 
 EditContent.propTypes = {

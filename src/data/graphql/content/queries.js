@@ -14,7 +14,7 @@ export const queries = [
   `
   getAllContent: [Content]
   
-  getContent(keyContent: String!): Content
+  getContent(key: String!): Content
 `,
 ];
 
@@ -25,9 +25,9 @@ export const resolvers = {
       return contents;
     },
 
-    async getContent(parent, { keyContent }) {
+    async getContent(parent, { key }) {
       const content = await Content.findOne({
-        where: { key: keyContent },
+        where: { key },
       });
       return content;
     },
