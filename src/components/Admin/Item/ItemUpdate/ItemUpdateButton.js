@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { FaPen } from 'react-icons/fa';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
-import UpdateDialog from '../UpdateDialog';
-import s from './ItemUpdate.css';
+import UpdateForm from './UpdateForm/UpdateForm';
+import s from './ItemUpdateButton.css';
 import AlertContext from '../../../AlertContext/AlertContext';
 
-class ItemUpdate extends React.Component {
+class ItemUpdateButton extends React.Component {
   constructor(props) {
     super(props);
 
@@ -16,11 +16,11 @@ class ItemUpdate extends React.Component {
     };
 
     this.openUpdate = this.openUpdate.bind(this);
+    this.getResult = this.getResult.bind(this);
   }
 
-  getResult = (message, isError) => {
-    if (message !== '') this.context.triggerAlert(message, isError);
-    this.setState({ openUpdate: false });
+  getResult = isError => {
+    if (!isError) this.setState({ openUpdate: false });
   };
 
   openUpdate = () => {
@@ -35,10 +35,11 @@ class ItemUpdate extends React.Component {
           <FaPen />
         </button>
         {this.state.openUpdate && (
-          <UpdateDialog
+          <UpdateForm
             item={item}
             type={type}
             srcList={srcList}
+            updateMutation={this.props.updateMutation}
             onResult={this.getResult}
           />
         )}
@@ -47,12 +48,13 @@ class ItemUpdate extends React.Component {
   }
 }
 
-ItemUpdate.propTypes = {
+ItemUpdateButton.propTypes = {
   item: PropTypes.shape().isRequired,
   type: PropTypes.string.isRequired,
   srcList: PropTypes.array.isRequired,
+  updateMutation: PropTypes.func.isRequired,
 };
 
-ItemUpdate.contextType = AlertContext;
+ItemUpdateButton.contextType = AlertContext;
 
-export default withStyles(s)(ItemUpdate);
+export default withStyles(s)(ItemUpdateButton);

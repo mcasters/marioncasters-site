@@ -9,7 +9,7 @@ import s from './ItemList.css';
 import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
 import Alert from '../../../Alert';
 
-function ItemList({ type, deleteMutation }) {
+function ItemList({ type, deleteMutation, updateMutation }) {
   const getUrlImages = itemTitle => {
     const imagesForItem = [];
     if (type === ITEM_CONST.TYPE.SCULPTURE) {
@@ -64,6 +64,7 @@ function ItemList({ type, deleteMutation }) {
                 srcList={getUrlImages(item.title)}
                 type={type}
                 deleteMutation={deleteMutation}
+                updateMutation={updateMutation}
               />
             ))}
         </tbody>
@@ -75,6 +76,7 @@ function ItemList({ type, deleteMutation }) {
 ItemList.propTypes = {
   type: PropTypes.string.isRequired,
   deleteMutation: PropTypes.func.isRequired,
+  updateMutation: PropTypes.func.isRequired,
 };
 
 export default withStyles(s)(ItemList);

@@ -6,9 +6,9 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import ITEM_CONSTANTS from '../../../../constants/itemConstants';
 import s from './ItemRow.css';
 import ItemDeleteButton from '../ItemDelete/ItemDeleteButton';
-import ItemUpdate from '../ItemUpdate';
+import ItemUpdateButton from '../ItemUpdate/ItemUpdateButton';
 
-function ItemRow({ item, srcList, type, deleteMutation }) {
+function ItemRow({ item, srcList, type, deleteMutation, updateMutation }) {
   const isSculpture = type === ITEM_CONSTANTS.TYPE.SCULPTURE;
 
   let alt;
@@ -42,7 +42,12 @@ function ItemRow({ item, srcList, type, deleteMutation }) {
         />
       </th>
       <th>
-        <ItemUpdate item={item} type={type} srcList={srcList} />
+        <ItemUpdateButton
+          item={item}
+          type={type}
+          srcList={srcList}
+          updateMutation={updateMutation}
+        />
       </th>
     </tr>
   );
@@ -62,6 +67,7 @@ ItemRow.propTypes = {
   srcList: PropTypes.array.isRequired,
   type: PropTypes.string.isRequired,
   deleteMutation: PropTypes.func.isRequired,
+  updateMutation: PropTypes.func.isRequired,
 };
 
 export default withStyles(s)(ItemRow);

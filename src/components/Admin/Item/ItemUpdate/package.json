@@ -1,6 +1,6 @@
 {
-  "name": "ItemUpdate",
+  "name": "ItemUpdateButton",
   "version": "1.0.0",
   "private": true,
-  "main": "ItemUpdate.js"
+  "main": "ItemUpdateButton.js"
 }
