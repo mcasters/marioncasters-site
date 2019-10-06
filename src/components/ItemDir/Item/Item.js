@@ -6,33 +6,29 @@ import s from './Item.css';
 import ITEM_CONST from '../../../constants/itemConstants';
 import Image from '../Image';
 
-class Item extends React.Component {
-  render() {
-    const { item, type } = this.props;
-
-    return (
-      <article className={s.itemContainer}>
-        <h2 className={s.itemTitle}>{item.title}</h2>
-        <Image type={type} title={item.title} />
+function Item({ item, type }) {
+  return (
+    <article className={s.itemContainer}>
+      <h2 className={s.itemTitle}>{item.title}</h2>
+      <Image type={type} title={item.title} />
+      <span className={s.noWrap}>
+        {new Date(item.date).toLocaleDateString()}
+      </span>
+      <span className={s.spacer}> | </span>
+      <span className={s.noWrap}>{item.technique}</span>
+      <span className={s.spacer}> | </span>
+      {type === ITEM_CONST.TYPE.SCULPTURE && (
         <span className={s.noWrap}>
-          {new Date(item.date).toLocaleDateString()}
+          {item.height} x {item.width} x {item.length} cm
         </span>
-        <span className={s.spacer}> | </span>
-        <span className={s.noWrap}>{item.technique}</span>
-        <span className={s.spacer}> | </span>
-        {type === ITEM_CONST.TYPE.SCULPTURE && (
-          <span className={s.noWrap}>
-            {item.height} x {item.width} x {item.length} cm
-          </span>
-        )}
-        {type !== ITEM_CONST.TYPE.SCULPTURE && (
-          <span className={s.noWrap}>
-            {item.height} x {item.width} cm
-          </span>
-        )}
-      </article>
-    );
-  }
+      )}
+      {type !== ITEM_CONST.TYPE.SCULPTURE && (
+        <span className={s.noWrap}>
+          {item.height} x {item.width} cm
+        </span>
+      )}
+    </article>
+  );
 }
 
 Item.propTypes = {

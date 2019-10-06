@@ -7,14 +7,18 @@ import s from './ContentForm.css';
 import GET_CONTENT from '../../../data/graphql/queries/getContent.graphql';
 import ContentForm from './ContentForm';
 import ADD_CONTENT_MUTATION from '../../../data/graphql/queries/addContentMutation.graphql';
+import Alert from '../../Alert';
 
 function EditContent({ keyContent, isTextArea }) {
-  const { data } = useQuery(GET_CONTENT, {
+  const { data, loading, error } = useQuery(GET_CONTENT, {
     variables: { key: keyContent },
     ssr: true,
   });
 
   const [addContent] = useMutation(ADD_CONTENT_MUTATION);
+
+  if (loading) return <div>Chargement...</div>;
+  if (error) return <Alert message="Erreur au chargement des items" isError />;
 
   return (
     <>
