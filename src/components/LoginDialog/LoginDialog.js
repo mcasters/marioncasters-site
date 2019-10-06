@@ -1,13 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import { Mutation } from 'react-apollo';
 import Modal from 'react-modal';
-
 import PropTypes from 'prop-types';
+
 import s from './LoginDialog.css';
-import history from '../../history';
-import LOGIN_MUTATION from '../../data/graphql/queries/loginMutation.graphql';
-import Alert from '../Alert';
 
 const customStyles = {
   overlay: {
@@ -24,106 +20,71 @@ const customStyles = {
 
 Modal.setAppElement('#app');
 
-class LoginDialog extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      showModal: true,
-    };
+function LoginDialog({ onClose, loginMutation }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showModal, setShowModal] = useState(true);
 
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-  }
-
-  handleOpenModal() {
-    this.setState({ showModal: true });
-  }
-
-  handleCloseModal(e) {
+  const handleCloseModal = e => {
     e.preventDefault();
-    this.setState({ showModal: false });
-    this.props.onClose();
-  }
+    setShowModal(false);
+    onClose();
+  };
 
-  render() {
-    return (
-      <Mutation
-        mutation={LOGIN_MUTATION}
-        onError={() => {
-          history.push('/home');
-        }}
-        update={(cache, mutationResult) => {
-          const data = {
-            adminStatus: {
-              __typename: 'AdminStatus',
-              isConnected: mutationResult.data.login || false,
-            },
+  return (
+    <Modal
+      id="auth"
+      contentLabel="authentification"
+      closeTimeoutMS={150}
+      isOpen={showModal}
+      onRequestClose={handleCloseModal}
+      style={customStyles}
+    >
+      <h1 className={s.loginTitle}>Authentification</h1>
+      <form
+        onSubmit={e => {
+          const input = {
+            username,
+            password,
           };
-          cache.writeData({ data });
-        }}
-        onCompleted={data => {
-          return data.login ? history.push('/admin') : history.push('/home');
+          loginMutation({ variables: { input } });
+          handleCloseModal(e);
         }}
       >
-        {(login, { error }) => (
-          <Modal
-            id="auth"
-            contentLabel="authentification"
-            closeTimeoutMS={150}
-            isOpen={this.state.showModal}
-            onRequestClose={this.handleCloseModal}
-            style={customStyles}
-          >
-            <h1 className={s.loginTitle}>Authentification</h1>
-            <form
-              onSubmit={e => {
-                const input = {
-                  username: this.state.username,
-                  password: this.state.password,
-                };
-                login({ variables: { input } });
-                this.handleCloseModal(e);
-              }}
-            >
-              <input
-                id="username"
-                type="text"
-                value={this.state.username}
-                onChange={e => this.setState({ username: e.target.value })}
-                placeholder="Utilisateur"
-                autoComplete="username"
-              />
-              <input
-                id="password"
-                type="password"
-                value={this.state.password}
-                onChange={e => this.setState({ password: e.target.value })}
-                placeholder="Mot de passe"
-                autoComplete="current-password"
-              />
-              <button className={s.loginDialogButton} type="submit">
-                Login
-              </button>
-              <button
-                type="button"
-                className={s.loginDialogButton}
-                onClick={e => this.handleCloseModal(e)}
-              >
-                Annuler
-              </button>
-            </form>
-            {error && <Alert message={error} isError />}
-          </Modal>
-        )}
-      </Mutation>
-    );
-  }
+        <input
+          id="username"
+          type="text"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+          placeholder="Utilisateur"
+          autoComplete="username"
+        />
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          placeholder="Mot de passe"
+          autoComplete="current-password"
+        />
+        <button className={s.loginDialogButton} type="submit">
+          Login
+        </button>
+        <button
+          type="button"
+          className={s.loginDialogButton}
+          onClick={e => handleCloseModal(e)}
+        >
+          Annuler
+        </button>
+      </form>
+    </Modal>
+  );
 }
 
 LoginDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
+  loginMutation: PropTypes.func.isRequired,
 };
 
 export default withStyles(s)(LoginDialog);

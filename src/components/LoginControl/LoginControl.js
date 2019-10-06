@@ -1,55 +1,62 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
+import { useMutation } from 'react-apollo';
 
 import s from './LoginControl.css';
 import Link from '../Link';
 import LoginDialog from '../LoginDialog';
+import LOGIN_MUTATION from '../../data/graphql/queries/loginMutation.graphql';
+import history from '../../history';
 
-class LoginControl extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      openLogin: false,
-    };
+function LoginControl({ isConnected }) {
+  const [login] = useMutation(LOGIN_MUTATION, {
+    update(cache, mutationResult) {
+      const data = {
+        adminStatus: {
+          __typename: 'AdminStatus',
+          isConnected: mutationResult.data.login || false,
+        },
+      };
+      cache.writeData({ data });
+    },
+    onError() {
+      history.push('/home');
+    },
+    onCompleted(data) {
+      return data.login ? history.push('/admin') : history.push('/home');
+    },
+  });
 
-    this.openLogin = this.openLogin.bind(this);
-  }
+  const [openLogin, setOpenDialog] = React.useState(false);
 
-  componentWillUnmount = () => {
-    this.setState({ openLogin: false });
+  React.componentWillUnmount = () => {
+    setOpenDialog(false);
   };
 
-  openLogin = e => {
-    e.preventDefault();
-    this.setState({ openLogin: true });
+  const closeLogin = () => {
+    setOpenDialog(false);
   };
 
-  closeLogin = () => {
-    this.setState({ openLogin: false });
-  };
-
-  render() {
-    return this.props.isConnected ? (
-      <Link className={s.link} to="/admin">
-        Admin
-      </Link>
-    ) : (
-      <>
-        <button
-          type="button"
-          className={s.loginLink}
-          onClick={e => {
-            e.preventDefault();
-            this.openLogin(e);
-          }}
-        >
-          Admin in
-        </button>
-        {this.state.openLogin && <LoginDialog onClose={this.closeLogin} />}
-      </>
-    );
-  }
+  return isConnected ? (
+    <Link className={s.link} to="/admin">
+      Admin
+    </Link>
+  ) : (
+    <>
+      <button
+        type="button"
+        className={s.loginLink}
+        onClick={e => {
+          e.preventDefault();
+          setOpenDialog(true);
+        }}
+      >
+        Admin in
+      </button>
+      {openLogin && <LoginDialog onClose={closeLogin} loginMutation={login} />}
+    </>
+  );
 }
 
 LoginControl.propTypes = {
