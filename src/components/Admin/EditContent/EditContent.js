@@ -1,28 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import { useQuery } from 'react-apollo';
+import { useMutation, useQuery } from 'react-apollo';
 
-import Alert from '../../Alert';
 import s from './ContentForm.css';
 import GET_CONTENT from '../../../data/graphql/queries/getContent.graphql';
 import ContentForm from './ContentForm';
+import ADD_CONTENT_MUTATION from '../../../data/graphql/queries/addContentMutation.graphql';
 
-function EditContent(props) {
-  const { error, data } = useQuery(GET_CONTENT, {
-    variables: { key: props.keyContent },
+function EditContent({ keyContent, isTextArea }) {
+  const { data } = useQuery(GET_CONTENT, {
+    variables: { key: keyContent },
     ssr: true,
   });
 
-  if (error) return <Alert message="Erreur au chargement du contenu" isError />;
+  const [addContent] = useMutation(ADD_CONTENT_MUTATION);
 
   return (
     <>
       {data && data.getContent && (
         <ContentForm
-          keyContent={props.keyContent}
-          isTextArea={props.isTextArea}
+          keyContent={keyContent}
+          isTextArea={isTextArea}
           initialContent={data.getContent.text}
+          mutation={addContent}
         />
       )}
     </>

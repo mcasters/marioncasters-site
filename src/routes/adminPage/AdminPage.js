@@ -9,7 +9,7 @@ import contentConstants from '../../constants/contentConstants';
 import EditContent from '../../components/Admin/EditContent';
 import Logout from '../../components/Logout';
 import AdminItemParent from '../../components/Admin/Item/AdminItemParent';
-import EditPicture from '../../components/Admin/EditPicture/EditPictureForm';
+import EditPictureForm from '../../components/Admin/EditPicture/EditPictureForm';
 
 class AdminPage extends React.Component {
   constructor(props) {
@@ -50,8 +50,8 @@ class AdminPage extends React.Component {
           </TabList>
           <TabPanel>
             <div className={s.tabContainer}>
-              <EditPicture pictureTitle={CONT_CONST.HOME_IMAGE_PORTRAIT} />
-              <EditPicture pictureTitle={CONT_CONST.HOME_IMAGE_LANDSCAPE} />
+              <EditPictureForm pictureTitle={CONT_CONST.HOME_IMAGE_PORTRAIT} />
+              <EditPictureForm pictureTitle={CONT_CONST.HOME_IMAGE_LANDSCAPE} />
               <EditContent keyContent={CONT_CONST.KEY.HOME1} isTextArea />
               <EditContent keyContent={CONT_CONST.KEY.HOME2} isTextArea />
               <EditContent keyContent={CONT_CONST.KEY.HOME3} isTextArea />
@@ -59,7 +59,9 @@ class AdminPage extends React.Component {
           </TabPanel>
           <TabPanel>
             <div className={s.tabContainer}>
-              <EditPicture pictureTitle={CONT_CONST.PRESENTATION_IMAGE_TITLE} />
+              <EditPictureForm
+                pictureTitle={CONT_CONST.PRESENTATION_IMAGE_TITLE}
+              />
               <EditContent
                 keyContent={CONT_CONST.KEY.PRESENTATION}
                 isTextArea
