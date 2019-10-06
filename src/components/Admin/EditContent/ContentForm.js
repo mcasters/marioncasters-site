@@ -91,7 +91,7 @@ function ContentMutation({ keyContent, text, onResult }) {
   });
 
   return (
-    <button onClick={addContent} type="button">
+    <button onClick={addContent} type="submit">
       OK
     </button>
   );

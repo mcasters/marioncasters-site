@@ -1,6 +1,6 @@
 {
-  "name": "ItemDelete",
+  "name": "ItemDeleteButton",
   "version": "1.0.0",
   "private": true,
-  "main": "ItemDelete.js"
+  "main": "ItemDeleteButton.js"
 }

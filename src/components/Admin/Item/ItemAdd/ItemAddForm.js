@@ -96,7 +96,7 @@ class ItemAddForm extends React.Component {
           onSubmit={e => {
             e.preventDefault();
             const input = this.constructItem();
-            this.props.mutation({ variables: { input } }).then(res => {
+            this.props.addMutation({ variables: { input } }).then(res => {
               if (res) this.setState(this.getInitialState);
             });
           }}
@@ -205,7 +205,7 @@ class ItemAddForm extends React.Component {
 
 ItemAddForm.propTypes = {
   type: PropTypes.string.isRequired,
-  mutation: PropTypes.func.isRequired,
+  addMutation: PropTypes.func.isRequired,
 };
 
 export default withStyles(s)(ItemAddForm);
