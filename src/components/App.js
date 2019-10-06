@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import type { Node } from 'react';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/react-common';
 import StyleContext from 'isomorphic-style-loader/StyleContext';
 import type { AppContextTypes } from '../context';
 import AppContext from '../context';

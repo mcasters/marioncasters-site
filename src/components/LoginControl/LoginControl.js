@@ -1,7 +1,7 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
-import { useMutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 
 import s from './LoginControl.css';
 import Link from '../Link';

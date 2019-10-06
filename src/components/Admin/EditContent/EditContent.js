@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import { useMutation, useQuery } from 'react-apollo';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import s from './ContentForm.css';
 import GET_CONTENT from '../../../data/graphql/queries/getContent.graphql';

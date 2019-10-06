@@ -3,12 +3,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import { useMutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 
 import s from './EditPictureForm.css';
 import ADD_PICTURE_MUTATION from '../../../data/graphql/queries/addPictureMutation.graphql';
 import CONTENT_CONST from '../../../constants/contentConstants';
-import AlertContext from '../../AlertContext';
 
 class EditPictureForm extends React.Component {
   constructor(props) {
@@ -47,8 +46,7 @@ class EditPictureForm extends React.Component {
     };
   };
 
-  getResult = (message, isError) => {
-    this.context.triggerAlert(message, isError);
+  getResult = () => {
     this.setState(this.getInitialState);
   };
 
@@ -119,11 +117,8 @@ function PictureMutation(props) {
       picture: props.picture,
       pictureTitle: props.pictureTitle,
     },
-    onError(error) {
-      props.onResult(error.message, true);
-    },
     onCompleted() {
-      props.onResult('Enregistré', false);
+      props.onResult();
     },
   });
 
@@ -137,8 +132,6 @@ function PictureMutation(props) {
 EditPictureForm.propTypes = {
   pictureTitle: PropTypes.string.isRequired,
 };
-
-EditPictureForm.contextType = AlertContext;
 
 PictureMutation.propTypes = {
   picture: PropTypes.object.isRequired,

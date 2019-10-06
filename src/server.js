@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
-import { getDataFromTree } from 'react-apollo';
+import { getDataFromTree } from '@apollo/react-ssr';
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
 import cors from 'cors';
 import session from 'express-session';
@@ -148,6 +148,7 @@ app.get('*', async (req, res, next) => {
       cache: apolloClient.extract(),
     };
 
+    // eslint-disable-next-line react/jsx-props-no-spreading
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(route.status || 200);
     res.send(`<!doctype html>${html}`);

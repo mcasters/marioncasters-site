@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from 'react-apollo';
+import { useQuery } from '@apollo/react-hooks';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
 import ITEM_CONST from '../../../../constants/itemConstants';
