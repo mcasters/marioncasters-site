@@ -1,6 +1,6 @@
 {
-  "name": "AddItem",
+  "name": "AddItemForm",
   "version": "1.0.0",
   "private": true,
-  "main": "ItemAdd.js"
+  "main": "ItemAddForm.js"
 }

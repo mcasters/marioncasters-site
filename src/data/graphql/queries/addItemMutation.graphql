@@ -1,5 +1,5 @@
-mutation AddItem($item: ItemInput!) {
-  addItem(input: $item) {
+mutation AddItem($input: ItemInput!) {
+  addItem(input: $input) {
     id
     title
     date
