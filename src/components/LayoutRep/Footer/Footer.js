@@ -11,9 +11,7 @@ import ROUTER_CONSTANTS from '../../../constants/routerConstants';
 import GET_ADMIN_STATUS_QUERY from '../../../data/graphql/queries/getAdminStatusQuery.graphql';
 
 function Footer() {
-  const { data } = useQuery(GET_ADMIN_STATUS_QUERY, {
-    ssr: true,
-  });
+  const { data } = useQuery(GET_ADMIN_STATUS_QUERY);
 
   const isConnected = data !== undefined && data.adminStatus.isConnected;
   return (
