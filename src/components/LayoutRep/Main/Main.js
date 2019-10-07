@@ -1,4 +1,3 @@
-import Radium from 'radium';
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
@@ -28,4 +27,4 @@ Main.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default withStyles(s)(Radium(Main));
+export default withStyles(s)(Main);
