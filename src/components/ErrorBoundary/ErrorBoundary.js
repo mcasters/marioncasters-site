@@ -1,33 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Alert from '../Alert';
 
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      errorInfo: null,
-    };
-  }
+function ErrorBoundary({ children }) {
+  const [error, setError] = useState(null);
+  const [errorInfo, setErrorInfo] = useState(null);
 
-  componentDidCatch(error, errorInfo) {
-    this.setState({
-      error,
-      errorInfo,
-    });
-  }
+  React.componentDidCatch = (err, errInfo) => {
+    setError(err);
+    setErrorInfo(errInfo);
+  };
 
-  render() {
-    if (this.state.error) {
-      const message = `${this.state.error.toString()} : ${
-        this.state.errorInfo
-      }`;
-      return <Alert message={message} isError />;
-    }
-    return this.props.children;
+  if (error) {
+    const message = `${error.toString()} : ${errorInfo}`;
+    return <Alert message={message} isError />;
   }
+  return children;
 }
 
 ErrorBoundary.propTypes = {

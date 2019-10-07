@@ -5,22 +5,19 @@ import PropTypes from 'prop-types';
 
 import s from './Main.css';
 
-class Main extends React.Component {
-  render() {
-    const { isHome, isLessThanMD, height, headerHeight, children } = this.props;
-    const adaptedHeight = isLessThanMD
-      ? height - headerHeight
-      : height + 0.001 * headerHeight;
-    const styleHeight = { height: adaptedHeight };
+function Main({ isHome, isLessThanMD, height, headerHeight, children }) {
+  const adaptedHeight = isLessThanMD
+    ? height - headerHeight
+    : height + 0.001 * headerHeight;
+  const styleHeight = { height: adaptedHeight };
 
-    return isHome ? (
-      <main className={s.mainHome} style={styleHeight}>
-        {children}
-      </main>
-    ) : (
-      <main className={s.main}>{children}</main>
-    );
-  }
+  return isHome ? (
+    <main className={s.mainHome} style={styleHeight}>
+      {children}
+    </main>
+  ) : (
+    <main className={s.main}>{children}</main>
+  );
 }
 
 Main.propTypes = {

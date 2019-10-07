@@ -7,13 +7,13 @@ import Item from '../Item/Item';
 import s from './ItemTab.css';
 import Alert from '../../Alert';
 
-function ItemTab(props) {
+function ItemTab({ year, half, type }) {
   const scrollTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
 
   const { data, loading, error } = useQuery(GET_ITEMS_BY_PART_QUERY, {
-    variables: { year: props.year, type: props.type, half: props.half },
+    variables: { year, type, half },
     ssr: true,
   });
 
@@ -22,10 +22,10 @@ function ItemTab(props) {
 
   return (
     <>
-      <h2 className={s.titleTab}>{props.year}</h2>
+      <h2 className={s.titleTab}>{year}</h2>
       {data &&
         data.getItemsByPart.map(item => {
-          return <Item key={item.title} item={item} type={props.type} />;
+          return <Item key={item.title} item={item} type={type} />;
         })}
       <button type="button" className={s.buttonLink} onClick={scrollTop}>
         Haut de page

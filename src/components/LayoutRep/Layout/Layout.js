@@ -1,5 +1,5 @@
 /* eslint-disable css-modules/no-unused-class */
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import normalizeCss from '../../../../node_modules/normalize.css/normalize.css';
@@ -17,65 +17,48 @@ import ErrorBoundary from '../../ErrorBoundary';
 import AppContext from '../../../context';
 import Main from '../Main';
 
-class Layout extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      headerHeight: 0,
-    };
-  }
+function Layout({ children, viewport }) {
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const context = useContext(AppContext);
+  const isHome = context.pathname === '/' || context.pathname === '/home';
+  const isLessThanMD = viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
+  const { height } = viewport;
 
-  render() {
-    const isHome =
-      this.context.pathname === '/' || this.context.pathname === '/home';
-    const isLessThanMD =
-      this.props.viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
-    const { height } = this.props.viewport;
+  const navigation = <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />;
 
-    const navigation = (
-      <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
-    );
+  const getHeight = h => setHeaderHeight(h);
+  const header = <Header isHome={isHome} onHeight={getHeight} />;
 
-    const header = (
-      <Header
+  const main = (
+    <ErrorBoundary>
+      <Main
         isHome={isHome}
-        getHeight={headerHeight => {
-          this.setState({ headerHeight });
-        }}
-      />
-    );
+        isLessThanMD={isLessThanMD}
+        height={height}
+        headerHeight={headerHeight}
+      >
+        {children}
+      </Main>
+    </ErrorBoundary>
+  );
 
-    const main = (
-      <ErrorBoundary>
-        <Main
-          isHome={isHome}
-          isLessThanMD={isLessThanMD}
-          height={height}
-          headerHeight={this.state.headerHeight}
-        >
-          {this.props.children}
-        </Main>
-      </ErrorBoundary>
-    );
+  const footer = <Footer />;
 
-    const footer = <Footer />;
-
-    return isLessThanMD ? (
-      <>
-        {navigation}
-        {header}
-        {main}
-        {footer}
-      </>
-    ) : (
-      <>
-        {header}
-        {navigation}
-        {main}
-        {footer}
-      </>
-    );
-  }
+  return isLessThanMD ? (
+    <>
+      {navigation}
+      {header}
+      {main}
+      {footer}
+    </>
+  ) : (
+    <>
+      {header}
+      {navigation}
+      {main}
+      {footer}
+    </>
+  );
 }
 
 Layout.propTypes = {
@@ -85,8 +68,6 @@ Layout.propTypes = {
     height: PropTypes.number.isRequired,
   }).isRequired,
 };
-
-Layout.contextType = AppContext;
 
 export default withStyles(
   normalizeCss,
