@@ -10,10 +10,10 @@ function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
-class Link extends React.Component {
-  handleClick = event => {
-    if (this.props.onClick) {
-      this.props.onClick(event);
+function Link(props) {
+  const handleClick = event => {
+    if (props.onClick) {
+      props.onClick(event);
     }
 
     if (isModifiedEvent(event) || !isLeftClickEvent(event)) {
@@ -24,20 +24,18 @@ class Link extends React.Component {
       return;
     }
 
-    if (this.props.target !== '_blank') {
+    if (props.target !== '_blank') {
       event.preventDefault();
-      history.push(this.props.to);
+      history.push(props.to);
     }
   };
 
-  render() {
-    const { to, children, ...props } = this.props;
-    return (
-      <a href={to} {...props} onClick={this.handleClick}>
-        {children}
-      </a>
-    );
-  }
+  return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <a href={props.to} {...props} onClick={handleClick}>
+      {props.children}
+    </a>
+  );
 }
 
 Link.propTypes = {

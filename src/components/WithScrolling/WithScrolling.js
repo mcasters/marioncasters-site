@@ -1,36 +1,29 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import { getScroll } from '../../../tools/lib/windowUtils';
 
 function withScrolling(ComposedComponent) {
-  return class extends Component {
-    constructor(props) {
-      super(props);
+  return function Component(props) {
+    const calculatedScroll = getScroll();
+    const [scroll, setScroll] = useState(calculatedScroll);
 
-      this.state = {
-        scroll: getScroll(),
-      };
-    }
-
-    componentDidMount() {
-      window.addEventListener('scroll', this.updateScrolling);
-    }
-
-    componentWillUnmount() {
-      window.removeEventListener('scroll', this.updateScrolling);
-    }
-
-    updateScrolling = () => {
-      const scroll = window.pageYOffset;
-      if (this.state.scroll !== scroll) {
-        this.setState({ scroll });
+    const updateScrolling = () => {
+      const wScroll = window.pageYOffset;
+      if (wScroll !== scroll) {
+        setScroll({ wScroll });
       }
     };
 
-    render() {
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      return <ComposedComponent {...this.props} scroll={this.state.scroll} />;
-    }
+    React.componentDidMount = () => {
+      window.addEventListener('scroll', updateScrolling);
+    };
+
+    React.componentWillUnmount = () => {
+      window.removeEventListener('scroll', updateScrolling);
+    };
+
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    return <ComposedComponent {...props} scroll={scroll} />;
   };
 }
 

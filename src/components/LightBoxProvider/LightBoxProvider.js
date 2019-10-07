@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
@@ -12,64 +12,47 @@ import LAYOUT_CONSTANTS from '../../constants/layoutConstants';
 
 Modal.setAppElement('#app');
 
-class LightBoxProvider extends React.Component {
-  constructor(props) {
-    super(props);
+function LightBoxProvider({ title, type, srcList, src, toggle }) {
+  const [photoIndex, setPhotoIndex] = useState(0);
 
-    this.state = {
-      photoIndex: 0,
-    };
-  }
-
-  close = () => {
-    this.props.toggle(false);
+  const close = () => {
+    toggle(false);
   };
 
-  render() {
-    const { title, type, srcList, src } = this.props;
-    const { photoIndex } = this.state;
-
-    if (type === ITEM_CONST.TYPE.SCULPTURE) {
-      return (
-        <>
-          <Lightbox
-            mainSrc={srcList[photoIndex]}
-            nextSrc={srcList[(photoIndex + 1) % srcList.length]}
-            prevSrc={
-              srcList[(photoIndex + srcList.length - 1) % srcList.length]
-            }
-            onCloseRequest={() => this.close()}
-            onMovePrevRequest={() =>
-              this.setState({
-                photoIndex: (photoIndex + srcList.length - 1) % srcList.length,
-              })
-            }
-            onMoveNextRequest={() =>
-              this.setState({
-                photoIndex: (photoIndex + 1) % srcList.length,
-              })
-            }
-            imageTitle={`Marion Casters | ${title}`}
-            mobileSizeBreakpoint={LAYOUT_CONSTANTS.BREAKPOINT.MD}
-            imagePadding={LIGHTBOX_PADDING}
-            imageMobilePadding={LIGHTBOX_MOBILE_PADDING}
-          />
-        </>
-      );
-    }
-
+  if (type === ITEM_CONST.TYPE.SCULPTURE) {
     return (
       <>
         <Lightbox
-          mainSrc={src}
-          onCloseRequest={() => this.close()}
+          mainSrc={srcList[photoIndex]}
+          nextSrc={srcList[(photoIndex + 1) % srcList.length]}
+          prevSrc={srcList[(photoIndex + srcList.length - 1) % srcList.length]}
+          onCloseRequest={() => close()}
+          onMovePrevRequest={() =>
+            setPhotoIndex((photoIndex + srcList.length - 1) % srcList.length)
+          }
+          onMoveNextRequest={() =>
+            setPhotoIndex((photoIndex + 1) % srcList.length)
+          }
           imageTitle={`Marion Casters | ${title}`}
+          mobileSizeBreakpoint={LAYOUT_CONSTANTS.BREAKPOINT.MD}
           imagePadding={LIGHTBOX_PADDING}
           imageMobilePadding={LIGHTBOX_MOBILE_PADDING}
         />
       </>
     );
   }
+
+  return (
+    <>
+      <Lightbox
+        mainSrc={src}
+        onCloseRequest={() => close()}
+        imageTitle={`Marion Casters | ${title}`}
+        imagePadding={LIGHTBOX_PADDING}
+        imageMobilePadding={LIGHTBOX_MOBILE_PADDING}
+      />
+    </>
+  );
 }
 
 LightBoxProvider.propTypes = {

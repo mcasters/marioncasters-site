@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
@@ -9,14 +9,23 @@ import ITEM_CONSTANTS from '../../constants/itemConstants';
 import WithScrolling from '../../components/WithScrolling';
 
 function PaintingsPage({ title }) {
+  const [selectedTab, setSelectedTab] = useState(0);
   const year1 = 2017;
   const year2 = 2018;
   const year3 = 2019;
 
+  const handleSelectTab = index => {
+    setSelectedTab(index);
+  };
+
   return (
     <>
       <h1 className={s.title}>{title}</h1>
-      <Tabs>
+      <Tabs
+        selectedIndex={selectedTab}
+        onSelect={handleSelectTab}
+        forceRenderTabPanel
+      >
         <TabList>
           <Tab>{year1.toString()}</Tab>
           <Tab>{year2.toString()} a</Tab>

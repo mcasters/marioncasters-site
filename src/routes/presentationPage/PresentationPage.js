@@ -4,23 +4,20 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 
 import s from './PresentationPage.css';
 import Content from '../../components/Content';
-import CONTENT_CONST from '../../constants/contentConstants';
+import CONT_CONST from '../../constants/contentConstants';
 
-class PresentationPage extends React.Component {
-  render() {
-    const { title } = this.props;
-    return (
-      <div className={s.presentationContainer}>
-        <h1 className={s.title}>{title}</h1>
-        <img
-          className={s.image}
-          src={`${CONTENT_CONST.CONTENT_IMAGE_PATH}/${CONTENT_CONST.PRESENTATION_IMAGE_TITLE}.jpg`}
-          alt={CONTENT_CONST.PRESENTATION_IMAGE_ALT}
-        />
-        <Content keyContent={CONTENT_CONST.KEY.PRESENTATION} />
-      </div>
-    );
-  }
+function PresentationPage({ title }) {
+  return (
+    <div className={s.presentationContainer}>
+      <h1 className={s.title}>{title}</h1>
+      <img
+        className={s.image}
+        src={`${CONT_CONST.CONTENT_IMAGE_PATH}/${CONT_CONST.PRESENTATION_IMAGE_TITLE}.jpg`}
+        alt={CONT_CONST.PRESENTATION_IMAGE_ALT}
+      />
+      <Content keyContent={CONT_CONST.KEY.PRESENTATION} />
+    </div>
+  );
 }
 
 PresentationPage.propTypes = {

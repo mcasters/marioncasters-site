@@ -6,17 +6,15 @@ import s from './Home.css';
 import Content from '../../components/Content';
 import CONTENT_CONST from '../../constants/contentConstants';
 
-class Home extends React.Component {
-  render() {
-    return (
-      <div className={s.homeContainer}>
-        <h1 className={s.title}>{this.props.title}</h1>
-        <div className={s.homeContent}>
-          <Content keyContent={CONTENT_CONST.KEY.HOME3} />
-        </div>
+function Home({ title }) {
+  return (
+    <div className={s.homeContainer}>
+      <h1 className={s.title}>{title}</h1>
+      <div className={s.homeContent}>
+        <Content keyContent={CONTENT_CONST.KEY.HOME3} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 Home.propTypes = {
