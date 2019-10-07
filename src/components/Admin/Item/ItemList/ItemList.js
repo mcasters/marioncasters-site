@@ -7,7 +7,6 @@ import ITEM_CONST from '../../../../constants/itemConstants';
 import ItemRow from '../ItemRow';
 import s from './ItemList.css';
 import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
-import Alert from '../../../Alert';
 
 function ItemList({ type, deleteMutation, updateMutation }) {
   const getUrlImages = itemTitle => {
@@ -34,7 +33,7 @@ function ItemList({ type, deleteMutation, updateMutation }) {
   });
 
   if (loading) return <div>Chargement...</div>;
-  if (error) return <Alert message="Erreur au chargement des items" isError />;
+  if (error) return <div>Erreur au chargement :(</div>;
 
   return (
     <div className={s.listContainer}>

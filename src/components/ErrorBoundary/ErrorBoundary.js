@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-
-import Alert from '../Alert';
+import AlertContext from '../AlertContext';
 
 function ErrorBoundary({ children }) {
+  const triggerAlert = useContext(AlertContext);
   const [error, setError] = useState(null);
   const [errorInfo, setErrorInfo] = useState(null);
 
@@ -14,7 +14,7 @@ function ErrorBoundary({ children }) {
 
   if (error) {
     const message = `${error.toString()} : ${errorInfo}`;
-    return <Alert message={message} isError />;
+    return triggerAlert(message, true);
   }
   return children;
 }

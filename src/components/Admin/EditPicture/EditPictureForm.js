@@ -1,20 +1,26 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import { useMutation } from '@apollo/react-hooks';
 
 import s from './EditPictureForm.css';
 import ADD_PICTURE_MUTATION from '../../../data/graphql/queries/addPictureMutation.graphql';
-import CONTENT_CONST from '../../../constants/contentConstants';
+import CONT_CONST from '../../../constants/contentConstants';
+import AlertContext from '../../AlertContext';
 
 function EditPictureForm({ pictureTitle }) {
+  const triggerAlert = useContext(AlertContext);
   const [imagePreviewUrl, setImagePreviewUrl] = useState('');
   const [file, setFile] = useState('');
 
   const [addPicture] = useMutation(ADD_PICTURE_MUTATION, {
+    onError(err) {
+      triggerAlert(err.message, true);
+    },
     onCompleted() {
+      triggerAlert('Enregistré', false);
       setImagePreviewUrl('');
       setFile('');
     },
@@ -24,17 +30,17 @@ function EditPictureForm({ pictureTitle }) {
     let adminTitle;
     let filename;
     switch (title) {
-      case CONTENT_CONST.HOME_IMAGE_PORTRAIT:
+      case CONT_CONST.HOME_IMAGE_PORTRAIT:
         adminTitle = 'Format portrait';
-        filename = CONTENT_CONST.HOME_IMAGE_PORTRAIT_FILE;
+        filename = CONT_CONST.HOME_IMAGE_PORTRAIT_FILE;
         break;
-      case CONTENT_CONST.HOME_IMAGE_LANDSCAPE:
+      case CONT_CONST.HOME_IMAGE_LANDSCAPE:
         adminTitle = 'Format paysage';
-        filename = CONTENT_CONST.HOME_IMAGE_LANDSCAPE_FILE;
+        filename = CONT_CONST.HOME_IMAGE_LANDSCAPE_FILE;
         break;
       default:
         adminTitle = '';
-        filename = CONTENT_CONST.PRESENTATION_IMAGE_FILE;
+        filename = CONT_CONST.PRESENTATION_IMAGE_FILE;
     }
     return {
       adminTitle,
@@ -62,11 +68,11 @@ function EditPictureForm({ pictureTitle }) {
       <h2>{adminTitle}</h2>
       <img
         className={s.image}
-        src={`${CONTENT_CONST.CONTENT_IMAGE_PATH}/${filename}`}
+        src={`${CONT_CONST.CONTENT_IMAGE_PATH}/${filename}`}
         alt={
-          pictureTitle === CONTENT_CONST.PRESENTATION_IMAGE_TITLE
-            ? CONTENT_CONST.PRESENTATION_IMAGE_ALT
-            : CONTENT_CONST.HOME_IMAGE_ALT
+          pictureTitle === CONT_CONST.PRESENTATION_IMAGE_TITLE
+            ? CONT_CONST.PRESENTATION_IMAGE_ALT
+            : CONT_CONST.HOME_IMAGE_ALT
         }
       />
       <form

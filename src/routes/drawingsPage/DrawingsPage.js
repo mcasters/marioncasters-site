@@ -7,7 +7,6 @@ import Item from '../../components/ItemDir/Item';
 import ITEM_CONST from '../../constants/itemConstants';
 import s from './DrawingsPage.css';
 import GET_ITEMS_QUERY from '../../data/graphql/queries/getAllItems.graphql';
-import Alert from '../../components/Alert';
 
 function DrawingsPage({ title }) {
   const type = ITEM_CONST.TYPE.DRAWING;
@@ -16,7 +15,7 @@ function DrawingsPage({ title }) {
     ssr: true,
   });
   if (loading) return <div className={s.loading}>Chargement...</div>;
-  if (error) return <Alert message="Erreur au chargement des items" isError />;
+  if (error) return <div>Erreur au chargement des Dessins :(</div>;
 
   return (
     <>

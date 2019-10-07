@@ -7,24 +7,23 @@ import s from './ContentForm.css';
 import GET_CONTENT from '../../../data/graphql/queries/getContent.graphql';
 import ContentForm from './ContentForm';
 import ADD_CONTENT_MUTATION from '../../../data/graphql/queries/addContentMutation.graphql';
-import Alert from '../../Alert';
 import AlertContext from '../../AlertContext';
 
 function EditContent({ keyContent, isTextArea }) {
   const triggerAlert = useContext(AlertContext);
-  const { data, loading, error } = useQuery(GET_CONTENT, {
+  const { data } = useQuery(GET_CONTENT, {
     variables: { key: keyContent },
     ssr: true,
   });
 
   const [addContent] = useMutation(ADD_CONTENT_MUTATION, {
+    onError(err) {
+      triggerAlert(err.message, true);
+    },
     onCompleted() {
       triggerAlert('Enregistré', false);
     },
   });
-
-  if (loading) return <div>Chargement...</div>;
-  if (error) return <Alert message="Erreur au chargement des items" isError />;
 
   return (
     <>

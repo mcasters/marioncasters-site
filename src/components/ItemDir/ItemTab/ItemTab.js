@@ -5,7 +5,6 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import GET_ITEMS_BY_PART_QUERY from '../../../data/graphql/queries/getItemsByPart.graphql';
 import Item from '../Item/Item';
 import s from './ItemTab.css';
-import Alert from '../../Alert';
 
 function ItemTab({ year, half, type }) {
   const scrollTop = () => {
@@ -18,7 +17,7 @@ function ItemTab({ year, half, type }) {
   });
 
   if (loading) return <div className={s.loading}>Chargement...</div>;
-  if (error) return <Alert message="Erreur au chargement des items" isError />;
+  if (error) return <div>Erreur au chargement des items :(</div>;
 
   return (
     <>

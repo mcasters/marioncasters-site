@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
 
@@ -8,9 +8,12 @@ import ADD_ITEM_MUTATION from '../../../../data/graphql/queries/addItemMutation.
 import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
 import DELETE_ITEM from '../../../../data/graphql/queries/deleteItem.graphql';
 import UPDATE_MUTATION from '../../../../data/graphql/queries/updateItemMutation.graphql';
+import AlertContext from '../../../AlertContext';
 
 export default function AdminItemParent({ type }) {
-  const [addItem, { loading, error }] = useMutation(ADD_ITEM_MUTATION, {
+  const triggerAlert = useContext(AlertContext);
+
+  const [addItem] = useMutation(ADD_ITEM_MUTATION, {
     update(cache, { data }) {
       const { getAllItems } = cache.readQuery({
         query: GET_ITEMS_QUERY,
@@ -25,6 +28,12 @@ export default function AdminItemParent({ type }) {
         },
         data: { getAllItems: [...getAllItems, data.addItem] },
       });
+    },
+    onError(err) {
+      triggerAlert(err.message, true);
+    },
+    onCompleted() {
+      triggerAlert('Enregistré', false);
     },
   });
 
@@ -48,6 +57,12 @@ export default function AdminItemParent({ type }) {
         data: { getAllItems },
       });
     },
+    onError(err) {
+      triggerAlert(err.message, true);
+    },
+    onCompleted() {
+      triggerAlert('Supprimé', false);
+    },
   });
 
   const [updateItem] = useMutation(UPDATE_MUTATION, {
@@ -70,10 +85,13 @@ export default function AdminItemParent({ type }) {
         data: { getAllItems },
       });
     },
+    onError(err) {
+      triggerAlert(err.message, true);
+    },
+    onCompleted() {
+      triggerAlert('Mis à jour', false);
+    },
   });
-
-  if (loading) return <p>OK</p>;
-  if (error) return <p>An error occurred</p>;
 
   return (
     <>
