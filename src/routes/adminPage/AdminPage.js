@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import { Tab, TabList, Tabs, TabPanel } from 'react-tabs';
+import { useApolloClient } from '@apollo/react-hooks';
 
 import s from './AdminPage.css';
 import ITEM_CONST from '../../constants/itemConstants';
@@ -10,8 +11,18 @@ import EditContent from '../../components/Admin/EditContent';
 import Logout from '../../components/Logout';
 import AdminItemParent from '../../components/Admin/Item/AdminItemParent';
 import EditPictureForm from '../../components/Admin/EditPicture/EditPictureForm';
+import GET_ADMIN_STATUS_QUERY from '../../data/graphql/queries/getAdminStatusQuery.graphql';
 
 function AdminPage({ title }) {
+  const client = useApolloClient();
+  const { adminStatus } = client.readQuery({
+    query: GET_ADMIN_STATUS_QUERY,
+  });
+
+  if (!adminStatus.isConnected) {
+    return { redirect: '/home' };
+  }
+
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleSelectTab = index => {

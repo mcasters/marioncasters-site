@@ -25,9 +25,7 @@ const insertCss = (...styles) => {
 
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
-const context = {
-  client: apolloClient,
-};
+const context = {};
 
 const container = document.getElementById('app');
 let currentLocation = history.location;
