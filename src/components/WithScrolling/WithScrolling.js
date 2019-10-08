@@ -1,29 +1,46 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
+import throttle from 'lodash/throttle';
 
-import { getScroll } from '../../../tools/lib/windowUtils';
+import { getScrollY } from '../../../tools/lib/windowUtils';
 
 function withScrolling(ComposedComponent) {
-  return function Component(props) {
-    const calculatedScroll = getScroll();
-    const [scroll, setScroll] = useState(calculatedScroll);
+  return class extends Component {
+    constructor(props) {
+      super(props);
 
-    const updateScrolling = () => {
-      const wScroll = window.pageYOffset;
-      if (wScroll !== scroll) {
-        setScroll({ wScroll });
+      this.state = {
+        scrollPosition: getScrollY(),
+      };
+
+      const onChangeScroll = this.onChangeScroll.bind(this);
+      this.delayedScroll = throttle(onChangeScroll, 200);
+    }
+
+    componentDidMount() {
+      window.addEventListener('scroll', this.delayedScroll, {
+        passive: true,
+      });
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener('scroll', this.delayedScroll, {
+        passive: true,
+      });
+    }
+
+    onChangeScroll = () => {
+      if (typeof window !== 'undefined') {
+        const scrollPosition = window.scrollY || window.pageYOffset;
+        this.setState({ scrollPosition });
       }
     };
 
-    React.componentDidMount = () => {
-      window.addEventListener('scroll', updateScrolling);
-    };
-
-    React.componentWillUnmount = () => {
-      window.removeEventListener('scroll', updateScrolling);
-    };
-
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    return <ComposedComponent {...props} scroll={scroll} />;
+    render() {
+      return (
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        <ComposedComponent {...this.props} scroll={this.state.scrollPosition} />
+      );
+    }
   };
 }
 

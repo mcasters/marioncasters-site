@@ -23,8 +23,8 @@ export function getWindowHeight() {
   return canUseDOM ? window.innerHeight : 768; // Default size for server-side rendering
 }
 
-export function getScroll() {
-  return canUseDOM ? window.pageYOffset : 0;
+export function getScrollY() {
+  return canUseDOM ? window.scrollY || window.pageYOffset : 0;
 }
 
 export function getElementYPosition(elementClassName) {
