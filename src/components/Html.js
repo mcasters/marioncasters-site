@@ -17,6 +17,10 @@ type PropTypes = {|
   }>,
   // eslint-disable-next-line react/require-default-props
   scripts?: Array<string>,
+  // eslint-disable-next-line react/require-default-props
+  asyncScripts?: Array<string>,
+  // eslint-disable-next-line react/require-default-props
+  asyncLinks?: Array<string>,
   app: Object, // eslint-disable-line
   children: string,
 |};
@@ -27,6 +31,8 @@ const Html = ({
   keywords,
   styles = [],
   scripts = [],
+  asyncScripts = [],
+  asyncLinks = [],
   app,
   children,
 }: PropTypes) => (
@@ -42,6 +48,7 @@ const Html = ({
       {scripts.map(script => (
         <link key={script} rel="preload" href={script} as="script" />
       ))}
+      {asyncLinks.map(link => link)}
       <link rel="manifest" href="/site.webmanifest" />
       <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
       <link rel="icon" sizes="192x192" href="/icon-192.png" />
@@ -66,6 +73,7 @@ const Html = ({
       {scripts.map(script => (
         <script key={script} src={script} />
       ))}
+      {asyncScripts.map(script => script)}
       {config.analytics.googleTrackingId && (
         <script
           dangerouslySetInnerHTML={{
