@@ -4,13 +4,13 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 
 import s from './Item.css';
 import ITEM_CONST from '../../../constants/itemConstants';
-import Image from '../Image';
+import AsyncImage from '../AsyncImage';
 
 function Item({ item, type }) {
   return (
     <article className={s.itemContainer}>
       <h2 className={s.itemTitle}>{item.title}</h2>
-      <Image type={type} title={item.title} />
+      <AsyncImage type={type} title={item.title} />
       <span className={s.noWrap}>
         {new Date(item.date).toLocaleDateString()}
       </span>

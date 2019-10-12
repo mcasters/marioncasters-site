@@ -106,9 +106,8 @@ const config = {
             '@babel/plugin-syntax-dynamic-import',
             ['@babel/plugin-proposal-class-properties', { loose: false }],
 
-            /* '@babel/plugin-syntax-dynamic-import',
+            /*
             '@babel/plugin-syntax-import-meta',
-            ['@babel/plugin-proposal-class-properties', { loose: false }],
             '@babel/plugin-proposal-json-strings', */
             // Treat React JSX elements as value types and hoist them to the highest scope
             // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-constant-elements
@@ -389,6 +388,8 @@ const clientConfig = {
         }
       },
     }),
+
+    new LoadablePlugin(),
 
     ...(isDebug
       ? []

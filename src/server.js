@@ -135,12 +135,11 @@ app.get('*', async (req, res, next) => {
     const webStats = path.resolve(__dirname, './loadable-stats.json');
     const extractor = new ChunkExtractor({
       statsFile: webStats,
-      entrypoints: ['AsyncImage'],
+      entrypoints: ['server'],
     });
 
-    data.children = await ReactDOM.renderToString(
-      extractor.collectChunks(rootComponent),
-    );
+    const jsx = extractor.collectChunks(rootComponent);
+    data.children = await ReactDOM.renderToString(jsx);
 
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
 
@@ -160,8 +159,6 @@ app.get('*', async (req, res, next) => {
     const asyncLink = new Set();
     asyncScripts.add(extractor.getScriptElements());
     asyncLink.add(extractor.getLinkElements());
-
-    // addChunk('AsyncImage');
 
     data.scripts = Array.from(scripts);
     data.asyncScripts = Array.from(asyncScripts);
