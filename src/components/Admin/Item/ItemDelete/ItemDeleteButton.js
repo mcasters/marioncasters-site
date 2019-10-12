@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FaTrash } from 'react-icons/fa/index';
+import { FaTrash } from 'react-icons/fa';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import s from './ItemDeleteButton.css';
 
