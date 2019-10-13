@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
+import Image from '../Image';
 
 import s from './Item.css';
 import ITEM_CONST from '../../../constants/itemConstants';
-import AsyncImage from '../AsyncImage';
 
 function Item({ item, type }) {
   return (
     <article className={s.itemContainer}>
       <h2 className={s.itemTitle}>{item.title}</h2>
-      <AsyncImage type={type} title={item.title} />
+      <Image type={type} title={item.title} />
       <span className={s.noWrap}>
         {new Date(item.date).toLocaleDateString()}
       </span>

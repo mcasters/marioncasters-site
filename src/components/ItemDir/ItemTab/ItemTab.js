@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import loadable from '@loadable/component';
+
+import Item from '../Item';
 import GET_ITEMS_BY_PART_QUERY from '../../../data/graphql/queries/getItemsByPart.graphql';
 import s from './ItemTab.css';
-
-const Item = loadable(() => import('../Item'));
 
 function ItemTab({ year, half, type }) {
   const scrollTop = () => {

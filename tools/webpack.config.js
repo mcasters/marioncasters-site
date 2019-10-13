@@ -6,7 +6,6 @@ import nodeExternals from 'webpack-node-externals';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import Dotenv from 'dotenv-webpack';
 import cssnano from 'cssnano';
-import LoadablePlugin from '@loadable/webpack-plugin';
 
 import overrideRules from './lib/overrideRules';
 import pkg from '../package.json';
@@ -388,9 +387,6 @@ const clientConfig = {
         }
       },
     }),
-
-    new LoadablePlugin(),
-
     ...(isDebug
       ? []
       : [
@@ -523,8 +519,6 @@ const serverConfig = {
       raw: true,
       entryOnly: false,
     }),
-
-    new LoadablePlugin(),
   ],
 
   // Do not replace node globals with polyfills

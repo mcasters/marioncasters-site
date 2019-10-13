@@ -8,7 +8,6 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
 import cors from 'cors';
 import session from 'express-session';
-import { ChunkExtractor } from '@loadable/server';
 
 import App from './components/App';
 import Html from './components/Html';
@@ -128,18 +127,7 @@ app.get('*', async (req, res, next) => {
     );
     await getDataFromTree(rootComponent);
 
-    //
-    // Loadable splitting components
-    // -----------------------------------------------------------------------------
-
-    const webStats = path.resolve(__dirname, './loadable-stats.json');
-    const extractor = new ChunkExtractor({
-      statsFile: webStats,
-      entrypoints: ['server'],
-    });
-
-    const jsx = extractor.collectChunks(rootComponent);
-    data.children = await ReactDOM.renderToString(jsx);
+    data.children = await ReactDOM.renderToString(rootComponent);
 
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
 
@@ -155,14 +143,7 @@ app.get('*', async (req, res, next) => {
     if (route.chunk) addChunk(route.chunk);
     if (route.chunks) route.chunks.forEach(addChunk);
 
-    const asyncScripts = new Set();
-    const asyncLink = new Set();
-    asyncScripts.add(extractor.getScriptElements());
-    asyncLink.add(extractor.getLinkElements());
-
     data.scripts = Array.from(scripts);
-    data.asyncScripts = Array.from(asyncScripts);
-    data.asyncLinks = Array.from(asyncLink);
     data.app = {
       apiUrl: config.api.clientUrl,
       cache: apolloClient.extract(),
