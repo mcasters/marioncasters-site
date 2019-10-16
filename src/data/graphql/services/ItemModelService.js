@@ -1,47 +1,50 @@
 import { Sequelize } from 'sequelize';
 
-import ITEM_CONSTANTS from '../../../constants/itemConstants';
+import ITEM_CONST from '../../../constants/itemConstants';
 import { Drawing, Painting, Sculpture } from '../../models';
 
-class ItemService {
+class ItemModelService {
   constructor(type) {
-    this.properties = {};
+    this.model = {};
     this.init(type);
   }
 
   init(type) {
-    if (type === ITEM_CONSTANTS.TYPE.PAINTING) this.properties = Painting;
-    else if (type === ITEM_CONSTANTS.TYPE.DRAWING) this.properties = Drawing;
-    else if (type === ITEM_CONSTANTS.TYPE.SCULPTURE)
-      this.properties = Sculpture;
-    else throw new Error(`Type ${type} inexistant`);
+    if (type === ITEM_CONST.PAINTING.TYPE) {
+      this.model = Painting;
+    } else if (type === ITEM_CONST.DRAWING.TYPE) {
+      this.model = Drawing;
+    } else if (type === ITEM_CONST.SCULPTURE.TYPE) {
+      this.model = Sculpture;
+      this.isSculpture = true;
+    } else throw new Error(`Type ${type} inexistant`);
   }
 
   get(name) {
     if (!this.has(name)) {
       throw new Error(`Property ${name} not found`);
     }
-    return this.properties[name];
+    return this.model[name];
   }
 
   has(name) {
-    return name in this.properties;
+    return name in this.model;
   }
 
   getByName = async title => {
-    return this.properties.findOne({
+    return this.model.findOne({
       where: { title },
     });
   };
 
   getById = async id => {
-    return this.properties.findOne({
+    return this.model.findOne({
       where: { id },
     });
   };
 
   getAllItems = async () => {
-    return this.properties.findAll({
+    return this.model.findAll({
       order: Sequelize.col('date'),
     });
   };
@@ -64,7 +67,7 @@ class ItemService {
       end = new Date(year, 11, 31);
     }
 
-    return this.properties.findAll({
+    return this.model.findAll({
       where: {
         date: {
           gte: start,
@@ -76,28 +79,28 @@ class ItemService {
   };
 
   add = async data => {
-    return this.properties.create(data);
+    return this.model.create(data);
   };
 
   update = async (id, data) => {
-    await this.properties.update(
+    await this.model.update(
       {
         id,
         ...data,
       },
       { where: { id } },
     );
-    const updatedItem = await this.properties.findOne({
+    const updatedItem = await this.model.findOne({
       where: { id },
     });
     return updatedItem;
   };
 
   delete = async id => {
-    return this.properties.destroy({
+    return this.model.destroy({
       where: { id },
     });
   };
 }
 
-export default ItemService;
+export default ItemModelService;

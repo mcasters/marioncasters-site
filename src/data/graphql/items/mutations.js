@@ -1,6 +1,6 @@
 import * as imageService from '../../../imageServices';
 import getAuthenticatedUser from '../services/authService';
-import ItemService from '../services/ItemService';
+import ItemModelService from '../services/ItemModelService';
 
 export const types = [
   `
@@ -49,7 +49,7 @@ export const resolvers = {
       if (!isAdmin) throw new Error("Erreur d'authentification");
 
       const { title } = data;
-      const itemService = new ItemService(type);
+      const itemService = new ItemModelService(type);
 
       const item = await itemService.getByName(title);
       if (item) throw new Error("Nom de l'item déjà existant en Bdd");
@@ -77,7 +77,7 @@ export const resolvers = {
       const isAdmin = await getAuthenticatedUser(req);
       if (!isAdmin) throw new Error("Erreur d'authentification");
 
-      const itemService = new ItemService(type);
+      const itemService = new ItemModelService(type);
 
       const oldItem = await itemService.getById(id);
       if (!oldItem) throw new Error('Item à modifier introuvable en BDD');
@@ -120,7 +120,7 @@ export const resolvers = {
       const isAdmin = await getAuthenticatedUser(req);
       if (!isAdmin) throw new Error("Erreur d'authentification");
 
-      const itemService = new ItemService(type);
+      const itemService = new ItemModelService(type);
       const item = await itemService.getById(id);
       if (!item) throw new Error('Item absent en BDD');
 

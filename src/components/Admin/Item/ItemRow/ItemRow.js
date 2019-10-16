@@ -3,29 +3,23 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
-import ITEM_CONSTANTS from '../../../../constants/itemConstants';
+import ITEM_CONST from '../../../../constants/itemConstants';
 import s from './ItemRow.css';
 import ItemDeleteButton from '../ItemDelete/ItemDeleteButton';
 import ItemUpdateButton from '../ItemUpdate/ItemUpdateButton';
+import ItemService from '../../../../app-services/ItemService';
 
 function ItemRow({ item, srcList, type, deleteMutation, updateMutation }) {
-  const isSculpture = type === ITEM_CONSTANTS.TYPE.SCULPTURE;
+  const itemService = new ItemService(type);
 
-  let alt;
-  if (isSculpture) {
-    alt = ITEM_CONSTANTS.ALT_IMAGE_SCULPTURE;
-  } else {
-    alt =
-      type === ITEM_CONSTANTS.TYPE.PAINTING
-        ? ITEM_CONSTANTS.ALT_IMAGE_PAINTING
-        : ITEM_CONSTANTS.ALT_IMAGE_DRAWING;
-  }
+  const isSculpture = itemService.getIsSculpture();
+  const alt = itemService.getAltImage();
   const src = srcList[0];
 
   return (
     <tr className={s.row}>
       <th>{item.title}</th>
-      <th>{moment(item.date).format(ITEM_CONSTANTS.FORMAT_DATE)}</th>
+      <th>{moment(item.date).format(ITEM_CONST.FORMAT_DATE)}</th>
       <th>{item.technique}</th>
       <th>{item.description}</th>
       <th>{item.height}</th>

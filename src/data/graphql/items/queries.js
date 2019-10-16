@@ -1,4 +1,4 @@
-import ItemService from '../services/ItemService';
+import ItemModelService from '../services/ItemModelService';
 
 export const types = [
   `
@@ -32,12 +32,12 @@ export const queries = [
 export const resolvers = {
   RootQuery: {
     async getAllItems(parent, { type }) {
-      const itemService = new ItemService(type);
+      const itemService = new ItemModelService(type);
       return itemService.getAllItems();
     },
 
     async getItemsByPart(parent, { type, year, half }) {
-      const itemService = new ItemService(type);
+      const itemService = new ItemModelService(type);
       return itemService.getItemsByPart(year, half);
     },
   },

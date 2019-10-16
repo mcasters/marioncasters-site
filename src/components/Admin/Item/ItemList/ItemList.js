@@ -3,30 +3,33 @@ import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
-import ITEM_CONST from '../../../../constants/itemConstants';
 import ItemRow from '../ItemRow';
 import s from './ItemList.css';
 import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphql';
+import ItemService from '../../../../app-services/ItemService';
 
 function ItemList({ type, deleteMutation, updateMutation }) {
+  const itemService = new ItemService(type);
+
+  const isSculpture = itemService.getIsSculpture();
+  const path = itemService.getPath();
+
   const getUrlImages = itemTitle => {
-    const imagesForItem = [];
-    if (type === ITEM_CONST.TYPE.SCULPTURE) {
+    const imageUrls = [];
+
+    if (isSculpture) {
       let i = 1;
+
       while (i < 5) {
-        imagesForItem.push(
-          `${ITEM_CONST.SCULPTURE_PATH}/sm/${itemTitle}_${i}.jpg`,
-        );
+        imageUrls.push(`${path}/sm/${itemTitle}_${i}.jpg`);
         i++;
       }
-    } else if (type === ITEM_CONST.TYPE.PAINTING) {
-      imagesForItem.push(`${ITEM_CONST.PAINTING_PATH}/sm/${itemTitle}.jpg`);
-    } else imagesForItem.push(`${ITEM_CONST.DRAWING_PATH}/sm/${itemTitle}.jpg`);
-    return imagesForItem;
+    } else imageUrls.push(`${path}/sm/${itemTitle}.jpg`);
+
+    return imageUrls;
   };
 
   const title = 'Modification - Suppression';
-  const isSculpture = type === ITEM_CONST.TYPE.SCULPTURE;
   const { data, loading, error } = useQuery(GET_ITEMS_QUERY, {
     variables: { type },
     ssr: true,

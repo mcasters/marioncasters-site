@@ -17,12 +17,12 @@ function Item({ item, type }) {
       <span className={s.spacer}> | </span>
       <span className={s.noWrap}>{item.technique}</span>
       <span className={s.spacer}> | </span>
-      {type === ITEM_CONST.TYPE.SCULPTURE && (
+      {type === ITEM_CONST.SCULPTURE.TYPE && (
         <span className={s.noWrap}>
           {item.height} x {item.width} x {item.length} cm
         </span>
       )}
-      {type !== ITEM_CONST.TYPE.SCULPTURE && (
+      {type !== ITEM_CONST.SCULPTURE.TYPE && (
         <span className={s.noWrap}>
           {item.height} x {item.width} cm
         </span>

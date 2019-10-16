@@ -12,14 +12,14 @@ import LAYOUT_CONSTANTS from '../../constants/layoutConstants';
 
 Modal.setAppElement('#app');
 
-function LightBoxProvider({ title, type, srcList, src, toggle }) {
+function LightBoxProvider({ title, type, srcList, toggle }) {
   const [photoIndex, setPhotoIndex] = useState(0);
 
   const close = () => {
     toggle(false);
   };
 
-  if (type === ITEM_CONST.TYPE.SCULPTURE) {
+  if (type === ITEM_CONST.SCULPTURE.TYPE) {
     return (
       <>
         <Lightbox
@@ -45,7 +45,7 @@ function LightBoxProvider({ title, type, srcList, src, toggle }) {
   return (
     <>
       <Lightbox
-        mainSrc={src}
+        mainSrc={srcList[0]}
         onCloseRequest={() => close()}
         imageTitle={`Marion Casters | ${title}`}
         imagePadding={LIGHTBOX_PADDING}
@@ -58,14 +58,8 @@ function LightBoxProvider({ title, type, srcList, src, toggle }) {
 LightBoxProvider.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  srcList: PropTypes.array,
-  src: PropTypes.string,
+  srcList: PropTypes.array.isRequired,
   toggle: PropTypes.func.isRequired,
-};
-
-LightBoxProvider.defaultProps = {
-  srcList: [],
-  src: '',
 };
 
 export default LightBoxProvider;

@@ -7,47 +7,42 @@ import ITEM_CONST from '../../../constants/itemConstants';
 import LAYOUT_CONSTANTS from '../../../constants/layoutConstants';
 import withViewport from '../../WithViewport';
 import LightBoxProvider from '../../LightBoxProvider';
+import ItemService from '../../../app-services/ItemService';
 
 function Image({ title, type, viewport }) {
   const [isOpen, setIsOpen] = useState(false);
   const isLessThanSM = viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.SM;
+  const itemService = new ItemService(type);
+  const itemPath = itemService.getPath();
+  const alt = itemService.getAltImage();
+  const isSculpture = itemService.getIsSculpture();
 
   let currentImagePath;
   let largeImagePath;
 
   const setPath = () => {
-    let path;
-    if (type === ITEM_CONST.TYPE.PAINTING) {
-      path = `${ITEM_CONST.PAINTING_PATH}`;
-    }
-    if (type === ITEM_CONST.TYPE.DRAWING) {
-      path = `${ITEM_CONST.DRAWING_PATH}`;
-    }
-    if (type === ITEM_CONST.TYPE.SCULPTURE) {
-      path = `${ITEM_CONST.SCULPTURE_PATH}`;
-    }
     currentImagePath = isLessThanSM
-      ? `${path}/${ITEM_CONST.SM_SIZE}`
-      : `${path}/${ITEM_CONST.MD_SIZE}`;
-    largeImagePath = isLessThanSM ? `${path}/${ITEM_CONST.MD_SIZE}` : `${path}`;
+      ? `${itemPath}/${ITEM_CONST.SM_SIZE}`
+      : `${itemPath}/${ITEM_CONST.MD_SIZE}`;
+    largeImagePath = isLessThanSM
+      ? `${itemPath}/${ITEM_CONST.MD_SIZE}`
+      : `${itemPath}`;
   };
 
   const lightBoxHandler = open => {
     setIsOpen(open);
   };
 
-  const getSrc = isCurrent => {
-    return isCurrent
-      ? `${currentImagePath}/${title}.jpg`
-      : `${largeImagePath}/${title}.jpg`;
-  };
-
   const getSrcList = isCurrent => {
     const list = [];
-    let i;
     const path = isCurrent ? `${currentImagePath}` : `${largeImagePath}`;
-    for (i = 1; i < 5; i++) {
-      list.push(`${path}/${title}_${i}.jpg`);
+
+    if (!isSculpture) {
+      list.push(`${path}/${title}.jpg`);
+    } else {
+      for (let i = 1; i < 5; i++) {
+        list.push(`${path}/${title}_${i}.jpg`);
+      }
     }
     return list;
   };
@@ -58,64 +53,27 @@ function Image({ title, type, viewport }) {
 
   setPath();
 
-  if (type === ITEM_CONST.TYPE.SCULPTURE) {
-    const currentSrcList = getSrcList(true);
-    const largeSrcList = getSrcList(false);
-    return (
-      <>
-        <div>
-          {currentSrcList.map(src => (
-            <button
-              type="button"
-              className={s.sculptureButton}
-              onClick={openLightBox}
-              key={src}
-            >
-              <img
-                src={src}
-                alt={ITEM_CONST.ALT_IMAGE_SCULPTURE}
-                className={s.image}
-              />
-            </button>
-          ))}
-        </div>
-        {isOpen && typeof window !== 'undefined' && (
-          <LightBoxProvider
-            title={title}
-            type={type}
-            srcList={largeSrcList}
-            toggle={lightBoxHandler}
-          />
-        )}
-      </>
-    );
-  }
-
-  const currentSrc = getSrc(true);
-  const largeSrc = getSrc(false);
+  const currentSrcList = getSrcList(true);
+  const largeSrcList = getSrcList(false);
   return (
     <>
-      <button
-        type="button"
-        className={s.imageButton}
-        onClick={openLightBox}
-        key={currentImagePath}
-      >
-        <img
-          src={currentSrc}
-          alt={
-            type === ITEM_CONST.TYPE.PAINTING
-              ? ITEM_CONST.ALT_IMAGE_PAINTING
-              : ITEM_CONST.ALT_IMAGE_DRAWING
-          }
-          className={s.image}
-        />
-      </button>
+      <div>
+        {currentSrcList.map(src => (
+          <button
+            type="button"
+            className={isSculpture ? s.sculptureButton : s.imageButton}
+            onClick={openLightBox}
+            key={src}
+          >
+            <img src={src} alt={alt} className={s.image} />
+          </button>
+        ))}
+      </div>
       {isOpen && typeof window !== 'undefined' && (
         <LightBoxProvider
           title={title}
           type={type}
-          src={largeSrc}
+          srcList={largeSrcList}
           toggle={lightBoxHandler}
         />
       )}

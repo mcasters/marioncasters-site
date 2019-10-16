@@ -42,9 +42,9 @@ function AdminPage({ title }) {
         <TabList>
           <Tab>{CONT_CONST.TITLE.HOME}</Tab>
           <Tab>{CONT_CONST.TITLE.PRESENTATION}</Tab>
-          <Tab>{ITEM_CONST.TITLE.PAINTING}</Tab>
-          <Tab>{ITEM_CONST.TITLE.SCULPTURE}</Tab>
-          <Tab>{ITEM_CONST.TITLE.DRAWING}</Tab>
+          <Tab>{ITEM_CONST.PAINTING.TITLE}</Tab>
+          <Tab>{ITEM_CONST.SCULPTURE.TITLE}</Tab>
+          <Tab>{ITEM_CONST.DRAWING.TITLE}</Tab>
           <Tab>{CONT_CONST.TITLE.CONTACT}</Tab>
         </TabList>
         <TabPanel>
@@ -65,13 +65,13 @@ function AdminPage({ title }) {
           </div>
         </TabPanel>
         <TabPanel>
-          <AdminItemParent type={ITEM_CONST.TYPE.PAINTING} />
+          <AdminItemParent type={ITEM_CONST.PAINTING.TYPE} />
         </TabPanel>
         <TabPanel>
-          <AdminItemParent type={ITEM_CONST.TYPE.SCULPTURE} />
+          <AdminItemParent type={ITEM_CONST.SCULPTURE.TYPE} />
         </TabPanel>
         <TabPanel>
-          <AdminItemParent type={ITEM_CONST.TYPE.DRAWING} />
+          <AdminItemParent type={ITEM_CONST.DRAWING.TYPE} />
         </TabPanel>
         <TabPanel>
           <div className={s.tabContainer}>

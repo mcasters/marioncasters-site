@@ -9,7 +9,7 @@ import s from './SculpturesPage.css';
 import GET_ITEMS_QUERY from '../../data/graphql/queries/getAllItems.graphql';
 
 function SculpturesPage({ title }) {
-  const type = ITEM_CONST.TYPE.SCULPTURE;
+  const type = ITEM_CONST.SCULPTURE.TYPE;
   const { data, loading, error } = useQuery(GET_ITEMS_QUERY, {
     variables: { type },
     ssr: true,

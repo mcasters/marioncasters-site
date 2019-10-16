@@ -10,7 +10,7 @@ import ITEM_CONST from '../../../../constants/itemConstants';
 class ItemAddForm extends React.Component {
   constructor(props) {
     super(props);
-    this.isSculpture = this.props.type === ITEM_CONST.TYPE.SCULPTURE;
+    this.isSculpture = this.props.type === ITEM_CONST.SCULPTURE.TYPE;
     this.state = this.getInitialState();
 
     this.handleInputChange = this.handleInputChange.bind(this);

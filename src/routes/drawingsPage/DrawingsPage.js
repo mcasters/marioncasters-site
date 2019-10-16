@@ -9,7 +9,7 @@ import s from './DrawingsPage.css';
 import GET_ITEMS_QUERY from '../../data/graphql/queries/getAllItems.graphql';
 
 function DrawingsPage({ title }) {
-  const type = ITEM_CONST.TYPE.DRAWING;
+  const type = ITEM_CONST.DRAWING.TYPE;
   const { data, loading, error } = useQuery(GET_ITEMS_QUERY, {
     variables: { type },
     ssr: true,

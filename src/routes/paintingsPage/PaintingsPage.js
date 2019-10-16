@@ -5,7 +5,7 @@ import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 
 import s from './PaintingsPage.css';
 import ItemTab from '../../components/ItemDir/ItemTab';
-import ITEM_CONSTANTS from '../../constants/itemConstants';
+import ITEM_CONST from '../../constants/itemConstants';
 import WithScrolling from '../../components/WithScrolling';
 
 function PaintingsPage({ title }) {
@@ -13,6 +13,7 @@ function PaintingsPage({ title }) {
   const year1 = 2017;
   const year2 = 2018;
   const year3 = 2019;
+  const type = ITEM_CONST.PAINTING.TYPE;
 
   const handleSelectTab = index => {
     setSelectedTab(index);
@@ -33,16 +34,16 @@ function PaintingsPage({ title }) {
           <Tab>{year3.toString()}</Tab>
         </TabList>
         <TabPanel>
-          <ItemTab year={year1} half={0} type={ITEM_CONSTANTS.TYPE.PAINTING} />
+          <ItemTab year={year1} half={0} type={type} />
         </TabPanel>
         <TabPanel>
-          <ItemTab year={year2} half={1} type={ITEM_CONSTANTS.TYPE.PAINTING} />
+          <ItemTab year={year2} half={1} type={type} />
         </TabPanel>
         <TabPanel>
-          <ItemTab year={year2} half={2} type={ITEM_CONSTANTS.TYPE.PAINTING} />
+          <ItemTab year={year2} half={2} type={type} />
         </TabPanel>
         <TabPanel>
-          <ItemTab year={year3} half={0} type={ITEM_CONSTANTS.TYPE.PAINTING} />
+          <ItemTab year={year3} half={0} type={type} />
         </TabPanel>
       </Tabs>
     </>
