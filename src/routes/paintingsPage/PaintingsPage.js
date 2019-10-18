@@ -5,7 +5,7 @@ import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 
 import s from './PaintingsPage.css';
 import ItemTab from '../../components/ItemDir/ItemTab';
-import ITEM_CONST from '../../constants/itemConstants';
+import ITEM from '../../constants/item';
 import WithScrolling from '../../components/WithScrolling';
 
 function PaintingsPage({ title }) {
@@ -13,7 +13,7 @@ function PaintingsPage({ title }) {
   const year1 = 2017;
   const year2 = 2018;
   const year3 = 2019;
-  const type = ITEM_CONST.PAINTING.TYPE;
+  const type = ITEM.PAINTING.TYPE;
 
   const handleSelectTab = index => {
     setSelectedTab(index);

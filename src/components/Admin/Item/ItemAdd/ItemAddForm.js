@@ -5,7 +5,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { formatDate, parseDate } from 'react-day-picker/moment';
 
 import s from './ItemAddForm.css';
-import ITEM_CONST from '../../../../constants/itemConstants';
+import ITEM from '../../../../constants/item';
 
 const initialState = {
   title: '',
@@ -25,7 +25,7 @@ function ItemAddForm({ type, addMutation }) {
   ] = useState(initialState);
   const [imagePreviewUrls, setImagePreviewUrls] = useState([]);
 
-  const isSculpture = type === ITEM_CONST.SCULPTURE.TYPE;
+  const isSculpture = type === ITEM.SCULPTURE.TYPE;
 
   const clearState = () => {
     setState({ ...initialState });
@@ -116,7 +116,7 @@ function ItemAddForm({ type, addMutation }) {
             onDayChange={onChange}
             formatDate={formatDate}
             parseDate={parseDate}
-            format={ITEM_CONST.FORMAT_DATE}
+            format={ITEM.FORMAT_DATE}
             placeholder="Date"
           />
         </div>

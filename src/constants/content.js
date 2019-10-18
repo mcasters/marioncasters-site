@@ -1,11 +1,5 @@
-const CONTENT_CONSTANTS = {
+const CONTENT = {
   TYPE: 'content',
-
-  TITLE: {
-    HOME: 'Bienvenue',
-    PRESENTATION: 'Présentation',
-    CONTACT: 'Contact',
-  },
 
   KEY: {
     HOME1: 'Home 1',
@@ -30,4 +24,4 @@ const CONTENT_CONSTANTS = {
   HOME_IMAGE_ALT: 'Oeuvre de Marion Casters',
 };
 
-export default CONTENT_CONSTANTS;
+export default CONTENT;

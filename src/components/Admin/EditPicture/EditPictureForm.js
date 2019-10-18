@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/react-hooks';
 
 import s from './EditPictureForm.css';
 import ADD_PICTURE_MUTATION from '../../../data/graphql/queries/addPictureMutation.graphql';
-import CONT_CONST from '../../../constants/contentConstants';
+import CONT_CONST from '../../../constants/content';
 import AlertContext from '../../AlertContext';
 
 function EditPictureForm({ pictureTitle }) {

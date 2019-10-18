@@ -2,7 +2,7 @@
 
 import { Content } from '../../models';
 import getAuthenticatedUser from '../services/authService';
-import CONTENT_CONSTANTS from '../../../constants/contentConstants';
+import CONTENT from '../../../constants/content';
 import * as imageService from '../../../imageServices';
 
 export const types = [
@@ -53,7 +53,7 @@ export const resolvers = {
       const res = await imageService.processImageUpload(
         pictures,
         title,
-        CONTENT_CONSTANTS.TYPE,
+        CONTENT.TYPE,
       );
 
       if (!res) throw new Error("Erreur à l'écriture des fichiers");

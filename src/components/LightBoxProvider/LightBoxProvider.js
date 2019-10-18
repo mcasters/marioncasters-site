@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
-import ITEM_CONST from '../../constants/itemConstants';
+import ITEM from '../../constants/item';
 import Lightbox from '../Lightbox/Lightbox';
 import {
   LIGHTBOX_MOBILE_PADDING,
@@ -19,7 +19,7 @@ function LightBoxProvider({ title, type, srcList, toggle }) {
     toggle(false);
   };
 
-  if (type === ITEM_CONST.SCULPTURE.TYPE) {
+  if (type === ITEM.SCULPTURE.TYPE) {
     return (
       <>
         <Lightbox

@@ -4,12 +4,12 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
 
 import Item from '../../components/ItemDir/Item';
-import ITEM_CONST from '../../constants/itemConstants';
+import ITEM from '../../constants/item';
 import s from './DrawingsPage.css';
 import GET_ITEMS_QUERY from '../../data/graphql/queries/getAllItems.graphql';
 
 function DrawingsPage({ title }) {
-  const type = ITEM_CONST.DRAWING.TYPE;
+  const type = ITEM.DRAWING.TYPE;
   const { data, loading, error } = useQuery(GET_ITEMS_QUERY, {
     variables: { type },
     ssr: true,

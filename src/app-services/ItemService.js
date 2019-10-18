@@ -1,4 +1,4 @@
-import ITEM_CONST from '../constants/itemConstants';
+import ITEM from '../constants/item';
 
 class ItemService {
   constructor(type) {
@@ -8,12 +8,12 @@ class ItemService {
   }
 
   init(type) {
-    if (type === ITEM_CONST.PAINTING.TYPE) {
-      this.constDatas = ITEM_CONST.PAINTING;
-    } else if (type === ITEM_CONST.DRAWING.TYPE) {
-      this.constDatas = ITEM_CONST.DRAWING;
-    } else if (type === ITEM_CONST.SCULPTURE.TYPE) {
-      this.constDatas = ITEM_CONST.SCULPTURE;
+    if (type === ITEM.PAINTING.TYPE) {
+      this.constDatas = ITEM.PAINTING;
+    } else if (type === ITEM.DRAWING.TYPE) {
+      this.constDatas = ITEM.DRAWING;
+    } else if (type === ITEM.SCULPTURE.TYPE) {
+      this.constDatas = ITEM.SCULPTURE;
       this.isSculpture = true;
     } else throw new Error(`Type ${type} inexistant`);
   }
@@ -31,10 +31,6 @@ class ItemService {
 
   getPath = () => {
     return this.constDatas.PATH;
-  };
-
-  getFolder = () => {
-    return this.constDatas.FOLDER;
   };
 
   getTitle = () => {

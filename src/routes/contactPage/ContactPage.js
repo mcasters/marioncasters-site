@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
-import CONT_CONST from '../../constants/contentConstants';
+import CONT_CONST from '../../constants/content';
 import s from './ContactPage.css';
 import Content from '../../components/Content';
 

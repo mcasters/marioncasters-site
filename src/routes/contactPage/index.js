@@ -1,12 +1,12 @@
 import React from 'react';
-import CONTENT_CONSTANTS from '../../constants/contentConstants';
-import META_HTML_CONSTANTS from '../../constants/metaHtmlConstants';
+import TITLE from '../../constants/pageTitle';
+import { DESCRIPTION } from '../../constants/metaHtml';
 import ContactPage from './ContactPage';
 import Root from '../../components/LayoutRep/Root';
 
 function action() {
-  const title = CONTENT_CONSTANTS.TITLE.CONTACT;
-  const description = META_HTML_CONSTANTS.META_DESCRIPTION.CONTACT;
+  const title = TITLE.CONTACT;
+  const description = DESCRIPTION.CONTACT;
 
   return {
     title,

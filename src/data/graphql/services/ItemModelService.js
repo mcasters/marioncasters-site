@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 
-import ITEM_CONST from '../../../constants/itemConstants';
+import ITEM from '../../../constants/item';
 import { Drawing, Painting, Sculpture } from '../../models';
 
 class ItemModelService {
@@ -10,11 +10,11 @@ class ItemModelService {
   }
 
   init(type) {
-    if (type === ITEM_CONST.PAINTING.TYPE) {
+    if (type === ITEM.PAINTING.TYPE) {
       this.model = Painting;
-    } else if (type === ITEM_CONST.DRAWING.TYPE) {
+    } else if (type === ITEM.DRAWING.TYPE) {
       this.model = Drawing;
-    } else if (type === ITEM_CONST.SCULPTURE.TYPE) {
+    } else if (type === ITEM.SCULPTURE.TYPE) {
       this.model = Sculpture;
       this.isSculpture = true;
     } else throw new Error(`Type ${type} inexistant`);

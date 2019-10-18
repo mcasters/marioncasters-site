@@ -1,12 +1,12 @@
 import React from 'react';
 import DrawingsPage from './DrawingsPage';
-import ITEM_CONST from '../../constants/itemConstants';
-import META_HTML_CONST from '../../constants/metaHtmlConstants';
+import ITEM from '../../constants/item';
+import { DESCRIPTION } from '../../constants/metaHtml';
 import Root from '../../components/LayoutRep/Root';
 
 async function action() {
-  const title = ITEM_CONST.DRAWING.TITLE;
-  const description = META_HTML_CONST.META_DESCRIPTION.DRAWING;
+  const title = ITEM.DRAWING.TITLE;
+  const description = DESCRIPTION.DRAWING;
 
   return {
     title,

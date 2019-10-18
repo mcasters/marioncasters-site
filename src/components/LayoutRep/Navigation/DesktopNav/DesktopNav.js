@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
 
@@ -6,13 +6,16 @@ import history from '../../../../history';
 import s from './DesktopNav.css';
 import Link from '../../../Link';
 import logoUrl2x from '../logo-100.png';
-import ROUTER_CONSTANTS from '../../../../constants/routerConstants';
+import ROUTER from '../../../../constants/router';
+import AppContext from '../../../../context';
 
 function DesktopNav({ isHome }) {
   const [location, setLocation] = useState('');
+  const context = useContext(AppContext);
 
   const updateLocation = () => {
-    setLocation(window.location.pathname);
+    const path = context.pathname;
+    setLocation({ path });
   };
 
   React.componentDidMount = () => {
@@ -28,55 +31,51 @@ function DesktopNav({ isHome }) {
       <nav>
         <Link
           className={
-            location === ROUTER_CONSTANTS.ROUTER.PRESENTATION
+            location === `${ROUTER.PRESENTATION}`
               ? `${s.link} ${s.active}`
               : `${s.link}`
           }
-          to={ROUTER_CONSTANTS.ROUTER.PRESENTATION}
+          to={ROUTER.PRESENTATION}
         >
           Présentation
         </Link>
         <Link
           className={
-            location === ROUTER_CONSTANTS.ROUTER.PEINTURES
+            location === ROUTER.PEINTURES
               ? `${s.link} ${s.active}`
               : `${s.link}`
           }
-          to={ROUTER_CONSTANTS.ROUTER.PEINTURES}
+          to={ROUTER.PEINTURES}
         >
           Peintures
         </Link>
         <Link
           className={
-            location === ROUTER_CONSTANTS.ROUTER.SCULPTURES
+            location === ROUTER.SCULPTURES
               ? `${s.link} ${s.active}`
               : `${s.link}`
           }
-          to={ROUTER_CONSTANTS.ROUTER.SCULPTURES}
+          to={ROUTER.SCULPTURES}
         >
           Sculptures
         </Link>
         <Link
           className={
-            location === ROUTER_CONSTANTS.ROUTER.DESSINS
-              ? `${s.link} ${s.active}`
-              : `${s.link}`
+            location === ROUTER.DESSINS ? `${s.link} ${s.active}` : `${s.link}`
           }
-          to={ROUTER_CONSTANTS.ROUTER.DESSINS}
+          to={ROUTER.DESSINS}
         >
           Dessins
         </Link>
         <Link
           className={
-            location === ROUTER_CONSTANTS.ROUTER.CONTACT
-              ? `${s.link} ${s.active}`
-              : `${s.link}`
+            location === ROUTER.CONTACT ? `${s.link} ${s.active}` : `${s.link}`
           }
-          to={ROUTER_CONSTANTS.ROUTER.CONTACT}
+          to={ROUTER.CONTACT}
         >
           Contact
         </Link>
-        <Link className={s.linkHome} to={ROUTER_CONSTANTS.ROUTER.HOME}>
+        <Link className={s.linkHome} to={ROUTER.HOME}>
           <img src={logoUrl2x} alt="Signature de Marion Casters" />
         </Link>
       </nav>

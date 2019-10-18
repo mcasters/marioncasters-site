@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 import Image from '../Image';
 
 import s from './Item.css';
-import ITEM_CONST from '../../../constants/itemConstants';
+import ITEM from '../../../constants/item';
 
 function Item({ item, type }) {
   return (
@@ -17,12 +17,12 @@ function Item({ item, type }) {
       <span className={s.spacer}> | </span>
       <span className={s.noWrap}>{item.technique}</span>
       <span className={s.spacer}> | </span>
-      {type === ITEM_CONST.SCULPTURE.TYPE && (
+      {type === ITEM.SCULPTURE.TYPE && (
         <span className={s.noWrap}>
           {item.height} x {item.width} x {item.length} cm
         </span>
       )}
-      {type !== ITEM_CONST.SCULPTURE.TYPE && (
+      {type !== ITEM.SCULPTURE.TYPE && (
         <span className={s.noWrap}>
           {item.height} x {item.width} cm
         </span>

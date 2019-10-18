@@ -7,7 +7,7 @@ import Link from '../../Link';
 import LoginControl from '../../LoginControl';
 import GLOBAL_CONSTANTS from '../../../constants/globalConstants';
 import Feedback from '../Feedback';
-import ROUTER_CONSTANTS from '../../../constants/routerConstants';
+import ROUTER from '../../../constants/router';
 import GET_ADMIN_STATUS_QUERY from '../../../data/graphql/queries/getAdminStatusQuery.graphql';
 
 function Footer() {
@@ -20,13 +20,13 @@ function Footer() {
       <div className={s.container}>
         <span className={s.text}>{GLOBAL_CONSTANTS.COPYRIGHT}</span>
         <span className={s.dot}>·</span>
-        <Link className={s.homeLink} to={ROUTER_CONSTANTS.ROUTER.HOME}>
+        <Link className={s.homeLink} to={ROUTER.HOME}>
           Home
         </Link>
         <span className={s.dot}>·</span>
         <LoginControl isConnected={isConnected} />
         <span className={s.dot}>·</span>
-        <Link className={s.link} to={ROUTER_CONSTANTS.ROUTER.CONFIDENTIALITE}>
+        <Link className={s.link} to={ROUTER.CONFIDENTIALITE}>
           Privacy
         </Link>
       </div>

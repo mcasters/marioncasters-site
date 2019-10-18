@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
 import s from './Image.css';
-import ITEM_CONST from '../../../constants/itemConstants';
+import ITEM from '../../../constants/item';
 import LAYOUT_CONSTANTS from '../../../constants/layoutConstants';
 import withViewport from '../../WithViewport';
 import LightBoxProvider from '../../LightBoxProvider';
@@ -22,10 +22,10 @@ function Image({ title, type, viewport }) {
 
   const setPath = () => {
     currentImagePath = isLessThanSM
-      ? `${itemPath}/${ITEM_CONST.SM_SIZE}`
-      : `${itemPath}/${ITEM_CONST.MD_SIZE}`;
+      ? `${itemPath}/${ITEM.SM_SIZE}`
+      : `${itemPath}/${ITEM.MD_SIZE}`;
     largeImagePath = isLessThanSM
-      ? `${itemPath}/${ITEM_CONST.MD_SIZE}`
+      ? `${itemPath}/${ITEM.MD_SIZE}`
       : `${itemPath}`;
   };
 

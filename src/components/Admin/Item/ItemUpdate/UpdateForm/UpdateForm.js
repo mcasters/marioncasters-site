@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { formatDate, parseDate } from 'react-day-picker/moment';
-import ITEM_CONST from '../../../../../constants/itemConstants';
+import ITEM from '../../../../../constants/item';
 import s from './UpdateForm.css';
 
 const customStyles = {
@@ -97,7 +97,7 @@ class UpdateForm extends React.Component {
   render() {
     const { type, srcList } = this.props;
     const { id } = this.props.item;
-    const isSculpture = type === ITEM_CONST.TYPE.SCULPTURE;
+    const isSculpture = type === ITEM.SCULPTURE.TYPE;
 
     const haveMain = !!(
       this.state.title &&
@@ -156,7 +156,7 @@ class UpdateForm extends React.Component {
               onDayChange={this.handleDayChange}
               formatDate={formatDate}
               parseDate={parseDate}
-              format={ITEM_CONST.FORMAT_DATE}
+              format={ITEM.FORMAT_DATE}
               placeholder="Date"
             />
           </div>

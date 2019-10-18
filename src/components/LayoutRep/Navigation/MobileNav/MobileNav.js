@@ -6,7 +6,7 @@ import s from './MobileNav.css';
 import Link from '../../../Link';
 import logoUrl from '../logo-45.png';
 import logoUrl2x from '../logo-100.png';
-import ROUTER_CONSTANTS from '../../../../constants/routerConstants';
+import ROUTER_CONSTANTS from '../../../../constants/router';
 
 const styles = {
   bmBurgerButton: {

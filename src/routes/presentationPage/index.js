@@ -1,13 +1,13 @@
 import React from 'react';
 
-import CONTENT_CONSTANTS from '../../constants/contentConstants';
-import META_HTML_CONSTANTS from '../../constants/metaHtmlConstants';
+import TITLE from '../../constants/pageTitle';
+import { DESCRIPTION } from '../../constants/metaHtml';
 import PresentationPage from './PresentationPage';
 import Root from '../../components/LayoutRep/Root';
 
 function action() {
-  const title = CONTENT_CONSTANTS.TITLE.PRESENTATION;
-  const description = META_HTML_CONSTANTS.META_DESCRIPTION.PRESENTATION;
+  const title = TITLE.PRESENTATION;
+  const description = DESCRIPTION.PRESENTATION;
 
   return {
     title,

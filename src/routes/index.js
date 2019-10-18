@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
-import META_CONSTANTS from '../constants/metaHtmlConstants';
-import ROUTER_CONSTANTS from '../constants/routerConstants';
+import { KEYWORDS } from '../constants/metaHtml';
+import ROUTER from '../constants/router';
 
 // The top-level (parent) route
 const routes = {
@@ -13,37 +13,37 @@ const routes = {
       load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {
-      path: ROUTER_CONSTANTS.ROUTER.HOME,
+      path: ROUTER.HOME,
       load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {
-      path: ROUTER_CONSTANTS.ROUTER.PEINTURES,
+      path: ROUTER.PEINTURES,
       load: () => import(/* webpackChunkName: 'paintings' */ './paintingsPage'),
     },
     {
-      path: ROUTER_CONSTANTS.ROUTER.SCULPTURES,
+      path: ROUTER.SCULPTURES,
       load: () =>
         import(/* webpackChunkName: 'sculptures' */ './sculpturesPage'),
     },
     {
-      path: ROUTER_CONSTANTS.ROUTER.DESSINS,
+      path: ROUTER.DESSINS,
       load: () => import(/* webpackChunkName: 'drawings' */ './drawingsPage'),
     },
     {
-      path: ROUTER_CONSTANTS.ROUTER.PRESENTATION,
+      path: ROUTER.PRESENTATION,
       load: () =>
         import(/* webpackChunkName: 'presentation' */ './presentationPage'),
     },
     {
-      path: ROUTER_CONSTANTS.ROUTER.CONTACT,
+      path: ROUTER.CONTACT,
       load: () => import(/* webpackChunkName: 'contact' */ './contactPage'),
     },
     {
-      path: ROUTER_CONSTANTS.ROUTER.CONFIDENTIALITE,
+      path: ROUTER.CONFIDENTIALITE,
       load: () => import(/* webpackChunkName: 'privacy' */ './privacy'),
     },
     {
-      path: ROUTER_CONSTANTS.ROUTER.ADMIN,
+      path: ROUTER.ADMIN,
       load: () => import(/* webpackChunkName: 'admin' */ './adminPage'),
     },
 
@@ -61,7 +61,7 @@ const routes = {
     // Provide default values for title, description etc.
     route.title = `${route.title || 'Page sans titre'} - Marion Casters`;
     route.description = route.description || '-';
-    route.keywords = META_CONSTANTS.KEYWORDS;
+    route.keywords = KEYWORDS;
 
     return route;
   },

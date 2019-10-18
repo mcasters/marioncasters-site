@@ -4,7 +4,7 @@ import withStyles from 'isomorphic-style-loader/withStyles';
 
 import s from './Home.css';
 import Content from '../../components/Content';
-import CONTENT_CONST from '../../constants/contentConstants';
+import CONTENT_CONST from '../../constants/content';
 
 function Home({ title }) {
   return (

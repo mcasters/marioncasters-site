@@ -5,8 +5,9 @@ import { Tab, TabList, Tabs, TabPanel } from 'react-tabs';
 import { useApolloClient } from '@apollo/react-hooks';
 
 import s from './AdminPage.css';
-import ITEM_CONST from '../../constants/itemConstants';
-import CONT_CONST from '../../constants/contentConstants';
+import ITEM from '../../constants/item';
+import TITLE from '../../constants/pageTitle';
+import CONTENT from '../../constants/content';
 import EditContent from '../../components/Admin/EditContent';
 import Logout from '../../components/Logout';
 import AdminItemParent from '../../components/Admin/Item/AdminItemParent';
@@ -40,51 +41,46 @@ function AdminPage({ title }) {
         forceRenderTabPanel
       >
         <TabList>
-          <Tab>{CONT_CONST.TITLE.HOME}</Tab>
-          <Tab>{CONT_CONST.TITLE.PRESENTATION}</Tab>
-          <Tab>{ITEM_CONST.PAINTING.TITLE}</Tab>
-          <Tab>{ITEM_CONST.SCULPTURE.TITLE}</Tab>
-          <Tab>{ITEM_CONST.DRAWING.TITLE}</Tab>
-          <Tab>{CONT_CONST.TITLE.CONTACT}</Tab>
+          <Tab>{TITLE.HOME}</Tab>
+          <Tab>{TITLE.PRESENTATION}</Tab>
+          <Tab>{ITEM.PAINTING.TITLE}</Tab>
+          <Tab>{ITEM.SCULPTURE.TITLE}</Tab>
+          <Tab>{ITEM.DRAWING.TITLE}</Tab>
+          <Tab>{TITLE.CONTACT}</Tab>
         </TabList>
         <TabPanel>
           <div className={s.tabContainer}>
-            <EditPictureForm pictureTitle={CONT_CONST.HOME_IMAGE_PORTRAIT} />
-            <EditPictureForm pictureTitle={CONT_CONST.HOME_IMAGE_LANDSCAPE} />
-            <EditContent keyContent={CONT_CONST.KEY.HOME1} isTextArea />
-            <EditContent keyContent={CONT_CONST.KEY.HOME2} isTextArea />
-            <EditContent keyContent={CONT_CONST.KEY.HOME3} isTextArea />
+            <EditPictureForm pictureTitle={CONTENT.HOME_IMAGE_PORTRAIT} />
+            <EditPictureForm pictureTitle={CONTENT.HOME_IMAGE_LANDSCAPE} />
+            <EditContent keyContent={CONTENT.KEY.HOME1} isTextArea />
+            <EditContent keyContent={CONTENT.KEY.HOME2} isTextArea />
+            <EditContent keyContent={CONTENT.KEY.HOME3} isTextArea />
           </div>
         </TabPanel>
         <TabPanel>
           <div className={s.tabContainer}>
-            <EditPictureForm
-              pictureTitle={CONT_CONST.PRESENTATION_IMAGE_TITLE}
-            />
-            <EditContent keyContent={CONT_CONST.KEY.PRESENTATION} isTextArea />
+            <EditPictureForm pictureTitle={CONTENT.PRESENTATION_IMAGE_TITLE} />
+            <EditContent keyContent={CONTENT.KEY.PRESENTATION} isTextArea />
           </div>
         </TabPanel>
         <TabPanel>
-          <AdminItemParent type={ITEM_CONST.PAINTING.TYPE} />
+          <AdminItemParent type={ITEM.PAINTING.TYPE} />
         </TabPanel>
         <TabPanel>
-          <AdminItemParent type={ITEM_CONST.SCULPTURE.TYPE} />
+          <AdminItemParent type={ITEM.SCULPTURE.TYPE} />
         </TabPanel>
         <TabPanel>
-          <AdminItemParent type={ITEM_CONST.DRAWING.TYPE} />
+          <AdminItemParent type={ITEM.DRAWING.TYPE} />
         </TabPanel>
         <TabPanel>
           <div className={s.tabContainer}>
+            <EditContent keyContent={CONTENT.KEY.CONTACT_ADDRESS} isTextArea />
             <EditContent
-              keyContent={CONT_CONST.KEY.CONTACT_ADDRESS}
-              isTextArea
-            />
-            <EditContent
-              keyContent={CONT_CONST.KEY.CONTACT_PHONE}
+              keyContent={CONTENT.KEY.CONTACT_PHONE}
               isTextArea={false}
             />
             <EditContent
-              keyContent={CONT_CONST.KEY.CONTACT_EMAIL}
+              keyContent={CONTENT.KEY.CONTACT_EMAIL}
               isTextArea={false}
             />
           </div>
