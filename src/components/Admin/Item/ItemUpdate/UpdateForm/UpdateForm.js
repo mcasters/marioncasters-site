@@ -2,8 +2,8 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import { formatDate, parseDate } from 'react-day-picker/moment';
+
+import DayPicker from '../../DayPicker';
 import ITEM from '../../../../../constants/item';
 import s from './UpdateForm.css';
 
@@ -29,7 +29,6 @@ class UpdateForm extends React.Component {
 
     this.state = {
       ...this.props.item,
-      date: new Date(this.props.item.date).toLocaleDateString(),
       imagePreviewUrls: [],
       pictures: [],
       showModal: true,
@@ -151,14 +150,7 @@ class UpdateForm extends React.Component {
             onChange={this.handleInputChange}
           />
           <div className={s.DayInputContainer}>
-            <DayPickerInput
-              value={date}
-              onDayChange={this.handleDayChange}
-              formatDate={formatDate}
-              parseDate={parseDate}
-              format={ITEM.FORMAT_DATE}
-              placeholder="Date"
-            />
+            <DayPicker date={date} onDayChange={this.handleDayChange} />
           </div>
           <input
             className={s.inputL}

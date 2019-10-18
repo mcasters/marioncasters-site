@@ -28,6 +28,7 @@
     "classnames": "^2.2.6",
     "cors": "^2.8.5",
     "cssnano": "^4.1.10",
+    "date-fns": "^2.5.1",
     "dotenv": "^8.1.0",
     "dotenv-webpack": "^1.7.0",
     "eslint-plugin-react-hooks": "^1.7.0",

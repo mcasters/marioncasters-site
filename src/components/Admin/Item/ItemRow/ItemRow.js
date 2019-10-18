@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import withStyles from 'isomorphic-style-loader/withStyles';
 
-import ITEM from '../../../../constants/item';
 import s from './ItemRow.css';
 import ItemDeleteButton from '../ItemDelete/ItemDeleteButton';
 import ItemUpdateButton from '../ItemUpdate/ItemUpdateButton';
@@ -19,7 +17,7 @@ function ItemRow({ item, srcList, type, deleteMutation, updateMutation }) {
   return (
     <tr className={s.row}>
       <th>{item.title}</th>
-      <th>{moment(item.date).format(ITEM.FORMAT_DATE)}</th>
+      <th>{new Date(item.date).toLocaleDateString()}</th>
       <th>{item.technique}</th>
       <th>{item.description}</th>
       <th>{item.height}</th>
