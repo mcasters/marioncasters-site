@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
 
@@ -7,23 +7,16 @@ import s from './DesktopNav.css';
 import Link from '../../../Link';
 import logoUrl2x from '../logo-100.png';
 import ROUTER from '../../../../constants/router';
-import AppContext from '../../../../context';
 
 function DesktopNav({ isHome }) {
   const [location, setLocation] = useState('');
-  const context = useContext(AppContext);
 
-  const updateLocation = () => {
-    const path = context.pathname;
-    setLocation({ path });
-  };
-
-  React.componentDidMount = () => {
-    updateLocation();
-    history.listen(() => {
-      updateLocation();
+  useEffect(() => {
+    history.listen(loc => {
+      const path = loc.pathname;
+      setLocation(path);
     });
-  };
+  });
 
   return (
     <aside>
@@ -31,7 +24,7 @@ function DesktopNav({ isHome }) {
       <nav>
         <Link
           className={
-            location === `${ROUTER.PRESENTATION}`
+            location === ROUTER.PRESENTATION
               ? `${s.link} ${s.active}`
               : `${s.link}`
           }
