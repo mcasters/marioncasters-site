@@ -31,20 +31,21 @@ function ItemAddForm({ type, addMutation }) {
     setImagePreviewUrls([]);
   };
 
-  const onChange = e => {
-    if (e.target === undefined)
-      setState(prevState => ({ ...prevState, date: e }));
-    else {
-      // eslint-disable-next-line no-shadow
-      const { name, value, type } = e.target;
-      setState(prevState => ({
-        ...prevState,
-        [name]: type === 'number' ? parseInt(value, 10) : value,
-      }));
-    }
+  const handleChange = e => {
+    e.preventDefault();
+    // eslint-disable-next-line no-shadow
+    const { name, value, type } = e.target;
+    setState(prevState => ({
+      ...prevState,
+      [name]: type === 'number' ? parseInt(value, 10) : value,
+    }));
   };
 
-  const onImageChange = (e, index) => {
+  const handleChangeDate = pDate => {
+    setState(prevState => ({ ...prevState, date: pDate }));
+  };
+
+  const handleImageChange = (e, index) => {
     e.preventDefault();
 
     const reader = new FileReader();
@@ -106,10 +107,10 @@ function ItemAddForm({ type, addMutation }) {
           name="title"
           type="text"
           value={title}
-          onChange={onChange}
+          onChange={handleChange}
         />
         <div className={s.DayInputContainer}>
-          <DayPicker date={date} onDayChange={onChange} />
+          <DayPicker date={date} onDayChange={handleChangeDate} />
         </div>
         <input
           className={s.inputL}
@@ -117,7 +118,7 @@ function ItemAddForm({ type, addMutation }) {
           name="technique"
           type="text"
           value={technique}
-          onChange={onChange}
+          onChange={handleChange}
         />
         <input
           className={s.inputR}
@@ -125,7 +126,7 @@ function ItemAddForm({ type, addMutation }) {
           name="description"
           type="text"
           value={description}
-          onChange={onChange}
+          onChange={handleChange}
         />
         <input
           className={s.inputL}
@@ -133,7 +134,7 @@ function ItemAddForm({ type, addMutation }) {
           name="height"
           type="number"
           value={height}
-          onChange={onChange}
+          onChange={handleChange}
         />
         <input
           className={s.inputR}
@@ -141,7 +142,7 @@ function ItemAddForm({ type, addMutation }) {
           name="width"
           type="number"
           value={width}
-          onChange={onChange}
+          onChange={handleChange}
         />
         {isSculpture && (
           <input
@@ -150,30 +151,30 @@ function ItemAddForm({ type, addMutation }) {
             name="length"
             type="number"
             value={length}
-            onChange={onChange}
+            onChange={handleChange}
           />
         )}
         <input
           type="file"
           accept="image/jpeg, image/jpg"
-          onChange={e => onImageChange(e, 0)}
+          onChange={e => handleImageChange(e, 0)}
         />
         {isSculpture && (
           <div>
             <input
               type="file"
               accept="image/jpeg, image/jpg"
-              onChange={e => onImageChange(e, 1)}
+              onChange={e => handleImageChange(e, 1)}
             />
             <input
               type="file"
               accept="image/jpeg, image/jpg"
-              onChange={e => onImageChange(e, 2)}
+              onChange={e => handleImageChange(e, 2)}
             />
             <input
               type="file"
               accept="image/jpeg, image/jpg"
-              onChange={e => onImageChange(e, 3)}
+              onChange={e => handleImageChange(e, 3)}
             />
           </div>
         )}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
@@ -23,241 +23,201 @@ const customStyles = {
 
 Modal.setAppElement('#app');
 
-class UpdateForm extends React.Component {
-  constructor(props) {
-    super(props);
+function UpdateForm({ item, type, srcList, updateMutation, onResult }) {
+  // eslint-disable-next-line react/prop-types
+  const { id, __typename, ...rest } = item;
+  const [input, setInput] = useState({ ...rest, pictures: [] });
+  const [imagePreviewUrls, setImagePreviewUrls] = useState([]);
+  const showModal = true;
 
-    this.state = {
-      ...this.props.item,
-      imagePreviewUrls: [],
-      pictures: [],
-      showModal: true,
-    };
-
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleResult = this.handleResult.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleDayChange = this.handleDayChange.bind(this);
-    this.handleImageChange = this.handleImageChange.bind(this);
-    this.constructItem = this.constructItem.bind(this);
-  }
-
-  constructItem = () => {
-    const { imagePreviewUrls, showModal, id, __typename, ...rest } = this.state;
-    return {
-      ...rest,
-      type: this.props.type,
-    };
+  const handleCloseModal = () => {
+    onResult(false);
   };
 
-  handleOpenModal() {
-    this.setState({ showModal: true });
-  }
+  const handleResult = isError => {
+    onResult(isError);
+  };
 
-  handleCloseModal() {
-    this.setState({ showModal: false });
-    this.props.onResult('', false);
-  }
+  const handleChange = e => {
+    e.preventDefault();
+    // eslint-disable-next-line no-shadow
+    const { name, value, type } = e.target;
+    setInput(prevState => ({
+      ...prevState,
+      [name]: type === 'number' ? parseInt(value, 10) : value,
+    }));
+  };
 
-  handleResult(result) {
-    const isError = !!result.message;
-    this.props.onResult(isError);
-    if (!isError) this.setState({ showModal: false });
-  }
+  const handleChangeDate = pDate => {
+    setInput(prevState => ({ ...prevState, date: pDate }));
+  };
 
-  handleImageChange(e, index) {
+  const handleImageChange = (e, index) => {
     e.preventDefault();
 
     const reader = new FileReader();
     const file = e.target.files[0];
 
-    const { imagePreviewUrls, pictures } = this.state;
+    const pImagePreviewUrls = imagePreviewUrls;
+    const pPictures = input.pictures;
     reader.onload = () => {
-      imagePreviewUrls.splice(index, 1, reader.result);
-      pictures.splice(index, 1, file);
+      pImagePreviewUrls.splice(index, 1, reader.result);
+      pPictures.splice(index, 1, file);
 
-      this.setState({ imagePreviewUrls });
-      this.setState({ pictures });
+      setImagePreviewUrls(pImagePreviewUrls);
+      setInput(prevState => ({ ...prevState, pictures: pPictures }));
     };
     reader.readAsDataURL(file);
-  }
+  };
 
-  handleInputChange(e) {
-    e.preventDefault();
-    const { value, name, type } = e.target;
-    this.setState({ [name]: type === 'number' ? parseInt(value, 10) : value });
-  }
+  const isSculpture = type === ITEM.SCULPTURE.TYPE;
+  const haveMain = !!(
+    input.title &&
+    input.date &&
+    input.technique &&
+    input.height &&
+    input.width
+  );
+  const canSubmit =
+    (!isSculpture && haveMain) || !!(isSculpture && haveMain && input.length);
 
-  handleDayChange(selectedDay) {
-    this.setState({ date: selectedDay });
-  }
-
-  render() {
-    const { type, srcList } = this.props;
-    const { id } = this.props.item;
-    const isSculpture = type === ITEM.SCULPTURE.TYPE;
-
-    const haveMain = !!(
-      this.state.title &&
-      this.state.date &&
-      this.state.technique &&
-      this.state.height &&
-      this.state.width
-    );
-
-    const canSubmit =
-      (!isSculpture && haveMain) ||
-      !!(isSculpture && haveMain && this.state.length);
-
-    const {
-      title,
-      date,
-      technique,
-      width,
-      length,
-      height,
-      imagePreviewUrls,
-      showModal,
-      description,
-    } = this.state;
-
-    return (
-      <Modal
-        id="updateItem"
-        contentLabel="Modification"
-        closeTimeoutMS={150}
-        isOpen={showModal}
-        style={customStyles}
+  return (
+    <Modal
+      id="updateItem"
+      contentLabel="Modification"
+      isOpen={showModal}
+      closeTimeoutMS={150}
+      style={customStyles}
+    >
+      <h1 className={s.updateTitle}>Modification</h1>
+      <form
+        className="formGroup"
+        onSubmit={e => {
+          e.preventDefault();
+          updateMutation({ variables: { id, item: { ...input, type } } }).then(
+            res => {
+              const isError = res === undefined;
+              handleResult(isError);
+            },
+          );
+        }}
       >
-        <h1 className={s.updateTitle}>Modification</h1>
-        <form
-          className="formGroup"
-          onSubmit={e => {
-            e.preventDefault();
-            const item = this.constructItem();
-            this.props.updateMutation({ variables: { id, item } }).then(res => {
-              this.handleResult(res);
-            });
-          }}
-        >
+        <input
+          className={s.inputL}
+          placeholder="Titre"
+          name="title"
+          type="text"
+          value={input.title}
+          onChange={handleChange}
+        />
+        <div className={s.DayInputContainer}>
+          <DayPicker date={input.date} onDayChange={handleChangeDate} />
+        </div>
+        <input
+          className={s.inputL}
+          placeholder="Technique"
+          name="technique"
+          type="text"
+          value={input.technique}
+          onChange={handleChange}
+        />
+        <input
+          className={s.inputR}
+          placeholder="Description"
+          name="description"
+          type="text"
+          value={input.description}
+          onChange={handleChange}
+        />
+        <input
+          className={s.inputL}
+          placeholder="Hauteur (cm)"
+          name="height"
+          type="number"
+          value={input.height}
+          onChange={handleChange}
+        />
+        <input
+          className={s.inputR}
+          placeholder="Largeur (cm)"
+          name="width"
+          type="number"
+          value={input.width}
+          onChange={handleChange}
+        />
+        {isSculpture && (
           <input
             className={s.inputL}
-            placeholder="Titre"
-            name="title"
-            type="text"
-            value={title}
-            onChange={this.handleInputChange}
-          />
-          <div className={s.DayInputContainer}>
-            <DayPicker date={date} onDayChange={this.handleDayChange} />
-          </div>
-          <input
-            className={s.inputL}
-            placeholder="Technique"
-            name="technique"
-            type="text"
-            value={technique}
-            onChange={this.handleInputChange}
-          />
-          <input
-            className={s.inputR}
-            placeholder="Description"
-            name="description"
-            type="text"
-            value={description}
-            onChange={this.handleInputChange}
-          />
-          <input
-            className={s.inputL}
-            placeholder="Hauteur (cm)"
-            name="height"
+            placeholder="Longueur (cm)"
+            name="length"
             type="number"
-            value={height}
-            onChange={this.handleInputChange}
+            value={input.length}
+            onChange={handleChange}
           />
-          <input
-            className={s.inputR}
-            placeholder="Largeur (cm)"
-            name="width"
-            type="number"
-            value={width}
-            onChange={this.handleInputChange}
-          />
-          {isSculpture && (
-            <input
-              className={s.inputL}
-              placeholder="Longueur (cm)"
-              name="length"
-              type="number"
-              value={length}
-              onChange={this.handleInputChange}
-            />
-          )}
-          <div className={s.oldImageContainer}>
-            {srcList.map(
-              url =>
-                url !== '' && (
-                  <img
-                    key={url.toString()}
-                    src={url}
-                    alt="Oeuvre de Marion Casters"
-                    className={s.oldImagePreview}
-                  />
-                ),
-            )}
-          </div>
-          <input
-            type="file"
-            accept="image/jpeg, image/jpg"
-            onChange={e => this.handleImageChange(e, 0)}
-          />
-          {isSculpture && (
-            <div>
-              <input
-                type="file"
-                accept="image/jpeg, image/jpg"
-                onChange={e => this.handleImageChange(e, 1)}
-              />
-              <input
-                type="file"
-                accept="image/jpeg, image/jpg"
-                onChange={e => this.handleImageChange(e, 2)}
-              />
-              <input
-                type="file"
-                accept="image/jpeg, image/jpg"
-                onChange={e => this.handleImageChange(e, 3)}
-              />
-            </div>
-          )}
-          {imagePreviewUrls.map(
+        )}
+        <div className={s.oldImageContainer}>
+          {srcList.map(
             url =>
               url !== '' && (
                 <img
                   key={url.toString()}
                   src={url}
-                  alt="Sculpture de Marion Casters"
-                  className={s.imagePreview}
+                  alt="Oeuvre de Marion Casters"
+                  className={s.oldImagePreview}
                 />
               ),
           )}
-          {canSubmit && (
-            <button className={s.updateDialogButton} type="submit">
-              OK
-            </button>
-          )}
-          <button
-            type="button"
-            className={s.updateDialogButton}
-            onClick={this.handleCloseModal}
-          >
-            Annuler
+        </div>
+        <input
+          type="file"
+          accept="image/jpeg, image/jpg"
+          onChange={e => handleImageChange(e, 0)}
+        />
+        {isSculpture && (
+          <div>
+            <input
+              type="file"
+              accept="image/jpeg, image/jpg"
+              onChange={e => handleImageChange(e, 1)}
+            />
+            <input
+              type="file"
+              accept="image/jpeg, image/jpg"
+              onChange={e => handleImageChange(e, 2)}
+            />
+            <input
+              type="file"
+              accept="image/jpeg, image/jpg"
+              onChange={e => handleImageChange(e, 3)}
+            />
+          </div>
+        )}
+        {imagePreviewUrls.map(
+          url =>
+            url !== '' && (
+              <img
+                key={url.toString()}
+                src={url}
+                alt="Sculpture de Marion Casters"
+                className={s.imagePreview}
+              />
+            ),
+        )}
+        {canSubmit && (
+          <button className={s.updateDialogButton} type="submit">
+            OK
           </button>
-        </form>
-      </Modal>
-    );
-  }
+        )}
+        <button
+          type="button"
+          className={s.updateDialogButton}
+          onClick={handleCloseModal}
+        >
+          Annuler
+        </button>
+      </form>
+    </Modal>
+  );
 }
 
 UpdateForm.propTypes = {

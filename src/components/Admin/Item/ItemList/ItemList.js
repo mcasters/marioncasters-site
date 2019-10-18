@@ -61,7 +61,7 @@ function ItemList({ type, deleteMutation, updateMutation }) {
             data.getAllItems !== undefined &&
             data.getAllItems.map(item => (
               <ItemRow
-                key={item.id}
+                key={item.name}
                 item={item}
                 srcList={getUrlImages(item.title)}
                 type={type}
