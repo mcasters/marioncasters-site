@@ -26,7 +26,9 @@ function DayPicker({ date, onDayChange }) {
       formatDate={formatDate}
       format={FORMAT}
       parseDate={parseDate}
-      placeholder={`${new Date(date).toLocaleDateString()}`}
+      placeholder={
+        date === '' ? 'Date' : `${new Date(date).toLocaleDateString()}`
+      }
     />
   );
 }

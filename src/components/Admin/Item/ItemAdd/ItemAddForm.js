@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import { formatDate, parseDate } from 'react-day-picker/moment';
 
 import s from './ItemAddForm.css';
 import ITEM from '../../../../constants/item';
+import DayPicker from '../DayPicker';
 
 const initialState = {
   title: '',
@@ -63,7 +62,6 @@ function ItemAddForm({ type, addMutation }) {
     reader.readAsDataURL(file);
   };
 
-  // parseInt(value, 10)
   const titleForm = 'Ajout';
   const haveMain = !!(title && date && technique && height && width);
   const canSubmit =
@@ -111,14 +109,7 @@ function ItemAddForm({ type, addMutation }) {
           onChange={onChange}
         />
         <div className={s.DayInputContainer}>
-          <DayPickerInput
-            value={date}
-            onDayChange={onChange}
-            formatDate={formatDate}
-            parseDate={parseDate}
-            format={ITEM.FORMAT_DATE}
-            placeholder="Date"
-          />
+          <DayPicker date={date} onDayChange={onChange} />
         </div>
         <input
           className={s.inputL}
