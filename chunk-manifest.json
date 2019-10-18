@@ -1,57 +1,57 @@
 {
   "client": [
-    "/assets/vendors.f1de09da.chunk.js",
-    "/assets/client.57677453.js"
+    "/assets/vendors.32922f06.chunk.js",
+    "/assets/client.aa7dfa8a.js"
   ],
   "home": [
-    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.823d8a14.chunk.js",
-    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.d4c8fa1a.chunk.js",
-    "/assets/home.fc40c79b.chunk.js"
+    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.9c2e5716.chunk.js",
+    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.ad0e335d.chunk.js",
+    "/assets/home.e87b748c.chunk.js"
   ],
   "paintings": [
-    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.823d8a14.chunk.js",
-    "/assets/vendors~admin~paintings.3b52adeb.chunk.js",
-    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.d4c8fa1a.chunk.js",
-    "/assets/drawings~paintings~sculptures.5b635a73.chunk.js",
-    "/assets/paintings.cd6f5b0f.chunk.js"
+    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.9c2e5716.chunk.js",
+    "/assets/vendors~admin~paintings.eeaadeec.chunk.js",
+    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.ad0e335d.chunk.js",
+    "/assets/drawings~paintings~sculptures.7b59873d.chunk.js",
+    "/assets/paintings.6de77dcc.chunk.js"
   ],
   "sculptures": [
-    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.823d8a14.chunk.js",
-    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.d4c8fa1a.chunk.js",
-    "/assets/drawings~paintings~sculptures.5b635a73.chunk.js",
-    "/assets/sculptures.e285a1af.chunk.js"
+    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.9c2e5716.chunk.js",
+    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.ad0e335d.chunk.js",
+    "/assets/drawings~paintings~sculptures.7b59873d.chunk.js",
+    "/assets/sculptures.ed06ba6d.chunk.js"
   ],
   "drawings": [
-    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.823d8a14.chunk.js",
-    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.d4c8fa1a.chunk.js",
-    "/assets/drawings~paintings~sculptures.5b635a73.chunk.js",
-    "/assets/drawings.6c313f6a.chunk.js"
+    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.9c2e5716.chunk.js",
+    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.ad0e335d.chunk.js",
+    "/assets/drawings~paintings~sculptures.7b59873d.chunk.js",
+    "/assets/drawings.21eb73a9.chunk.js"
   ],
   "presentation": [
-    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.823d8a14.chunk.js",
-    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.d4c8fa1a.chunk.js",
-    "/assets/presentation.9803a1b4.chunk.js"
+    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.9c2e5716.chunk.js",
+    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.ad0e335d.chunk.js",
+    "/assets/presentation.dba685b2.chunk.js"
   ],
   "contact": [
-    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.823d8a14.chunk.js",
-    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.d4c8fa1a.chunk.js",
-    "/assets/contact.f0bbd2bb.chunk.js"
+    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.9c2e5716.chunk.js",
+    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.ad0e335d.chunk.js",
+    "/assets/contact.a1afb4c9.chunk.js"
   ],
   "privacy": [
-    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.823d8a14.chunk.js",
-    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.d4c8fa1a.chunk.js",
-    "/assets/privacy.ceda44dc.chunk.js"
+    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.9c2e5716.chunk.js",
+    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.ad0e335d.chunk.js",
+    "/assets/privacy.941ddcca.chunk.js"
   ],
   "admin": [
-    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.823d8a14.chunk.js",
-    "/assets/vendors~admin~paintings.3b52adeb.chunk.js",
-    "/assets/vendors~admin.b111d3b5.chunk.js",
-    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.d4c8fa1a.chunk.js",
-    "/assets/admin.cc3a87b4.chunk.js"
+    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.9c2e5716.chunk.js",
+    "/assets/vendors~admin~paintings.eeaadeec.chunk.js",
+    "/assets/vendors~admin.1fe57722.chunk.js",
+    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.ad0e335d.chunk.js",
+    "/assets/admin.8308301e.chunk.js"
   ],
   "not-found": [
-    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.823d8a14.chunk.js",
-    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.d4c8fa1a.chunk.js",
-    "/assets/not-found.929f1bab.chunk.js"
+    "/assets/vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.9c2e5716.chunk.js",
+    "/assets/admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.ad0e335d.chunk.js",
+    "/assets/not-found.1e65a362.chunk.js"
   ]
 }
