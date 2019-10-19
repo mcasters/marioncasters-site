@@ -33,7 +33,6 @@
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "history": "^4.10.1",
-    "https-proxy-agent": "^3.0.0",
     "isomorphic-style-loader": "^5.1.0",
     "lodash": "^4.17.15",
     "mysql2": "^1.7.0",
