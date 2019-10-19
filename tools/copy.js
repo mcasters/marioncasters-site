@@ -28,8 +28,8 @@ async function copy() {
     ),
     // copyFile('LICENSE.txt', 'build/LICENSE.txt'),
     // copyFile('yarn.lock', 'build/yarn.lock'),
-    // copyFile('package-lock.json', 'build/package-lock.json'),
-    copyFile('npm-shrinkwrap.json', 'build/npm-shrinkwrap.json'),
+    copyFile('package-lock.json', 'build/package-lock.json'),
+    // copyFile('npm-shrinkwrap.json', 'build/npm-shrinkwrap.json'),
     copyDir('public', 'build/public'),
   ]);
 
