@@ -1,6 +1,6 @@
 import fs from 'fs';
 import promisesAll from 'promises-all';
-import sharp from 'sharp';
+import Jimp from 'jimp';
 
 import config from './config';
 import ITEM from './constants/item';
@@ -41,70 +41,53 @@ const getItemPaths = (title, type) => {
   return null;
 };
 
-export const storeImage = async ({ stream }, path) =>
-  new Promise((resolve, reject) =>
+export const storeImage = async (file, path) => {
+  const { stream } = file;
+  return new Promise((resolve, reject) =>
     stream
       .pipe(fs.createWriteStream(path))
       .on('error', error => {
         if (stream.truncated) fs.unlinkSync(path);
         reject(error);
       })
-      .on('finish', () => resolve(true)),
-  );
-
-const storeImageWithResize = async ({ stream }, path, px) => {
-  const outStream = fs.createWriteStream(path);
-  const transformer = sharp().resize({
-    width: px,
-    height: px,
-    fit: 'inside',
-  });
-
-  return new Promise((resolve, reject) =>
-    stream
-      .pipe(transformer)
-      .pipe(outStream)
-      .on('error', error => {
-        if (stream.truncated) fs.unlinkSync(path);
-        reject(error);
-      })
-      .on('finish', () => resolve(true)),
+      .on('finish', () => {
+        resolve(true);
+      }),
   );
 };
 
-const storeItemImage = async ({ stream }, type, title) => {
+const storeImageWithResize = (path, targetPath, px) => {
+  Jimp.read(path, (err, img) => {
+    if (err) return false;
+
+    const isLandscape = img.getHeight() < img.getWidth();
+    const width = isLandscape ? px : Jimp.AUTO;
+    const height = isLandscape ? Jimp.AUTO : px;
+
+    img
+      .resize(width, height)
+      .quality(70)
+      .write(targetPath);
+    return true;
+  });
+};
+
+const storeItemImage = async (file, type, title) => {
   const paths = getItemPaths(title, type);
   return Promise.all([
-    storeImage({ stream }, paths[0]),
-    storeImageWithResize({ stream }, paths[1], ITEM.MD_PX),
-    storeImageWithResize({ stream }, paths[2], ITEM.SM_PX),
+    await storeImage(file, paths[0]),
+    storeImageWithResize(paths[0], paths[1], ITEM.MD_PX),
+    storeImageWithResize(paths[0], paths[2], ITEM.SM_PX),
   ]);
 };
 
 const processSculptureImagesUpload = async (pictures, title) => {
   const process = async (element, index) => {
-    const { stream } = await element;
     const fileName = `${title}_${index + 1}`;
-    return storeItemImage({ stream }, ITEM.SCULPTURE.TYPE, fileName);
+    return storeItemImage(element, ITEM.SCULPTURE.TYPE, fileName);
   };
 
   return promisesAll.all(pictures.map(process));
-};
-
-export const processImageUpload = async (pictures, title, type) => {
-  if (type === ITEM.SCULPTURE.TYPE) {
-    return processSculptureImagesUpload(pictures, title);
-  }
-
-  // eslint-disable-next-line no-unused-vars
-  const { stream, mimetype } = await pictures[0];
-
-  if (type === CONTENT.TYPE) {
-    // const extension = mimetype.split('/')[1];
-    const path = `${config.miscellaneousPath}/${title}.jpg`;
-    return storeImage({ stream }, path);
-  }
-  return storeItemImage({ stream }, type, title);
 };
 
 const renameItemImage = async (oldTitle, newTitle, type) => {
@@ -123,6 +106,25 @@ const renameItemImage = async (oldTitle, newTitle, type) => {
   );
 };
 
+/*
+ * Entry point
+ */
+export const processImageUpload = async (pictures, title, type) => {
+  if (type === ITEM.SCULPTURE.TYPE) {
+    return processSculptureImagesUpload(pictures, title);
+  }
+
+  const file = await pictures[0];
+  if (type === CONTENT.TYPE) {
+    const path = `${config.miscellaneousPath}/${title}.jpg`;
+    return storeImage(file, path);
+  }
+  return storeItemImage(file, type, title);
+};
+
+/*
+ * Entry point
+ */
 export const renameItemImages = async (oldTitle, newTitle, type) => {
   if (type === ITEM.SCULPTURE.TYPE) {
     let i = 1;
@@ -145,6 +147,9 @@ const deleteImage = async file => {
   });
 };
 
+/*
+ * Entry point
+ */
 export const deleteItemImages = async (title, type) => {
   let paths;
 

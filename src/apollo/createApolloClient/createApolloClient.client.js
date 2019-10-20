@@ -12,7 +12,7 @@ import {
 } from '../../data/graphql/onMemory/schema';
 
 export default function createApolloClient() {
-  const cache = createCache().restore(window.App.cache);
+  const cache = createCache();
 
   const uploadLink = createUploadLink({
     uri: '/graphql',
