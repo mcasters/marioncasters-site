@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize, Op } from 'sequelize';
 
 import ITEM from '../../../constants/item';
 import { Drawing, Painting, Sculpture } from '../../models';
@@ -70,8 +70,8 @@ class ItemModelService {
     return this.model.findAll({
       where: {
         date: {
-          gte: start,
-          lte: end,
+          [Op.gte]: start,
+          [Op.lte]: end,
         },
       },
       order: Sequelize.col('date'),
