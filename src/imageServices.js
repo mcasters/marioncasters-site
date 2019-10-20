@@ -1,5 +1,4 @@
 import fs from 'fs';
-import promisesAll from 'promises-all';
 import Jimp from 'jimp';
 
 import config from './config';
@@ -42,7 +41,7 @@ const getItemPaths = (title, type) => {
 };
 
 export const storeImage = async (file, path) => {
-  const { stream } = file;
+  const { stream } = await file;
   return new Promise((resolve, reject) =>
     stream
       .pipe(fs.createWriteStream(path))
@@ -57,23 +56,26 @@ export const storeImage = async (file, path) => {
 };
 
 const storeImageWithResize = (path, targetPath, px) => {
-  Jimp.read(path, (err, img) => {
-    if (err) return false;
+  return new Promise((resolve, reject) =>
+    Jimp.read(path, (err, img) => {
+      if (err) reject(err);
 
-    const isLandscape = img.getHeight() < img.getWidth();
-    const width = isLandscape ? px : Jimp.AUTO;
-    const height = isLandscape ? Jimp.AUTO : px;
+      const isLandscape = img.getHeight() < img.getWidth();
+      const width = isLandscape ? px : Jimp.AUTO;
+      const height = isLandscape ? Jimp.AUTO : px;
 
-    img
-      .resize(width, height)
-      .quality(70)
-      .write(targetPath);
-    return true;
-  });
+      img
+        .resize(width, height)
+        .quality(70)
+        .write(targetPath);
+      resolve(true);
+    }),
+  );
 };
 
 const storeItemImage = async (file, type, title) => {
   const paths = getItemPaths(title, type);
+
   return Promise.all([
     await storeImage(file, paths[0]),
     storeImageWithResize(paths[0], paths[1], ITEM.MD_PX),
@@ -82,12 +84,12 @@ const storeItemImage = async (file, type, title) => {
 };
 
 const processSculptureImagesUpload = async (pictures, title) => {
-  const process = async (element, index) => {
-    const fileName = `${title}_${index + 1}`;
-    return storeItemImage(element, ITEM.SCULPTURE.TYPE, fileName);
+  const process = (file, index) => {
+    const titleWithIndex = `${title}_${index + 1}`;
+    return storeItemImage(file, ITEM.SCULPTURE.TYPE, titleWithIndex);
   };
 
-  return promisesAll.all(pictures.map(process));
+  return Promise.all(pictures.map(process));
 };
 
 const renameItemImage = async (oldTitle, newTitle, type) => {
@@ -104,6 +106,12 @@ const renameItemImage = async (oldTitle, newTitle, type) => {
       return false;
     }),
   );
+};
+
+const deleteImage = async file => {
+  fs.unlink(`${file}`, err => {
+    return !err;
+  });
 };
 
 /*
@@ -139,12 +147,6 @@ export const renameItemImages = async (oldTitle, newTitle, type) => {
     return Promise.all(promises);
   }
   return renameItemImage(oldTitle, newTitle, type);
-};
-
-const deleteImage = async file => {
-  fs.unlink(`${file}`, err => {
-    return !err;
-  });
 };
 
 /*
