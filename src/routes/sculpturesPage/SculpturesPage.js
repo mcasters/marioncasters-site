@@ -22,13 +22,8 @@ function SculpturesPage({ title }) {
     <>
       <h1 className={s.title}>{title}</h1>
       {data.getAllItems &&
-        data.getAllItems.map((sculpture, index) => (
-          <Item
-            key={sculpture.name}
-            item={sculpture}
-            type={type}
-            index={index}
-          />
+        data.getAllItems.map(sculpture => (
+          <Item key={sculpture.title} item={sculpture} type={type} />
         ))}
     </>
   );

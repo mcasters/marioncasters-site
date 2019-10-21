@@ -22,8 +22,8 @@ function DrawingsPage({ title }) {
     <>
       <h1 className={s.title}>{title}</h1>
       {data.getAllItems &&
-        data.getAllItems.map((drawing, index) => (
-          <Item key={drawing.name} item={drawing} type={type} index={index} />
+        data.getAllItems.map(drawing => (
+          <Item key={drawing.title} item={drawing} type={type} />
         ))}
     </>
   );
