@@ -42,6 +42,7 @@
     "normalize.css": "^8.0.1",
     "npm": "^6.12.0",
     "path": "^0.12.7",
+    "postcss-preset-env": "^6.7.0",
     "pretty-error": "^2.1.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.8.3",

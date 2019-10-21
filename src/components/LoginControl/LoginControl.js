@@ -1,5 +1,5 @@
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
 
@@ -10,6 +10,7 @@ import LOGIN_MUTATION from '../../data/graphql/queries/loginMutation.graphql';
 import history from '../../history';
 
 function LoginControl({ isConnected }) {
+  useStyles(s);
   const [login] = useMutation(LOGIN_MUTATION, {
     update(cache, mutationResult) {
       const data = {
@@ -63,4 +64,4 @@ LoginControl.propTypes = {
   isConnected: PropTypes.bool.isRequired,
 };
 
-export default withStyles(s)(LoginControl);
+export default LoginControl;

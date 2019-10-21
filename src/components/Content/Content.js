@@ -1,12 +1,13 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import GET_CONTENT from '../../data/graphql/queries/getContent.graphql';
 import s from './Content.css';
 
 function Content({ keyContent }) {
+  useStyles(s);
   const { data, loading } = useQuery(GET_CONTENT, {
     variables: { key: keyContent },
     ssr: true,
@@ -24,4 +25,4 @@ Content.propTypes = {
   keyContent: PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(Content);
+export default Content;

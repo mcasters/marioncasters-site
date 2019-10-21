@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './ItemRow.css';
 import ItemDeleteButton from '../ItemDelete/ItemDeleteButton';
@@ -8,6 +8,8 @@ import ItemUpdateButton from '../ItemUpdate/ItemUpdateButton';
 import ItemService from '../../../../app-services/ItemService';
 
 function ItemRow({ item, srcList, type, deleteMutation, updateMutation }) {
+  useStyles(s);
+
   const itemService = new ItemService(type);
 
   const isSculpture = itemService.getIsSculpture();
@@ -62,4 +64,4 @@ ItemRow.propTypes = {
   updateMutation: PropTypes.func.isRequired,
 };
 
-export default withStyles(s)(ItemRow);
+export default ItemRow;

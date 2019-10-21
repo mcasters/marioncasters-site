@@ -8,7 +8,7 @@ import AppContext from '../context';
 const App = ({ client, insertCss, context, children }) => (
   <ApolloProvider client={client}>
     <AppContext.Provider value={context}>
-      <StyleContext.Provider value={insertCss}>
+      <StyleContext.Provider value={{ insertCss }}>
         {children}
       </StyleContext.Provider>
     </AppContext.Provider>

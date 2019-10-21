@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 import { useMutation } from '@apollo/react-hooks';
 
 import s from './EditPictureForm.css';
@@ -11,6 +11,7 @@ import CONT_CONST from '../../../constants/content';
 import AlertContext from '../../AlertContext';
 
 function EditPictureForm({ pictureTitle }) {
+  useStyles(s);
   const triggerAlert = useContext(AlertContext);
   const [imagePreviewUrl, setImagePreviewUrl] = useState('');
   const [file, setFile] = useState('');
@@ -115,4 +116,4 @@ EditPictureForm.propTypes = {
   pictureTitle: PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(EditPictureForm);
+export default EditPictureForm;

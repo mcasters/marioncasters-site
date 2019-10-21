@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
+
 import s from './ContentForm.css';
 
 function ContentForm({ keyContent, isTextArea, initialContent, mutation }) {
+  useStyles(s);
+
   const [isChanged, setIsChanged] = useState(false);
   const [text, setText] = useState(initialContent);
 
@@ -59,4 +62,4 @@ ContentForm.propTypes = {
   mutation: PropTypes.func.isRequired,
 };
 
-export default withStyles(s)(ContentForm);
+export default ContentForm;

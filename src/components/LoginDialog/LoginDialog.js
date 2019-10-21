@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import withStyles from 'isomorphic-style-loader/withStyles';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './LoginDialog.css';
 
@@ -21,6 +21,7 @@ const customStyles = {
 Modal.setAppElement('#app');
 
 function LoginDialog({ onClose, loginMutation }) {
+  useStyles(s);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(true);
@@ -87,4 +88,4 @@ LoginDialog.propTypes = {
   loginMutation: PropTypes.func.isRequired,
 };
 
-export default withStyles(s)(LoginDialog);
+export default LoginDialog;

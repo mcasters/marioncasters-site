@@ -1,10 +1,11 @@
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './Main.css';
 
 function Main({ isHome, isLessThanMD, height, headerHeight, children }) {
+  useStyles(s);
   const adaptedHeight = isLessThanMD
     ? height - headerHeight
     : height + 0.001 * headerHeight;
@@ -27,4 +28,4 @@ Main.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default withStyles(s)(Main);
+export default Main;

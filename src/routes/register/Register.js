@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
 import { useMutation } from '@apollo/react-hooks';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import history from '../../history';
 import s from './Register.css';
 import SIGN_UP_MUTATION from './signupMutation.graphql';
 
 function Register({ title }) {
+  useStyles(s);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -83,4 +84,4 @@ Register.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(Register);
+export default Register;

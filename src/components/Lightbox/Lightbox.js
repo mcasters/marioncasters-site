@@ -116,7 +116,8 @@ class Lightbox extends Component {
     this.requestMovePrev = this.requestMovePrev.bind(this);
   }
 
-  componentWillMount() {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillMount() {
     // Timeouts - always clear it before umount
     this.timeouts = [];
 
@@ -200,7 +201,8 @@ class Lightbox extends Component {
     this.loadAllImages();
   }
 
-  componentWillReceiveProps(nextProps) {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // Iterate through the source types for prevProps and nextProps to
     //  determine if any of the sources changed
     let sourcesChanged = false;
@@ -1348,9 +1350,7 @@ class Lightbox extends Component {
       if (bestImageInfo === null) {
         const loadingIcon = (
           <div
-            className={`${s.ril__loadingCircle} ${
-              s.ril__loadingContainer__icon
-            }`}
+            className={`${s.ril__loadingCircle} ${s.ril__loadingContainer__icon}`}
           >
             {[...new Array(12)].map((_, index) => (
               <div
@@ -1381,9 +1381,7 @@ class Lightbox extends Component {
         imageStyle.backgroundImage = `url('${imageSrc}')`;
         images.push(
           <div
-            className={`${imageClass} ${s.ril__image} ${
-              s.ril__imageDiscourager
-            }`}
+            className={`${imageClass} ${s.ril__image} ${s.ril__imageDiscourager}`}
             onDoubleClick={this.handleImageDoubleClick}
             onWheel={this.handleImageMouseWheel}
             style={imageStyle}
@@ -1395,6 +1393,7 @@ class Lightbox extends Component {
       } else {
         images.push(
           <img
+            /* eslint-disable-next-line react/jsx-props-no-spreading */
             {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
             className={`${imageClass} ${s.ril__image}`}
             onDoubleClick={this.handleImageDoubleClick}
@@ -1433,6 +1432,7 @@ class Lightbox extends Component {
       overlay: {
         zIndex: 1000,
         backgroundColor: 'transparent',
+        // eslint-disable-next-line react/prop-types
         ...reactModalStyle.overlay, // Allow style overrides via props
       },
       content: {
@@ -1445,6 +1445,7 @@ class Lightbox extends Component {
         left: 0,
         right: 0,
         bottom: 0,
+        // eslint-disable-next-line react/prop-types
         ...reactModalStyle.content, // Allow style overrides via props
       },
     };
@@ -1468,6 +1469,7 @@ class Lightbox extends Component {
             ? global.window.document.body
             : undefined
         }
+        /* eslint-disable-next-line react/jsx-props-no-spreading */
         {...reactModalProps}
       >
         <div // eslint-disable-line jsx-a11y/no-static-element-interactions
@@ -1598,9 +1600,7 @@ class Lightbox extends Component {
                   type="button"
                   key="close"
                   aria-label={this.props.closeLabel}
-                  className={`${s.ril__toolbarItemChild} ${
-                    s.ril__builtinButton
-                  } ${s.ril__closeButton}`}
+                  className={`${s.ril__toolbarItemChild} ${s.ril__builtinButton} ${s.ril__closeButton}`}
                   onClick={!this.isAnimating() ? this.requestClose : undefined} // Ignore clicks during animation
                 />
               </li>

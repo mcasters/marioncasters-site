@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import CONT_CONST from '../../constants/content';
 import s from './ContactPage.css';
 import Content from '../../components/Content';
 
 function ContactPage({ title }) {
+  useStyles(s);
   return (
     <article>
       <h1 className={s.title}>{title}</h1>
@@ -27,4 +28,4 @@ ContactPage.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(ContactPage);
+export default ContactPage;

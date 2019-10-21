@@ -1,5 +1,5 @@
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './Feedback.css';
 import Link from '../../Link';
@@ -9,6 +9,7 @@ import reactLogo from './reactTransparent.png';
 import appleLogo from './appleTransparent.png';
 
 function Feedback() {
+  useStyles(s);
   return (
     <div className={s.container}>
       <Link to="https://nodejs.org" target="_blank" rel="noreferrer">
@@ -27,4 +28,4 @@ function Feedback() {
   );
 }
 
-export default withStyles(s)(Feedback);
+export default Feedback;

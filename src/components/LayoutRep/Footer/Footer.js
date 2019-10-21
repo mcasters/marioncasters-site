@@ -1,5 +1,5 @@
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 import { useQuery } from '@apollo/react-hooks';
 
 import s from './Footer.css';
@@ -11,6 +11,7 @@ import ROUTER from '../../../constants/router';
 import GET_ADMIN_STATUS_QUERY from '../../../data/graphql/queries/getAdminStatusQuery.graphql';
 
 function Footer() {
+  useStyles(s);
   const { data } = useQuery(GET_ADMIN_STATUS_QUERY);
 
   const isConnected = data !== undefined && data.adminStatus.isConnected;
@@ -34,4 +35,4 @@ function Footer() {
   );
 }
 
-export default withStyles(s)(Footer);
+export default Footer;

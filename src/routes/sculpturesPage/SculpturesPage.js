@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import useStyles from 'isomorphic-style-loader/useStyles';
 import PropTypes from 'prop-types';
-import useStyles from 'isomorphic-style-loader/src/useStyles';
 
 import Item from '../../components/ItemDir/Item';
 import ITEM from '../../constants/item';

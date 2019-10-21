@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
 import { useMutation, useQuery } from '@apollo/react-hooks';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './ContentForm.css';
 import GET_CONTENT from '../../../data/graphql/queries/getContent.graphql';
@@ -10,6 +10,7 @@ import ADD_CONTENT_MUTATION from '../../../data/graphql/queries/addContentMutati
 import AlertContext from '../../AlertContext';
 
 function EditContent({ keyContent, isTextArea }) {
+  useStyles(s);
   const triggerAlert = useContext(AlertContext);
   const { data } = useQuery(GET_CONTENT, {
     variables: { key: keyContent },
@@ -44,4 +45,4 @@ EditContent.propTypes = {
   isTextArea: PropTypes.bool.isRequired,
 };
 
-export default withStyles(s)(EditContent);
+export default EditContent;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './Image.css';
 import ITEM from '../../../constants/item';
@@ -10,6 +10,8 @@ import LightBoxProvider from '../../LightBoxProvider';
 import ItemService from '../../../app-services/ItemService';
 
 function Image({ title, type, viewport }) {
+  useStyles(s);
+
   const [isOpen, setIsOpen] = useState(false);
   const isLessThanSM = viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.SM;
   const itemService = new ItemService(type);
@@ -89,4 +91,4 @@ Image.propTypes = {
   }).isRequired,
 };
 
-export default withStyles(s)(withViewport(Image));
+export default withViewport(Image);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
@@ -24,6 +24,7 @@ const customStyles = {
 Modal.setAppElement('#app');
 
 function UpdateForm({ item, type, srcList, updateMutation, onResult }) {
+  useStyles(s);
   // eslint-disable-next-line react/prop-types
   const { id, __typename, ...rest } = item;
   const [input, setInput] = useState({ ...rest, pictures: [] });
@@ -237,4 +238,4 @@ UpdateForm.propTypes = {
   onResult: PropTypes.func.isRequired,
 };
 
-export default withStyles(s)(UpdateForm);
+export default UpdateForm;

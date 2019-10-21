@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './Page.css';
 
 function Page({ title, html, showTitle }) {
+  useStyles(s);
   return (
     <article className={s.pageContent}>
       <h1 className={showTitle ? '' : s.title}>{title}</h1>
@@ -22,4 +23,4 @@ Page.propTypes = {
   showTitle: PropTypes.bool.isRequired,
 };
 
-export default withStyles(s)(Page);
+export default Page;

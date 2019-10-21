@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
-import { Tab, TabList, Tabs, TabPanel } from 'react-tabs';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import { useApolloClient } from '@apollo/react-hooks';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './AdminPage.css';
 import ITEM from '../../constants/item';
@@ -15,6 +15,7 @@ import EditPictureForm from '../../components/Admin/EditPicture/EditPictureForm'
 import GET_ADMIN_STATUS_QUERY from '../../data/graphql/queries/getAdminStatusQuery.graphql';
 
 function AdminPage({ title }) {
+  useStyles(s);
   const client = useApolloClient();
   const { adminStatus } = client.readQuery({
     query: GET_ADMIN_STATUS_QUERY,
@@ -94,4 +95,4 @@ AdminPage.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(AdminPage);
+export default AdminPage;
