@@ -1,4 +1,4 @@
-import * as imageService from '../../../imageServices';
+import * as imageService from '../../image/imageServices';
 import getAuthenticatedUser from '../services/authService';
 import ItemModelService from '../services/ItemModelService';
 

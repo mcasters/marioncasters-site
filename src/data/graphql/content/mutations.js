@@ -3,7 +3,7 @@
 import { Content } from '../../models';
 import getAuthenticatedUser from '../services/authService';
 import CONTENT from '../../../constants/content';
-import * as imageService from '../../../imageServices';
+import * as imageService from '../../image/imageServices';
 
 export const types = [
   `

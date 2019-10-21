@@ -1,9 +1,9 @@
 import fs from 'fs';
 import Jimp from 'jimp';
 
-import config from './config';
-import ITEM from './constants/item';
-import CONTENT from './constants/content';
+import config from '../../config';
+import ITEM from '../../constants/item';
+import CONTENT from '../../constants/content';
 
 export const getAllImages = async dirPath => {
   const images = [];
@@ -66,7 +66,7 @@ const storeImageWithResize = (path, targetPath, px) => {
 
       img
         .resize(width, height)
-        .quality(70)
+        .quality(80)
         .write(targetPath);
       resolve(true);
     }),
