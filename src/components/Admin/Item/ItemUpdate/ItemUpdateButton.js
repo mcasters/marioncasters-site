@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FaPen } from 'react-icons/fa';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import UpdateForm from './UpdateForm/UpdateForm';
 import s from './ItemUpdateButton.css';
 
 function ItemUpdateButton({ item, type, srcList, updateMutation }) {
+  useStyles(s);
   const [openUpdate, setOpenUpdate] = useState(false);
 
   const getResult = isError => {
@@ -42,4 +43,4 @@ ItemUpdateButton.propTypes = {
   updateMutation: PropTypes.func.isRequired,
 };
 
-export default withStyles(s)(ItemUpdateButton);
+export default ItemUpdateButton;

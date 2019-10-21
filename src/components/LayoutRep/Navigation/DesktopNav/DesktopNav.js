@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import history from '../../../../history';
 import s from './DesktopNav.css';
@@ -9,6 +9,7 @@ import logoUrl2x from '../logo-100.png';
 import ROUTER from '../../../../constants/router';
 
 function DesktopNav({ isHome }) {
+  useStyles(s);
   const [location, setLocation] = useState('');
 
   useEffect(() => {
@@ -80,4 +81,4 @@ DesktopNav.propTypes = {
   isHome: PropTypes.bool.isRequired,
 };
 
-export default withStyles(s)(DesktopNav);
+export default DesktopNav;

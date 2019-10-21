@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import ItemRow from '../ItemRow';
 import s from './ItemList.css';
@@ -9,8 +9,9 @@ import GET_ITEMS_QUERY from '../../../../data/graphql/queries/getAllItems.graphq
 import ItemService from '../../../../app-services/ItemService';
 
 function ItemList({ type, deleteMutation, updateMutation }) {
-  const itemService = new ItemService(type);
+  useStyles(s);
 
+  const itemService = new ItemService(type);
   const isSculpture = itemService.getIsSculpture();
   const path = itemService.getPath();
 
@@ -61,7 +62,7 @@ function ItemList({ type, deleteMutation, updateMutation }) {
             data.getAllItems !== undefined &&
             data.getAllItems.map(item => (
               <ItemRow
-                key={item.name}
+                key={item.id}
                 item={item}
                 srcList={getUrlImages(item.title)}
                 type={type}
@@ -81,4 +82,4 @@ ItemList.propTypes = {
   updateMutation: PropTypes.func.isRequired,
 };
 
-export default withStyles(s)(ItemList);
+export default ItemList;

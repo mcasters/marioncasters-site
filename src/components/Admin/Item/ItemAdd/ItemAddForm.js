@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './ItemAddForm.css';
 import ITEM from '../../../../constants/item';
@@ -18,6 +18,7 @@ const initialState = {
 };
 
 function ItemAddForm({ type, addMutation }) {
+  useStyles(s);
   const [
     { title, date, technique, description, length, height, width, pictures },
     setState,
@@ -200,4 +201,4 @@ ItemAddForm.propTypes = {
   addMutation: PropTypes.func.isRequired,
 };
 
-export default withStyles(s)(ItemAddForm);
+export default ItemAddForm;

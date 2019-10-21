@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './Home.css';
 import Content from '../../components/Content';
 import CONTENT_CONST from '../../constants/content';
 
 function Home({ title }) {
+  useStyles(s);
+
   return (
     <div className={s.homeContainer}>
       <h1 className={s.title}>{title}</h1>
@@ -21,4 +23,4 @@ Home.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(Home);
+export default Home;

@@ -1,12 +1,13 @@
 import React, { useRef, useEffect } from 'react';
-import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './Header.css';
 import GLOB_CONST from '../../../constants/globalConstants';
 import WithScrolling from '../../WithScrolling';
 
 function Header({ isHome, scroll, onHeight }) {
+  useStyles(s);
   const ref = useRef(null);
   useEffect(() => {
     if (ref.current !== null) {
@@ -41,4 +42,4 @@ Header.propTypes = {
   scroll: PropTypes.number.isRequired,
   onHeight: PropTypes.func.isRequired,
 };
-export default withStyles(s)(WithScrolling(Header));
+export default WithScrolling(Header);

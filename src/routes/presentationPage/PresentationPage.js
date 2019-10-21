@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './PresentationPage.css';
 import Content from '../../components/Content';
 import CONT_CONST from '../../constants/content';
 
 function PresentationPage({ title }) {
+  useStyles(s);
   return (
     <div className={s.presentationContainer}>
       <h1 className={s.title}>{title}</h1>
@@ -24,4 +25,4 @@ PresentationPage.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(PresentationPage);
+export default PresentationPage;

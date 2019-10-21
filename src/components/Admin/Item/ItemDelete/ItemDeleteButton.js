@@ -2,10 +2,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FaTrash } from 'react-icons/fa';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
+
 import s from './ItemDeleteButton.css';
 
 function ItemDeleteButton({ id, type, deleteMutation }) {
+  useStyles(s);
+
   return (
     <button
       onClick={e => {
@@ -26,4 +29,4 @@ ItemDeleteButton.propTypes = {
   deleteMutation: PropTypes.func.isRequired,
 };
 
-export default withStyles(s)(ItemDeleteButton);
+export default ItemDeleteButton;

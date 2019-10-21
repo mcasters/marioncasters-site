@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 import PropTypes from 'prop-types';
 
 import Item from '../../components/ItemDir/Item';
@@ -9,6 +9,7 @@ import s from './SculpturesPage.css';
 import GET_ITEMS_QUERY from '../../data/graphql/queries/getAllItems.graphql';
 
 function SculpturesPage({ title }) {
+  useStyles(s);
   const type = ITEM.SCULPTURE.TYPE;
   const { data, loading, error } = useQuery(GET_ITEMS_QUERY, {
     variables: { type },
@@ -37,4 +38,4 @@ SculpturesPage.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(SculpturesPage);
+export default SculpturesPage;

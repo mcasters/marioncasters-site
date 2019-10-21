@@ -48,10 +48,12 @@ module.exports = () => ({
     // Postcss flexbox bug fixer
     // https://github.com/luisrudge/postcss-flexbugs-fixes
     require('postcss-flexbugs-fixes')(),
-    // Add vendor prefixes to CSS rules using values from caniuse.com
-    // https://github.com/postcss/autoprefixer
-    require('autoprefixer')({
-      flexbox: 'no-2009',
+    // PostCSS Preset Env, which allows you easily to use all the features in cssdb.
+    // See what features in which stage in https://preset-env.cssdb.org/features
+    // https://github.com/csstools/postcss-preset-env
+    require('postcss-preset-env')({
+      stage: 3,
+      autoprefixer: { flexbox: 'no-2009' },
     }),
     // CSS Nano options http://cssnano.co/
     require('cssnano')(

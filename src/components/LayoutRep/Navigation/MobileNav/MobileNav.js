@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import withStyles from 'isomorphic-style-loader/withStyles';
 import { slide as BurgerMenu } from 'react-burger-menu';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './MobileNav.css';
 import Link from '../../../Link';
@@ -45,6 +45,7 @@ const styles = {
 };
 
 function MobileNav() {
+  useStyles(s);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = () => {
@@ -93,4 +94,4 @@ function MobileNav() {
   );
 }
 
-export default withStyles(s)(MobileNav);
+export default MobileNav;

@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import Item from '../Item';
 import GET_ITEMS_BY_PART_QUERY from '../../../data/graphql/queries/getItemsByPart.graphql';
 import s from './ItemTab.css';
 
 function ItemTab({ year, half, type }) {
+  useStyles(s);
+
   const scrollTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
@@ -24,8 +26,8 @@ function ItemTab({ year, half, type }) {
     <>
       <h2 className={s.titleTab}>{year}</h2>
       {data &&
-        data.getItemsByPart.map((item, index) => (
-          <Item key={item.name} item={item} type={type} index={index} />
+        data.getItemsByPart.map(item => (
+          <Item key={item.name} item={item} type={type} />
         ))}
       <button type="button" className={s.buttonLink} onClick={scrollTop}>
         Haut de page
@@ -40,4 +42,4 @@ ItemTab.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(ItemTab);
+export default ItemTab;

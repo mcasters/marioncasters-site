@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 import PropTypes from 'prop-types';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 
@@ -9,6 +9,7 @@ import ITEM from '../../constants/item';
 import WithScrolling from '../../components/WithScrolling';
 
 function PaintingsPage({ title }) {
+  useStyles(s);
   const [selectedTab, setSelectedTab] = useState(0);
   const year1 = 2017;
   const year2 = 2018;
@@ -54,4 +55,4 @@ PaintingsPage.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(WithScrolling(PaintingsPage));
+export default WithScrolling(PaintingsPage);

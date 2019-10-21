@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
-import Image from '../Image';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
+import Image from '../Image';
 import s from './Item.css';
 import ITEM from '../../../constants/item';
 
 function Item({ item, type }) {
+  useStyles(s);
+
   return (
     <article className={s.itemContainer}>
       <h2 className={s.itemTitle}>{item.title}</h2>
@@ -44,4 +46,4 @@ Item.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(Item);
+export default Item;

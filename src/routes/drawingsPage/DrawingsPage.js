@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import withStyles from 'isomorphic-style-loader/withStyles';
 import PropTypes from 'prop-types';
+import useStyles from 'isomorphic-style-loader/useStyles';
 
 import Item from '../../components/ItemDir/Item';
 import ITEM from '../../constants/item';
@@ -9,6 +9,7 @@ import s from './DrawingsPage.css';
 import GET_ITEMS_QUERY from '../../data/graphql/queries/getAllItems.graphql';
 
 function DrawingsPage({ title }) {
+  useStyles(s);
   const type = ITEM.DRAWING.TYPE;
   const { data, loading, error } = useQuery(GET_ITEMS_QUERY, {
     variables: { type },
@@ -32,4 +33,4 @@ DrawingsPage.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default withStyles(s)(DrawingsPage);
+export default DrawingsPage;
