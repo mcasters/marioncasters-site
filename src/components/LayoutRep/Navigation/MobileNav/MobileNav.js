@@ -6,7 +6,7 @@ import s from './MobileNav.css';
 import Link from '../../../Link';
 import logoUrl from '../logo-45.png';
 import logoUrl2x from '../logo-100.png';
-import ROUTER_CONSTANTS from '../../../../constants/router';
+import ROUTER from '../../../../constants/router';
 
 const styles = {
   bmBurgerButton: {
@@ -63,26 +63,22 @@ function MobileNav() {
       onStateChange={state => handleChange(state)}
       styles={styles}
     >
-      <Link to={ROUTER_CONSTANTS.ROUTER.PRESENTATION} onClick={closeMenu}>
+      <Link to={ROUTER.PRESENTATION} onClick={closeMenu}>
         Présentation
       </Link>
-      <Link to={ROUTER_CONSTANTS.ROUTER.PEINTURES} onClick={closeMenu}>
+      <Link to={ROUTER.PEINTURES} onClick={closeMenu}>
         Peintures
       </Link>
-      <Link to={ROUTER_CONSTANTS.ROUTER.SCULPTURES} onClick={closeMenu}>
+      <Link to={ROUTER.SCULPTURES} onClick={closeMenu}>
         Sculptures
       </Link>
-      <Link to={ROUTER_CONSTANTS.ROUTER.DESSINS} onClick={closeMenu}>
+      <Link to={ROUTER.DESSINS} onClick={closeMenu}>
         Dessins
       </Link>
-      <Link to={ROUTER_CONSTANTS.ROUTER.CONTACT} onClick={closeMenu}>
+      <Link to={ROUTER.CONTACT} onClick={closeMenu}>
         Contact
       </Link>
-      <Link
-        className={s.navHomeLink}
-        to={ROUTER_CONSTANTS.ROUTER.HOME}
-        onClick={closeMenu}
-      >
+      <Link className={s.navHomeLink} to={ROUTER.HOME} onClick={closeMenu}>
         <img
           src={logoUrl}
           srcSet={`${logoUrl2x} 2x`}

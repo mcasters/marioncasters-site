@@ -18,7 +18,7 @@ import AppContext from '../../../context';
 import Main from '../Main';
 
 function Layout({ children, viewport }) {
-  useStyles(s, normalizeCss, styleModal, styleTabs, styleDayPicker);
+  useStyles(normalizeCss, styleModal, styleTabs, styleDayPicker, s);
   const [headerHeight, setHeaderHeight] = useState(0);
   const context = useContext(AppContext);
   const isHome = context.pathname === '/' || context.pathname === '/home';
