@@ -27,7 +27,7 @@ function ItemTab({ year, half, type }) {
       <h2 className={s.titleTab}>{year}</h2>
       {data &&
         data.getItemsByPart.map(item => (
-          <Item key={item.name} item={item} type={type} />
+          <Item key={item.title} item={item} type={type} />
         ))}
       <button type="button" className={s.buttonLink} onClick={scrollTop}>
         Haut de page

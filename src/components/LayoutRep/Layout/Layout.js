@@ -1,7 +1,7 @@
 /* eslint-disable css-modules/no-unused-class */
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/withStyles';
+import useStyles from 'isomorphic-style-loader/useStyles';
 import normalizeCss from '../../../../node_modules/normalize.css/normalize.css';
 
 import styleModal from '../../../../modules_modifications/style-modal.css';
@@ -18,6 +18,7 @@ import AppContext from '../../../context';
 import Main from '../Main';
 
 function Layout({ children, viewport }) {
+  useStyles(s, normalizeCss, styleModal, styleTabs, styleDayPicker);
   const [headerHeight, setHeaderHeight] = useState(0);
   const context = useContext(AppContext);
   const isHome = context.pathname === '/' || context.pathname === '/home';
@@ -69,10 +70,4 @@ Layout.propTypes = {
   }).isRequired,
 };
 
-export default withStyles(
-  normalizeCss,
-  styleModal,
-  styleTabs,
-  styleDayPicker,
-  s,
-)(withViewport(Layout));
+export default withViewport(Layout);
