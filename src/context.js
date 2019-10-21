@@ -1,13 +1,6 @@
-// @flow
-
 import { createContext } from 'react';
 
-export type AppContextTypes = {|
-  pathname: string,
-  query: Object,
-|};
-
-const AppContext = createContext<AppContextTypes>({
+const AppContext = createContext({
   pathname: '',
   query: {},
 });
