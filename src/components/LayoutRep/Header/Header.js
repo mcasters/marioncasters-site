@@ -4,10 +4,13 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './Header.css';
 import GLOB_CONST from '../../../constants/globalConstants';
-import WithScrolling from '../../WithScrolling';
+import useScroll from '../../Hooks';
 
-function Header({ isHome, scroll, onHeight }) {
+function Header({ isHome, onHeight }) {
   useStyles(s);
+
+  const { scrollY } = useScroll();
+
   const ref = useRef(null);
   useEffect(() => {
     if (ref.current !== null) {
@@ -16,22 +19,20 @@ function Header({ isHome, scroll, onHeight }) {
     }
   });
 
-  const title = GLOB_CONST.SITE_TITLE;
-  const isScrolling = scroll > 0;
   return isHome ? (
     <header>
       <div ref={ref} className={s.homeContainer}>
-        <h1>{title}</h1>
+        <h1>{GLOB_CONST.SITE_TITLE}</h1>
       </div>
     </header>
   ) : (
     <header>
       <div
         className={
-          isScrolling ? `${s.container} ${s.sticky}` : `${s.container}`
+          scrollY > 0 ? `${s.container} ${s.sticky}` : `${s.container}`
         }
       >
-        <h1>{title}</h1>
+        <h1>{GLOB_CONST.SITE_TITLE}</h1>
       </div>
     </header>
   );
@@ -39,7 +40,6 @@ function Header({ isHome, scroll, onHeight }) {
 
 Header.propTypes = {
   isHome: PropTypes.bool.isRequired,
-  scroll: PropTypes.number.isRequired,
   onHeight: PropTypes.func.isRequired,
 };
-export default WithScrolling(Header);
+export default Header;

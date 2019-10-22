@@ -6,7 +6,6 @@ import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import s from './PaintingsPage.css';
 import ItemTab from '../../components/ItemDir/ItemTab';
 import ITEM from '../../constants/item';
-import WithScrolling from '../../components/WithScrolling';
 
 function PaintingsPage({ title }) {
   useStyles(s);
@@ -55,4 +54,4 @@ PaintingsPage.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default WithScrolling(PaintingsPage);
+export default PaintingsPage;
