@@ -12,24 +12,23 @@ import Header from '../Header';
 import Footer from '../Footer';
 import Navigation from '../Navigation';
 import LAYOUT_CONSTANTS from '../../../constants/layoutConstants';
-import withViewport from '../../WithViewport';
 import ErrorBoundary from '../../ErrorBoundary';
 import AppContext from '../../../context';
 import Main from '../Main';
+import useViewport from '../../Hooks/useViewport';
 
-function Layout({ children, viewport }) {
+function Layout({ children }) {
   useStyles(normalizeCss, styleModal, styleTabs, styleDayPicker, s);
+  const { width, height } = useViewport();
   const [headerHeight, setHeaderHeight] = useState(0);
   const context = useContext(AppContext);
-  const isHome = context.pathname === '/' || context.pathname === '/home';
-  const isLessThanMD = viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
-  const { height } = viewport;
 
-  const navigation = <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />;
+  const isHome = context.pathname === '/' || context.pathname === '/home';
+  const isLessThanMD = width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
 
   const getHeight = h => setHeaderHeight(h);
   const header = <Header isHome={isHome} onHeight={getHeight} />;
-
+  const navigation = <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />;
   const main = (
     <ErrorBoundary>
       <Main
@@ -42,7 +41,6 @@ function Layout({ children, viewport }) {
       </Main>
     </ErrorBoundary>
   );
-
   const footer = <Footer />;
 
   return isLessThanMD ? (
@@ -70,4 +68,4 @@ Layout.propTypes = {
   }).isRequired,
 };
 
-export default withViewport(Layout);
+export default Layout;

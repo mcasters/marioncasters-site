@@ -5,15 +5,16 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 import s from './Image.css';
 import ITEM from '../../../constants/item';
 import LAYOUT_CONSTANTS from '../../../constants/layoutConstants';
-import withViewport from '../../WithViewport';
 import LightBoxProvider from '../../LightBoxProvider';
 import ItemService from '../../../app-services/ItemService';
+import useViewport from '../../Hooks/useViewport';
 
-function Image({ title, type, viewport }) {
+function Image({ title, type }) {
   useStyles(s);
-
+  const { width } = useViewport();
   const [isOpen, setIsOpen] = useState(false);
-  const isLessThanSM = viewport.width < LAYOUT_CONSTANTS.BREAKPOINT.SM;
+
+  const isLessThanSM = width < LAYOUT_CONSTANTS.BREAKPOINT.SM;
   const itemService = new ItemService(type);
   const itemPath = itemService.getPath();
   const alt = itemService.getAltImage();
@@ -91,4 +92,4 @@ Image.propTypes = {
   }).isRequired,
 };
 
-export default withViewport(Image);
+export default Image;

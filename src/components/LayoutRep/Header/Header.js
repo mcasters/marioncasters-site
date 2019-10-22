@@ -4,7 +4,7 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './Header.css';
 import GLOB_CONST from '../../../constants/globalConstants';
-import useScroll from '../../Hooks';
+import useScroll from '../../Hooks/useScroll';
 
 function Header({ isHome, onHeight }) {
   useStyles(s);
