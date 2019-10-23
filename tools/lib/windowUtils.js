@@ -27,10 +27,9 @@ export function getScrollY() {
   return canUseDOM ? window.scrollY || window.pageYOffset : 0;
 }
 
-export function getElementYPosition(elementClassName) {
+export function getClientHeight(node) {
   if (canUseDOM) {
-    const element = document.getElementsByClassName(elementClassName)[0];
-    return element.getBoundingClientRect().top;
+    return node.getBoundingClientRect().height;
   }
   return 100;
 }

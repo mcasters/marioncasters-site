@@ -1,22 +1,19 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './Header.css';
 import GLOB_CONST from '../../../constants/globalConstants';
 import useScroll from '../../Hooks/useScroll';
+import useHeight from '../../Hooks/useHeight';
 
 function Header({ isHome, onHeight }) {
   useStyles(s);
-
+  const [height, ref] = useHeight();
   const { scrollY } = useScroll();
 
-  const ref = useRef(null);
   useEffect(() => {
-    if (ref.current !== null) {
-      const { height } = ref.current.getBoundingClientRect();
-      onHeight(height);
-    }
+    onHeight(height);
   });
 
   return isHome ? (

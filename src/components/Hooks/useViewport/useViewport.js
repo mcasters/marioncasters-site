@@ -6,13 +6,13 @@ import {
 } from '../../../../tools/lib/windowUtils';
 
 function useViewport() {
-  const [width, setWidth] = useState(getWindowWidth());
-  const [height, setHeigth] = useState(getWindowHeight());
+  const [windowWidth, setWindowWidth] = useState(getWindowWidth());
+  const [windowHeight, setWindowHeight] = useState(getWindowHeight());
 
   function handleResize() {
     if (typeof window !== 'undefined') {
-      setWidth(getWindowWidth());
-      setHeigth(getWindowHeight());
+      setWindowWidth(getWindowWidth());
+      setWindowHeight(getWindowHeight());
     }
   }
 
@@ -25,7 +25,7 @@ function useViewport() {
     };
   }, []);
 
-  return { width, height };
+  return { windowWidth, windowHeight };
 }
 
 export default useViewport;

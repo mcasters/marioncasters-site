@@ -19,14 +19,15 @@ import useViewport from '../../Hooks/useViewport';
 
 function Layout({ children }) {
   useStyles(normalizeCss, styleModal, styleTabs, styleDayPicker, s);
-  const { width, height } = useViewport();
+  const { windowWidth, windowHeight } = useViewport();
   const [headerHeight, setHeaderHeight] = useState(0);
   const context = useContext(AppContext);
 
   const isHome = context.pathname === '/' || context.pathname === '/home';
-  const isLessThanMD = width < LAYOUT_CONSTANTS.BREAKPOINT.MD;
+  const isLessThanMD = windowWidth < LAYOUT_CONSTANTS.BREAKPOINT.MD;
 
   const getHeight = h => setHeaderHeight(h);
+
   const header = <Header isHome={isHome} onHeight={getHeight} />;
   const navigation = <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />;
   const main = (
@@ -34,7 +35,7 @@ function Layout({ children }) {
       <Main
         isHome={isHome}
         isLessThanMD={isLessThanMD}
-        height={height}
+        height={windowHeight}
         headerHeight={headerHeight}
       >
         {children}
