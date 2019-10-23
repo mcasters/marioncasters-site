@@ -3,9 +3,9 @@ import { getClientHeight } from '../../../../tools/lib/windowUtils';
 
 function useHeight() {
   const [height, setHeight] = useState(null);
-  const ref = useCallback(pNode => {
-    if (pNode !== null) {
-      setHeight(getClientHeight(pNode).height);
+  const ref = useCallback(node => {
+    if (node !== null) {
+      setHeight(getClientHeight(node).height);
     }
   }, []);
   return [height, ref];

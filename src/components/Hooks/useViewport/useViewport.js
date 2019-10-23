@@ -10,10 +10,8 @@ function useViewport() {
   const [windowHeight, setWindowHeight] = useState(getWindowHeight());
 
   function handleResize() {
-    if (typeof window !== 'undefined') {
-      setWindowWidth(getWindowWidth());
-      setWindowHeight(getWindowHeight());
-    }
+    setWindowWidth(getWindowWidth());
+    setWindowHeight(getWindowHeight());
   }
 
   useEffect(() => {

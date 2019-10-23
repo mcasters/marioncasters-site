@@ -16,11 +16,11 @@ export function translate(str, replaceStrings = null) {
 }
 
 export function getWindowWidth() {
-  return canUseDOM ? window.innerWidth : 1366; // Default size for server-side rendering
+  return canUseDOM ? window.innerWidth : 370; // 1366; // Default size for server-side rendering
 }
 
 export function getWindowHeight() {
-  return canUseDOM ? window.innerHeight : 768; // Default size for server-side rendering
+  return canUseDOM ? window.innerHeight : 640; // Default size for server-side rendering
 }
 
 export function getScrollY() {
@@ -28,10 +28,7 @@ export function getScrollY() {
 }
 
 export function getClientHeight(node) {
-  if (canUseDOM) {
-    return node.getBoundingClientRect().height;
-  }
-  return 100;
+  return canUseDOM ? node.getBoundingClientRect().height : 100;
 }
 
 // Get the highest window context that isn't cross-origin

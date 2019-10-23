@@ -7,10 +7,7 @@ function useScroll() {
   const [scrollY, setScrollY] = useState(getScrollY());
 
   function handleChangeScroll() {
-    if (typeof window !== 'undefined') {
-      const position = window.scrollY || window.pageYOffset;
-      setScrollY({ scrollY: position });
-    }
+    setScrollY({ scrollY: getScrollY() });
   }
 
   useEffect(() => {
