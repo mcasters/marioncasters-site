@@ -51,6 +51,7 @@ const Html = ({
       {asyncLinks.map(link => link)}
       <link rel="manifest" href="/site.webmanifest" />
       <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
+      <link rel="icon" sizes="32x32" href="/favicon.ico" />
       <link rel="icon" sizes="192x192" href="/icon-192.png" />
       <link rel="icon" sizes="512x512" href="/icon-512.png" />
       <link
