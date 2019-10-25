@@ -47,7 +47,6 @@
     "prop-types": "^15.7.2",
     "query-string": "^6.8.3",
     "react": "^16.11.0",
-    "react-burger-menu": "^2.6.11",
     "react-day-picker": "^7.4.0",
     "react-dom": "^16.11.0",
     "react-dropzone": "^10.1.10",
