@@ -5,7 +5,7 @@ function useHeight() {
   const [height, setHeight] = useState(null);
   const ref = useCallback(node => {
     if (node !== null) {
-      setHeight(getClientHeight(node).height);
+      setHeight(getClientHeight(node));
     }
   }, []);
   return [height, ref];

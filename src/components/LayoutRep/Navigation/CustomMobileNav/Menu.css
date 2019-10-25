@@ -1,0 +1,22 @@
+@import '../../../variables.css';
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  box-sizing: border-box;
+  width: 0;
+  background: black;
+  opacity: 0.9;
+  transition: width 0.35s ease;
+  z-index: 2;
+}
+
+.open {
+  width: 250px;
+}
+
+.menuList {
+  padding: 5rem 3rem 3rem;
+}

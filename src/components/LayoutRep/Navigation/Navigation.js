@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
+import CustomMobileNav from './CustomMobileNav';
 
 function Navigation({ isLessThanMD, isHome }) {
-  return isLessThanMD ? <MobileNav /> : <DesktopNav isHome={isHome} />;
+  return isLessThanMD ? <CustomMobileNav /> : <DesktopNav isHome={isHome} />;
 }
 
 Navigation.propTypes = {

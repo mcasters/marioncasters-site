@@ -1,0 +1,30 @@
+@import '../../../variables.css';
+
+.navHomeLink {
+  display: block;
+  padding-top: 4rem;
+}
+
+.title {
+  position: absolute;
+  bottom: 1em;
+  font-size: var(--font-size-minus);
+  letter-spacing: 0.7em;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: var(--font-size-current-plus);
+  color: var(--color-light);
+}
+
+.item {
+  display: block;
+  padding: 1.7rem 0;
+}
