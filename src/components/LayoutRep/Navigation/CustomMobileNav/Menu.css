@@ -3,20 +3,36 @@
 .container {
   position: fixed;
   top: 0;
-  left: 0;
-  height: 100%;
-  box-sizing: border-box;
-  width: 0;
-  background: black;
+  height: 100vh;
+  width: 250px;
+  background-color: black;
   opacity: 0.9;
-  transition: width 0.3s ease;
-  z-index: 2;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+
+  .menuList {
+    padding: 6rem 3rem 3rem;
+  }
+
+  .item {
+    display: block;
+    padding: 1.7rem 0;
+  }
+
+  .navHomeLink {
+    display: block;
+    padding-top: 4rem;
+  }
+
+  .name {
+    position: absolute;
+    bottom: 1em;
+    font-size: var(--font-size-minus);
+    letter-spacing: 0.5em;
+    white-space: pre;
+  }
 }
 
 .open {
-  width: 250px;
-}
-
-.menuList {
-  padding: 5rem 3rem 3rem;
+  transform: none;
 }
