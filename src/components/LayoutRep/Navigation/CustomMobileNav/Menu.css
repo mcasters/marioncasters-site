@@ -9,7 +9,7 @@
   width: 0;
   background: black;
   opacity: 0.9;
-  transition: width 0.35s ease;
+  transition: width 0.3s ease;
   z-index: 2;
 }
 
