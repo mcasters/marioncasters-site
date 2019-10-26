@@ -8,6 +8,7 @@ aside {
   box-sizing: border-box;
   vertical-align: top;
   z-index: 0;
+  user-select: none;
 }
 
 @media (--xlg) {
