@@ -10,11 +10,17 @@ function CustomMobileNav() {
   useStyles(s);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const closeMenu = () => {
+  const leave = e => {
+    e.preventDefault();
     setMenuOpen(false);
   };
 
-  const handleMenuClick = () => {
+  const navigate = () => {
+    setMenuOpen(false);
+  };
+
+  const toggleMenu = e => {
+    e.stopPropagation();
     setMenuOpen(!menuOpen);
   };
 
@@ -29,8 +35,13 @@ function CustomMobileNav() {
 
   return (
     <div className={s.container}>
-      <MenuButton open={menuOpen} onClick={handleMenuClick} />
-      <Menu open={menuOpen} onClick={closeMenu} routes={routes} />
+      <MenuButton open={menuOpen} onClick={toggleMenu} />
+      <Menu
+        open={menuOpen}
+        onNavigate={navigate}
+        routes={routes}
+        onLeave={leave}
+      />
     </div>
   );
 }

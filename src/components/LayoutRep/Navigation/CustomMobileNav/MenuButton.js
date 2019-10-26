@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 // import s from './Menu.css';
 
 function MenuButton({ open, onClick }) {
-  const handleClick = () => {
-    onClick();
+  const handleClick = e => {
+    onClick(e);
   };
 
   const styles = {
     container: {
       position: 'fixed',
-      top: '10px',
+      top: '12px',
       height: '32px',
       width: '32px',
       display: 'flex',

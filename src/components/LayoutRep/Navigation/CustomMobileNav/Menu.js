@@ -9,10 +9,10 @@ import logoUrl from '../logo-45.png';
 import logoUrl2x from '../logo-100.png';
 import useOnClickOutside from '../../../Hooks/useOnClickOutside/useOnClickOutside';
 
-function Menu({ open, onClick, routes }) {
+function Menu({ open, onNavigate, routes, onLeave }) {
   useStyles(s);
   const menuRef = useRef(null);
-  useOnClickOutside(menuRef, onClick);
+  useOnClickOutside(menuRef, onLeave, open);
 
   return (
     <div
@@ -27,7 +27,7 @@ function Menu({ open, onClick, routes }) {
                 key={route[0]}
                 className={s.navHomeLink}
                 to={route[1]}
-                onClick={onClick}
+                onClick={onNavigate}
               >
                 <img
                   src={logoUrl}
@@ -42,7 +42,7 @@ function Menu({ open, onClick, routes }) {
               key={route[0]}
               className={s.item}
               to={route[1]}
-              onClick={onClick}
+              onClick={onNavigate}
             >
               {route[0]}
             </Link>
@@ -56,8 +56,9 @@ function Menu({ open, onClick, routes }) {
 
 Menu.propTypes = {
   open: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onNavigate: PropTypes.func.isRequired,
   routes: PropTypes.array.isRequired,
+  onLeave: PropTypes.func.isRequired,
 };
 
 export default Menu;
