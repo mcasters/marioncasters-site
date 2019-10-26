@@ -87,9 +87,6 @@ function Image({ title, type }) {
 Image.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  viewport: PropTypes.shape({
-    width: PropTypes.number.isRequired,
-  }).isRequired,
 };
 
 export default Image;

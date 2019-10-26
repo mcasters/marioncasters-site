@@ -14,7 +14,7 @@ function Header({ isHome, onHeight }) {
 
   useEffect(() => {
     onHeight(height);
-  });
+  }, [height, onHeight]);
 
   return isHome ? (
     <header>

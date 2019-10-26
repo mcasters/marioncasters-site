@@ -35,7 +35,12 @@ function Menu({ open, onClick, routes }) {
         {routes.map(route => {
           if (route[0] === 'Home') {
             return (
-              <Link className={s.navHomeLink} to={route[1]} onClick={onClick}>
+              <Link
+                key={route[0]}
+                className={s.navHomeLink}
+                to={route[1]}
+                onClick={onClick}
+              >
                 <img
                   src={logoUrl}
                   srcSet={`${logoUrl2x} 2x`}
@@ -45,7 +50,12 @@ function Menu({ open, onClick, routes }) {
             );
           }
           return (
-            <Link className={s.item} to={route[1]} onClick={onClick}>
+            <Link
+              key={route[0]}
+              className={s.item}
+              to={route[1]}
+              onClick={onClick}
+            >
               {route[0]}
             </Link>
           );

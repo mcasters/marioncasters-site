@@ -8,6 +8,7 @@ function useHeight() {
       setHeight(getClientHeight(node));
     }
   }, []);
+
   return [height, ref];
 }
 
