@@ -30,9 +30,10 @@ function Layout({ children }) {
 
   return (
     <>
-      <Header isHome={isHome} onHeight={getHeight} />
-      <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
       <ErrorBoundary>
+        <Header isHome={isHome} onHeight={getHeight} />
+        <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
+
         <Main
           isHome={isHome}
           isLessThanMD={isLessThanMD}
@@ -41,8 +42,8 @@ function Layout({ children }) {
         >
           {children}
         </Main>
+        <Footer />
       </ErrorBoundary>
-      <Footer />
     </>
   );
 }

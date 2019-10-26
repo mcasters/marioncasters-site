@@ -28,7 +28,7 @@ export function getScrollY() {
 }
 
 export function getClientHeight(node) {
-  return canUseDOM ? node.getBoundingClientRect().height : 100;
+  return node !== null && canUseDOM ? node.getBoundingClientRect().height : 100;
 }
 
 // Get the highest window context that isn't cross-origin
