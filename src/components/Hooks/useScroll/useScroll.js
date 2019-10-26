@@ -7,7 +7,7 @@ function useScroll() {
   const [scrollY, setScrollY] = useState(getScrollY());
 
   function handleChangeScroll() {
-    setScrollY({ scrollY: getScrollY() });
+    setScrollY(getScrollY());
   }
 
   useEffect(() => {

@@ -10,7 +10,7 @@ import useHeight from '../../Hooks/useHeight';
 function Header({ isHome, onHeight }) {
   useStyles(s);
   const [height, ref] = useHeight();
-  const { scrollY } = useScroll();
+  const scrollY = useScroll();
 
   useEffect(() => {
     onHeight(height);
