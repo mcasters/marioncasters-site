@@ -28,35 +28,21 @@ function Layout({ children }) {
 
   const getHeight = h => setHeaderHeight(h);
 
-  const header = <Header isHome={isHome} onHeight={getHeight} />;
-  const navigation = <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />;
-  const main = (
-    <ErrorBoundary>
-      <Main
-        isHome={isHome}
-        isLessThanMD={isLessThanMD}
-        height={windowHeight}
-        headerHeight={headerHeight}
-      >
-        {children}
-      </Main>
-    </ErrorBoundary>
-  );
-  const footer = <Footer />;
-
-  return isLessThanMD ? (
+  return (
     <>
-      {navigation}
-      {header}
-      {main}
-      {footer}
-    </>
-  ) : (
-    <>
-      {header}
-      {navigation}
-      {main}
-      {footer}
+      <Header isHome={isHome} onHeight={getHeight} />
+      <Navigation isLessThanMD={isLessThanMD} isHome={isHome} />
+      <ErrorBoundary>
+        <Main
+          isHome={isHome}
+          isLessThanMD={isLessThanMD}
+          height={windowHeight}
+          headerHeight={headerHeight}
+        >
+          {children}
+        </Main>
+      </ErrorBoundary>
+      <Footer />
     </>
   );
 }
