@@ -12,10 +12,9 @@
 }
 
 .homeContent {
-  background-color: rgba(0, 0, 0, 0.4);
-  font-variant: none;
-  font-size: var(--font-size-current);
+  background-color: rgba(0, 0, 0, 0.5);
   color: var(--color-xlight);
+  font-variant: small-caps;
   padding: 0 1em;
 }
 

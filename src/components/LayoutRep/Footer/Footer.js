@@ -20,7 +20,6 @@ function Footer() {
       <Feedback />
       <div className={s.container}>
         <span className={s.text}>{GLOBAL_CONSTANTS.COPYRIGHT}</span>
-        <span className={s.dot}>·</span>
         <Link className={s.homeLink} to={ROUTER.HOME}>
           Home
         </Link>

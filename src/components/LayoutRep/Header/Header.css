@@ -13,10 +13,10 @@
 .container h1,
 .homeContainer h1 {
   font-size: var(--font-size-header-sm-mobile);
+  font-weight: var(--font-weight);
   color: var(--color-light);
   margin: 0;
-  letter-spacing: 1rem;
-  font-weight: bold;
+  letter-spacing: 0.9rem;
 }
 
 @media (--sm) {
@@ -27,6 +27,7 @@
 
   .container h1,
   .homeContainer h1 {
+    letter-spacing: 2rem;
     font-size: var(--font-size-header-md-mobile);
   }
 }
@@ -58,16 +59,13 @@
     padding-left: unset;
     color: var(--color-dark);
     margin: 1.2em 0;
-    letter-spacing: 1em;
-    font-weight: lighter;
+    letter-spacing: 2.2rem;
   }
 
   .container h1 {
     margin: 0.67em 0;
     padding-left: unset;
     font-size: var(--font-size-header);
-    letter-spacing: 2.2rem;
-    font-weight: lighter;
     transition: all 2s ease;
     opacity: 1;
   }
@@ -80,5 +78,9 @@
     transform-origin: left;
     transform: scale(0.7, 0.7);
     transition: all 2s ease;
+  }
+
+  .sticky h1 {
+    letter-spacing: 2rem;
   }
 }
