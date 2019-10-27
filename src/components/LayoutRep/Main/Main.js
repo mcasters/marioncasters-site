@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
 import s from './Main.css';
+import useSsrDone from '../../Hooks/useSrrDone';
 
 function Main({ isHome, isLessThanMD, height, headerHeight, children }) {
   useStyles(s);
+  const ssrDone = useSsrDone();
+
   const adaptedHeight = isLessThanMD
     ? height - headerHeight
     : height + 0.001 * headerHeight;
-  const styleHeight = { height: adaptedHeight };
+  const styleHeight = { height: ssrDone ? adaptedHeight : 640 };
 
   return isHome ? (
     <main className={s.mainHome} style={styleHeight}>

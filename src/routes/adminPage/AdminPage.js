@@ -13,10 +13,17 @@ import Logout from '../../components/Logout';
 import AdminItemParent from '../../components/Admin/Item/AdminItemParent';
 import EditPictureForm from '../../components/Admin/EditPicture/EditPictureForm';
 import GET_ADMIN_STATUS_QUERY from '../../data/graphql/queries/getAdminStatusQuery.graphql';
+import useSsrDone from '../../components/Hooks/useSrrDone';
 
 function AdminPage({ title }) {
   useStyles(s);
+  const [selectedTab, setSelectedTab] = useState(0);
   const client = useApolloClient();
+  const [onClient, setOnClient] = useState(false);
+  const ssrDone = useSsrDone();
+
+  if (!onClient && ssrDone) setOnClient(true);
+
   const { adminStatus } = client.readQuery({
     query: GET_ADMIN_STATUS_QUERY,
   });
@@ -24,8 +31,6 @@ function AdminPage({ title }) {
   if (!adminStatus.isConnected) {
     return { redirect: '/home' };
   }
-
-  const [selectedTab, setSelectedTab] = useState(0);
 
   const handleSelectTab = index => {
     setSelectedTab(index);

@@ -21,7 +21,7 @@ function useViewport() {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('orientationchange', handleResize);
     };
-  }, []);
+  }, [windowWidth, windowHeight]);
 
   return { windowWidth, windowHeight };
 }

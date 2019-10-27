@@ -6,10 +6,16 @@ import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import s from './PaintingsPage.css';
 import ItemTab from '../../components/ItemDir/ItemTab';
 import ITEM from '../../constants/item';
+import useSsrDone from '../../components/Hooks/useSrrDone';
 
 function PaintingsPage({ title }) {
   useStyles(s);
   const [selectedTab, setSelectedTab] = useState(0);
+  const [onClient, setOnClient] = useState(false);
+  const ssrDone = useSsrDone();
+
+  if (!onClient && ssrDone) setOnClient(true);
+
   const year1 = 2017;
   const year2 = 2018;
   const year3 = 2019;
