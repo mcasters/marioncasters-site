@@ -3,8 +3,8 @@
 .container,
 .homeContainer {
   box-sizing: border-box;
-  min-height: 65px;
-  padding: 1em 1em;
+  min-height: 50px;
+  padding: 1.2rem 0.2rem 0.8rem 3rem;
   text-align: right;
   z-index: 1;
   background-color: var(--color-xdark);
@@ -14,9 +14,8 @@
 .homeContainer h1 {
   font-size: var(--font-size-header-sm-mobile);
   color: var(--color-light);
-  padding-left: 6.5em;
   margin: 0;
-  letter-spacing: 1em;
+  letter-spacing: 1rem;
   font-weight: bold;
 }
 
@@ -67,7 +66,7 @@
     margin: 0.67em 0;
     padding-left: unset;
     font-size: var(--font-size-header);
-    letter-spacing: 1em;
+    letter-spacing: 2.2rem;
     font-weight: lighter;
     transition: all 2s ease;
     opacity: 1;

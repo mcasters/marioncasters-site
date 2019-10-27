@@ -22,7 +22,7 @@ function DesktopNav({ isHome }) {
   return (
     <aside>
       <div className={isHome ? [s.bar, s.homeBar].join(' ') : s.bar} />
-      <nav>
+      <nav className={s.desktopNav}>
         <Link
           className={
             location === ROUTER.PRESENTATION

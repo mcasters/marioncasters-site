@@ -1,26 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import useStyles from 'isomorphic-style-loader/useStyles';
+
 import s from './MenuButton.css';
 
 function MenuButton({ open, onClick }) {
+  useStyles(s);
+
   const handleClick = e => {
     onClick(e);
   };
 
   const styles = {
-    container: {
-      position: 'fixed',
-      top: '12px',
-      height: '32px',
-      width: '32px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      cursor: 'pointer',
-      padding: '4px',
-      zIndex: '3',
-    },
     line: {
       height: '2px',
       width: '20px',
@@ -44,18 +35,16 @@ function MenuButton({ open, onClick }) {
   };
 
   return (
-    <div
-      className={s.menuButton}
-      style={styles.container}
+    <button
+      className={s.container}
       onClick={handleClick}
-      onKeyPress={handleClick}
       tabIndex={0}
-      role="button"
+      type="button"
     >
       <div style={{ ...styles.line, ...styles.lineTop }} />
       <div style={{ ...styles.line, ...styles.lineMiddle }} />
       <div style={{ ...styles.line, ...styles.lineBottom }} />
-    </div>
+    </button>
   );
 }
 
