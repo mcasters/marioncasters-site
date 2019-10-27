@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-// import s from './Menu.css';
+import s from './MenuButton.css';
 
 function MenuButton({ open, onClick }) {
   const handleClick = e => {
@@ -46,6 +45,7 @@ function MenuButton({ open, onClick }) {
 
   return (
     <div
+      className={s.menuButton}
       style={styles.container}
       onClick={handleClick}
       onKeyPress={handleClick}
