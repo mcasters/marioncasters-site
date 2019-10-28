@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import useStyles from 'isomorphic-style-loader/useStyles';
 
-import history from '../../../../history';
 import s from './DesktopNav.css';
 import Link from '../../../Link';
 import logoUrl2x from '../logo-100.png';
 import ROUTER from '../../../../constants/router';
+import AppContext from '../../../../context';
 
 function DesktopNav({ isHome }) {
   useStyles(s);
-  const [location, setLocation] = useState('');
-
-  useEffect(() => {
-    history.listen(loc => {
-      const path = loc.pathname;
-      setLocation(path);
-    });
-  });
+  const context = useContext(AppContext);
+  const location = context.pathname;
 
   return (
     <aside>
