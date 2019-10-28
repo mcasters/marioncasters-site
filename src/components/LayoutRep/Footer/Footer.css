@@ -22,7 +22,7 @@ footer {
 .link {
   display: block;
   color: var(--link-color);
-  font-size: var(--font-size-current-plus-plus);
+  font-size: var(--font-size-current-plus);
   padding: 0.4em 0;
 }
 

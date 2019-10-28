@@ -21,8 +21,13 @@ function PaintingsPage({ title }) {
   const year3 = 2019;
   const type = ITEM.PAINTING.TYPE;
 
+  const scrollTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   const handleSelectTab = index => {
     setSelectedTab(index);
+    scrollTop();
   };
 
   return (
