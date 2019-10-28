@@ -60,7 +60,7 @@ function Image({ title, type }) {
   const largeSrcList = getSrcList(false);
   return (
     <>
-      <div>
+      <figure>
         {currentSrcList.map(src => (
           <button
             type="button"
@@ -71,7 +71,7 @@ function Image({ title, type }) {
             <img src={src} alt={alt} className={s.image} />
           </button>
         ))}
-      </div>
+      </figure>
       {isOpen && typeof window !== 'undefined' && (
         <LightBoxProvider
           title={title}

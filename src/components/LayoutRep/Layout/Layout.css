@@ -95,6 +95,10 @@ fieldset {
   padding: 0;
 }
 
+figure {
+  margin: 0 !important;
+}
+
 /*
  * Allow only vertical resizing of textareas.
  */

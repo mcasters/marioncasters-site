@@ -5,30 +5,30 @@ import useStyles from 'isomorphic-style-loader/useStyles';
 import Image from '../Image';
 import s from './Item.css';
 import ITEM from '../../../constants/item';
+import GLOBAL_CONSTANTS from '../../../constants/globalConstants';
 
 function Item({ item, type }) {
   useStyles(s);
+
+  const email = GLOBAL_CONSTANTS.EMAIL;
 
   return (
     <article className={s.itemContainer}>
       <h2 className={s.itemTitle}>{item.title}</h2>
       <Image type={type} title={item.title} />
-      <span className={s.noWrap}>
-        {new Date(item.date).toLocaleDateString()}
-      </span>
-      <span className={s.spacer}> | </span>
-      <span className={s.noWrap}>{item.technique}</span>
-      <span className={s.spacer}> | </span>
-      {type === ITEM.SCULPTURE.TYPE && (
-        <span className={s.noWrap}>
-          {item.height} x {item.width} x {item.length} cm
-        </span>
-      )}
-      {type !== ITEM.SCULPTURE.TYPE && (
-        <span className={s.noWrap}>
-          {item.height} x {item.width} cm
-        </span>
-      )}
+      <figcaption>
+        <time dateTime={item.date} className={s.noWrap}>
+          {new Date(item.date).toLocaleDateString()}
+        </time>
+        <span className={s.spacer}> | </span>
+        <p className={s.noWrap}>{item.technique}</p>
+        <span className={s.spacer}> | </span>
+        <p className={s.noWrap}>
+          {item.height} x {item.width}
+          {type === ITEM.SCULPTURE.TYPE && ` x ${item.length}`} cm
+        </p>
+      </figcaption>
+      <address className={s.email}>{email}</address>
     </article>
   );
 }

@@ -12,6 +12,7 @@
 }
 
 .contactContent:last-of-type {
+  display: block;
   margin-top: 6em;
   margin-bottom: 6em;
 }

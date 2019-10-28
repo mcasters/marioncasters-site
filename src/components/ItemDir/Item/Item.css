@@ -17,6 +17,10 @@
   display: none;
 }
 
+.email {
+  display: none;
+}
+
 @media (--sm) {
   .noWrap {
     display: inline;
