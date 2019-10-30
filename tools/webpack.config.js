@@ -4,6 +4,7 @@ import webpack from 'webpack';
 import WebpackAssetsManifest from 'webpack-assets-manifest';
 import nodeExternals from 'webpack-node-externals';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import LoadablePlugin from '@loadable/webpack-plugin';
 import Dotenv from 'dotenv-webpack';
 import cssnano from 'cssnano';
 
@@ -345,6 +346,11 @@ const clientConfig = {
       __DEV__: isDebug,
     }),
 
+    new LoadablePlugin({
+      filename: `${BUILD_DIR}/loadable-stats.json`,
+      writeToDisk: true,
+    }),
+
     new Dotenv({
       path: './../.env',
       // safe: true,
@@ -499,6 +505,7 @@ const serverConfig = {
   externals: [
     './chunk-manifest.json',
     './asset-manifest.json',
+    '@loadable/component',
     nodeExternals({
       whitelist: [reStyle, reImage],
     }),

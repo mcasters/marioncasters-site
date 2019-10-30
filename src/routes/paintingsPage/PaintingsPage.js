@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 
 import s from './PaintingsPage.css';
-import ItemTab from '../../components/ItemDir/ItemTab';
 import ITEM from '../../constants/item';
 import useSsrDone from '../../components/Hooks/useSrrDone';
+import ItemTab from '../../components/ItemDir/ItemTab';
 
 function PaintingsPage({ title }) {
   useStyles(s);
