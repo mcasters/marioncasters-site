@@ -1,0 +1,786 @@
+{
+  "errors": [],
+  "warnings": [],
+  "version": "4.41.2",
+  "hash": "80676dfb2d8a8c39eff0",
+  "publicPath": "/assets/",
+  "outputPath": "/Users/marioncasters/Sites/GIT/marioncasters-site/build/public/assets",
+  "assetsByChunkName": {
+    "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures": [
+      "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js",
+      "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js.map"
+    ],
+    "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures": [
+      "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js",
+      "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js.map"
+    ],
+    "vendors~admin~paintings": [
+      "vendors~admin~paintings.8a5d3c25.chunk.js",
+      "vendors~admin~paintings.8a5d3c25.chunk.js.map"
+    ],
+    "admin": [
+      "admin.42390f84.chunk.js",
+      "admin.42390f84.chunk.js.map"
+    ],
+    "client": [
+      "client.ed0ed558.js",
+      "client.ed0ed558.js.map"
+    ],
+    "contact": [
+      "contact.b99f73f2.chunk.js",
+      "contact.b99f73f2.chunk.js.map"
+    ],
+    "drawings": [
+      "drawings.3a16438a.chunk.js",
+      "drawings.3a16438a.chunk.js.map"
+    ],
+    "home": [
+      "home.958c8fe6.chunk.js",
+      "home.958c8fe6.chunk.js.map"
+    ],
+    "image": [
+      "image.a22a7021.chunk.js",
+      "image.a22a7021.chunk.js.map"
+    ],
+    "not-found": [
+      "not-found.bfff8e50.chunk.js",
+      "not-found.bfff8e50.chunk.js.map"
+    ],
+    "paintings": [
+      "paintings.cfb19b2d.chunk.js",
+      "paintings.cfb19b2d.chunk.js.map"
+    ],
+    "presentation": [
+      "presentation.61b9a9cd.chunk.js",
+      "presentation.61b9a9cd.chunk.js.map"
+    ],
+    "privacy": [
+      "privacy.43e76c0f.chunk.js",
+      "privacy.43e76c0f.chunk.js.map"
+    ],
+    "sculptures": [
+      "sculptures.cc21bc51.chunk.js",
+      "sculptures.cc21bc51.chunk.js.map"
+    ],
+    "vendors": [
+      "vendors.48a46255.chunk.js",
+      "vendors.48a46255.chunk.js.map"
+    ],
+    "vendors~admin": [
+      "vendors~admin.37fb2474.chunk.js",
+      "vendors~admin.37fb2474.chunk.js.map"
+    ]
+  },
+  "assets": [
+    {
+      "name": "19a82bda.png",
+      "size": 1390,
+      "chunks": [],
+      "chunkNames": [],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "418a75c8.png",
+      "size": 448,
+      "chunks": [],
+      "chunkNames": [],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "admin.42390f84.chunk.js",
+      "size": 51880,
+      "chunks": [
+        3
+      ],
+      "chunkNames": [
+        "admin"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "admin.42390f84.chunk.js.map",
+      "size": 140821,
+      "chunks": [
+        3
+      ],
+      "chunkNames": [
+        "admin"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js",
+      "size": 51435,
+      "chunks": [
+        0
+      ],
+      "chunkNames": [
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js.map",
+      "size": 114240,
+      "chunks": [
+        0
+      ],
+      "chunkNames": [
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "bd9ee5f7.png",
+      "size": 1213,
+      "chunks": [],
+      "chunkNames": [],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "c4ead250.png",
+      "size": 3140,
+      "chunks": [],
+      "chunkNames": [],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "client.ed0ed558.js",
+      "size": 8501,
+      "chunks": [
+        4
+      ],
+      "chunkNames": [
+        "client"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "client.ed0ed558.js.map",
+      "size": 33738,
+      "chunks": [
+        4
+      ],
+      "chunkNames": [
+        "client"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "contact.b99f73f2.chunk.js",
+      "size": 6739,
+      "chunks": [
+        5
+      ],
+      "chunkNames": [
+        "contact"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "contact.b99f73f2.chunk.js.map",
+      "size": 18179,
+      "chunks": [
+        5
+      ],
+      "chunkNames": [
+        "contact"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "drawings.3a16438a.chunk.js",
+      "size": 8292,
+      "chunks": [
+        6
+      ],
+      "chunkNames": [
+        "drawings"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "drawings.3a16438a.chunk.js.map",
+      "size": 20967,
+      "chunks": [
+        6
+      ],
+      "chunkNames": [
+        "drawings"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "f24bfa19.png",
+      "size": 944,
+      "chunks": [],
+      "chunkNames": [],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "f6319cab.png",
+      "size": 1606,
+      "chunks": [],
+      "chunkNames": [],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "home.958c8fe6.chunk.js",
+      "size": 7560,
+      "chunks": [
+        7
+      ],
+      "chunkNames": [
+        "home"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "home.958c8fe6.chunk.js.map",
+      "size": 18873,
+      "chunks": [
+        7
+      ],
+      "chunkNames": [
+        "home"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "image.a22a7021.chunk.js",
+      "size": 38222,
+      "chunks": [
+        8
+      ],
+      "chunkNames": [
+        "image"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "image.a22a7021.chunk.js.map",
+      "size": 108528,
+      "chunks": [
+        8
+      ],
+      "chunkNames": [
+        "image"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "not-found.bfff8e50.chunk.js",
+      "size": 979,
+      "chunks": [
+        9
+      ],
+      "chunkNames": [
+        "not-found"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "not-found.bfff8e50.chunk.js.map",
+      "size": 1436,
+      "chunks": [
+        9
+      ],
+      "chunkNames": [
+        "not-found"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "paintings.cfb19b2d.chunk.js",
+      "size": 13365,
+      "chunks": [
+        10
+      ],
+      "chunkNames": [
+        "paintings"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "paintings.cfb19b2d.chunk.js.map",
+      "size": 30432,
+      "chunks": [
+        10
+      ],
+      "chunkNames": [
+        "paintings"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "presentation.61b9a9cd.chunk.js",
+      "size": 7565,
+      "chunks": [
+        11
+      ],
+      "chunkNames": [
+        "presentation"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "presentation.61b9a9cd.chunk.js.map",
+      "size": 19168,
+      "chunks": [
+        11
+      ],
+      "chunkNames": [
+        "presentation"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "privacy.43e76c0f.chunk.js",
+      "size": 1875,
+      "chunks": [
+        12
+      ],
+      "chunkNames": [
+        "privacy"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "privacy.43e76c0f.chunk.js.map",
+      "size": 5031,
+      "chunks": [
+        12
+      ],
+      "chunkNames": [
+        "privacy"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "sculptures.cc21bc51.chunk.js",
+      "size": 8280,
+      "chunks": [
+        13
+      ],
+      "chunkNames": [
+        "sculptures"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "sculptures.cc21bc51.chunk.js.map",
+      "size": 20993,
+      "chunks": [
+        13
+      ],
+      "chunkNames": [
+        "sculptures"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors.48a46255.chunk.js",
+      "size": 381108,
+      "chunks": [
+        14
+      ],
+      "chunkNames": [
+        "vendors"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors.48a46255.chunk.js.map",
+      "size": 1787044,
+      "chunks": [
+        14
+      ],
+      "chunkNames": [
+        "vendors"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors~admin.37fb2474.chunk.js",
+      "size": 96378,
+      "chunks": [
+        15
+      ],
+      "chunkNames": [
+        "vendors~admin"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors~admin.37fb2474.chunk.js.map",
+      "size": 1782846,
+      "chunks": [
+        15
+      ],
+      "chunkNames": [
+        "vendors~admin"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js",
+      "size": 42614,
+      "chunks": [
+        1
+      ],
+      "chunkNames": [
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js.map",
+      "size": 158394,
+      "chunks": [
+        1
+      ],
+      "chunkNames": [
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors~admin~paintings.8a5d3c25.chunk.js",
+      "size": 11025,
+      "chunks": [
+        2
+      ],
+      "chunkNames": [
+        "vendors~admin~paintings"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors~admin~paintings.8a5d3c25.chunk.js.map",
+      "size": 46522,
+      "chunks": [
+        2
+      ],
+      "chunkNames": [
+        "vendors~admin~paintings"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    }
+  ],
+  "filteredAssets": 0,
+  "entrypoints": {
+    "client": {
+      "chunks": [
+        14,
+        4
+      ],
+      "assets": [
+        "vendors.48a46255.chunk.js",
+        "vendors.48a46255.chunk.js.map",
+        "client.ed0ed558.js",
+        "client.ed0ed558.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    }
+  },
+  "namedChunkGroups": {
+    "client": {
+      "chunks": [
+        14,
+        4
+      ],
+      "assets": [
+        "vendors.48a46255.chunk.js",
+        "vendors.48a46255.chunk.js.map",
+        "client.ed0ed558.js",
+        "client.ed0ed558.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "home": {
+      "chunks": [
+        1,
+        0,
+        7
+      ],
+      "assets": [
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js",
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js.map",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js.map",
+        "home.958c8fe6.chunk.js",
+        "home.958c8fe6.chunk.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "paintings": {
+      "chunks": [
+        1,
+        2,
+        0,
+        10
+      ],
+      "assets": [
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js",
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js.map",
+        "vendors~admin~paintings.8a5d3c25.chunk.js",
+        "vendors~admin~paintings.8a5d3c25.chunk.js.map",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js.map",
+        "paintings.cfb19b2d.chunk.js",
+        "paintings.cfb19b2d.chunk.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "sculptures": {
+      "chunks": [
+        1,
+        0,
+        13
+      ],
+      "assets": [
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js",
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js.map",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js.map",
+        "sculptures.cc21bc51.chunk.js",
+        "sculptures.cc21bc51.chunk.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "drawings": {
+      "chunks": [
+        1,
+        0,
+        6
+      ],
+      "assets": [
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js",
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js.map",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js.map",
+        "drawings.3a16438a.chunk.js",
+        "drawings.3a16438a.chunk.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "presentation": {
+      "chunks": [
+        1,
+        0,
+        11
+      ],
+      "assets": [
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js",
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js.map",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js.map",
+        "presentation.61b9a9cd.chunk.js",
+        "presentation.61b9a9cd.chunk.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "contact": {
+      "chunks": [
+        1,
+        0,
+        5
+      ],
+      "assets": [
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js",
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js.map",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js.map",
+        "contact.b99f73f2.chunk.js",
+        "contact.b99f73f2.chunk.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "privacy": {
+      "chunks": [
+        1,
+        0,
+        12
+      ],
+      "assets": [
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js",
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js.map",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js.map",
+        "privacy.43e76c0f.chunk.js",
+        "privacy.43e76c0f.chunk.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "admin": {
+      "chunks": [
+        1,
+        2,
+        15,
+        0,
+        3
+      ],
+      "assets": [
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js",
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js.map",
+        "vendors~admin~paintings.8a5d3c25.chunk.js",
+        "vendors~admin~paintings.8a5d3c25.chunk.js.map",
+        "vendors~admin.37fb2474.chunk.js",
+        "vendors~admin.37fb2474.chunk.js.map",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js.map",
+        "admin.42390f84.chunk.js",
+        "admin.42390f84.chunk.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "not-found": {
+      "chunks": [
+        1,
+        0,
+        9
+      ],
+      "assets": [
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js",
+        "vendors~admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.c9679be0.chunk.js.map",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js",
+        "admin~contact~drawings~home~not-found~paintings~presentation~privacy~sculptures.1733be03.chunk.js.map",
+        "not-found.bfff8e50.chunk.js",
+        "not-found.bfff8e50.chunk.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "image": {
+      "chunks": [
+        8
+      ],
+      "assets": [
+        "image.a22a7021.chunk.js",
+        "image.a22a7021.chunk.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    }
+  },
+  "logging": {
+    "webpack.buildChunkGraph.visitModules": {
+      "entries": [],
+      "filteredEntries": 8,
+      "debug": false
+    }
+  },
+  "children": []
+}
