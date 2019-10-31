@@ -66,7 +66,7 @@ const storeImageWithResize = (path, targetPath, px) => {
 
       img
         .resize(width, height)
-        .quality(80)
+        .quality(75)
         .write(targetPath);
       resolve(true);
     }),

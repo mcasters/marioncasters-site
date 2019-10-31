@@ -44,18 +44,45 @@ function PaintingsPage({ title }) {
           <Tab>{year2.toString()} b</Tab>
           <Tab>{year3.toString()}</Tab>
         </TabList>
-        <TabPanel>
-          <ItemTab year={year1} half={0} type={type} />
-        </TabPanel>
-        <TabPanel>
-          <ItemTab year={year2} half={1} type={type} />
-        </TabPanel>
-        <TabPanel>
-          <ItemTab year={year2} half={2} type={type} />
-        </TabPanel>
-        <TabPanel>
-          <ItemTab year={year3} half={0} type={type} />
-        </TabPanel>
+        {onClient ? (
+          <>
+            <TabPanel>
+              {selectedTab === 0 && (
+                <ItemTab year={year1} half={0} type={type} />
+              )}
+            </TabPanel>
+            <TabPanel>
+              {selectedTab === 1 && (
+                <ItemTab year={year2} half={1} type={type} />
+              )}
+            </TabPanel>
+            <TabPanel>
+              {selectedTab === 2 && (
+                <ItemTab year={year2} half={2} type={type} />
+              )}
+            </TabPanel>
+            <TabPanel>
+              {selectedTab === 3 && (
+                <ItemTab year={year3} half={0} type={type} />
+              )}
+            </TabPanel>
+          </>
+        ) : (
+          <>
+            <TabPanel>
+              <ItemTab year={year1} half={0} type={type} />
+            </TabPanel>
+            <TabPanel>
+              <ItemTab year={year2} half={1} type={type} />
+            </TabPanel>
+            <TabPanel>
+              <ItemTab year={year2} half={2} type={type} />
+            </TabPanel>
+            <TabPanel>
+              <ItemTab year={year3} half={0} type={type} />
+            </TabPanel>
+          </>
+        )}
       </Tabs>
     </>
   );
