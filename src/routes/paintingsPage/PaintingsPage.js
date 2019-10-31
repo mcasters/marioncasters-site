@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 
 import s from './PaintingsPage.css';
-import ItemTab from '../../components/ItemDir/ItemTab';
 import ITEM from '../../constants/item';
 import useSsrDone from '../../components/Hooks/useSrrDone';
+import ItemTab from '../../components/ItemDir/ItemTab';
 
 function PaintingsPage({ title }) {
   useStyles(s);
@@ -44,18 +44,45 @@ function PaintingsPage({ title }) {
           <Tab>{year2.toString()} b</Tab>
           <Tab>{year3.toString()}</Tab>
         </TabList>
-        <TabPanel>
-          <ItemTab year={year1} half={0} type={type} />
-        </TabPanel>
-        <TabPanel>
-          <ItemTab year={year2} half={1} type={type} />
-        </TabPanel>
-        <TabPanel>
-          <ItemTab year={year2} half={2} type={type} />
-        </TabPanel>
-        <TabPanel>
-          <ItemTab year={year3} half={0} type={type} />
-        </TabPanel>
+        {onClient ? (
+          <>
+            <TabPanel>
+              {selectedTab === 0 && (
+                <ItemTab year={year1} half={0} type={type} />
+              )}
+            </TabPanel>
+            <TabPanel>
+              {selectedTab === 1 && (
+                <ItemTab year={year2} half={1} type={type} />
+              )}
+            </TabPanel>
+            <TabPanel>
+              {selectedTab === 2 && (
+                <ItemTab year={year2} half={2} type={type} />
+              )}
+            </TabPanel>
+            <TabPanel>
+              {selectedTab === 3 && (
+                <ItemTab year={year3} half={0} type={type} />
+              )}
+            </TabPanel>
+          </>
+        ) : (
+          <>
+            <TabPanel>
+              <ItemTab year={year1} half={0} type={type} />
+            </TabPanel>
+            <TabPanel>
+              <ItemTab year={year2} half={1} type={type} />
+            </TabPanel>
+            <TabPanel>
+              <ItemTab year={year2} half={2} type={type} />
+            </TabPanel>
+            <TabPanel>
+              <ItemTab year={year3} half={0} type={type} />
+            </TabPanel>
+          </>
+        )}
       </Tabs>
     </>
   );

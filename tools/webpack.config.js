@@ -4,11 +4,11 @@ import webpack from 'webpack';
 import WebpackAssetsManifest from 'webpack-assets-manifest';
 import nodeExternals from 'webpack-node-externals';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import LoadablePlugin from '@loadable/webpack-plugin';
 import Dotenv from 'dotenv-webpack';
 import cssnano from 'cssnano';
 
 import overrideRules from './lib/overrideRules';
-import pkg from '../package.json';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const resolvePath = (...args) => path.resolve(ROOT_DIR, ...args);
@@ -65,59 +65,12 @@ const config = {
       // Rules for JS / JSX
       {
         test: reScript,
+        exclude: [resolvePath('node-modules')],
         include: [SRC_DIR, resolvePath('tools')],
         loader: 'babel-loader',
         options: {
-          // https://github.com/babel/babel-loader#options
           cacheDirectory: isDebug,
-
-          // https://babeljs.io/docs/usage/options/
-          babelrc: false,
-          configFile: false,
-          presets: [
-            // A Babel preset that can automatically determine the Babel plugins and polyfills
-            // https://github.com/babel/babel-preset-env
-            [
-              '@babel/preset-env',
-              {
-                forceAllTransforms: !isDebug, // for UglifyJS
-                modules: false,
-                useBuiltIns: false,
-                debug: false,
-              },
-            ],
-            // Flow
-            // https://github.com/babel/babel/tree/master/packages/babel-preset-flow
-            '@babel/preset-flow',
-            // JSX
-            // https://github.com/babel/babel/tree/master/packages/babel-preset-react
-            ['@babel/preset-react', { development: isDebug }],
-          ],
-          plugins: [
-            // Stage 2
-            ['@babel/plugin-proposal-decorators', { legacy: true }],
-            '@babel/plugin-proposal-function-sent',
-            '@babel/plugin-proposal-export-namespace-from',
-            '@babel/plugin-proposal-numeric-separator',
-            '@babel/plugin-proposal-throw-expressions',
-
-            // Stage 3
-            '@babel/plugin-syntax-dynamic-import',
-            ['@babel/plugin-proposal-class-properties', { loose: false }],
-
-            /*
-            '@babel/plugin-syntax-import-meta',
-            '@babel/plugin-proposal-json-strings', */
-            // Treat React JSX elements as value types and hoist them to the highest scope
-            // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-constant-elements
-            ...(isDebug ? [] : ['@babel/transform-react-constant-elements']),
-            // Replaces the React.createElement function with one that is more optimized for production
-            // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-inline-elements
-            ...(isDebug ? [] : ['@babel/transform-react-inline-elements']),
-            // Remove unnecessary React propTypes from the production build
-            // https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types
-            ...(isDebug ? [] : ['transform-react-remove-prop-types']),
-          ],
+          configFile: true,
         },
       },
 
@@ -195,22 +148,6 @@ const config = {
               },
             },
           },
-
-          // Compile Less to CSS
-          // https://github.com/webpack-contrib/less-loader
-          // Install dependencies before uncommenting: yarn add --dev less-loader less
-          // {
-          //   test: /\.less$/,
-          //   loader: 'less-loader',
-          // },
-
-          // Compile Sass to CSS
-          // https://github.com/webpack-contrib/sass-loader
-          // Install dependencies before uncommenting: yarn add --dev sass-loader node-sass
-          // {
-          //   test: /\.(scss|sass)$/,
-          //   loader: 'sass-loader',
-          // },
         ],
       },
 
@@ -333,7 +270,7 @@ const clientConfig = {
   target: 'web',
 
   entry: {
-    client: ['@babel/polyfill', './src/client.js'],
+    client: './src/client.js',
   },
 
   plugins: [
@@ -343,6 +280,11 @@ const clientConfig = {
       'typeof window': JSON.stringify('object'),
       'process.env.BROWSER': JSON.stringify(true),
       __DEV__: isDebug,
+    }),
+
+    new LoadablePlugin({
+      filename: `${BUILD_DIR}/loadable-stats.json`,
+      writeToDisk: true,
     }),
 
     new Dotenv({
@@ -431,7 +373,7 @@ const serverConfig = {
   target: 'node',
 
   entry: {
-    server: ['@babel/polyfill', './src/server.js'],
+    server: './src/server.js',
   },
 
   output: {
@@ -452,31 +394,6 @@ const serverConfig = {
     ...config.module,
 
     rules: overrideRules(config.module.rules, rule => {
-      // Override babel-preset-env configuration for Node.js
-      if (rule.loader === 'babel-loader') {
-        return {
-          ...rule,
-          options: {
-            ...rule.options,
-            presets: rule.options.presets.map(preset =>
-              preset[0] !== '@babel/preset-env'
-                ? preset
-                : [
-                    '@babel/preset-env',
-                    {
-                      targets: {
-                        node: pkg.engines.node.match(/(\d+\.?)+/)[0],
-                      },
-                      modules: false,
-                      useBuiltIns: false,
-                      debug: false,
-                    },
-                  ],
-            ),
-          },
-        };
-      }
-
       // Override paths to static assets
       if (
         rule.loader === 'file-loader' ||

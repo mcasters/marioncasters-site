@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import useStyles from 'isomorphic-style-loader/useStyles';
+import loadable from '@loadable/component';
 
-import Image from '../Image';
 import s from './Item.css';
 import ITEM from '../../../constants/item';
 import GLOBAL_CONSTANTS from '../../../constants/globalConstants';
 
-function Item({ item, type }) {
+const AsyncImage = loadable(() =>
+  import(/* webpackChunkName: 'image' */ '../Image'),
+);
+
+function Item({ item, type, index }) {
   useStyles(s);
 
   const email = GLOBAL_CONSTANTS.EMAIL;
@@ -15,7 +19,7 @@ function Item({ item, type }) {
   return (
     <article className={s.itemContainer}>
       <h2 className={s.itemTitle}>{item.title}</h2>
-      <Image type={type} title={item.title} />
+      <AsyncImage type={type} title={item.title} index={index} />
       <figcaption>
         <time dateTime={item.date} className={s.noWrap}>
           {new Date(item.date).toLocaleDateString()}
@@ -44,6 +48,7 @@ Item.propTypes = {
     length: PropTypes.number,
   }).isRequired,
   type: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default Item;
