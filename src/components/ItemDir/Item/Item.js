@@ -2,15 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import useStyles from 'isomorphic-style-loader/useStyles';
 import loadable from '@loadable/component';
-import pMinDelay from 'p-min-delay';
 
-// import Image from '../Image';
 import s from './Item.css';
 import ITEM from '../../../constants/item';
 import GLOBAL_CONSTANTS from '../../../constants/globalConstants';
 
-const Image = loadable(({ index }) =>
-  pMinDelay(import(/* webpackChunkName: 'image' */ '../Image'), index * 100),
+const AsyncImage = loadable(() =>
+  import(/* webpackChunkName: 'image' */ '../Image'),
 );
 
 function Item({ item, type, index }) {
@@ -21,7 +19,7 @@ function Item({ item, type, index }) {
   return (
     <article className={s.itemContainer}>
       <h2 className={s.itemTitle}>{item.title}</h2>
-      <Image type={type} title={item.title} index={index} />
+      <AsyncImage type={type} title={item.title} index={index} />
       <figcaption>
         <time dateTime={item.date} className={s.noWrap}>
           {new Date(item.date).toLocaleDateString()}

@@ -1,7 +1,7 @@
 // @flow
-
 import React from 'react';
 import serialize from 'serialize-javascript';
+
 import config from '../config';
 
 /* eslint-disable react/no-danger */
